@@ -1,0 +1,105 @@
+/* 
+        ========================================
+        GLOBALS & DESIGN TOKENS 
+        ========================================
+        */
+:root {
+  --primary-color: #002a4b;
+  --primary-container: #05406e;
+  --secondary-container: #cbe3f6;
+  --on-secondary-container: #4f6576;
+  --background-color: #f3f6f5;
+  --surface-color: #ffffff;
+  --text-main: #1a1c1f;
+  --text-muted: #42474f;
+  --tertiary-fixed: #ffdcc4;
+  --on-tertiary-fixed: #2f1400;
+  --on-tertiary-container: #e29961;
+  --border-color: #e2e2e7;
+  --border-radius-lg: 1.5rem;
+  --border-radius-xl: 2rem;
+  --font-main: "Roboto", sans-serif;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--background-color);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.btn-primary-custom {
+  background-color: var(--primary-container);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+}
+
+.btn-primary-custom:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(0.98);
+}
+
+.material-symbols-outlined {
+  vertical-align: middle;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.text-primary-container {
+  color: var(--primary-container);
+}
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  height: 6px;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.11); /* mờ */
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+/* Hover thì rõ hơn một chút */
+::-webkit-scrollbar-thumb:hover {
+  /* background: rgba(0, 0, 0, 0.4); */
+  background: var(--primary-container);
+}
+
+.page-link{
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  color: var(--primary-color);
+}
+
+.page-link:hover{
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.page-link.active{
+  background-color: var(--primary-color);
+}

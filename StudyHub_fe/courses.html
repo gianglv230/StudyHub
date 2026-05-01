@@ -1,0 +1,927 @@
+<!doctype html>
+
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Khóa học | StudyHub</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap&subset=vietnamese"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap&subset=vietnamese"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="globals.css" />
+  </head>
+  <body>
+    <style>
+      .courses-section {
+        height: 100vh;
+      }
+
+      .category-card {
+        background-color: var(--secondary-container);
+        /* border: 1px solid var(--primary-container); */
+        padding: 13px 15px;
+        border-radius: 10px;
+        width: 100%;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 12px;
+        /* overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; */
+      }
+      .category-card:hover {
+        background-color: var(--primary-container);
+        color: white !important;
+      }
+
+      .category-list {
+        position: sticky;
+        top: 20px;
+      }
+
+      .category-list .scroll-box {
+        max-height: calc(100vh - 80px); /* trừ header */
+        overflow-y: auto;
+        padding-right: 3px;
+      }
+
+      .icon-rocket {
+        width: 25px;
+        height: 25px;
+      }
+
+      .target-grade-card {
+        padding: 8px 18px;
+        width: fit-content;
+        background-color: var(--surface-color);
+        border: 1px solid var(--primary-container);
+        border-radius: 8px;
+        font-weight: 500;
+        flex-shrink: 0;
+      }
+
+      .target-grade-card.selected,
+      .target-grade-card:hover {
+        background-color: var(--primary-container);
+        color: white !important;
+        cursor: pointer;
+      }
+
+      .subject-tab {
+        flex-shrink: 0;
+      }
+
+      .subject-tab p {
+        color: var(--on-secondary-container);
+        /* border-bottom: 2px solid var(--on-secondary-container); */
+        padding-bottom: 5.5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-weight: bold;
+        margin-bottom: 0px;
+      }
+
+      .subject-tab p:hover {
+        cursor: pointer;
+        border-bottom: 2px solid var(--on-secondary-container);
+      }
+
+      .subject-tab p.selected {
+        color: var(--primary-container);
+        border-bottom: 3px solid var(--primary-container);
+        padding-bottom: 5px;
+      }
+    </style>
+    <style>
+      /* 
+        ========================================
+        COURSE CARDS 
+        ========================================
+        */
+      .course-card {
+        background: white;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        height: 100%;
+      }
+
+      .course-card:hover {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        transform: translateY(-5px);
+      }
+
+      .course-img-wrapper {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+      }
+
+      @media (min-width: 768px) {
+        .course-img-wrapper {
+          height: 260px;
+        }
+      }
+
+      .course-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .course-card:hover .course-img {
+        transform: scale(1.1);
+      }
+
+      .badge-category {
+        background-color: var(--tertiary-fixed);
+        color: var(--on-tertiary-container);
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.5rem;
+      }
+    </style>
+    <section class="my-4 container courses-sections">
+      <div class="row">
+        <div class="col-3">
+          <div class="category-list">
+            <h2 class="h5 mb-3">Danh mục</h2>
+            <div class="scroll-box">
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+              <div
+                class="category-card text-primary-container d-flex align-items-center gap-2"
+              >
+                <div class="col-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6 icon-rocket"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="col">
+                  <p class="text-uppercase mb-0">2k9 - Xuất phát sớm lớp 12</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-9">
+          <h1 class="text-uppercase h3 fw-bold mb-3">Khóa học</h1>
+          <div class="overflow-x-auto d-flex gap-3 pb-1">
+            <div class="target-grade-card selected">
+              <span>ĐGNL & ĐGTD</span>
+            </div>
+            <div class="target-grade-card">
+              <span>2k7</span>
+            </div>
+            <div class="target-grade-card">
+              <span>2k8</span>
+            </div>
+            <div class="target-grade-card">
+              <span>2k9</span>
+            </div>
+            <div class="target-grade-card">
+              <span>2k10</span>
+            </div>
+          </div>
+          <div class="overflow-x-auto d-flex gap-0 pb-1 my-4">
+            <div class="subject-tab">
+              <p class="text-center selected">Tất cả</p>
+            </div>
+            <div class="subject-tab">
+              <p class="text-center">Toán</p>
+            </div>
+            <div class="subject-tab">
+              <p class="text-center">Lý</p>
+            </div>
+            <div class="subject-tab">
+              <p class="text-center">Hóa</p>
+            </div>
+          </div>
+          <div class="row g-3">
+            <!-- Course Card 2 -->
+            <div class="col-md-6 col-lg-4">
+              <a href="#" class="text-decoration-none">
+                <div class="course-card">
+                  <div class="course-img-wrapper">
+                    <img
+                      alt="Dev course"
+                      class="course-img"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeNckOMU5Qrrs7NxKN6OOk8nhtYr8GiTYl-6XGP-J6Y4lt4zdwO_s8keWDn06MuZRWJ2U5sQd7hwukwaWQsI3Pe2bm7sRMvX2BYaCJQNrYmcDa_hrO1S36_kkc1QNIZpgHWaNfy4y4NXMZIgVOstRcfthKb8HKROSHbxYqu4nI7Y9UGDT9oLaPTdLn5cASU77bumQpo5QBmlVR_yYAF2EFCDHtPBsihcYYUO_P_BMuZ6annXRJo9Nl7BTiOeFCXjO6qzoYL9t_qyIN"
+                    />
+                    <span
+                      class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill"
+                      >Vật lý</span
+                    >
+                  </div>
+                  <div class="p-4">
+                    <div
+                      class="d-flex justify-content-between align-items-center mb-3"
+                    >
+                      <span class="badge-category text-danger"
+                        >2K9 - XUẤT PHÁT SỚM LỚP 12</span
+                      >
+                    </div>
+                    <h5 class="mb-4">
+                      KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026
+                    </h5>
+                  </div>
+                </div></a
+              >
+            </div>
+            <!-- Course Card 2 -->
+            <div class="col-md-6 col-lg-4">
+              <a href="#" class="text-decoration-none">
+                <div class="course-card">
+                  <div class="course-img-wrapper">
+                    <img
+                      alt="Dev course"
+                      class="course-img"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeNckOMU5Qrrs7NxKN6OOk8nhtYr8GiTYl-6XGP-J6Y4lt4zdwO_s8keWDn06MuZRWJ2U5sQd7hwukwaWQsI3Pe2bm7sRMvX2BYaCJQNrYmcDa_hrO1S36_kkc1QNIZpgHWaNfy4y4NXMZIgVOstRcfthKb8HKROSHbxYqu4nI7Y9UGDT9oLaPTdLn5cASU77bumQpo5QBmlVR_yYAF2EFCDHtPBsihcYYUO_P_BMuZ6annXRJo9Nl7BTiOeFCXjO6qzoYL9t_qyIN"
+                    />
+                    <span
+                      class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill"
+                      >Vật lý</span
+                    >
+                  </div>
+                  <div class="p-4">
+                    <div
+                      class="d-flex justify-content-between align-items-center mb-3"
+                    >
+                      <span class="badge-category text-danger"
+                        >2K9 - XUẤT PHÁT SỚM LỚP 12</span
+                      >
+                    </div>
+                    <h5 class="mb-4">
+                      KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026
+                    </h5>
+                  </div>
+                </div></a
+              >
+            </div>
+            <!-- Course Card 2 -->
+            <div class="col-md-6 col-lg-4">
+              <a href="#" class="text-decoration-none">
+                <div class="course-card">
+                  <div class="course-img-wrapper">
+                    <img
+                      alt="Dev course"
+                      class="course-img"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeNckOMU5Qrrs7NxKN6OOk8nhtYr8GiTYl-6XGP-J6Y4lt4zdwO_s8keWDn06MuZRWJ2U5sQd7hwukwaWQsI3Pe2bm7sRMvX2BYaCJQNrYmcDa_hrO1S36_kkc1QNIZpgHWaNfy4y4NXMZIgVOstRcfthKb8HKROSHbxYqu4nI7Y9UGDT9oLaPTdLn5cASU77bumQpo5QBmlVR_yYAF2EFCDHtPBsihcYYUO_P_BMuZ6annXRJo9Nl7BTiOeFCXjO6qzoYL9t_qyIN"
+                    />
+                    <span
+                      class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill"
+                      >Vật lý</span
+                    >
+                  </div>
+                  <div class="p-4">
+                    <div
+                      class="d-flex justify-content-between align-items-center mb-3"
+                    >
+                      <span class="badge-category text-danger"
+                        >2K9 - XUẤT PHÁT SỚM LỚP 12</span
+                      >
+                    </div>
+                    <h5 class="mb-4">
+                      KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026
+                    </h5>
+                  </div>
+                </div></a
+              >
+            </div>
+            <!-- Course Card 2 -->
+            <div class="col-md-6 col-lg-4">
+              <a href="#" class="text-decoration-none">
+                <div class="course-card">
+                  <div class="course-img-wrapper">
+                    <img
+                      alt="Dev course"
+                      class="course-img"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeNckOMU5Qrrs7NxKN6OOk8nhtYr8GiTYl-6XGP-J6Y4lt4zdwO_s8keWDn06MuZRWJ2U5sQd7hwukwaWQsI3Pe2bm7sRMvX2BYaCJQNrYmcDa_hrO1S36_kkc1QNIZpgHWaNfy4y4NXMZIgVOstRcfthKb8HKROSHbxYqu4nI7Y9UGDT9oLaPTdLn5cASU77bumQpo5QBmlVR_yYAF2EFCDHtPBsihcYYUO_P_BMuZ6annXRJo9Nl7BTiOeFCXjO6qzoYL9t_qyIN"
+                    />
+                    <span
+                      class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill"
+                      >Vật lý</span
+                    >
+                  </div>
+                  <div class="p-4">
+                    <div
+                      class="d-flex justify-content-between align-items-center mb-3"
+                    >
+                      <span class="badge-category text-danger"
+                        >2K9 - XUẤT PHÁT SỚM LỚP 12</span
+                      >
+                    </div>
+                    <h5 class="mb-4">
+                      KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026
+                    </h5>
+                  </div>
+                </div></a
+              >
+            </div>
+          </div>
+          <nav>
+            <ul class="pagination gap-1 mt-5 justify-content-center">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-left"
+                    viewBox="0 0 16 16"
+                    style="margin-left: -4px; margin-right: -4px;"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link active" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-right"
+                    viewBox="0 0 16 16"
+                    style="margin-left: -4px; margin-right: -4px;"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

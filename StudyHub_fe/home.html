@@ -1,0 +1,1081 @@
+<!doctype html>
+
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Trang chủ | StudyHub</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap&subset=vietnamese"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap&subset=vietnamese"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="globals.css">
+    <style>
+      /* 
+        ========================================
+        NAVBAR 
+        ========================================
+        */
+      .navbar-custom {
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1rem 0;
+      }
+
+      .navbar-brand-custom {
+        font-weight: 800;
+        font-size: 1.5rem;
+        color: var(--primary-container) !important;
+      }
+
+      .nav-link-custom {
+        font-weight: 650;
+        font-size: 14px;
+        /* font-size: 0.875rem;
+        font-weight: 500; */
+        color: var(--text-muted) !important;
+        margin: 0 0.75rem;
+        transition: color 0.2s;
+      }
+
+      @media (max-width: 991.98px) {
+        .nav-link-custom {
+          margin: 0.5rem 0;
+          padding: 0.5rem 0;
+        }
+        .nav-link-custom.active {
+          border-bottom: none;
+          color: var(--primary-container) !important;
+          font-weight: 700;
+        }
+      }
+
+      .nav-link-custom:hover,
+      .nav-link-custom.active {
+        color: var(--primary-container) !important;
+      }
+
+      @media (min-width: 992px) {
+        .nav-link-custom.active {
+          border-bottom: 2px solid var(--primary-container);
+          font-weight: 1000;
+        }
+      }
+
+      /* 
+        ========================================
+        HERO SECTION 
+        ========================================
+        */
+      .hero-section {
+        background-color: var(--surface-color);
+        padding: 40px 0 80px 0;
+      }
+
+      @media (min-width: 992px) {
+        .hero-section {
+          padding: 80px 0 120px 0;
+        }
+      }
+
+      .badge-education {
+        background-color: var(--secondary-container);
+        color: var(--on-secondary-container);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 600;
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-title {
+        font-size: clamp(2.25rem, 5vw, 3.5rem);
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-text {
+        font-size: 1.125rem;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        max-width: 600px;
+      }
+
+      .hero-image-container {
+        position: relative;
+      }
+
+      .hero-img {
+        border-radius: 2rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        z-index: 2;
+        position: relative;
+        width: 100%;
+      }
+
+      .hero-shape-bg {
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        right: 15px;
+        bottom: 15px;
+        background: rgba(5, 64, 110, 0.05);
+        border-radius: 2.5rem;
+        transform: rotate(3deg);
+        z-index: 1;
+      }
+
+      .rating-card {
+        position: absolute;
+        bottom: -15px;
+        left: -15px;
+        background: white;
+        padding: 1rem;
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      @media (min-width: 768px) {
+        .rating-card {
+          bottom: -24px;
+          left: -24px;
+          padding: 1.25rem;
+          gap: 1rem;
+        }
+      }
+
+      /* 
+        ========================================
+        SEARCH & FILTER 
+        ========================================
+        */
+      .search-container {
+        margin-top: -30px;
+        position: relative;
+        z-index: 10;
+      }
+
+      @media (min-width: 768px) {
+        .search-container {
+          margin-top: -50px;
+        }
+      }
+
+      .search-bar {
+        background: white;
+        padding: 1rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--border-color);
+      }
+
+      @media (min-width: 768px) {
+        .search-bar {
+          padding: 1.5rem;
+        }
+      }
+
+      .search-input-group {
+        position: relative;
+        flex-grow: 1;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 3rem;
+        border: none;
+        background: #f8fafc;
+        border-radius: 1rem;
+      }
+
+      /* 
+        ========================================
+        COURSE CARDS 
+        ========================================
+        */
+      .course-card {
+        background: white;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        height: 100%;
+      }
+
+      .course-card:hover {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        transform: translateY(-5px);
+      }
+
+      .course-img-wrapper {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+      }
+
+      @media (min-width: 768px) {
+        .course-img-wrapper {
+          height: 260px;
+        }
+      }
+
+      .course-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .course-card:hover .course-img {
+        transform: scale(1.1);
+      }
+
+      .badge-category {
+        background-color: var(--tertiary-fixed);
+        color: var(--on-tertiary-container);
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.5rem;
+      }
+
+      /* 
+        ========================================
+        INSTRUCTORS SECTION 
+        ========================================
+        */
+      .instructors-section {
+        background-color: var(--primary-container);
+        padding: 60px 0;
+        color: white;
+      }
+
+      @media (min-width: 992px) {
+        .instructors-section {
+          padding: 100px 0;
+        }
+      }
+
+      .featured-instructor {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 2rem;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      @media (min-width: 768px) {
+        .featured-instructor {
+          border-radius: 2.5rem;
+          padding: 3rem;
+        }
+      }
+
+      .instructor-thumb {
+        width: 100%;
+        border-radius: 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        transition: background 0.3s;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .instructor-thumb:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      /* 
+        ========================================
+        BENTO GRID / NEW COURSES 
+        ========================================
+        */
+      .bento-main {
+        background: white;
+        border-radius: 2rem;
+        padding: 2rem;
+        border: 1px solid var(--border-color);
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+      }
+
+      @media (min-width: 768px) {
+        .bento-main {
+          padding: 3rem;
+        }
+      }
+
+      .bento-secondary {
+        background: #cee6f9;
+        border-radius: 2rem;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        height: 100%;
+      }
+
+      .bento-small {
+        background: white;
+        border-radius: 2rem;
+        padding: 1.5rem;
+        border: 1px solid var(--border-color);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      @media (min-width: 768px) {
+        .bento-small {
+          padding: 2rem;
+        }
+      }
+
+      /* 
+        ========================================
+        FOOTER 
+        ========================================
+        */
+      .footer {
+        background-color: #f8fafc;
+        border-top: 1px solid var(--border-color);
+        padding-top: 60px;
+        padding-bottom: 30px;
+      }
+
+      @media (min-width: 992px) {
+        .footer {
+          padding-top: 80px;
+          padding-bottom: 40px;
+        }
+      }
+
+      .footer-link {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.2s;
+      }
+
+      .footer-link:hover {
+        color: var(--primary-container);
+        text-decoration: underline;
+      }
+
+      .max-w-container {
+        max-width: 1320px;
+      }
+
+      .cursor-pointer {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+      <div class="container max-w-container">
+        <a class="navbar-brand navbar-brand-custom" href="#"
+          ><img src="image/logo-Photoroom.png" alt="" width="50" height="50" />
+          <span>StudyHub</span></a
+        >
+        <button
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler border-0"
+          data-bs-target="#navbarNav"
+          data-bs-toggle="collapse"
+          type="button"
+        >
+          <span class="material-symbols-outlined text-primary fs-1">menu</span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom active" href="#">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#">Khóa học</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#"
+                >Các lớp khai giảng sắp tới</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#"
+                >Giới thiệu trung tâm</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-custom" href="#">Liên hệ</a>
+            </li>
+          </ul>
+          <button class="btn btn-primary-custom px-4">Đăng nhập</button>
+        </div>
+      </div>
+    </nav>
+    <!-- Hero Section -->
+    <header class="hero-section">
+      <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-lg-6 text-center text-lg-start">
+            <span class="badge-education"
+              >Học tốt hôm nay, tự tin ngày mai</span
+            >
+            <h1 class="hero-title">
+              Môi trường học tập chất lượng, thầy cô tận tâm đồng hành
+            </h1>
+            <p class="hero-text mx-auto mx-lg-0">
+              Rất nhiều học viên đã tiến bộ và đạt kết quả tốt hơn sau khi học
+              tại trung tâm.
+            </p>
+            <div
+              class="d-flex flex-column flex-sm-row gap-3 justify-content-center"
+            >
+              <button
+                class="btn btn-primary-custom px-5 py-3 fs-5 w-100"
+                style="
+                  background-color: #f4d5bc;
+                  color: var(--text-main);
+                  box-shadow: 0 10px 15px -3px rgba(244, 213, 188, 0.4);
+                "
+              >
+                Khám phá các khóa học ngay!
+              </button>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div
+              class="hero-image-container mx-auto ms-lg-auto"
+              style="max-width: 550px"
+            >
+              <div class="hero-shape-bg"></div>
+              <img
+                alt="Student learning"
+                class="hero-img"
+                src="image/banner_image.jpg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Search Section -->
+    <section class="container search-container">
+      <div class="search-bar d-flex flex-column flex-md-row gap-3">
+        <div class="search-input-group">
+          <span class="material-symbols-outlined search-icon">search</span>
+          <input
+            class="search-input"
+            placeholder="Bạn muốn tìm kiếm khóa học nào?"
+            type="text"
+          />
+        </div>
+        <button class="btn btn-primary-custom px-5">Tìm kiếm</button>
+      </div>
+    </section>
+    <!-- Teacher -->
+    <style>
+      /* Container scroll */
+      .teachers-scroll {
+        overflow-x: auto;
+        scroll-behavior: smooth;
+
+        /* Firefox */
+        /* scrollbar-width: thin; */
+        scrollbar-color: rgba(0, 0, 0, 0.11) transparent;
+      }
+
+      /* Chrome, Edge, Safari */
+      .teachers-scroll::-webkit-scrollbar {
+        height: 14px;
+      }
+
+      .teachers-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .teachers-scroll::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.11); /* mờ */
+        border-radius: 10px;
+        transition: background 0.3s;
+      }
+
+      /* Hover thì rõ hơn một chút */
+      .teachers-scroll::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.4);
+      }
+    </style>
+    <section class="container py-4 py-lg-5 mt-4 mt-lg-5">
+      <div class="mb-4">
+        <h2 class="mb-1">Giáo viên StudyHub</h2>
+      </div>
+      <div
+        class="overflow-x-scroll teachers-scroll"
+        style="scroll-behavior: smooth"
+      >
+        <div class="d-flex gap-3">
+          <div
+            style="height: 200px; width: 150px"
+            class="bg-danger overflow-hidden rounded-2 position-relative flex-shrink-0"
+          >
+            <img
+              src="https://mapstudy.sgp1.digitaloceanspaces.com/teacher/64b229b5d0a652b97e5ab22d/thay-vu-ngoc-anh-1756368275424.jpg"
+              alt="Thay Vu Ngoc Anh"
+              class="h-100 w-100 object-fit-cover"
+              style="object-position: center"
+            />
+
+            <span
+              class="position-absolute bottom-0 start-50 translate-middle-x text-white w-100 text-center bg-dark bg-opacity-50 px-2 py-2 fw-bold"
+              style="font-size: 14px"
+            >
+              Thầy Vũ Ngọc Anh
+            </span>
+          </div>
+          <div
+            style="height: 200px; width: 150px"
+            class="bg-danger overflow-hidden rounded-2 position-relative flex-shrink-0"
+          >
+            <img
+              src="https://mapstudy.sgp1.digitaloceanspaces.com/teacher/64b229b5d0a652b97e5ab22d/thay-vu-ngoc-anh-1756368275424.jpg"
+              alt="Thay Vu Ngoc Anh"
+              class="h-100 w-100 object-fit-cover"
+              style="object-position: center"
+            />
+
+            <span
+              class="position-absolute bottom-0 start-50 translate-middle-x text-white w-100 text-center bg-dark bg-opacity-50 px-2 py-2 fw-bold"
+              style="font-size: 14px"
+            >
+              Thầy Vũ Ngọc Anh
+            </span>
+          </div>
+          <div
+            style="height: 200px; width: 150px"
+            class="bg-danger overflow-hidden rounded-2 position-relative flex-shrink-0"
+          >
+            <img
+              src="https://mapstudy.sgp1.digitaloceanspaces.com/teacher/64b229b5d0a652b97e5ab22d/thay-vu-ngoc-anh-1756368275424.jpg"
+              alt="Thay Vu Ngoc Anh"
+              class="h-100 w-100 object-fit-cover"
+              style="object-position: center"
+            />
+
+            <span
+              class="position-absolute bottom-0 start-50 translate-middle-x text-white w-100 text-center bg-dark bg-opacity-50 px-2 py-2 fw-bold"
+              style="font-size: 14px"
+            >
+              Thầy Vũ Ngọc Anh
+            </span>
+          </div>
+          <div
+            style="height: 200px; width: 150px"
+            class="bg-danger overflow-hidden rounded-2 position-relative flex-shrink-0"
+          >
+            <img
+              src="https://mapstudy.sgp1.digitaloceanspaces.com/teacher/64b229b5d0a652b97e5ab22d/thay-vu-ngoc-anh-1756368275424.jpg"
+              alt="Thay Vu Ngoc Anh"
+              class="h-100 w-100 object-fit-cover"
+              style="object-position: center"
+            />
+
+            <span
+              class="position-absolute bottom-0 start-50 translate-middle-x text-white w-100 text-center bg-dark bg-opacity-50 px-2 py-2 fw-bold"
+              style="font-size: 14px"
+            >
+              Thầy Vũ Ngọc Anh
+            </span>
+          </div>
+          <div
+            style="height: 200px; width: 150px"
+            class="bg-danger overflow-hidden rounded-2 position-relative flex-shrink-0"
+          >
+            <img
+              src="https://mapstudy.sgp1.digitaloceanspaces.com/teacher/64b229b5d0a652b97e5ab22d/thay-vu-ngoc-anh-1756368275424.jpg"
+              alt="Thay Vu Ngoc Anh"
+              class="h-100 w-100 object-fit-cover"
+              style="object-position: center"
+            />
+
+            <span
+              class="position-absolute bottom-0 start-50 translate-middle-x text-white w-100 text-center bg-dark bg-opacity-50 px-2 py-2 fw-bold"
+              style="font-size: 14px"
+            >
+              Thầy Vũ Ngọc Anh
+            </span>
+          </div>
+          <div
+            style="height: 200px; width: 150px"
+            class="bg-danger overflow-hidden rounded-2 position-relative flex-shrink-0"
+          >
+            <img
+              src="https://mapstudy.sgp1.digitaloceanspaces.com/teacher/64b229b5d0a652b97e5ab22d/thay-vu-ngoc-anh-1756368275424.jpg"
+              alt="Thay Vu Ngoc Anh"
+              class="h-100 w-100 object-fit-cover"
+              style="object-position: center"
+            />
+
+            <span
+              class="position-absolute bottom-0 start-50 translate-middle-x text-white w-100 text-center bg-dark bg-opacity-50 px-2 py-2 fw-bold"
+              style="font-size: 14px"
+            >
+              Thầy Vũ Ngọc Anh
+            </span>
+          </div>
+          <div
+            style="height: 200px; width: 150px"
+            class="bg-danger overflow-hidden rounded-2 position-relative flex-shrink-0"
+          >
+            <img
+              src="https://mapstudy.sgp1.digitaloceanspaces.com/teacher/64b229b5d0a652b97e5ab22d/thay-vu-ngoc-anh-1756368275424.jpg"
+              alt="Thay Vu Ngoc Anh"
+              class="h-100 w-100 object-fit-cover"
+              style="object-position: center"
+            />
+
+            <span
+              class="position-absolute bottom-0 start-50 translate-middle-x text-white w-100 text-center bg-dark bg-opacity-50 px-2 py-2 fw-bold"
+              style="font-size: 14px"
+            >
+              Thầy Vũ Ngọc Anh
+            </span>
+          </div>
+          <div
+            style="height: 200px; width: 150px"
+            class="bg-danger overflow-hidden rounded-2 position-relative flex-shrink-0"
+          >
+            <img
+              src="https://mapstudy.sgp1.digitaloceanspaces.com/teacher/64b229b5d0a652b97e5ab22d/thay-vu-ngoc-anh-1756368275424.jpg"
+              alt="Thay Vu Ngoc Anh"
+              class="h-100 w-100 object-fit-cover"
+              style="object-position: center"
+            />
+
+            <span
+              class="position-absolute bottom-0 start-50 translate-middle-x text-white w-100 text-center bg-dark bg-opacity-50 px-2 py-2 fw-bold"
+              style="font-size: 14px"
+            >
+              Thầy Vũ Ngọc Anh
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Featured Courses -->
+    <section class="container py-4 py-lg-5 mt-4">
+      <div
+        class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-end mb-4 mb-lg-5 gap-3"
+      >
+        <div>
+          <h2 class="mb-1">Khóa học hot</h2>
+          <p class="text-muted mb-0">
+            Các khóa học đang được nhiều học viên đăng ký nhất
+          </p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <!-- Course Card 1 -->
+        <div class="col-md-6 col-lg-4">
+          <a href="#" class="text-decoration-none">
+            <div class="course-card">
+              <div class="course-img-wrapper">
+                <img
+                  alt="Dev course"
+                  class="course-img"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuArRKLG1Zzhy-riM7DorHcWREOWzcGyPt_PmyntlZGCUtHzGHcuYFDhqz7AS5UMyHUOAXDI-D3-FIVfKJUDVlmKMO3E0xeP9jKzbZrIjXnIxItnGnNnuSehA7_hQ0KsTRCAAcvTzpZ96S4vwzx_K6SQHe589Imp5nal8ncJYN1E6PMPkpGxx5Qs-D8jecIAj_JSDum89kylfejaSs3dIg8G0y6Q93OcPF9so7ctDdF7IRO_QfbHlqSEZodiAuMOXqL8PfzsItlTkVC6"
+                />
+                <span
+                  class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill"
+                  >Vật lý</span
+                >
+              </div>
+              <div class="p-4">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <span class="badge-category text-danger"
+                    >2K9 - XUẤT PHÁT SỚM LỚP 12</span
+                  >
+                </div>
+                <h5 class="mb-4">
+                  KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026
+                </h5>
+                <!-- <div class="d-flex align-items-center gap-2 mb-4">
+                <img
+                  alt="Instructor"
+                  class="rounded-circle"
+                  height="32"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7j3WsrGkM_MwVJfqDVcwOaHjVVx5l1bPGF1B-Vb6X9jho5ecSh88kTuCRCpmyosZTSnzHCj7wX43tTDRFfvvDpLh8pOzZYf8v2mn_DW5WSGZ0r6oWnLhT1rnA_0q4zXhqhrrPcT2t4Zi37_Ky6kxhUX8G9izFkDJnrefSi73nJ6Gf8XuChku2DRQRojpKx-CngCX31vxC68I-dsbTssd76iuFKKOYUcOrhj3e_L0j05NmAM7i6sHjofwkDhb4pzQ8ETDhXOpGD0jk"
+                  width="32"
+                />
+                <span class="small text-muted">David Henderson</span>
+              </div>
+              <div
+                class="pt-3 border-top d-flex justify-content-between align-items-center"
+              >
+                <div class="fw-bold fs-5 text-primary">$89.99</div>
+                <button
+                  class="btn btn-link text-decoration-none p-0 fw-bold d-flex align-items-center gap-1"
+                >
+                  Enroll Now
+                  <span class="material-symbols-outlined fs-6"
+                    >arrow_forward</span
+                  >
+                </button>
+              </div> -->
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- Course Card 2 -->
+        <div class="col-md-6 col-lg-4">
+          <a href="#" class="text-decoration-none">
+            <div class="course-card">
+              <div class="course-img-wrapper">
+                <img
+                  alt="Dev course"
+                  class="course-img"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeNckOMU5Qrrs7NxKN6OOk8nhtYr8GiTYl-6XGP-J6Y4lt4zdwO_s8keWDn06MuZRWJ2U5sQd7hwukwaWQsI3Pe2bm7sRMvX2BYaCJQNrYmcDa_hrO1S36_kkc1QNIZpgHWaNfy4y4NXMZIgVOstRcfthKb8HKROSHbxYqu4nI7Y9UGDT9oLaPTdLn5cASU77bumQpo5QBmlVR_yYAF2EFCDHtPBsihcYYUO_P_BMuZ6annXRJo9Nl7BTiOeFCXjO6qzoYL9t_qyIN"
+                />
+                <span
+                  class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill"
+                  >Vật lý</span
+                >
+              </div>
+              <div class="p-4">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <span class="badge-category text-danger"
+                    >2K9 - XUẤT PHÁT SỚM LỚP 12</span
+                  >
+                </div>
+                <h5 class="mb-4">
+                  KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026
+                </h5>
+              </div>
+            </div></a
+          >
+        </div>
+        <!-- Course Card 3 -->
+        <div class="col-md-6 col-lg-4">
+          <a href="#" class="text-decoration-none">
+            <div class="course-card">
+              <div class="course-img-wrapper">
+                <img
+                  alt="Dev course"
+                  class="course-img"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIJeuolVztn-g8dvzhBo8yL_pIkoZpcRJ9wpxTvxurfeWFHFUTzamROSu8twR_H1NBioVbJRQftGaWBCVRYpDaPa3MM0XH6wip3MC_LDZ2kMlEeCgg_jfQOXu6TnxZAJ43QcvwxB4qXSPvqBxTFs--N9RRv5f7a4wxxhQdiri-e1htssGoZQpd-vGsWPrypf6AB1n8TVRshzWFWitgb7BiPpCuSPy1jesHIkpI7oVqMHlhKI_nVKbex3dopHaoS6g117n3ODrRvaxa"
+                />
+                <span
+                  class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill"
+                  >Vật lý</span
+                >
+              </div>
+              <div class="p-4">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <span class="badge-category text-danger"
+                    >2K9 - XUẤT PHÁT SỚM LỚP 12</span
+                  >
+                </div>
+                <h5 class="mb-4">
+                  KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026
+                </h5>
+              </div>
+            </div></a
+          >
+        </div>
+      </div>
+    </section>
+    <!-- Instructors Section -->
+    <!-- <section class="instructors-section">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="text-white mb-3">Learn from Industry Leaders</h2>
+          <p class="opacity-75 fs-5 mx-auto px-2" style="max-width: 700px">
+            Our instructors aren't just teachers; they are professionals with
+            decades of experience at top global firms.
+          </p>
+        </div>
+        <div class="row align-items-center g-5">
+          <div class="col-lg-5">
+            <div class="featured-instructor">
+              <img
+                alt="Elena Rodriguez"
+                class="rounded-circle border border-4 border-white mb-4"
+                height="180"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS8D7tbrBsxf-G4BFLGhm7N50T912jadV_X-qTVqrj-xwlCs8RDfEjzHF8DkDvWay2qLWHNv9DKv15CjPGs6dC16Q8psX0dPeN9UDyOHnYDSVr8PEiJyWQHMe4-Jj7Rw3cV4MFXJLgBOKFdwRq2eJT4MVu_fFgCLYjwScihXy6i9IpVjXP0PYQXqCRbZie7QQOXje53U0aplhI_3IDFeLZ030Dw42a-h3zVdNFKNwXt8CqwTqtkItE6LfuarPLp_PLxWCkAlyQ-jqZ"
+                width="180"
+              />
+              <h3 class="text-white h2 mb-1">Dr. Elena Rodriguez</h3>
+              <p class="fw-bold mb-4" style="color: #f4d5bc">
+                Senior Data Scientist at TechGiant
+              </p>
+              <p class="opacity-75 mb-5">
+                "Education is the passport to the future, and my mission is to
+                help you build the tools to navigate that journey with
+                confidence and skill."
+              </p>
+              <div class="d-flex justify-content-center gap-3">
+                <button class="btn btn-outline-light rounded-circle p-3 d-flex">
+                  <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <button class="btn btn-outline-light rounded-circle p-3 d-flex">
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="row g-4">
+              <div class="col-6 col-sm-6">
+                <div class="instructor-thumb text-center">
+                  <img
+                    alt="James"
+                    class="rounded-circle mb-3 grayscale"
+                    height="80"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGpFyFll8emSHM9hVp721mSmqJ-i-vZIbEMHo7rOmWyzz7h-yyumnuijkxG6n2hzs-wfdYZeuyTCAxg8-rfv1CxoIgkiyA6JmLQEnormqfQHq_Xr7Nxj5JiK-RLDVZBeD4jcfGEzwJvrcnbQbrn3K-n9AzpO-Y87HjmJyQPaHLA4H6VSLqWVffNzhmmAH5C9g3aJMnhkfK0q7R-mEaksV3OGUy-jaU-4TELWyrjcrOJWUIJZELdhTNakDifcQ3Z3952BbqjgGFt3uU"
+                    width="80"
+                  />
+                  <div class="fw-bold">James Wilson</div>
+                  <div class="small opacity-50 text-uppercase tracking-wider">
+                    Finance Expert
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-sm-6">
+                <div class="instructor-thumb text-center">
+                  <img
+                    alt="Sophia"
+                    class="rounded-circle mb-3 grayscale"
+                    height="80"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgZFQibpg-oYbT7Fk4BOw1JM7SlFOyTdJaLm1jvj4IAb01DfXIw-Ok8f2y-Nt1hb_da3oBlSYWmwQIlGPUKf0HU47tuf_nCMm2GDahe1kQXgKHO-cfrC8sXPcarF8ezUEjuVng-qKHsSGgH36M9ShthP7UETGKi1Gii-pAXogAL_pS5vHIHH2uuURrTrIkAby35no77UtI8Ik7cklrCdfkk-jWingBHzOSwwM6-HaNeakj202fvrYsZDiMcbWJ1TxJCvzQEJH2tauu"
+                    width="80"
+                  />
+                  <div class="fw-bold">Sophia Chen</div>
+                  <div class="small opacity-50 text-uppercase tracking-wider">
+                    Lead Designer
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-sm-6">
+                <div class="instructor-thumb text-center">
+                  <img
+                    alt="Robert"
+                    class="rounded-circle mb-3 grayscale"
+                    height="80"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM1obJfUkx3JzDmAgfa52nwF_CNQhVW6YnMxV38vA4doi2Y2JY8UT_LbU_CIfC5qrSU1q0Izo3mo-5uhRkB9X7OoS47e8-3mf22Xy54TG37mrDTTEhRKUw3o_xdXlEtgArJqm_vCcsiUIOtjNDJvp4BH6yC1S0_lFV-NzW7cuGVjc_VkhCNHo3GqFJt_hKomhhuB-r_54fMD_bURB1ssrykggBJ31n8eUr4gDUFmUFTKEn_bwwdLFTnb77KzapBebD7nD9sLIR7DDI"
+                    width="80"
+                  />
+                  <div class="fw-bold">Robert King</div>
+                  <div class="small opacity-50 text-uppercase tracking-wider">
+                    Marketing Director
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-sm-6">
+                <div class="instructor-thumb text-center">
+                  <img
+                    alt="Lisa"
+                    class="rounded-circle mb-3 grayscale"
+                    height="80"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKT-k0aAti8dS6EgEoDZ7YYg78nYXTO6oAPY1XSlkOIXd3SJu9wUr_iEEfTemLWrHJVCYe_8ji0k57HYWznzwfm84mkGEQ001cf_lxhcftkKYPGXmazkqG97jhK6RPgh2hW6OZyHUv8bGfBh3QKAaKi6kRbpzfvdNT7kxMNXNzTB9Ue_GtDb-tz5Pg8QIqgApZsYVSAQCsj-Cx9Z0R8oK0V3twMb3rSjPPBueB2oZ_w8dmqkH9GD8X9QR0JL9NMo7denbRQY01zqEr"
+                    width="80"
+                  />
+                  <div class="fw-bold">Lisa Morgan</div>
+                  <div class="small opacity-50 text-uppercase tracking-wider">
+                    AI Specialist
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    <!-- New Courses Bento Section -->
+    <!-- <section class="container py-5 my-lg-5">
+      <div class="mb-5 text-center text-md-start">
+        <h2>New Courses</h2>
+        <p class="text-muted">Just added to our catalog</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="bento-main">
+            <span class="badge bg-primary text-uppercase fw-bold p-2 px-3 mb-4"
+              >New &amp; Exclusive</span
+            >
+            <h3 class="display-6 fw-bold mb-4">
+              The Ethical AI Handbook: Navigating the Future
+            </h3>
+            <p class="text-muted fs-5 mb-5">
+              Master the complexities of artificial intelligence ethics,
+              governance, and societal impact in this comprehensive new guide
+              for leaders.
+            </p>
+            <button class="btn btn-primary-custom px-5 py-3">
+              Get Started
+            </button>
+            <img
+              alt="AI graphic"
+              class="position-absolute bottom-0 end-0 opacity-25 d-none d-sm-block"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK6LwdDLvhO0xtldYe9qhCdqVEINM6ld7tzLxGxPS0i-M2OOXK6xwM92Mc5WApK09tcSc1teo-RbrgI4ShBGocdf7a7Oy4ec2Qcusq54DZbTCcI2X9fgbnejNsNBnM19wwoH8HBVTOKJ2gSzjEb21fGOqTjspC1G69FxzcukrmPeWKlwYNrAC8nfa_O5R5UaHfp5I63YImKau0yu1PlxAS9r_GwSdRB7ce2y2mY2uwPRtPX6InQSrpefVLw72ma4t6XxNo_NAxiu84"
+              style="width: 50%; pointer-events: none"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row g-4">
+            <div class="col-12">
+              <div class="bento-secondary">
+                <div class="flex-grow-1">
+                  <h4 class="mb-2 h5">Sustainable Architecture</h4>
+                  <p class="small text-muted mb-3">
+                    Design for a greener tomorrow.
+                  </p>
+                  <div class="fw-bold text-primary">$59.00</div>
+                </div>
+                <img
+                  alt="Architecture"
+                  class="rounded-4"
+                  height="100"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAT6SmrZ6Mxug0OKIzvwg0uWbiiPx9ICX3acLrvISSJgG5sR3CPi2VaXwfTGFk5JWO2flKqbq9CpKrI8kZ-6B6hcRHYPsj9Do1fokeNX1jVBo7n1Nt9dP2tF8QnjWvtt9ayS7HyqZBE7FZ4Q2Gz_-TagvjxUhl7CohZdm5uBSEkBFXOqL8kkBE1DAFwSmSxF7ecPsq4AFo6MGdjyQgjCPRKODze2ThVMpmAxzroZw4UReh9JObm1GIf3Z1w3SG5nqTfDbcPoRTMysTK"
+                  style="object-fit: cover"
+                  width="100"
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="bento-small">
+                <div
+                  class="bg-warning-subtle rounded-3 p-2 p-md-3 d-inline-flex mb-4"
+                  style="width: fit-content"
+                >
+                  <span class="material-symbols-outlined text-warning"
+                    >music_note</span
+                  >
+                </div>
+                <h5 class="mb-1 h6">Music Theory</h5>
+                <p class="small text-muted mb-4">Beginners to Advanced</p>
+                <div
+                  class="mt-auto d-flex justify-content-between align-items-center"
+                >
+                  <span class="fw-bold">$45</span>
+                  <span class="material-symbols-outlined text-primary"
+                    >arrow_forward</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="bento-small">
+                <div
+                  class="bg-info-subtle rounded-3 p-2 p-md-3 d-inline-flex mb-4"
+                  style="width: fit-content"
+                >
+                  <span class="material-symbols-outlined text-info"
+                    >language</span
+                  >
+                </div>
+                <h5 class="mb-1 h6">Spanish Mastery</h5>
+                <p class="small text-muted mb-4">Conversational fluency fast</p>
+                <div
+                  class="mt-auto d-flex justify-content-between align-items-center"
+                >
+                  <span class="fw-bold">$39</span>
+                  <span class="material-symbols-outlined text-primary"
+                    >arrow_forward</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row g-4 g-lg-5 mb-5">
+          <div class="col-12 col-lg-3">
+            <a class="navbar-brand navbar-brand-custom mb-3 d-block" href="#"
+              >StudyHub</a
+            >
+            <p class="text-muted small">
+              Giúp học viên bứt phá trên hành trình tri thức với chương trình
+              chất lượng cao và đội ngũ giao viên tận tâm.
+            </p>
+          </div>
+          <div class="col-6 col-sm-4 col-lg-3">
+            <h6 class="fw-bold text-dark mb-4">Truy cập nhanh</h6>
+            <div class="d-flex flex-column gap-2 gap-md-3">
+              <a class="footer-link" href="#">Trang chủ</a>
+              <a class="footer-link" href="#">Khóa học</a>
+              <a class="footer-link" href="#">Các lớp khai giảng sắp tới</a>
+            </div>
+          </div>
+          <div class="col-6 col-sm-4 col-lg-3">
+            <h6 class="fw-bold text-dark mb-4">Hỗ trợ</h6>
+            <div class="d-flex flex-column gap-2 gap-md-3">
+              <a class="footer-link" href="#">Giới thiệu trung tâm</a>
+              <a class="footer-link" href="#">Liên hệ</a>
+            </div>
+          </div>
+          <div class="col-12 col-sm-4 col-lg-3">
+            <h6 class="fw-bold text-dark mb-4">Lưu ý</h6>
+            <p class="text-muted small mb-4">
+              Học viên liên hệ với trung tâm để đăng ký học.
+            </p>
+          </div>
+        </div>
+        <div
+          class="pt-5 border-top d-flex flex-column flex-md-row justify-content-between align-items-center gap-4"
+        >
+          <p class="small text-muted mb-0 text-center text-md-start">
+            © 2026 StudyHub. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
