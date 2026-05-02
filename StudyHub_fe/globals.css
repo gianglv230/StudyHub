@@ -59,6 +59,7 @@ h5 {
   vertical-align: middle;
 }
 
+/* Text and Bg*/
 .text-justify {
   text-align: justify;
 }
@@ -66,6 +67,18 @@ h5 {
 .text-primary-container {
   color: var(--primary-container);
 }
+
+.bg-secondary-container {
+  background-color: var(--secondary-container);
+}
+
+/* .border-primary-container{
+  border: 1px solid var(--primary-container)
+}
+
+.border-primary-container:hover{
+  border: 1px solid var(--primary-container)
+} */
 
 /* Chrome, Edge, Safari */
 ::-webkit-scrollbar {
@@ -89,17 +102,48 @@ h5 {
   background: var(--primary-container);
 }
 
-.page-link{
+/* Page */
+.page-link {
   border: 1px solid var(--primary-color);
   border-radius: 5px;
   color: var(--primary-color);
 }
 
-.page-link:hover{
+.page-link:hover {
   background-color: var(--primary-color);
   color: white;
 }
 
-.page-link.active{
+.page-link.active {
   background-color: var(--primary-color);
+}
+
+/*Table*/
+.table-custom {
+  border-color: var(--primary-color);
+}
+
+.table-custom th,
+.table-custom td {
+  border: 1px solid var(--primary-color);
+}
+
+.table-custom th{
+  background-color: var(--secondary-container);
+  /* color: white; */
+}
+
+.table-custom .col-stt {
+  width: 60px;
+  text-align: center;
+}
+
+.table-custom tbody tr:hover {
+  background-color: #f5f7fa;
+  /* cursor: pointer; */
+}
+
+.table-custom tbody tr.active {
+  background-color: #e3f2fd;
+  font-weight: 500;
 }
