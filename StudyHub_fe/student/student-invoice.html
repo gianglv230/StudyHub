@@ -1,0 +1,193 @@
+<!doctype html>
+
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Trang chủ | StudyHub</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap&subset=vietnamese"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap&subset=vietnamese"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../globals.css" />
+    <link rel="stylesheet" href="student-globals.css" />
+  </head>
+  <body>
+    <style>
+      .invoice-name {
+        font-weight: 500;
+        color: var(--primary-container);
+      }
+
+      .invoice-head-label {
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        font-size: 13px;
+        margin-bottom: 2px;
+      }
+
+      .invoice-name a:hover {
+        color: red;
+      }
+
+      .fs-18 {
+        font-size: 18px !important;
+      }
+
+      .btn-group {
+        background-color: white;
+      }
+
+      .deactive {
+        background-color: white !important;
+        border: none;
+        color: var(--primary-container);
+        font-weight: bold;
+      }
+
+      .invoice-separator {
+        border: 1px dashed red;
+      }
+    </style>
+    <section class="container mt-5">
+      <div class="btn-group mb-4 p-2 rounded-3 shadow-sm">
+        <button type="button" class="btn btn-danger rounded-3">
+          Chưa thanh toán
+        </button>
+        <button type="button" class="btn btn-success rounded-3 deactive">
+          Đã thanh toán
+        </button>
+      </div>
+      <div class="invoice-list mt-3">
+        <div class="invoice-card bg-white rounded-3 px-5 py-4 shadow-sm">
+          <div class="invoice-head">
+            <div class="d-flex justify-content-between align-bottom mb-3">
+              <h4 class="invoice-name">
+                Hóa đơn cho
+                <a href="#" class="text-decoration-none fw-bold h4"
+                  >Tổng ôn Vật lý 1</a
+                >
+              </h4>
+              <p class="badge bg-danger px-3 rounded-pill">Quá hạn</p>
+            </div>
+            <div class="row g-3">
+              <div class="col-3">
+                <p
+                  class="text-muted text-uppercase invoice-head-label opacity-75"
+                >
+                  Mã hóa đơn
+                </p>
+                <p class="text-muted invoice-head-label fs-18">158</p>
+              </div>
+              <div class="col-3">
+                <p
+                  class="text-muted text-uppercase invoice-head-label opacity-75"
+                >
+                  Ngày đến hạn
+                </p>
+                <p class="text-muted invoice-head-label fs-18">15/05/2026</p>
+              </div>
+              <div class="col-3">
+                <p
+                  class="text-muted text-uppercase invoice-head-label opacity-75"
+                >
+                  Ngày tạo
+                </p>
+                <p class="text-muted invoice-head-label fs-18">15/03/2026</p>
+              </div>
+              <div class="col-3">
+                <p
+                  class="text-muted text-uppercase invoice-head-label opacity-75"
+                >
+                  Người tạo
+                </p>
+                <p class="text-muted invoice-head-label fs-18">Nguyễn Văn An</p>
+              </div>
+              <div class="col-3">
+                <p
+                  class="text-muted text-uppercase invoice-head-label opacity-75"
+                >
+                  Số tiền
+                </p>
+                <p class="text-muted invoice-head-label fs-18">1.250.000đ</p>
+              </div>
+              <div class="col-3">
+                <p
+                  class="text-muted text-uppercase invoice-head-label opacity-75"
+                >
+                  Điều chỉnh
+                </p>
+                <p class="text-muted invoice-head-label fs-18">0đ</p>
+              </div>
+              <div class="col-3">
+                <p
+                  class="text-muted text-uppercase invoice-head-label opacity-75"
+                >
+                  Tổng tiền
+                </p>
+                <p
+                  class="invoice-head-label fs-18 text-primary-container fw-bold"
+                >
+                  1.250.000đ
+                </p>
+              </div>
+              <div class="col-3">
+                <button class="btn btn-primary-custom w-100">Thanh toán</button>
+              </div>
+            </div>
+          </div>
+          <div class="invoice-footer">
+            <hr class="invoice-separator my-4" />
+            <div class="row g-3">
+              <div class="col-3">
+                <p
+                  class="text-muted text-uppercase invoice-head-label opacity-75"
+                >
+                  Mã thanh toán
+                </p>
+                <p class="text-muted invoice-head-label fs-18">15428</p>
+              </div>
+              <div class="col-3">
+                <p
+                  class="text-muted text-uppercase invoice-head-label opacity-75"
+                >
+                  Thời gian thanh toán
+                </p>
+                <p class="text-muted invoice-head-label fs-18">15/05/2026 - 8:15:20</p>
+              </div>
+              <div class="col-3">
+                <p
+                  class="text-muted text-uppercase invoice-head-label opacity-75"
+                >
+                  Phương thức thanh toán
+                </p>
+                <p class="text-muted invoice-head-label fs-18">Chuyển khoản</p>
+              </div>
+              <div class="col-3">
+                <p
+                  class="text-muted text-uppercase invoice-head-label opacity-75"
+                >
+                  Loại hóa đơn
+                </p>
+                <p class="invoice-head-label fs-18 text-primary-container">Đóng học</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

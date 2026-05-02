@@ -6,6 +6,7 @@
 :root {
   --primary-color: #002a4b;
   --primary-container: #05406e;
+  --primary-container-light: #0866af;
   --secondary-container: #cbe3f6;
   --on-secondary-container: #4f6576;
   --background-color: #f3f6f5;
@@ -41,6 +42,25 @@ h5 {
   background-color: var(--primary-container);
   color: white;
   border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+}
+
+
+
+.btn-outline-primary-custom:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(0.98);
+}
+
+.btn-outline-primary-custom {
+  color: var(--primary-container);
+  border: 1px solid var(--primary-container);
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
   font-weight: 600;
@@ -146,4 +166,8 @@ h5 {
 .table-custom tbody tr.active {
   background-color: #e3f2fd;
   font-weight: 500;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }
