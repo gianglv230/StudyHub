@@ -1,0 +1,823 @@
+<!doctype html>
+
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Trang chủ | StudyHub</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap&subset=vietnamese"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap&subset=vietnamese"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../globals.css" />
+    <link rel="stylesheet" href="student-globals.css" />
+  </head>
+  <body>
+    <style>
+      a {
+        text-decoration: none;
+      }
+      .resource-management .breadcrumb .breadcrumb-item:not(.active) a {
+        color: var(--primary-container);
+        font-weight: 500;
+      }
+
+      .action-more-folder {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        border-radius: 50%;
+        height: 25px;
+        width: 25px;
+        padding: 5px;
+        cursor: pointer;
+      }
+
+      .action-more-folder:hover {
+        display: block;
+        background: var(--border-color-light);
+      }
+
+      .resource-image {
+        height: 150px;
+        object-fit: cover;
+      }
+
+      .resource-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .btn-upload {
+        border: 2px dashed var(--primary-container-light);
+      }
+
+      .btn-upload:hover {
+        background-color: var(--border-color-light);
+        border: 2px dashed var(--primary-container-light);
+      }
+
+      .resource-image-modal {
+        height: 280px;
+        object-fit: cover;
+      }
+    </style>
+    <section class="container-fluid mt-4 px-4 resource-management">
+      <div class="d-flex justify-content-between align-items-center">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Tài liệu của tôi</a></li>
+            <li class="breadcrumb-item"><a href="#">2k8</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Vật lý</li>
+          </ol>
+        </nav>
+        <div>
+          <button class="btn btn-tertiary py-2 me-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              fill="currentColor"
+              class="bi bi-cloud-arrow-up-fill me-1"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m2.354 5.146a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0z"
+              />
+            </svg>
+            <span>Tải lên</span>
+          </button>
+          <button class="btn btn-primary-custom py-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              fill="currentColor"
+              class="bi bi-folder-plus me-1"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="m.5 3 .04.87a2 2 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2m5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19q-.362.002-.683.12L1.5 2.98a1 1 0 0 1 1-.98z"
+              />
+              <path
+                d="M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5"
+              />
+            </svg>
+            <span>Thư mục mới</span>
+          </button>
+        </div>
+      </div>
+      <div class="folder-content mt-1">
+        <div class="d-flex align-items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            fill="currentColor"
+            class="bi bi-folder me-2 text-primary-container"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139q.323-.119.684-.12h5.396z"
+            />
+          </svg>
+          <p class="fw-medium ls-1 text-primary-container h4 mb-0">Thư mục</p>
+        </div>
+        <div class="folder-list mt-3">
+          <div class="row g-3">
+            <div class="col-2">
+              <div
+                class="folder-card bg-white rounded-3 shadow-sm px-3 py-3 position-relative"
+              >
+                <a href="#" class="d-flex align-items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    class="bi bi-folder-fill me-2 text-tertiary flex-shrink-0"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z"
+                    />
+                  </svg>
+                  <p class="mb-0 text-primary-container fw-bolder">Vật lý</p>
+                </a>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-three-dots-vertical action-more-folder"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+                  />
+                </svg>
+                <div
+                  class="border border-secondary shadow-lg px-2 py-1 mt-2 d-none"
+                >
+                  <div class="d-flex align-items-center cursor-pointer mb-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      fill="currentColor"
+                      class="bi bi-pencil-fill me-1 text-primary-light"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                      /></svg
+                    ><span class="fs-14 text-primary-light">Sửa</span>
+                  </div>
+                  <div class="d-flex align-items-center cursor-pointer">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      fill="currentColor"
+                      class="bi bi-trash-fill me-1 text-danger"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                      />
+                    </svg>
+                    <span class="fs-14 text-danger">Xóa</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div
+                class="folder-card bg-white rounded-3 shadow-sm px-3 py-3 position-relative"
+              >
+                <a href="#" class="d-flex align-items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    class="bi bi-folder-fill me-2 text-tertiary flex-shrink-0"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z"
+                    />
+                  </svg>
+                  <p class="mb-0 text-primary-container fw-bolder">Vật lý</p>
+                </a>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-three-dots-vertical action-more-folder"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+                  />
+                </svg>
+                <div
+                  class="border border-secondary shadow-lg px-2 py-1 mt-2 d-none"
+                >
+                  <div class="d-flex align-items-center cursor-pointer mb-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      fill="currentColor"
+                      class="bi bi-pencil-fill me-1 text-primary-light"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                      /></svg
+                    ><span class="fs-14 text-primary-light">Sửa</span>
+                  </div>
+                  <div class="d-flex align-items-center cursor-pointer">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      fill="currentColor"
+                      class="bi bi-trash-fill me-1 text-danger"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                      />
+                    </svg>
+                    <span class="fs-14 text-danger">Xóa</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="resource-content mt-5 mb-5">
+        <div class="d-flex align-items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            fill="currentColor"
+            class="bi bi-file-earmark-fill me-2 text-primary-container"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2z"
+            />
+          </svg>
+          <p class="fw-medium ls-1 text-primary-container h4 mb-0">
+            Tài nguyên
+          </p>
+        </div>
+        <div class="resource-list mt-4">
+          <p class="fw-bold h5 text-primary-light mb-2">Hình ảnh</p>
+          <div class="row g-3">
+            <div class="col-2">
+              <div class="bg-white rounded-3">
+                <div class="resource-image">
+                  <img
+                    src="../image/banner_image.jpg"
+                    class="img-fluid h-100 w-100 object-fit-cover rounded-top-3"
+                    alt=""
+                  />
+                </div>
+                <div class="resource-body px-2 pb-1">
+                  <p class="mt-2 fw-medium resource-name mb-1">
+                    Ngoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_ve.jpg
+                  </p>
+                  <p class="fs-12 text-secondary mb-1">2,4 MB • 03/05/2026</p>
+                </div>
+                <div class="resource-footer px-2 pb-1">
+                  <div
+                    class="px-3 border-top border-muted d-flex justify-content-between py-1"
+                  >
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-pencil-fill me-1 text-primary-light"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                        /></svg
+                      ><span class="fs-14 text-primary-light">Sửa</span>
+                    </div>
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-trash-fill me-1 text-danger"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                        />
+                      </svg>
+                      <span class="fs-14 text-danger">Xóa</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="bg-white rounded-3">
+                <div class="resource-image">
+                  <img
+                    src="../image/banner_image.jpg"
+                    class="img-fluid h-100 w-100 object-fit-cover rounded-top-3"
+                    alt=""
+                  />
+                </div>
+                <div class="resource-body px-2 pb-1">
+                  <p class="mt-2 fw-medium resource-name mb-1">
+                    Ngoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_ve.jpg
+                  </p>
+                  <p class="fs-12 text-secondary mb-1">2,4 MB • 03/05/2026</p>
+                </div>
+                <div class="resource-footer px-2 pb-1">
+                  <div
+                    class="px-3 border-top border-muted d-flex justify-content-between py-1"
+                  >
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-pencil-fill me-1 text-primary-light"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                        /></svg
+                      ><span class="fs-14 text-primary-light">Sửa</span>
+                    </div>
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-trash-fill me-1 text-danger"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                        />
+                      </svg>
+                      <span class="fs-14 text-danger">Xóa</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="resource-list mt-4">
+          <p class="fw-bold h5 text-primary-light mb-2">Video</p>
+          <div class="row g-3">
+            <div class="col-2">
+              <div class="bg-white rounded-3">
+                <div class="resource-image">
+                  <img
+                    src="../image/banner_image.jpg"
+                    class="img-fluid h-100 w-100 object-fit-cover rounded-top-3"
+                    alt=""
+                  />
+                </div>
+                <div class="resource-body px-2 pb-1">
+                  <p class="mt-2 fw-medium resource-name mb-1">
+                    Ngoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_ve.jpg
+                  </p>
+                  <p class="fs-12 text-secondary mb-1">2,4 MB • 03/05/2026</p>
+                </div>
+                <div class="resource-footer px-2 pb-1">
+                  <div
+                    class="px-3 border-top border-muted d-flex justify-content-between py-1"
+                  >
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-pencil-fill me-1 text-primary-light"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                        /></svg
+                      ><span class="fs-14 text-primary-light">Sửa</span>
+                    </div>
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-trash-fill me-1 text-danger"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                        />
+                      </svg>
+                      <span class="fs-14 text-danger">Xóa</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="bg-white rounded-3">
+                <div class="resource-image">
+                  <img
+                    src="../image/banner_image.jpg"
+                    class="img-fluid h-100 w-100 object-fit-cover rounded-top-3"
+                    alt=""
+                  />
+                </div>
+                <div class="resource-body px-2 pb-1">
+                  <p class="mt-2 fw-medium resource-name mb-1">
+                    Ngoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_ve.jpg
+                  </p>
+                  <p class="fs-12 text-secondary mb-1">2,4 MB • 03/05/2026</p>
+                </div>
+                <div class="resource-footer px-2 pb-1">
+                  <div
+                    class="px-3 border-top border-muted d-flex justify-content-between py-1"
+                  >
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-pencil-fill me-1 text-primary-light"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                        /></svg
+                      ><span class="fs-14 text-primary-light">Sửa</span>
+                    </div>
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-trash-fill me-1 text-danger"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                        />
+                      </svg>
+                      <span class="fs-14 text-danger">Xóa</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="resource-list mt-4">
+          <p class="fw-bold h5 text-primary-light mb-2">PDF</p>
+          <div class="row g-3">
+            <div class="col-2">
+              <div class="bg-white rounded-3">
+                <div
+                  class="resource-image d-flex align-items-center justify-content-center bg-danger rounded-top-3"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="48"
+                    height="48"
+                    fill="currentColor"
+                    class="bi bi-filetype-pdf text-white"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM1.6 11.85H0v3.999h.791v-1.342h.803q.43 0 .732-.173.305-.175.463-.474a1.4 1.4 0 0 0 .161-.677q0-.375-.158-.677a1.2 1.2 0 0 0-.46-.477q-.3-.18-.732-.179m.545 1.333a.8.8 0 0 1-.085.38.57.57 0 0 1-.238.241.8.8 0 0 1-.375.082H.788V12.48h.66q.327 0 .512.181.185.183.185.522m1.217-1.333v3.999h1.46q.602 0 .998-.237a1.45 1.45 0 0 0 .595-.689q.196-.45.196-1.084 0-.63-.196-1.075a1.43 1.43 0 0 0-.589-.68q-.396-.234-1.005-.234zm.791.645h.563q.371 0 .609.152a.9.9 0 0 1 .354.454q.118.302.118.753a2.3 2.3 0 0 1-.068.592 1.1 1.1 0 0 1-.196.422.8.8 0 0 1-.334.252 1.3 1.3 0 0 1-.483.082h-.563zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638z"
+                    />
+                  </svg>
+                </div>
+                <div class="resource-body px-2 pb-1">
+                  <p class="mt-2 fw-medium resource-name mb-1">
+                    Ngoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_ve.jpg
+                  </p>
+                  <p class="fs-12 text-secondary mb-1">2,4 MB • 03/05/2026</p>
+                </div>
+                <div class="resource-footer px-2 pb-1">
+                  <div
+                    class="px-3 border-top border-muted d-flex justify-content-between py-1"
+                  >
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-pencil-fill me-1 text-primary-light"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                        /></svg
+                      ><span class="fs-14 text-primary-light">Sửa</span>
+                    </div>
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-trash-fill me-1 text-danger"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                        />
+                      </svg>
+                      <span class="fs-14 text-danger">Xóa</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="resource-list mt-4">
+          <p class="fw-bold h5 text-primary-light mb-2">Tài liệu</p>
+          <div class="row g-3">
+            <div class="col-2">
+              <div class="bg-white rounded-3">
+                <div
+                  class="resource-image d-flex align-items-center justify-content-center bg-primary rounded-top-3"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="48"
+                    height="48"
+                    fill="currentColor"
+                    class="bi bi-filetype-doc text-white"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M14 4.5V11h-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zm-6.839 9.688v-.522a1.5 1.5 0 0 0-.117-.641.86.86 0 0 0-.322-.387.86.86 0 0 0-.469-.129.87.87 0 0 0-.471.13.87.87 0 0 0-.32.386 1.5 1.5 0 0 0-.117.641v.522q0 .384.117.641a.87.87 0 0 0 .32.387.9.9 0 0 0 .471.126.9.9 0 0 0 .469-.126.86.86 0 0 0 .322-.386 1.55 1.55 0 0 0 .117-.642m.803-.516v.513q0 .563-.205.973a1.47 1.47 0 0 1-.589.627q-.381.216-.917.216a1.86 1.86 0 0 1-.92-.216 1.46 1.46 0 0 1-.589-.627 2.15 2.15 0 0 1-.205-.973v-.513q0-.569.205-.975.205-.411.59-.627.386-.22.92-.22.535 0 .916.22.383.219.59.63.204.406.204.972M1 15.925v-3.999h1.459q.609 0 1.005.235.396.233.589.68.196.445.196 1.074 0 .634-.196 1.084-.197.451-.595.689-.396.237-.999.237zm1.354-3.354H1.79v2.707h.563q.277 0 .483-.082a.8.8 0 0 0 .334-.252q.132-.17.196-.422a2.3 2.3 0 0 0 .068-.592q0-.45-.118-.753a.9.9 0 0 0-.354-.454q-.237-.152-.61-.152Zm6.756 1.116q0-.373.103-.633a.87.87 0 0 1 .301-.398.8.8 0 0 1 .475-.138q.225 0 .398.097a.7.7 0 0 1 .273.26.85.85 0 0 1 .12.381h.765v-.073a1.33 1.33 0 0 0-.466-.964 1.4 1.4 0 0 0-.49-.272 1.8 1.8 0 0 0-.606-.097q-.534 0-.911.223-.375.222-.571.633-.197.41-.197.978v.498q0 .568.194.976.195.406.571.627.375.216.914.216.44 0 .785-.164t.551-.454a1.27 1.27 0 0 0 .226-.674v-.076h-.765a.8.8 0 0 1-.117.364.7.7 0 0 1-.273.248.9.9 0 0 1-.401.088.85.85 0 0 1-.478-.131.83.83 0 0 1-.298-.393 1.7 1.7 0 0 1-.103-.627zm5.092-1.76h.894l-1.275 2.006 1.254 1.992h-.908l-.85-1.415h-.035l-.852 1.415h-.862l1.24-2.015-1.228-1.984h.932l.832 1.439h.035z"
+                    />
+                  </svg>
+                </div>
+                <div class="resource-body px-2 pb-1">
+                  <p class="mt-2 fw-medium resource-name mb-1">
+                    Ngoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_ve.jpg
+                  </p>
+                  <p class="fs-12 text-secondary mb-1">2,4 MB • 03/05/2026</p>
+                </div>
+                <div class="resource-footer px-2 pb-1">
+                  <div
+                    class="px-3 border-top border-muted d-flex justify-content-between py-1"
+                  >
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-pencil-fill me-1 text-primary-light"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                        /></svg
+                      ><span class="fs-14 text-primary-light">Sửa</span>
+                    </div>
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-trash-fill me-1 text-danger"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                        />
+                      </svg>
+                      <span class="fs-14 text-danger">Xóa</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="resource-list mt-4">
+          <p class="fw-bold h5 text-primary-light mb-2">Âm thanh</p>
+          <div class="row g-3">
+            <div class="col-2">
+              <div class="bg-white rounded-3">
+                <div
+                  class="resource-image d-flex align-items-center justify-content-center bg-warning rounded-top-3"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="48"
+                    height="48"
+                    fill="currentColor"
+                    class="bi bi-filetype-mp3 text-white"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M14 4.5V14a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zm-4.911 9.67h-.443v-.609h.422a.7.7 0 0 0 .322-.073.56.56 0 0 0 .22-.2.5.5 0 0 0 .076-.284.49.49 0 0 0-.176-.392.65.65 0 0 0-.442-.15.7.7 0 0 0-.252.041.6.6 0 0 0-.193.112.5.5 0 0 0-.179.349H7.71q.009-.235.102-.437.094-.202.27-.352.176-.152.428-.237.255-.085.583-.088.418-.003.723.132.304.135.472.372a.9.9 0 0 1 .173.539.83.83 0 0 1-.12.478.96.96 0 0 1-.619.439v.041a1 1 0 0 1 .718.434.9.9 0 0 1 .144.521q.003.285-.117.507a1.1 1.1 0 0 1-.329.378q-.21.152-.486.234-.273.08-.583.08-.451 0-.77-.153a1.2 1.2 0 0 1-.487-.41 1.1 1.1 0 0 1-.178-.563h.726a.46.46 0 0 0 .106.258.7.7 0 0 0 .249.179 1 1 0 0 0 .357.067.9.9 0 0 0 .384-.076.6.6 0 0 0 .252-.217.56.56 0 0 0 .088-.319.56.56 0 0 0-.334-.522.8.8 0 0 0-.372-.079ZM.706 15.925v-2.66h.038l.952 2.16h.516l.946-2.16h.038v2.66h.715v-3.999h-.8l-1.14 2.596h-.026l-1.14-2.596H0v4zm5.458-3.999h-1.6v4h.792v-1.342h.803q.43 0 .732-.173.304-.177.463-.475a1.4 1.4 0 0 0 .161-.677q0-.374-.158-.677a1.2 1.2 0 0 0-.46-.477 1.4 1.4 0 0 0-.733-.179m.545 1.333a.8.8 0 0 1-.085.381.57.57 0 0 1-.237.24.8.8 0 0 1-.375.082h-.66v-1.406h.66q.328 0 .513.182.184.181.184.521"
+                    />
+                  </svg>
+                </div>
+                <div class="resource-body px-2 pb-1">
+                  <p class="mt-2 fw-medium resource-name mb-1">
+                    Ngoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_veNgoi_truong_vui_ve.jpg
+                  </p>
+                  <p class="fs-12 text-secondary mb-1">2,4 MB • 03/05/2026</p>
+                </div>
+                <div class="resource-footer px-2 pb-1">
+                  <div
+                    class="px-3 border-top border-muted d-flex justify-content-between py-1"
+                  >
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-pencil-fill me-1 text-primary-light"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                        /></svg
+                      ><span class="fs-14 text-primary-light">Sửa</span>
+                    </div>
+                    <div class="d-flex align-items-center cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        fill="currentColor"
+                        class="bi bi-trash-fill me-1 text-danger"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                        />
+                      </svg>
+                      <span class="fs-14 text-danger">Xóa</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal edit resource-->
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      id="btn-test"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-border-color-light">
+            <h2 class="modal-title fs-17 fw-normal" id="exampleModalLabel">
+              Chi tiết tài nguyên
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="resource-image-modal">
+              <img
+                src="../image/banner_image.jpg"
+                class="img-fluid w-100 h-100 object-fit-contain"
+                alt=""
+              />
+            </div>
+            <div class="mb-3">
+              <label
+                for="resource-name"
+                class="form-label text-primary-container"
+                >Tên tệp tin</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="resource-name"
+                value="???"
+                disabled
+              />
+            </div>
+            <button
+              class="btn btn-upload text-primary-container fw-bold fs-14 w-100"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-upload me-1 text-primary-container fw-bold"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"
+                />
+                <path
+                  d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"
+                />
+              </svg>
+              <span>Upload lại</span>
+            </button>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <div>
+              <button class="btn btn-outline-danger">Xóa</button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-bs-dismiss="modal"
+              >
+                Đóng
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary bg-primary-container"
+              >
+                Lưu
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("btn-test").click();
+      });
+    </script> -->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

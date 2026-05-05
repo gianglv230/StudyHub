@@ -17,6 +17,8 @@
   --on-tertiary-fixed: #2f1400;
   --on-tertiary-container: #e29961;
   --border-color: #e2e2e7;
+  --border-color-lite: #f8fafc;
+  --border-color-light: #f3f3f8;
   --border-radius-lg: 1.5rem;
   --border-radius-xl: 2rem;
   --font-main: "Roboto", sans-serif;
@@ -50,13 +52,36 @@ h5 {
     background-color 0.2s;
 }
 
+.btn-primary-custom:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(0.98);
+}
 
+.btn-tertiary {
+  background-color: var(--on-tertiary-container);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+}
+
+.btn-tertiary:hover {
+  background-color: var(--on-tertiary-container);
+  color: white;
+  transform: scale(0.98);
+}
 
 .btn-outline-primary-custom:hover {
   background-color: var(--primary-color);
   color: white;
   transform: scale(0.98);
 }
+
 
 .btn-outline-primary-custom {
   color: var(--primary-container);
@@ -67,12 +92,6 @@ h5 {
   transition:
     transform 0.2s,
     background-color 0.2s;
-}
-
-.btn-primary-custom:hover {
-  background-color: var(--primary-color);
-  color: white;
-  transform: scale(0.98);
 }
 
 .material-symbols-outlined {
@@ -88,8 +107,29 @@ h5 {
   color: var(--primary-container);
 }
 
+.text-primary-light {
+  color: var(--primary-container-light);
+}
+
+.text-tertiary{
+  color: var(--on-tertiary-container);
+}
+
 .bg-secondary-container {
   background-color: var(--secondary-container);
+}
+
+.bg-primary-container {
+  background-color: var(--primary-container);
+}
+
+.bg-border-color-light{
+  background-color: var(--border-color-light);
+}
+
+.bg-border-color-lite{
+  background-color: var(--border-color-lite);
+  color: var(--primary-color);
 }
 
 /* .border-primary-container{
@@ -148,7 +188,7 @@ h5 {
   border: 1px solid var(--primary-color);
 }
 
-.table-custom th{
+.table-custom th {
   background-color: var(--secondary-container);
   /* color: white; */
 }
@@ -168,6 +208,28 @@ h5 {
   font-weight: 500;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
+}
+
+/* fs */
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.fs-16 {
+  font-size: 16px !important;
+}
+
+.fs-17{
+  font-size: 17px;
+}
+
+/* ls */
+.ls-1{
+  letter-spacing: 0.5px;
 }
