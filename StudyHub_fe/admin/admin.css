@@ -6,6 +6,9 @@
   --on-tertiary-fixed: #2f1400;
   --tertiary-fixed: #ffdcc4;
   --text-on-surface: #1a1c1f;
+  --on-tertiary-container: #e29961;
+  --border-color: #e2e2e7;
+  --border-color-lite: #f8fafc;
   --border-color-light: #f3f3f8;
   --font-main: "Roboto", sans-serif;
 }
@@ -238,6 +241,47 @@ footer {
   background-color: var(--primary-color);
 }
 
+.bg-border-color-light {
+  background-color: var(--border-color-light);
+}
+
+.bg-border-color-light {
+  background-color: var(--border-color-light);
+}
+
+.bg-border-color-lite {
+  background-color: var(--border-color-lite);
+  color: var(--primary-color);
+}
+
+.btn-outline-primary-custom:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(0.98);
+}
+
+.btn-outline-primary-custom {
+  color: var(--primary-container);
+  border: 1px solid var(--primary-container);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+}
+
+.btn-dashed-muted{
+  background-color: var(--border-color-light);
+  border: 1px dashed var(--primary-color);
+}
+
+.btn-dashed-muted:hover{
+  background-color: var(--primary-container);
+  color: white !important;
+  border: 1px solid var(--primary-color);
+}
+
 /*New*/
 
 /* bg */
@@ -245,6 +289,24 @@ footer {
   background-color: var(--background-color);
 }
 
-.bg-border-color-light {
-  background-color: var(--border-color-light);
+.btn-light-custom {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 400;
+  border: 1px solid var(--border-color);
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
 }
+
+.btn-light-custom:hover {
+  background-color: var(--border-color-lite);
+  border: 1px solid var(--border-color);
+  color: black;
+  transform: scale(0.98);
+}
+
+

@@ -1,0 +1,438 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>StudyHub Manager Admin Portal</title>
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="admin.css" />
+    <!-- <link rel="stylesheet" href="../globals.css"> -->
+  </head>
+  <body>
+    <style>
+      /* 
+        ========================================
+        COURSE CARDS 
+        ========================================
+        */
+      .course-card {
+        background: white;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        height: 100%;
+      }
+
+      .course-card:hover {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        transform: translateY(-5px);
+      }
+
+      .course-img-wrapper {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+      }
+
+      @media (min-width: 768px) {
+        .course-img-wrapper {
+          height: 260px;
+        }
+      }
+
+      .course-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .course-card:hover .course-img {
+        transform: scale(1.1);
+      }
+
+      .badge-category {
+        background-color: var(--tertiary-fixed);
+        color: var(--on-tertiary-container);
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.5rem;
+      }
+    </style>
+    <!-- Sidebar Backdrop (Mobile only) -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="sidebar-brand px-2 py-4">
+          <h1>StudyHub Manager</h1>
+          <p>Admin Portal</p>
+        </div>
+        <button
+          class="btn btn-link text-white d-lg-none p-0"
+          onclick="toggleSidebar()"
+        >
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <nav class="nav flex-column flex-grow-1">
+        <a class="nav-link active" href="#"
+          ><span class="material-symbols-outlined">dashboard</span> Dashboard</a
+        >
+        <a class="nav-link" href="#"
+          ><span class="material-symbols-outlined">menu_book</span> Quản lý khóa
+          học</a
+        >
+        <a class="nav-link" href="#"
+          ><span class="material-symbols-outlined">class</span> Quản lý lớp
+          học</a
+        >
+        <a class="nav-link" href="#"
+          ><span class="material-symbols-outlined">badge</span> Quản lý giáo
+          viên</a
+        >
+        <a class="nav-link" href="#"
+          ><span class="material-symbols-outlined">group</span> Quản lý học
+          viên</a
+        >
+        <a class="nav-link" href="#"
+          ><span class="material-symbols-outlined">payments</span> Quản lý hóa
+          đơn</a
+        >
+        <a class="nav-link" href="#"
+          ><span class="material-symbols-outlined">folder_open</span> Quản lý
+          tài nguyên</a
+        >
+      </nav>
+    </aside>
+    <!-- Main Content -->
+    <div id="main-content">
+      <header
+        class="py-1 d-flex align-items-center justify-content-lg-end justify-content-between"
+      >
+        <button
+          class="btn btn-link text-dark d-lg-none p-0 me-2"
+          onclick="toggleSidebar()"
+        >
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div
+          class="dropdown d-flex align-items-center border-start ps-2 ps-sm-3 ms-1"
+        >
+          <button
+            class="btn dropdown-toggle d-flex align-items-center gap-2"
+            data-bs-toggle="dropdown"
+          >
+            <img
+              class="rounded-circle"
+              height="32"
+              src="../image/student.png"
+              width="32"
+            />
+            <span class="fw-bold d-none d-sm-inline small"> Nguyễn Văn A </span>
+          </button>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+            <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+          </ul>
+        </div>
+      </header>
+      <div class="container-fluid p-3 p-md-3 px-lg-4">
+        <div
+          class="main-content-header d-flex justify-content-between align-items-center"
+        >
+          <div>
+            <p class="text-primary-container ls-1 mb-0 fs-17">
+              Quản lý hóa đơn
+            </p>
+            <p class="text-secondary ls-1 small">
+              Quản lý và cập nhật danh sách các hóa đơn hiện có trên hệ thống
+            </p>
+          </div>
+        </div>
+        <div class="search-box bg-white rounded-3 px-3 pb-2 pt-3 mt-2">
+          <div class="row">
+            <div class="col-3">
+              <div class="mb-2">
+                <label class="mb-1 text-secondary ls-1 small"
+                  >Mã hóa đơn</label
+                >
+                <input
+                  type="text"
+                  name="keyword"
+                  class="form-control py-2"
+                  placeholder="Mã hóa đơn"
+                />
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="mb-2">
+                <label class="mb-1 text-secondary ls-1 small">Trạng thái</label>
+                <select name="subject" class="form-select py-2">
+                  <option value="all" selected>Tất cả trạng thái</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-3">
+              <div class="mb-2">
+                <label class="mb-1 text-secondary ls-1 small">Ngày đến hạn</label>
+                <input
+                  type="date"
+                  name="due-date"
+                  class="form-control py-2"
+                />
+              </div>
+            </div>
+
+            <div class="col-3">
+              <div class="mb-2">
+                <label class="mb-1 text-secondary ls-1 small"
+                  >Mã thanh toán</label
+                >
+                <input
+                  type="text"
+                  name="keyword"
+                  class="form-control py-2"
+                  placeholder="Mã thanh toán"
+                />
+              </div>
+            </div>
+
+            <div class="col-3">
+              <div class="mb-2">
+                <label class="mb-1 text-secondary ls-1 small"
+                  >Mã học viên</label
+                >
+                <input
+                  type="text"
+                  name="keyword"
+                  class="form-control py-2"
+                  placeholder="Mã học viên"
+                />
+              </div>
+            </div>
+
+            <div class="col-3">
+              <div class="mb-2">
+                <label class="mb-1 text-secondary ls-1 small"
+                  >Mã lớp học</label
+                >
+                <input
+                  type="text"
+                  name="keyword"
+                  class="form-control py-2"
+                  placeholder="Mã học viên"
+                />
+              </div>
+            </div>
+
+            <div class="col-3">
+              <div class="mb-2">
+                <label class="mb-1 text-secondary ls-1 small">Từ ngày</label>
+                <input
+                  type="date"
+                  name="start-date"
+                  class="form-control py-2"
+                />
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="mb-2">
+                <label class="mb-1 text-secondary ls-1 small">Đến ngày</label>
+                <input type="date" name="end-date" class="form-control py-2" />
+              </div>
+            </div>
+            
+            <div class="col"></div>
+
+            <div class="col-3 d-flex align-items-center">
+              <div class="w-100 mt-3">
+                <button
+                  class="w-100 btn btn-primary-custom align-items-center py-2 px-3"
+                  style="height: fit-content"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-search me-1"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+                    />
+                  </svg>
+                  <span class="fs-14">Tìm kiếm</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-4 px-3 pt-4 pb-4 mt-4 border border-1 ">
+          <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Mã hóa đơn</th>
+                <th scope="col">Ngày đến hạn</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Người tạo</th>
+                <th scope="col">Số tiền</th>
+                <th scope="col">Điều chỉnh</th>
+                <th scope="col">Tổng tiền</th>
+                <th scope="col">Mã thanh toán</th>
+                <th scope="col">Thời gian thanh toán</th>
+                <th scope="col">Phương thức thanh toán</th>
+                <th scope="col">Loại hóa đơn</th>
+                <th scope="col">Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">01</th>
+                <td>158</td>
+                <td>15/05/2026</td>
+                <td>15/03/2026</td>
+                <td>
+                  <span class="badge bg-danger">Quá hạn</span>
+                </td>
+                <td>Nguyễn Văn A</td>
+                <td>1.250.000đ</td>
+                <td>0đ</td>
+                <td>1.250.000đ</td>
+                <td>15428</td>
+                <td>15/05/2026 - 8:15:20</td>
+                <td>Chuyển khoản</td>
+                <td>Đóng học</td>
+                <td >
+                  <div class="h-100 d-flex justify-content-around align-items-center">
+                  <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-pencil-fill text-primary cursor-pointer"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                      />
+                    </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-trash-fill text-danger cursor-pointer"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                      />
+                    </svg></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <nav>
+            <ul class="pagination gap-1 mt-5 justify-content-center">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-left"
+                    viewBox="0 0 16 16"
+                    style="margin-left: -4px; margin-right: -4px"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link active" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-right"
+                    viewBox="0 0 16 16"
+                    style="margin-left: -4px; margin-right: -4px"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!-- Footer -->
+      <footer>
+        <div
+          class="small px-3 pt-3 pb-2 container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center gap-4 text-center text-md-start"
+        >
+          <div>
+            <h4 class="h5 fw-bold m-0" style="color: var(--primary-container)">
+              StudyHub
+            </h4>
+            <p class="small text-secondary m-0">
+              © 2026 StudyHub Educational Center. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const backdrop = document.getElementById("sidebarBackdrop");
+        sidebar.classList.toggle("show");
+        backdrop.classList.toggle("show");
+      }
+
+      // Close sidebar when clicking backdrop
+      document
+        .getElementById("sidebarBackdrop")
+        .addEventListener("click", toggleSidebar);
+    </script>
+  </body>
+</html>
