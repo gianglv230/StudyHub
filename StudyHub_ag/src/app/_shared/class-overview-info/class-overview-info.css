@@ -1,0 +1,4 @@
+.teacher-link:hover span,
+.teacher-link:hover svg {
+  color: red !important;
+}

@@ -1,0 +1,24 @@
+.subject-tab {
+  flex-shrink: 0;
+}
+
+.subject-tab p {
+  color: var(--on-secondary-container);
+  /* border-bottom: 2px solid var(--on-secondary-container); */
+  padding-bottom: 5.5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
+.subject-tab p:hover {
+  cursor: pointer;
+  border-bottom: 2px solid var(--on-secondary-container);
+}
+
+.subject-tab p.selected {
+  color: var(--primary-container);
+  border-bottom: 3px solid var(--primary-container);
+  padding-bottom: 5px;
+}

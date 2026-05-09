@@ -1,0 +1,38 @@
+.courses-section {
+  height: 100vh;
+}
+
+.category-card {
+  background-color: var(--secondary-container);
+  /* border: 1px solid var(--primary-container); */
+  padding: 13px 15px;
+  border-radius: 10px;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+  /* overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; */
+}
+.category-card:hover {
+  background-color: var(--primary-container);
+  color: white !important;
+}
+
+.category-list {
+  position: sticky;
+  top: 20px;
+}
+
+.category-list .scroll-box {
+  max-height: calc(100vh - 80px); /* trừ header */
+  overflow-y: auto;
+  padding-right: 3px;
+}
+
+.icon-rocket {
+  width: 25px;
+  height: 25px;
+}

@@ -1,0 +1,57 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top py-2">
+  <div class="container max-w-container">
+    <!-- LOGO -->
+    <a class="navbar-brand navbar-brand-custom m-0" href="#">
+      <img src="assets/images/logo-Photoroom.png" width="40" height="40" />
+      <span>StudyHub</span>
+    </a>
+
+    <!-- RIGHT GROUP (quan trọng) -->
+    <div class="d-flex align-items-center gap-2 order-lg-last">
+      <!-- USER DROPDOWN -->
+      <div
+        class="dropdown d-flex align-items-center border-start ps-2 ps-sm-3 ms-1"
+      >
+        <button
+          class="btn dropdown-toggle d-flex align-items-center gap-2"
+          data-bs-toggle="dropdown"
+        >
+          <img
+            class="rounded-circle"
+            height="32"
+            src="assets/images/student.png"
+            width="32"
+          />
+          <span class="fw-bold d-none d-sm-inline small"> Nguyễn Văn A </span>
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+          <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+        </ul>
+      </div>
+
+      <!-- TOGGLE -->
+      <button
+        class="navbar-toggler border-0 p-1 ms-2"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <span class="material-symbols-outlined fs-2">menu</span>
+      </button>
+    </div>
+
+    <!-- MENU -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="ms-0 ms-lg-3 navbar-nav me-auto mb-3 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom active" href="#">Học tập</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom" href="#">Thanh toán học phí</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

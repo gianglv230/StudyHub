@@ -1,0 +1,18 @@
+.target-grade-card {
+  padding: 8px 18px;
+  width: fit-content;
+  background-color: var(--surface-color);
+  border: 1px solid var(--primary-container);
+  border-radius: 8px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.target-grade-card.selected,
+.target-grade-card:hover {
+  background-color: var(--primary-container);
+  color: white !important;
+  cursor: pointer;
+}
+
+

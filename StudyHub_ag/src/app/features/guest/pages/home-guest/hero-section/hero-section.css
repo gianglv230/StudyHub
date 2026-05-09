@@ -1,0 +1,88 @@
+/* 
+        ========================================
+        HERO SECTION 
+        ========================================
+        */
+.hero-section {
+  background-color: var(--surface-color);
+  padding: 40px 0 80px 0;
+}
+
+@media (min-width: 992px) {
+  .hero-section {
+    padding: 80px 0 120px 0;
+  }
+}
+
+.badge-education {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.hero-text {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+}
+
+.hero-image-container {
+  position: relative;
+}
+
+.hero-img {
+  border-radius: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+  position: relative;
+  width: 100%;
+}
+
+.hero-shape-bg {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: 15px;
+  bottom: 15px;
+  background: rgba(5, 64, 110, 0.05);
+  border-radius: 2.5rem;
+  transform: rotate(3deg);
+  z-index: 1;
+}
+
+.rating-card {
+  position: absolute;
+  bottom: -15px;
+  left: -15px;
+  background: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .rating-card {
+    bottom: -24px;
+    left: -24px;
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+}

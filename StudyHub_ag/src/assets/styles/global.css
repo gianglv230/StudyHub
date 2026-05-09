@@ -1,0 +1,27 @@
+:root {
+  --primary-color: #002a4b;
+  --primary-container: #05406e;
+  --primary-container-light: #0866af;
+  --secondary-container: #cbe3f6;
+  --on-secondary-container: #4f6576;
+  --background-color: #f3f6f5;
+  --surface-color: #ffffff;
+  --text-main: #1a1c1f;
+  --text-muted: #42474f;
+  --tertiary-fixed: #ffdcc4;
+  --on-tertiary-fixed: #2f1400;
+  --on-tertiary-container: #e29961;
+  --border-color: #e2e2e7;
+  --border-color-lite: #f8fafc;
+  --border-color-light: #f3f3f8;
+  --border-radius-lg: 1.5rem;
+  --border-radius-xl: 2rem;
+  --font-main: "Roboto", sans-serif;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--background-color);
+  color: var(--text-main);
+  overflow-x: hidden;
+}

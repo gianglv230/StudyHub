@@ -1,0 +1,29 @@
+/* Container scroll */
+.teachers-scroll {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  /* Firefox */
+  /* scrollbar-width: thin; */
+  scrollbar-color: rgba(0, 0, 0, 0.11) transparent;
+}
+
+/* Chrome, Edge, Safari */
+.teachers-scroll::-webkit-scrollbar {
+  height: 14px;
+}
+
+.teachers-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.teachers-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.11); /* mờ */
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+/* Hover thì rõ hơn một chút */
+.teachers-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
