@@ -1,0 +1,227 @@
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.btn-primary-custom {
+  background-color: var(--primary-container);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+}
+
+.btn-primary-custom:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(0.98);
+}
+
+.btn-tertiary {
+  background-color: var(--on-tertiary-container);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+}
+
+.btn-tertiary:hover {
+  background-color: var(--on-tertiary-container);
+  color: white;
+  transform: scale(0.98);
+}
+
+.btn-outline-primary-custom:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(0.98);
+}
+
+.btn-outline-primary-custom {
+  color: var(--primary-container);
+  border: 1px solid var(--primary-container);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+}
+
+.btn-dashed-muted{
+  background-color: var(--border-color-light);
+  border: 1px dashed var(--primary-color);
+}
+
+.btn-dashed-muted:hover{
+  background-color: var(--primary-container);
+  color: white !important;
+  border: 1px solid var(--primary-color);
+}
+
+.material-symbols-outlined {
+  vertical-align: middle;
+}
+
+/* Text and Bg*/
+.text-justify {
+  text-align: justify;
+}
+
+.text-primary-container {
+  color: var(--primary-container);
+}
+
+.text-primary-light {
+  color: var(--primary-container-light);
+}
+
+.text-tertiary {
+  color: var(--on-tertiary-container);
+}
+
+.bg-secondary-container {
+  background-color: var(--secondary-container);
+}
+
+.bg-primary-container {
+  background-color: var(--primary-container);
+}
+
+.bg-border-color-light {
+  background-color: var(--border-color-light);
+}
+
+.bg-border-color-lite {
+  background-color: var(--border-color-lite);
+  color: var(--primary-color);
+}
+
+/* .border-primary-container{
+  border: 1px solid var(--primary-container)
+}
+
+.border-primary-container:hover{
+  border: 1px solid var(--primary-container)
+} */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  height: 6px;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.11); /* mờ */
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+/* Hover thì rõ hơn một chút */
+::-webkit-scrollbar-thumb:hover {
+  /* background: rgba(0, 0, 0, 0.4); */
+  background: var(--primary-container);
+}
+
+/* Page */
+.page-link {
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  color: var(--primary-color);
+}
+
+.page-link:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.page-link.active {
+  background-color: var(--primary-color);
+}
+
+/*Table*/
+.table-custom {
+  border-color: var(--primary-color);
+}
+
+.table-custom th,
+.table-custom td {
+  border: 1px solid var(--primary-color);
+}
+
+.table-custom th {
+  background-color: var(--secondary-container);
+  /* color: white; */
+}
+
+.table-custom .col-stt {
+  width: 60px;
+  text-align: center;
+}
+
+.table-custom tbody tr:hover {
+  background-color: #f5f7fa;
+  /* cursor: pointer; */
+}
+
+.table-custom tbody tr.active {
+  background-color: #e3f2fd;
+  font-weight: 500;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* fs */
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.fs-16 {
+  font-size: 16px !important;
+}
+
+.fs-17 {
+  font-size: 17px;
+}
+
+/* ls */
+.ls-1 {
+  letter-spacing: 0.5px;
+}
+
+/* Form */
+.form-input {
+  border: 1px solid gray;
+  padding: 12px 12px;
+  margin-bottom: 8px;
+}
+
+.form-input:focus {
+  border: 1px solid var(--primary-color);
+}
+
+a {
+  text-decoration: none;
+}

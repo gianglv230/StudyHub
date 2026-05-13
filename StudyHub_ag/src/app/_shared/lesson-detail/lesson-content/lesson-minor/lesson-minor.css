@@ -1,0 +1,20 @@
+.nav-link {
+  color: var(--primary-container);
+}
+
+.nav-link.active {
+  background-color: var(--primary-container);
+  color: white;
+}
+
+#material p {
+  margin-bottom: 0px;
+}
+
+#material .col-6:hover div {
+  border: 2px dashed var(--primary-container) !important;
+}
+
+#description p {
+  margin-bottom: 5px;
+}

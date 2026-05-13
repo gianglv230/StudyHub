@@ -1,0 +1,13 @@
+.breadcrumb .breadcrumb-item:not(.active) a {
+  color: var(--primary-container);
+  font-weight: 500;
+}
+
+.btn-upload {
+  border: 2px dashed var(--primary-container-light);
+}
+
+.btn-upload:hover {
+  background-color: var(--border-color-light);
+  border: 2px dashed var(--primary-container-light);
+}

@@ -1,0 +1,10 @@
+.back-arrow {
+  transition: transform 0.2s;
+}
+.back-btn:hover .back-arrow {
+  transform: translateX(-5px);
+}
+
+body {
+  overflow: hidden;
+}

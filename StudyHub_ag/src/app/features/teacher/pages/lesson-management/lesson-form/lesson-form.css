@@ -1,0 +1,31 @@
+.back-arrow {
+  transition: transform 0.2s;
+}
+.back-btn:hover .back-arrow {
+  transform: translateX(-5px);
+}
+
+.section-header .bi:hover {
+  color: var(--primary-color);
+  opacity: 1 !important;
+  border: 1px solid var(--primary-color);
+  border-radius: 3px;
+  background-color: var(--tertiary-fixed);
+}
+
+.section-list {
+  margin-bottom: 120px;
+}
+
+.section-list .order-index {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-body .frame-upload-video {
+  border: 1px dashed var(--border-color);
+  background-color: var(--border-color-lite);
+}

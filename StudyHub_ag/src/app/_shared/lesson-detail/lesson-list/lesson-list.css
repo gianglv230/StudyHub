@@ -1,0 +1,33 @@
+.lesson-menu {
+  height: calc(100vh - 80px);
+  overflow-y: scroll;
+}
+
+.lesson-menu .accordion-button {
+  color: var(--primary-container);
+  font-weight: 500;
+}
+
+.lesson-menu .accordion-button:not(.collapsed) {
+  background-color: var(--primary-container);
+  color: white;
+}
+
+.lesson-menu .content-item {
+  padding: 12px 10px 12px 18px;
+  border-bottom: 1px solid gray;
+  color: var(--primary-container);
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.lesson-menu .content-item:hover {
+  background-color: var(--border-color-lite);
+  cursor: pointer;
+}
+
+.lesson-menu svg {
+  flex-shrink: 0;
+}

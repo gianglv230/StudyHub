@@ -1,0 +1,15 @@
+.action-more-folder {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.action-more-folder:hover {
+  display: block;
+  background: var(--border-color-light);
+}

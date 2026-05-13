@@ -1,0 +1,38 @@
+.attendance-header {
+  border-top: 1px solid var(--border-color);
+}
+.attendance-row {
+  border-bottom: 1px solid var(--border-color);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.attendance-teacher .attendance-row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  padding-top: 18px !important;
+  padding-bottom: 18px !important;
+}
+
+.attendance-teacher .attendance-header {
+  background-color: var(--border-color-light) !important;
+}
+
+.attendance-teacher .attendance-row:nth-child(odd) {
+  background-color: var(--border-color-lite);
+}
+
+.attendance-teacher .attendance-row textarea {
+  border: none;
+  background-color: var(--border-color-light);
+}
+
+.attendance-teacher .attendance-row input[type="checkbox"] {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.attendance-teacher .attendance-row input[type="checkbox"]:checked {
+  background-color: var(--primary-container);
+  border: 1px solid var(--primary-container);
+}

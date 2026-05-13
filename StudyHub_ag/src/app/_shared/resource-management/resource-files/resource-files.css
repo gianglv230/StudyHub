@@ -1,0 +1,14 @@
+.resource-image {
+  height: 150px;
+  object-fit: cover;
+}
+
+.resource-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resource-image-modal {
+  height: 280px;
+  object-fit: cover;
+}

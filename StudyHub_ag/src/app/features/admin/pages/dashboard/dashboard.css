@@ -1,0 +1,9 @@
+.stat-icon {
+  background-color: var(--background-color);
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}

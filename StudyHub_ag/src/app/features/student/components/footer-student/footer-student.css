@@ -1,0 +1,11 @@
+footer {
+  background-color: var(--bg-color);
+  border-top: 1px solid #e2e2e7;
+  padding: 3rem 0 2rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.smaller {
+  font-size: 0.75rem;
+}

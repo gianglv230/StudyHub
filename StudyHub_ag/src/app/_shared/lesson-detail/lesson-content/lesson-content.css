@@ -1,0 +1,16 @@
+.lesson-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.lesson-content {
+  height: calc(100vh - 135px);
+  overflow-y: scroll;
+
+  /* Chrome, Edge, Safari */
+  scrollbar-width: none; /* Firefox */
+}
+
+.lesson-content::-webkit-scrollbar {
+  display: none;
+}

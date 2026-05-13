@@ -1,0 +1,10 @@
+.back-arrow {
+  transition: transform 0.2s;
+}
+.back-btn:hover .back-arrow {
+  transform: translateX(-5px);
+}
+.lesson-card:hover .bg-border-color-lite {
+  background-color: var(--primary-container);
+  color: white;
+}

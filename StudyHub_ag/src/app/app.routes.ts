@@ -14,6 +14,18 @@ export const routes: Routes = [
                 .then(m => m.STUDENT_ROUTES)
     },
     {
+        path: 'giao-vien',
+        loadChildren: () =>
+            import('./features/teacher/teacher.routes')
+                .then(m => m.TEACHER_ROUTES)
+    },
+    {
+        path: 'admin',
+        loadChildren: () =>
+            import('./features/admin/admin.routes')
+                .then(m => m.ADMIN_ROUTES)
+    },
+    {
         path: "**",
         redirectTo: "trang-chu"
     }

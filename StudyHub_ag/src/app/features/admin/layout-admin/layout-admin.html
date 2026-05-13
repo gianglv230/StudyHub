@@ -1,0 +1,38 @@
+<app-admin-sidebar />
+<!-- Main Content -->
+<div id="main-content">
+  <header
+    class="py-1 d-flex align-items-center justify-content-lg-end justify-content-between"
+  >
+    <button
+      class="btn btn-link text-dark d-lg-none p-0 me-2"
+      onclick="toggleSidebar()"
+    >
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+    <div
+      class="dropdown d-flex align-items-center border-start ps-2 ps-sm-3 ms-1"
+    >
+      <button
+        class="btn dropdown-toggle d-flex align-items-center gap-2"
+        data-bs-toggle="dropdown"
+      >
+        <img
+          class="rounded-circle"
+          height="32"
+          src="assets/images/student.png"
+          width="32"
+        />
+        <span class="fw-bold d-none d-sm-inline small"> Nguyễn Văn A </span>
+      </button>
+
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+        <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="container-fluid p-3 p-md-4 p-lg-4">
+    <router-outlet/>
+  </div>
+</div>
