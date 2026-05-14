@@ -1,4 +1,4 @@
-package com.studyhub.studyhub_api.service;
+package com.studyhub.studyhub_api.service.auth;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jwt.SignedJWT;

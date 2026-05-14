@@ -2,6 +2,7 @@ package com.studyhub.studyhub_api.mapper;
 
 import com.studyhub.studyhub_api.dto.response.classes.ClassDetailLiteResponse;
 import com.studyhub.studyhub_api.dto.response.classes.ClassLiteResponse;
+import com.studyhub.studyhub_api.dto.response.classes.ClassProgressResponse;
 import com.studyhub.studyhub_api.model.Class;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -32,4 +33,18 @@ public interface ClassMapper {
             @Mapping(target = "description", source = "course.description")
     })
     ClassDetailLiteResponse toClassDetailLiteResponse(Class clazz);
+
+    @Mappings({
+            @Mapping(target = "classId", source = "clazz.id"),
+            @Mapping(target = "teacherId", source = "clazz.teacher.id"),
+            @Mapping(target = "teacherName", source = "clazz.teacher.fullname"),
+            @Mapping(target = "subject", source = "clazz.course.subject"),
+            @Mapping(target = "targetGrade", source = "clazz.course.targetGrade"),
+            @Mapping(target = "categoryName", source = "clazz.course.categoryName"),
+            @Mapping(target = "numberOfLessons", source = "clazz.course.numberOfLessons"),
+            @Mapping(target = "thumbnail", source = "clazz.thumbnailOverride.url"),
+            @Mapping(target = "numberOfStudent", source = "clazz.numberOfStudent"),
+            @Mapping(target = "progressOfClass", source = "progressOfClass")
+    })
+    ClassProgressResponse toClassProgressResponse(Class clazz, int progressOfClass);
 }

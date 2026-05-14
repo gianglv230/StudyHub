@@ -1,5 +1,6 @@
 package com.studyhub.studyhub_api.repository;
 
+import com.studyhub.studyhub_api.dto.response.classes.ClassLessonCountProjection;
 import com.studyhub.studyhub_api.model.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -57,14 +58,35 @@ public interface ClassRepository extends JpaRepository<Class, Integer> {
             """)
     Page<Class> getAllClassesOfTeacher(@Param("teacherId") int teacherId, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"course.videoDemo"})
+    // JOIN class.teacher teacher
+    // LEFT JOIN c.videoDemo videoDemo
+    @EntityGraph(attributePaths = {"course.videoDemo", "teacher"})
     @Query("""
         SELECT class FROM Class class
         JOIN class.course c
-        JOIN class.teacher teacher
-        LEFT JOIN c.videoDemo videoDemo
         WHERE c.status = 'ACTIVE'
         AND class.slug = :slug
     """)
     Optional<Class> getClassDetailBySlug(@Param("slug") String slug);
+
+    @EntityGraph(attributePaths = {"course", "teacher", "thumbnailOverride"})
+    @Query("""
+        SELECT class FROM Class class
+        JOIN class.course course
+        JOIN class.enrollments enrollment
+        WHERE enrollment.status != 'CANCELED'
+        AND enrollment.student.id = :studentId
+        AND class.status != 'CANCELED'
+    """)
+    List<Class> getMyStudentClasses(@Param("studentId") int studentId);
+
+    @Query("""
+        SELECT class.id as classId, COUNT(1)as lessonCount 
+        FROM ClassLesson cl
+        JOIN cl.classLessonConfigs clf
+        JOIN clf.classField class
+        WHERE class.id IN :classIds
+        GROUP BY class.id
+    """)
+    List<ClassLessonCountProjection> countLessonByClass(@Param("classIds") List<Integer> classIds);
 }

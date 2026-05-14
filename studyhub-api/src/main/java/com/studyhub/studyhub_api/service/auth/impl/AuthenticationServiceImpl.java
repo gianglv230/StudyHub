@@ -1,4 +1,4 @@
-package com.studyhub.studyhub_api.service.impl;
+package com.studyhub.studyhub_api.service.auth.impl;
 
 import com.nimbusds.jose.JOSEException;
 import com.studyhub.studyhub_api.dto.request.auth.IntrospectRequest;
@@ -8,13 +8,15 @@ import com.studyhub.studyhub_api.dto.response.auth.IntrospectResponse;
 import com.studyhub.studyhub_api.dto.response.auth.RefreshAccessTokenResponse;
 import com.studyhub.studyhub_api.exception.AppException;
 import com.studyhub.studyhub_api.exception.ErrorCode;
+import com.studyhub.studyhub_api.model.UserAccount;
 import com.studyhub.studyhub_api.repository.UserAccountRepository;
-import com.studyhub.studyhub_api.service.AuthenticationService;
-import com.studyhub.studyhub_api.service.JwtService;
+import com.studyhub.studyhub_api.service.auth.AuthenticationService;
+import com.studyhub.studyhub_api.service.auth.JwtService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -111,5 +113,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 () -> new AppException(ErrorCode.USER_NOT_EXISTED)
         );
         return user.getRole();
+    }
+
+    @Override
+    public UserAccount getUserAccountByJwtToken() {
+        var context = SecurityContextHolder.getContext();
+        String name = context.getAuthentication().getName();
+
+        //Lấy được account
+        UserAccount account = userAccountRepository.findByUsername(name)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        return account;
     }
 }

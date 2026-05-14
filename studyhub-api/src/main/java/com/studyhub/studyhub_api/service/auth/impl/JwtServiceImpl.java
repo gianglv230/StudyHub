@@ -1,4 +1,4 @@
-package com.studyhub.studyhub_api.service.impl;
+package com.studyhub.studyhub_api.service.auth.impl;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
@@ -8,7 +8,7 @@ import com.nimbusds.jwt.SignedJWT;
 import com.studyhub.studyhub_api.exception.AppException;
 import com.studyhub.studyhub_api.exception.ErrorCode;
 import com.studyhub.studyhub_api.model.UserAccount;
-import com.studyhub.studyhub_api.service.JwtService;
+import com.studyhub.studyhub_api.service.auth.JwtService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

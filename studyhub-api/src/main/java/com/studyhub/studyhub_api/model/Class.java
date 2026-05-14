@@ -113,4 +113,8 @@ public class Class extends FullAudit {
     @OneToMany(mappedBy = "classField")
     Set<Enrollment> enrollments = new LinkedHashSet<>();
 
+    public int getNumberOfStudent(){
+        return this.maxStudents - this.availableSlots;
+    }
+
 }

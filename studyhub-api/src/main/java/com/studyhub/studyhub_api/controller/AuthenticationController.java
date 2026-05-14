@@ -3,7 +3,7 @@ package com.studyhub.studyhub_api.controller;
 import com.studyhub.studyhub_api.dto.request.auth.UserAccountRequest;
 import com.studyhub.studyhub_api.dto.response.ApiResponse;
 import com.studyhub.studyhub_api.dto.response.auth.AuthenticationResponse;
-import com.studyhub.studyhub_api.service.AuthenticationService;
+import com.studyhub.studyhub_api.service.auth.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

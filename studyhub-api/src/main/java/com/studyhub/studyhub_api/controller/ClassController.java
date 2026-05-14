@@ -4,6 +4,7 @@ import com.studyhub.studyhub_api.dto.response.ApiResponse;
 import com.studyhub.studyhub_api.dto.response.PageResponse;
 import com.studyhub.studyhub_api.dto.response.classes.ClassDetailLiteResponse;
 import com.studyhub.studyhub_api.dto.response.classes.ClassLiteResponse;
+import com.studyhub.studyhub_api.dto.response.classes.ClassProgressResponse;
 import com.studyhub.studyhub_api.service.classes.ClassService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -42,6 +43,14 @@ public class ClassController {
     public ApiResponse<ClassDetailLiteResponse> getClassDetailLite(@PathVariable String classSlug){
         return ApiResponse.<ClassDetailLiteResponse>builder()
                 .data(classService.getClassDetailLite(classSlug))
+                .build();
+    }
+
+    @Operation(summary = "Get classes of student", description = "API get classes of student")
+    @GetMapping("/student/list")
+    public ApiResponse<List<ClassProgressResponse>> getMyStudentClass(){
+        return ApiResponse.<List<ClassProgressResponse>>builder()
+                .data(classService.getMyStudentClass())
                 .build();
     }
 }

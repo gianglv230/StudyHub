@@ -1,6 +1,6 @@
 //package com.studyhub.studyhub_api.config.security;
 //
-//import com.studyhub.studyhub_api.service.AuthenticationService;
+//import com.studyhub.studyhub_api.service.auth.AuthenticationService;
 //import lombok.RequiredArgsConstructor;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.authentication.AuthenticationProvider;

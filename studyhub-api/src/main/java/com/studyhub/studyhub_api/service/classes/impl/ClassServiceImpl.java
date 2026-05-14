@@ -3,12 +3,16 @@ package com.studyhub.studyhub_api.service.classes.impl;
 import com.studyhub.studyhub_api.dto.response.PageResponse;
 import com.studyhub.studyhub_api.dto.response.classes.ClassDetailLiteResponse;
 import com.studyhub.studyhub_api.dto.response.classes.ClassLiteResponse;
+import com.studyhub.studyhub_api.dto.response.classes.ClassProgressResponse;
 import com.studyhub.studyhub_api.exception.AppException;
 import com.studyhub.studyhub_api.exception.ErrorCode;
 import com.studyhub.studyhub_api.model.Class;
 import com.studyhub.studyhub_api.mapper.ClassMapper;
+import com.studyhub.studyhub_api.model.UserAccount;
 import com.studyhub.studyhub_api.repository.ClassRepository;
+import com.studyhub.studyhub_api.service.auth.AuthenticationService;
 import com.studyhub.studyhub_api.service.classes.ClassService;
+import com.studyhub.studyhub_api.dto.response.classes.ClassLessonCountProjection;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,9 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +34,7 @@ import java.util.List;
 public class ClassServiceImpl implements ClassService {
     ClassRepository classRepository;
     ClassMapper classMapper;
+    AuthenticationService authService;
     private static final int MAX_ITEM = 20;
 
     // Get class by filter
@@ -70,10 +78,39 @@ public class ClassServiceImpl implements ClassService {
                 .build();
     }
 
+    // Get class detail
     @Override
     public ClassDetailLiteResponse getClassDetailLite(String slug) {
         var classDetail = classRepository.getClassDetailBySlug(slug).orElseThrow(
                 () -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
         return classMapper.toClassDetailLiteResponse(classDetail);
+    }
+
+    // Get class of student
+    @PreAuthorize("hasRole('STUDENT')")
+    @Override
+    public List<ClassProgressResponse> getMyStudentClass() {
+        try {
+            UserAccount userAccount = authService.getUserAccountByJwtToken();
+            List<Class> classes = classRepository.getMyStudentClasses(userAccount.getId());
+            List<Integer> classIds = classes.stream().map(Class::getId).toList();
+            Map<Integer, Integer> progressMap = countLessonOfClass(classIds);
+            return classes.stream()
+                    .map(clazz -> classMapper.toClassProgressResponse(clazz, progressMap.get(clazz.getId())))
+                    .toList();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // Count lesson Of classes
+    private Map<Integer, Integer> countLessonOfClass(List<Integer> classIds) {
+        return classRepository.countLessonByClass(classIds)
+                .stream()
+                .collect(Collectors.toMap(
+                        ClassLessonCountProjection::getClassId,
+                        p -> p.getLessonCount().intValue()
+                ));
     }
 }
