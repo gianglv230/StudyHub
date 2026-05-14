@@ -1,0 +1,32 @@
+server:
+  servlet:
+    context-path: /api/v1
+
+spring:
+  application:
+    name: studyhub-api
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DBMS_CONNECTION:jdbc:mysql://localhost:3306/study_hub}
+    username: ${DBMS_USERNAME:root}
+    password: ${DBMS_PASSWORD:abc123!}
+
+  jpa:
+    generate-ddl: true
+
+  task:
+    scheduling:
+      enabled: true
+
+jwt:
+  signer-key: ${SIGNER_KEY:pPj043gpT9GBlty/YK2W/DsMS0yivBosos6VzXtelJUjkN97X0yQGZnF7sToVIlH}
+  valid-duration: 7200 #in seconds
+  refreshable-duration: 72000 #in seconds
+
+open:
+  api:
+    title: studyhub-api document
+    version: v0.0.1
+    serverUrl: http://localhost:8080/api/v1
+    serverName: Server Dev

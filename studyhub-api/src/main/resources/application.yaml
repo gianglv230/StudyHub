@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: studyhub-api
+
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+
+  profiles:
+    active: dev
+
+#logging:
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36}.%M:%L - %msg%n"
+
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        oauth2:
+          server:
+            resource: DEBUG
+          jwt: DEBUG
+
+security:
+  basic:
+    enabled: false
