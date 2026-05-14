@@ -43,7 +43,9 @@ public class SecurityConfig {
 //    @Value("${jwt.signerKey}")
 //    private String signerKey;
 
-    private static final String[] GET_API_PUBLIC = {"/teacher/list", "/course/type/{type}", "/course/find"};
+    private static final String[] GET_API_PUBLIC = {"/teacher/list",
+            "/course/type/{type}", "/course/find", "/course/filter-option", "/course/filter", "/course/detail/**",
+            "/class/filter", "/class/class-of-course/**", "/class/class-of-teacher/**", "/class/detail/**"};
 
     // Custom JWT decoder used to parse and validate incoming JWT tokens
     private final CustomJwtDecoder jwtDecoder;

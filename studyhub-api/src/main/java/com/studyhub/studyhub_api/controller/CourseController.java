@@ -2,6 +2,8 @@ package com.studyhub.studyhub_api.controller;
 
 import com.studyhub.studyhub_api.dto.response.ApiResponse;
 import com.studyhub.studyhub_api.dto.response.PageResponse;
+import com.studyhub.studyhub_api.dto.response.course.CourseFilterOptionsResponse;
+import com.studyhub.studyhub_api.dto.response.course.CourseDetailLiteResponse;
 import com.studyhub.studyhub_api.dto.response.course.CourseLiteProjection;
 import com.studyhub.studyhub_api.dto.response.course.CourseLiteResponse;
 import com.studyhub.studyhub_api.service.course.CourseService;
@@ -33,6 +35,35 @@ public class CourseController {
     ){
         return ApiResponse.<PageResponse<CourseLiteResponse>>builder()
                 .data(courseService.findCourseByTitle(page, title))
+                .build();
+    }
+
+    @Operation(summary = "Get course filter option for guest", description = "API get course filter option for guest")
+    @GetMapping("/filter-option")
+    public ApiResponse<CourseFilterOptionsResponse> getCourseFilterOptions(){
+        return ApiResponse.<CourseFilterOptionsResponse>builder()
+                .data(courseService.getCourseFilterOptions())
+                .build();
+    }
+
+    @Operation(summary = "Get course by filter option for guest", description = "API get course by filter option for guest")
+    @GetMapping("/filter")
+    public ApiResponse<PageResponse<CourseLiteResponse>> getCourseFilter(
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "subject", required = false) String subject,
+            @RequestParam(value = "target", required = false) String targetGrade,
+            @RequestParam(value = "category", required = false) String  categoryName
+    ){
+        return ApiResponse.<PageResponse<CourseLiteResponse>>builder()
+                .data(courseService.getCourseFilter(page, subject, targetGrade, categoryName))
+                .build();
+    }
+
+    @Operation(summary = "Get detail course for guest", description = "API get detail course for guest")
+    @GetMapping("/detail/{courseSlug}")
+    public ApiResponse<CourseDetailLiteResponse> getCourseDetailLite(@PathVariable String courseSlug){
+        return ApiResponse.<CourseDetailLiteResponse>builder()
+                .data(courseService.getCourseDetailLite(courseSlug))
                 .build();
     }
 }

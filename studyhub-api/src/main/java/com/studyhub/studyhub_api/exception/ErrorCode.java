@@ -17,6 +17,8 @@ public enum ErrorCode {
     ACCOUNT_LOCKED(1019, "Tài khoản đã bị khóa.", HttpStatus.FORBIDDEN),
 
     INVALID_COURSE_TYPE(1030, "Invalid course type", HttpStatus.BAD_REQUEST),
+    COURSE_NOT_EXISTED(1031, "Course not existed", HttpStatus.NOT_FOUND),
+    CLASS_NOT_EXISTED(1032, "Class not existed", HttpStatus.NOT_FOUND),
     ;
 
     private int code;
