@@ -19,6 +19,7 @@ public enum ErrorCode {
     INVALID_COURSE_TYPE(1030, "Invalid course type", HttpStatus.BAD_REQUEST),
     COURSE_NOT_EXISTED(1031, "Course not existed", HttpStatus.NOT_FOUND),
     CLASS_NOT_EXISTED(1032, "Class not existed", HttpStatus.NOT_FOUND),
+    CLASS_LESSON_NOT_EXISTED(1033, "Class lesson not existed", HttpStatus.NOT_FOUND),
     ;
 
     private int code;

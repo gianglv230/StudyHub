@@ -13,6 +13,7 @@ import java.util.Set;
 @Mapper(componentModel = "spring")
 public interface ClassLessonMapper {
     @Mappings({
+            @Mapping(target = "classLessonId", source = "classLesson.id"),
             @Mapping(target = "slug", source = "classLesson.slug"),
             @Mapping(target = "lessonTitle", source = "classLesson.titleOverride"),
             @Mapping(target = "orderIndex", source = "orderIndex"),

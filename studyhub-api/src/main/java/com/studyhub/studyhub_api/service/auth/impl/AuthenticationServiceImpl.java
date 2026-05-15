@@ -6,9 +6,14 @@ import com.studyhub.studyhub_api.dto.request.auth.UserAccountRequest;
 import com.studyhub.studyhub_api.dto.response.auth.AuthenticationResponse;
 import com.studyhub.studyhub_api.dto.response.auth.IntrospectResponse;
 import com.studyhub.studyhub_api.dto.response.auth.RefreshAccessTokenResponse;
+import com.studyhub.studyhub_api.enums.Role;
+import com.studyhub.studyhub_api.enums.StatusEnrollment;
 import com.studyhub.studyhub_api.exception.AppException;
 import com.studyhub.studyhub_api.exception.ErrorCode;
+import com.studyhub.studyhub_api.model.Class;
 import com.studyhub.studyhub_api.model.UserAccount;
+import com.studyhub.studyhub_api.repository.ClassRepository;
+import com.studyhub.studyhub_api.repository.EnrollmentRepository;
 import com.studyhub.studyhub_api.repository.UserAccountRepository;
 import com.studyhub.studyhub_api.service.auth.AuthenticationService;
 import com.studyhub.studyhub_api.service.auth.JwtService;
@@ -22,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -29,6 +35,9 @@ import java.text.ParseException;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationServiceImpl implements AuthenticationService {
     UserAccountRepository userAccountRepository;
+    EnrollmentRepository enrollmentRepository;
+    ClassRepository classRepository;
+
     JwtService jwtService;
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -125,5 +134,46 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         return account;
+    }
+
+    private void checkStudentViewClassPermissions(UserAccount account, String classSlug) {
+        // Does this student have this class?
+        if (account.getRole().equalsIgnoreCase(Role.STUDENT.name())) {
+            enrollmentRepository.findByStudentIdAndClassFieldSlugAndStatusEqualsIgnoreCase(account.getId(), classSlug, StatusEnrollment.ACTIVE.name())
+                    .orElseThrow(() -> new AppException(ErrorCode.UNAUTHORIZED));
+        }
+    }
+
+    private void checkTeacherViewClassPermissions(UserAccount account, Class clazz) {
+        // Does this teacher have this class?
+        if (account.getRole().equalsIgnoreCase(Role.TEACHER.name())) {
+            if (!Objects.equals(clazz.getTeacher().getId(), account.getId())) {
+                throw new AppException(ErrorCode.UNAUTHORIZED);
+            }
+        }
+    }
+
+    // Check student and teacher permission to view class
+    @Override
+    public Class checkViewClassPermissions(String classSlug) {
+        UserAccount account = getUserAccountByJwtToken();
+        checkStudentViewClassPermissions(account, classSlug);
+
+        Class clazz = classRepository.findClassBySlug(classSlug).orElseThrow(
+                () -> new AppException(ErrorCode.CLASS_NOT_EXISTED)
+        );
+
+        checkTeacherViewClassPermissions(account, clazz);
+        return clazz;
+    }
+
+    @Override
+    public Class checkViewClassPermissions(String classSlug, String classLessonSlug) {
+        Class clazz = checkViewClassPermissions(classSlug);
+        clazz.getClassLessonConfigs().stream()
+                .filter(classLessonConfig -> classLessonConfig.getClassLesson().getSlug().equalsIgnoreCase(classLessonSlug.trim()))
+                .findFirst()
+                .orElseThrow(() -> new AppException(ErrorCode.UNAUTHORIZED));
+        return clazz;
     }
 }

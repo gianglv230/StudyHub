@@ -10,7 +10,9 @@ import com.studyhub.studyhub_api.model.Class;
 import com.studyhub.studyhub_api.mapper.ClassMapper;
 import com.studyhub.studyhub_api.model.UserAccount;
 import com.studyhub.studyhub_api.repository.ClassRepository;
+import com.studyhub.studyhub_api.repository.ContentRepository;
 import com.studyhub.studyhub_api.repository.EnrollmentRepository;
+import com.studyhub.studyhub_api.repository.SectionRepository;
 import com.studyhub.studyhub_api.service.auth.AuthenticationService;
 import com.studyhub.studyhub_api.service.classes.ClassService;
 import lombok.AccessLevel;
@@ -23,6 +25,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -36,6 +39,8 @@ public class ClassServiceImpl implements ClassService {
     AuthenticationService authService;
     ClassRepository classRepository;
     EnrollmentRepository enrollmentRepository;
+    ContentRepository contentRepository;
+    SectionRepository sectionRepository;
     ClassMapper classMapper;
     private static final int MAX_ITEM = 20;
 
@@ -101,6 +106,51 @@ public class ClassServiceImpl implements ClassService {
                 .toList();
     }
 
+    // Get class lesson detail
+    @Override
+    public ClassLessonResponse getClassLesson(String slug) {
+//        UserAccount account = authService.getUserAccountByJwtToken();
+
+        // Does this student have this class?
+//        if (account.getRole().equalsIgnoreCase(Role.STUDENT.name())) {
+//            enrollmentRepository.findByStudentIdAndClassFieldSlugAndStatusEqualsIgnoreCase(account.getId(), slug, StatusEnrollment.ACTIVE.name())
+//                    .orElseThrow(() -> new AppException(ErrorCode.UNAUTHORIZED));
+//        }
+//
+//        Class clazz = classRepository.findClassBySlug(slug).orElseThrow(
+//                () -> new AppException(ErrorCode.CLASS_NOT_EXISTED)
+//        );
+//
+//        // Does this teacher have this class?
+//        if (account.getRole().equalsIgnoreCase(Role.TEACHER.name())) {
+//            if (!Objects.equals(clazz.getTeacher().getId(), account.getId())) {
+//                throw new AppException(ErrorCode.UNAUTHORIZED);
+//            }
+//        }
+
+        Class clazz = authService.checkViewClassPermissions(slug);
+
+        // Count section and content
+        List<Integer> classLessonIds = clazz.getClassLessonConfigs().stream()
+                .map(classLessonConfig -> classLessonConfig.getClassLesson().getId())
+                .toList();
+
+        Map<Integer, Integer> countSectionMap = countSectionOfClassLesson(classLessonIds);
+        Map<Integer, Integer> countContentMap = countContentOfClassLesson(classLessonIds);
+
+        // Get lessons of class
+        ClassLessonResponse classLessonResponse = classMapper.toClassLessonResponse(clazz, clazz.getClassLessonConfigs().size());
+        List<ClassLessonBasicResponse> updatedLessons = classLessonResponse.getLessons().stream()
+                .peek(l -> {
+                    l.setNumberOfSection(countSectionMap.getOrDefault(l.getClassLessonId(), 0));
+                    l.setNumberOfContent(countContentMap.getOrDefault(l.getClassLessonId(), 0));
+                }).toList();
+        classLessonResponse.setLessons(updatedLessons);
+
+        return classLessonResponse;
+    }
+
+    // -- COUNT --
     // Count lesson Of classes
     private Map<Integer, Integer> countLessonOfClass(List<Integer> classIds) {
         return classRepository.countLessonByClasses(classIds)
@@ -111,30 +161,23 @@ public class ClassServiceImpl implements ClassService {
                 ));
     }
 
-    // Get class lesson detail
-    @Override
-    public ClassLessonResponse getClassLesson(String slug) {
-        UserAccount account = authService.getUserAccountByJwtToken();
+    // Count section of classLesson
+    private Map<Integer, Integer> countSectionOfClassLesson(List<Integer> classIds) {
+        return sectionRepository.countsByClassLessonId(classIds)
+                .stream()
+                .collect(Collectors.toMap(
+                        SectionCountProjection::getClassLessonId,
+                        p -> p.getNumberOfSection().intValue()
+                ));
+    }
 
-        // Does this student have this class?
-        if (account.getRole().equalsIgnoreCase(Role.STUDENT.name())) {
-            enrollmentRepository.findByStudentIdAndClassFieldSlugAndStatusEqualsIgnoreCase(account.getId(), slug, StatusEnrollment.ACTIVE.name())
-                    .orElseThrow(() -> new AppException(ErrorCode.UNAUTHORIZED));
-        }
-
-        Class clazz = classRepository.findClassBySlug(slug).orElseThrow(
-                () -> new AppException(ErrorCode.CLASS_NOT_EXISTED)
-        );
-
-        // Does this teacher have this class?
-        if (account.getRole().equalsIgnoreCase(Role.TEACHER.name())) {
-            if (!Objects.equals(clazz.getTeacher().getId(), account.getId())) {
-                throw new AppException(ErrorCode.UNAUTHORIZED);
-            }
-        }
-
-        // Get lessons of class
-        return classMapper.toClassLessonResponse(clazz, clazz.getClassLessonConfigs().size());
-
+    // Count section of classLesson
+    private Map<Integer, Integer> countContentOfClassLesson(List<Integer> classIds) {
+        return contentRepository.countByClassLessonId(classIds)
+                .stream()
+                .collect(Collectors.toMap(
+                        ContentCountProjection::getClassLessonId,
+                        p -> p.getNumberOfContent().intValue()
+                ));
     }
 }
