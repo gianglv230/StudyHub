@@ -1,18 +1,18 @@
 package com.studyhub.studyhub_api.service.classes.impl;
 
 import com.studyhub.studyhub_api.dto.response.PageResponse;
-import com.studyhub.studyhub_api.dto.response.classes.ClassDetailLiteResponse;
-import com.studyhub.studyhub_api.dto.response.classes.ClassLiteResponse;
-import com.studyhub.studyhub_api.dto.response.classes.ClassProgressResponse;
+import com.studyhub.studyhub_api.dto.response.classes.*;
+import com.studyhub.studyhub_api.enums.Role;
+import com.studyhub.studyhub_api.enums.StatusEnrollment;
 import com.studyhub.studyhub_api.exception.AppException;
 import com.studyhub.studyhub_api.exception.ErrorCode;
 import com.studyhub.studyhub_api.model.Class;
 import com.studyhub.studyhub_api.mapper.ClassMapper;
 import com.studyhub.studyhub_api.model.UserAccount;
 import com.studyhub.studyhub_api.repository.ClassRepository;
+import com.studyhub.studyhub_api.repository.EnrollmentRepository;
 import com.studyhub.studyhub_api.service.auth.AuthenticationService;
 import com.studyhub.studyhub_api.service.classes.ClassService;
-import com.studyhub.studyhub_api.dto.response.classes.ClassLessonCountProjection;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,9 +33,10 @@ import java.util.stream.Collectors;
 @Slf4j
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ClassServiceImpl implements ClassService {
-    ClassRepository classRepository;
-    ClassMapper classMapper;
     AuthenticationService authService;
+    ClassRepository classRepository;
+    EnrollmentRepository enrollmentRepository;
+    ClassMapper classMapper;
     private static final int MAX_ITEM = 20;
 
     // Get class by filter
@@ -90,27 +92,49 @@ public class ClassServiceImpl implements ClassService {
     @PreAuthorize("hasRole('STUDENT')")
     @Override
     public List<ClassProgressResponse> getMyStudentClass() {
-        try {
-            UserAccount userAccount = authService.getUserAccountByJwtToken();
-            List<Class> classes = classRepository.getMyStudentClasses(userAccount.getId());
-            List<Integer> classIds = classes.stream().map(Class::getId).toList();
-            Map<Integer, Integer> progressMap = countLessonOfClass(classIds);
-            return classes.stream()
-                    .map(clazz -> classMapper.toClassProgressResponse(clazz, progressMap.get(clazz.getId())))
-                    .toList();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+        UserAccount userAccount = authService.getUserAccountByJwtToken();
+        List<Class> classes = classRepository.getMyStudentClasses(userAccount.getId());
+        List<Integer> classIds = classes.stream().map(Class::getId).toList();
+        Map<Integer, Integer> progressMap = countLessonOfClass(classIds);
+        return classes.stream()
+                .map(clazz -> classMapper.toClassProgressResponse(clazz, progressMap.get(clazz.getId())))
+                .toList();
     }
 
     // Count lesson Of classes
     private Map<Integer, Integer> countLessonOfClass(List<Integer> classIds) {
-        return classRepository.countLessonByClass(classIds)
+        return classRepository.countLessonByClasses(classIds)
                 .stream()
                 .collect(Collectors.toMap(
                         ClassLessonCountProjection::getClassId,
                         p -> p.getLessonCount().intValue()
                 ));
+    }
+
+    // Get class lesson detail
+    @Override
+    public ClassLessonResponse getClassLesson(String slug) {
+        UserAccount account = authService.getUserAccountByJwtToken();
+
+        // Does this student have this class?
+        if (account.getRole().equalsIgnoreCase(Role.STUDENT.name())) {
+            enrollmentRepository.findByStudentIdAndClassFieldSlugAndStatusEqualsIgnoreCase(account.getId(), slug, StatusEnrollment.ACTIVE.name())
+                    .orElseThrow(() -> new AppException(ErrorCode.UNAUTHORIZED));
+        }
+
+        Class clazz = classRepository.findClassBySlug(slug).orElseThrow(
+                () -> new AppException(ErrorCode.CLASS_NOT_EXISTED)
+        );
+
+        // Does this teacher have this class?
+        if (account.getRole().equalsIgnoreCase(Role.TEACHER.name())) {
+            if (!Objects.equals(clazz.getTeacher().getId(), account.getId())) {
+                throw new AppException(ErrorCode.UNAUTHORIZED);
+            }
+        }
+
+        // Get lessons of class
+        return classMapper.toClassLessonResponse(clazz, clazz.getClassLessonConfigs().size());
+
     }
 }

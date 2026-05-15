@@ -1,10 +1,7 @@
 package com.studyhub.studyhub_api.dto.response.classes;
 
-import com.studyhub.studyhub_api.dto.response.course.LessonResponse;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 public record ClassDetailLiteResponse(
         Integer classId,

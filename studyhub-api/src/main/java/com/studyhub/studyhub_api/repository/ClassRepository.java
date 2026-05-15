@@ -1,7 +1,6 @@
 package com.studyhub.studyhub_api.repository;
 
 import com.studyhub.studyhub_api.dto.response.classes.ClassLessonCountProjection;
-import com.studyhub.studyhub_api.model.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -88,5 +87,8 @@ public interface ClassRepository extends JpaRepository<Class, Integer> {
         WHERE class.id IN :classIds
         GROUP BY class.id
     """)
-    List<ClassLessonCountProjection> countLessonByClass(@Param("classIds") List<Integer> classIds);
+    List<ClassLessonCountProjection> countLessonByClasses(@Param("classIds") List<Integer> classIds);
+
+    @EntityGraph(attributePaths = {"teacher", "thumbnailOverride", "classLessonConfigs", "classLessonConfigs.classLesson"})
+    Optional<Class> findClassBySlug(String slug);
 }

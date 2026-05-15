@@ -1,4 +1,16 @@
 package com.studyhub.studyhub_api.dto.response.user_account;
 
-public record UserAccountBasicResponse() {
-}
+import java.time.LocalDate;
+
+public record UserAccountBasicResponse(
+    String firstName,
+    String lastName,
+    Boolean gender,
+    LocalDate dateOfBirth,
+    String email,
+    String phone,
+    String hometown,
+    String address,
+    String avatar,
+    String role
+) {}

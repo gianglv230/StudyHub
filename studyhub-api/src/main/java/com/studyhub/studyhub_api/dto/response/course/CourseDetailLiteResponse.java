@@ -12,5 +12,5 @@ public record CourseDetailLiteResponse(
         String categoryName,
         String video,
         String description,
-        List<LessonResponse> lessons
+        List<LessonLiteResponse> lessons
 ) {}
