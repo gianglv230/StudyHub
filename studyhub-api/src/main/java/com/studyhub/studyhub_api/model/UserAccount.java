@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Formula;
 
 import java.time.LocalDate;
 
@@ -173,7 +174,10 @@ public class UserAccount extends FullAudit {
 //    @OneToMany(mappedBy = "updatedBy")
 //    Set<UserAccount> updatedUserAccounts = new LinkedHashSet<>();
 
-    public String getFullname(){
-        return this.firstName + " " + this.lastName;
-    }
+    @Formula("concat(first_name, ' ', last_name)")
+    String fullname;
+
+//    public String getFullname(){
+//        return this.firstName + " " + this.lastName;
+//    }
 }
