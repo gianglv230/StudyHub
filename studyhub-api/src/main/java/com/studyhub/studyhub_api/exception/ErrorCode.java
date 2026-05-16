@@ -20,6 +20,7 @@ public enum ErrorCode {
     COURSE_NOT_EXISTED(1031, "Course not existed", HttpStatus.NOT_FOUND),
     CLASS_NOT_EXISTED(1032, "Class not existed", HttpStatus.NOT_FOUND),
     CLASS_LESSON_NOT_EXISTED(1033, "Class lesson not existed", HttpStatus.NOT_FOUND),
+    OVER_TIME_UPDATE_ATTENDANCE(1034, "Over time update attendance", HttpStatus.BAD_REQUEST),
     ;
 
     private int code;

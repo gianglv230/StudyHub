@@ -72,6 +72,7 @@ public class SecurityConfig {
         // Configure OAuth2 Resource Server with JWT authentication
         httpSecurity.oauth2ResourceServer(oauth2 ->
                 oauth2
+                        .bearerTokenResolver(jwtFilter)
                         .jwt(jwtConfigurer -> {
                             jwtConfigurer.decoder(jwtDecoder);
                             jwtConfigurer
@@ -92,14 +93,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    JwtAuthenticationConverter jwtAuthenticationConverter() {
-        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
-
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
-
-        return jwtAuthenticationConverter;
+    public CustomJwtAuthenticationConverter jwtAuthenticationConverter() {
+        return new CustomJwtAuthenticationConverter();
     }
 
     @Bean

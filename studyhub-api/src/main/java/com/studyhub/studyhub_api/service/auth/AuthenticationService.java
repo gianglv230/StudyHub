@@ -10,6 +10,7 @@ import com.studyhub.studyhub_api.model.Class;
 import com.studyhub.studyhub_api.model.UserAccount;
 
 import java.text.ParseException;
+import java.util.List;
 
 public interface AuthenticationService {
     AuthenticationResponse authenticate(UserAccountRequest userAccountRequest);
@@ -21,4 +22,5 @@ public interface AuthenticationService {
     Class checkViewClassPermissions(String classSlug);
     Class checkViewClassPermissions(String classSlug, String classLessonSlug);
 //    Class checkViewClassPermissions(String classSlug, String classLessonSlug, Integer contentId);
+    void checkAttendanceManagementPermissions(Class clazz, List<Integer> enrollmentIds);
 }

@@ -27,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -175,5 +176,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .findFirst()
                 .orElseThrow(() -> new AppException(ErrorCode.UNAUTHORIZED));
         return clazz;
+    }
+
+    @Override
+    public void checkAttendanceManagementPermissions(Class clazz, List<Integer> enrollmentIds) {
+        // Check teacher is owner class for enrollment
+        List<Integer> classIds = enrollmentRepository.getClassIdsByEnrollmentIds(enrollmentIds);
+        if(classIds.size() > 1){
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+        }
+
+        int classId = classIds.getFirst();
+        if(clazz.getId() != classId){
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+        }
     }
 }

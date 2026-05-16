@@ -62,11 +62,13 @@ class SpringSecurityAuditAwareImpl implements AuditorAware<Integer> {
         // If principal is a CustomUserDetails instance, return the user's ID
         if (principal instanceof CustomUserDetails userDetails) {
             return Optional.ofNullable(userDetails.getId());
-//                    .map(Object::toString);
         }
-//        else if (principal instanceof String username) {
-//            return Optional.of(username);
-//        }
+
+        // Fallback: If principal is a Jwt object (default behavior), extract "id" claim
+        if (principal instanceof org.springframework.security.oauth2.jwt.Jwt jwt) {
+            Number id = jwt.getClaim("id");
+            return Optional.ofNullable(id).map(Number::intValue);
+        }
 
         // Otherwise, no valid auditor ID found
         return Optional.empty();
