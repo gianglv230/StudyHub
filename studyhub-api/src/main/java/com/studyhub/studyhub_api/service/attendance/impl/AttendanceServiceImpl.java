@@ -5,7 +5,6 @@ import com.studyhub.studyhub_api.dto.request.attendance.UpdateAttendanceRequest;
 import com.studyhub.studyhub_api.dto.response.attendance.AttendanceRowResponse;
 import com.studyhub.studyhub_api.dto.response.attendance.SessionDateResponse;
 import com.studyhub.studyhub_api.dto.response.attendance.StudentAttendanceResponse;
-import com.studyhub.studyhub_api.dto.response.attendance.StudentAttendanceRowResponse;
 import com.studyhub.studyhub_api.enums.Role;
 import com.studyhub.studyhub_api.exception.AppException;
 import com.studyhub.studyhub_api.exception.ErrorCode;

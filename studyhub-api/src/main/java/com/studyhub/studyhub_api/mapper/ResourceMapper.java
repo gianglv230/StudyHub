@@ -1,5 +1,6 @@
 package com.studyhub.studyhub_api.mapper;
 
+import com.studyhub.studyhub_api.dto.response.class_lesson.ResourceTeacherResponse;
 import com.studyhub.studyhub_api.dto.response.content.ResourceResponse;
 import com.studyhub.studyhub_api.model.Material;
 import com.studyhub.studyhub_api.model.Resource;
@@ -16,4 +17,6 @@ public interface ResourceMapper {
     default ResourceResponse toResourceResponse(Material material) {
         return toResourceResponse(material.getResource());
     }
+
+    ResourceTeacherResponse toResourceTeacherResponse(Resource resource);
 }

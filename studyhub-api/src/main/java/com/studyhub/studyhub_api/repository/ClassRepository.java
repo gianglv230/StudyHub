@@ -91,4 +91,10 @@ public interface ClassRepository extends JpaRepository<Class, Integer> {
 
     @EntityGraph(attributePaths = {"teacher", "thumbnailOverride", "classLessonConfigs", "classLessonConfigs.classLesson"})
     Optional<Class> findClassBySlug(String slug);
+
+    @Query("""
+        SELECT COUNT(1) FROM Class c
+        WHERE c.status = 'ONGOING'
+    """)
+    Long countOnGoingClass();
 }

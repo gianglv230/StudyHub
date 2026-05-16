@@ -12,4 +12,5 @@ public interface ClassLessonRepository extends JpaRepository<ClassLesson, Intege
 //    List<ClassLesson> findByClassLessonConfigsClassFieldId(Integer classId);
 
     Optional<ClassLesson> findById(Integer id);
+    Optional<ClassLesson> findBySlugAndCreatedBy(String slug, Integer createdBy);
 }

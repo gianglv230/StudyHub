@@ -21,4 +21,11 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Intege
                 WHERE u.id in :ids
             """)
     List<UserSimpleProjection> findAllSimpleProjectionsByIds(@Param("ids") List<Integer> ids);
+
+    @Query("""
+        SELECT COUNT(1) FROM UserAccount u
+        WHERE u.role = :role
+        AND u.status = 'ACTIVE'
+    """)
+    Long countByRole(@Param("role") String role);
 }

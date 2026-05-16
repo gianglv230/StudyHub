@@ -1,5 +1,6 @@
 package com.studyhub.studyhub_api.repository;
 
+import com.studyhub.studyhub_api.dto.response.statistics.AttendanceStatisticsProject;
 import com.studyhub.studyhub_api.model.Attendance;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +26,12 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
 
     @EntityGraph(attributePaths = {"enrollment", "enrollment.student"})
     List<Attendance> findBySessionDateAndEnrollmentClassFieldId(LocalDate sessionDate, Integer id);
+
+    @Query("""
+        SELECT a.status AS status, COALESCE(COUNT(1), 0) as numberOfAttendance FROM Attendance a
+        WHERE a.sessionDate BETWEEN :startDate AND :endDate
+        AND (a.status = 'PRESENT' OR a.status = 'ABSENT')
+        GROUP BY a.status
+    """)
+    List<AttendanceStatisticsProject> getStatisticsAttendance(LocalDate fromDate, LocalDate toDate);
 }

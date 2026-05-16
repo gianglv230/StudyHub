@@ -1,5 +1,7 @@
 package com.studyhub.studyhub_api.mapper;
 
+import com.studyhub.studyhub_api.dto.request.class_lesson.ClassLessonTeacherRequest;
+import com.studyhub.studyhub_api.dto.response.class_lesson.ClassLessonTeacherResponse;
 import com.studyhub.studyhub_api.dto.response.classes.ClassLessonBasicResponse;
 import com.studyhub.studyhub_api.model.ClassLesson;
 import com.studyhub.studyhub_api.model.ClassLessonConfig;
@@ -10,7 +12,7 @@ import org.mapstruct.Named;
 
 import java.util.Set;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = SectionMapper.class)
 public interface ClassLessonMapper {
     @Mappings({
             @Mapping(target = "classLessonId", source = "classLesson.id"),
@@ -38,4 +40,8 @@ public interface ClassLessonMapper {
 
         return classLessonConfigs.iterator().next().getOrderIndex();
     }
+
+    ClassLessonTeacherResponse toClassLessonTeacherResponse(ClassLesson classLesson);
+
+    ClassLesson toClassLesson(ClassLessonTeacherRequest classLessonTeacherRequest);
 }

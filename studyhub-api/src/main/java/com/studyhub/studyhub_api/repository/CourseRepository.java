@@ -113,4 +113,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
         AND c.slug = :slug
     """)
     Optional<Course> getCourseDetailBySlug(@Param("slug") String slug);
+
+    @Query("""
+        SELECT COUNT(1) FROM Course c
+        WHERE c.status = 'ACTIVE'
+    """)
+    Long countActiveCourses();
 }
