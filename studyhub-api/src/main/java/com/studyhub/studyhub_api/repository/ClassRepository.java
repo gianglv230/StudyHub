@@ -3,8 +3,10 @@ package com.studyhub.studyhub_api.repository;
 import com.studyhub.studyhub_api.dto.response.classes.ClassLessonCountProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -14,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ClassRepository extends JpaRepository<Class, Integer> {
+public interface ClassRepository extends JpaRepository<Class, Integer>, JpaSpecificationExecutor<Class> {
 
     @EntityGraph(attributePaths = {"teacher", "course"})
     @Query("""
@@ -97,4 +99,17 @@ public interface ClassRepository extends JpaRepository<Class, Integer> {
         WHERE c.status = 'ONGOING'
     """)
     Long countOnGoingClass();
+
+    @EntityGraph(attributePaths = {"teacher", "course", "thumbnailOverride"})
+    Page<Class> findAll(Specification<Class> spec, Pageable pageable);
+
+    Boolean existsByTeacherId(Integer teacherId);
+    Boolean existsByCourseId(Integer courseId);
+
+    @EntityGraph(attributePaths = {"teacher", "course"})
+    Optional<Class> findBySlug(String classSlug);
+
+
+    @EntityGraph(attributePaths = {"teacher", "course"})
+    Optional<Class> findById(Integer id);
 }

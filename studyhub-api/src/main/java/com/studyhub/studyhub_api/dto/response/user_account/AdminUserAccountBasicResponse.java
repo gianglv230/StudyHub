@@ -1,9 +1,8 @@
 package com.studyhub.studyhub_api.dto.response.user_account;
 
-import java.time.Instant;
 import java.time.LocalDate;
 
-public record UserAccountBasicResponse(
+public record AdminUserAccountBasicResponse(
         Integer id,
         String firstName,
         String lastName,
@@ -14,12 +13,6 @@ public record UserAccountBasicResponse(
         String hometown,
         String address,
         String avatar,
-        String role,
-        LocalDate startDate,
-        LocalDate endDate,
-        Instant createdAt,
-        String createdBy,
-        Instant updateAt,
-        String updatedBy
+        String role
 ) {
 }

@@ -1,20 +1,27 @@
 package com.studyhub.studyhub_api.service.classes.impl;
 
+import com.studyhub.studyhub_api.dto.request.classes.AddClassRequest;
+import com.studyhub.studyhub_api.dto.request.classes.ClassFilterRequest;
+import com.studyhub.studyhub_api.dto.request.classes.UpdateClassRequest;
 import com.studyhub.studyhub_api.dto.response.PageResponse;
 import com.studyhub.studyhub_api.dto.response.classes.*;
 import com.studyhub.studyhub_api.enums.Role;
+import com.studyhub.studyhub_api.enums.StatusClass;
 import com.studyhub.studyhub_api.enums.StatusEnrollment;
 import com.studyhub.studyhub_api.exception.AppException;
 import com.studyhub.studyhub_api.exception.ErrorCode;
 import com.studyhub.studyhub_api.model.Class;
 import com.studyhub.studyhub_api.mapper.ClassMapper;
+import com.studyhub.studyhub_api.model.Invoice;
 import com.studyhub.studyhub_api.model.UserAccount;
 import com.studyhub.studyhub_api.repository.ClassRepository;
 import com.studyhub.studyhub_api.repository.ContentRepository;
 import com.studyhub.studyhub_api.repository.EnrollmentRepository;
 import com.studyhub.studyhub_api.repository.SectionRepository;
+import com.studyhub.studyhub_api.repository.specification.ClassSpecification;
 import com.studyhub.studyhub_api.service.auth.AuthenticationService;
 import com.studyhub.studyhub_api.service.classes.ClassService;
+import com.studyhub.studyhub_api.service.user_account.UserAccountService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -22,14 +29,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +43,7 @@ import java.util.stream.Collectors;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ClassServiceImpl implements ClassService {
     AuthenticationService authService;
+    UserAccountService userAccountService;
     ClassRepository classRepository;
     EnrollmentRepository enrollmentRepository;
     ContentRepository contentRepository;
@@ -148,6 +155,94 @@ public class ClassServiceImpl implements ClassService {
         classLessonResponse.setLessons(updatedLessons);
 
         return classLessonResponse;
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public PageResponse<ClassAdminResponse> filterClass(ClassFilterRequest classFilterRequest, Integer page) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+        Pageable pageable = PageRequest.of(page - 1, MAX_ITEM);
+
+        Specification<Class> spec = ClassSpecification.filter(classFilterRequest);
+        var pageData = classRepository.findAll(spec, pageable);
+
+        var userIds = Stream.concat(
+                pageData.stream().map(Class::getCreatedBy),
+                pageData.stream().map(Class::getUpdatedBy)
+        ).distinct().toList();
+
+        Map<Integer, String> userMap = userAccountService.getUserAccountMap(userIds);
+
+        return PageResponse.<ClassAdminResponse>builder()
+                .currentPage(page)
+                .pageSize(pageData.getSize())
+                .totalPages(pageData.getTotalPages())
+                .totalElements(pageData.getTotalElements())
+                .data(pageData.stream()
+                        .map(clazz -> classMapper
+                                .toClassAdminResponse(clazz, userMap.get(clazz.getCreatedBy()), userMap.get(clazz.getUpdatedBy())))
+                        .toList())
+                .build();
+    }
+
+    private AdminClassResponse toAdminClassResponse(Class clazz) {
+        var createdById = clazz.getCreatedBy();
+        var updatedById = clazz.getUpdatedBy();
+        var userMap = userAccountService.getUserAccountMap(List.of(createdById, updatedById));
+        return classMapper.toAdminClassResponse(clazz, userMap.get(createdById), userMap.get(createdById));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public AdminClassResponse getClass(String classSlug) {
+        Class clazz = classRepository.findBySlug(classSlug)
+                .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
+        return this.toAdminClassResponse(clazz);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public AdminClassResponse addClass(AddClassRequest request) {
+        Class clazz = classMapper.toClass(request);
+        clazz.setAvailableSlots(0);
+        clazz.setStatus(StatusClass.UPCOMING.name());
+        classRepository.save(clazz);
+        return this.toAdminClassResponse(clazz);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public AdminClassResponse updateClass(UpdateClassRequest request) {
+        Class clazz = classRepository.findById(request.getId())
+                .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
+
+        int reducedSlots = clazz.getMaxStudents() - request.getMaxStudents();
+        int availableSlots = clazz.getAvailableSlots();
+
+        if(reducedSlots > 0 && reducedSlots > availableSlots){
+            throw new AppException(ErrorCode.MAX_STUDENTS_INVALID);
+        }
+
+        if (reducedSlots != 0){
+            clazz.setAvailableSlots(reducedSlots - availableSlots);
+        }
+
+        classMapper.updateClass(request, clazz);
+        classRepository.save(clazz);
+
+        return this.toAdminClassResponse(clazz);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public Boolean deleteClass(Integer classId) {
+        Class clazz = classRepository.findById(classId)
+                .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
+        if(enrollmentRepository.existsByClassFieldId(classId)){
+            throw new AppException(ErrorCode.CAN_NOT_DELETE);
+        }
+        classRepository.delete(clazz);
+        return true;
     }
 
     // -- COUNT --

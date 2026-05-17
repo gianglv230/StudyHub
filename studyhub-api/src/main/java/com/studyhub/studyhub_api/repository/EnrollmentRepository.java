@@ -26,4 +26,7 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
 
     @EntityGraph(attributePaths = {"student"})
     List<Enrollment> findAllByIdIn(List<Integer> ids);
+
+    Boolean existsByStudentId(Integer studentId);
+    Boolean existsByClassFieldId(Integer classId);
 }

@@ -4,8 +4,10 @@ import com.studyhub.studyhub_api.dto.response.course.CourseLiteProjection;
 import com.studyhub.studyhub_api.model.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -14,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course, Integer> {
+public interface CourseRepository extends JpaRepository<Course, Integer>, JpaSpecificationExecutor<Course> {
     @Query(value = """
             SELECT 
                 course.course_id AS courseId,
@@ -119,4 +121,14 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
         WHERE c.status = 'ACTIVE'
     """)
     Long countActiveCourses();
+
+    @EntityGraph(attributePaths = {"thumbnail"})
+    Page<Course> findAll(Specification<Course> specification, Pageable pageable);
+
+    @EntityGraph(attributePaths = {"thumbnail", "videoDemo", "lessons"})
+    Optional<Course> findBySlug(String slug);
+
+    @EntityGraph(attributePaths = {"thumbnail", "videoDemo", "lessons"})
+    Optional<Course> findById(Integer id);
+
 }

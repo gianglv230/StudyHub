@@ -1,11 +1,11 @@
 package com.studyhub.studyhub_api.controller;
 
+import com.studyhub.studyhub_api.dto.request.course.AddCourseRequest;
+import com.studyhub.studyhub_api.dto.request.course.CourseFilterRequest;
+import com.studyhub.studyhub_api.dto.request.course.UpdateCourseRequest;
 import com.studyhub.studyhub_api.dto.response.ApiResponse;
 import com.studyhub.studyhub_api.dto.response.PageResponse;
-import com.studyhub.studyhub_api.dto.response.course.CourseFilterOptionsResponse;
-import com.studyhub.studyhub_api.dto.response.course.CourseDetailLiteResponse;
-import com.studyhub.studyhub_api.dto.response.course.CourseLiteProjection;
-import com.studyhub.studyhub_api.dto.response.course.CourseLiteResponse;
+import com.studyhub.studyhub_api.dto.response.course.*;
 import com.studyhub.studyhub_api.service.course.CourseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,7 +31,7 @@ public class CourseController {
     @GetMapping("/find")
     public ApiResponse<PageResponse<CourseLiteResponse>> findCourseByTitle(
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "title", required = true) String title
+            @RequestParam(value = "title") String title
     ){
         return ApiResponse.<PageResponse<CourseLiteResponse>>builder()
                 .data(courseService.findCourseByTitle(page, title))
@@ -66,4 +66,56 @@ public class CourseController {
                 .data(courseService.getCourseDetailLite(courseSlug))
                 .build();
     }
+
+    @Operation(summary = "Filter course for Admin", description = "API filter course for Admin")
+    @GetMapping("/admin/filter")
+    public ApiResponse<PageResponse<CourseAdminResponse>> filterCourse(
+            @ModelAttribute CourseFilterRequest request,
+            @RequestParam(defaultValue = "1", required = false) Integer page
+    ) {
+        return ApiResponse.<PageResponse<CourseAdminResponse>>builder()
+                .data(courseService.filterCourse(request, page))
+                .build();
+    }
+
+    @Operation(summary = "Get course for Admin", description = "API get course for Admin")
+    @GetMapping("/admin/{courseSlug}")
+    public ApiResponse<AdminCourseResponse> getAdminCourse(
+            @PathVariable String courseSlug
+    ) {
+        return ApiResponse.<AdminCourseResponse>builder()
+                .data(courseService.getCourse(courseSlug))
+                .build();
+    }
+
+    @Operation(summary = "Add course for Admin", description = "API add course for Admin")
+    @PostMapping("/admin")
+    public ApiResponse<AdminCourseResponse> addCourse(
+            @RequestBody AddCourseRequest request
+            ) {
+        return ApiResponse.<AdminCourseResponse>builder()
+                .data(courseService.addCourse(request))
+                .build();
+    }
+
+    @Operation(summary = "Update course for Admin", description = "API update course for Admin")
+    @PostMapping("/admin")
+    public ApiResponse<AdminCourseResponse> updateCourse(
+            @RequestBody UpdateCourseRequest request
+    ) {
+        return ApiResponse.<AdminCourseResponse>builder()
+                .data(courseService.updateCourse(request))
+                .build();
+    }
+
+    @Operation(summary = "Delete course", description = "API delete course for Admin")
+    @DeleteMapping("/admin/{id}")
+    public ApiResponse<Boolean> deleteCourse(
+            @PathVariable Integer id
+    ) {
+        return ApiResponse.<Boolean>builder()
+                .data(courseService.deleteCourse(id))
+                .build();
+    }
+
 }

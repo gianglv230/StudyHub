@@ -22,6 +22,8 @@ public enum ErrorCode {
     CLASS_LESSON_NOT_EXISTED(1033, "Class lesson not existed", HttpStatus.NOT_FOUND),
     OVER_TIME_UPDATE_ATTENDANCE(1034, "Over time update attendance", HttpStatus.BAD_REQUEST),
     INVOICE_NOT_EXISTED(1035, "Invoice not existed", HttpStatus.NOT_FOUND),
+    CAN_NOT_DELETE(1036, "Can not delete", HttpStatus.BAD_REQUEST),
+    MAX_STUDENTS_INVALID(1037, "Max students less than the current students", HttpStatus.BAD_REQUEST),
     ;
 
     private int code;

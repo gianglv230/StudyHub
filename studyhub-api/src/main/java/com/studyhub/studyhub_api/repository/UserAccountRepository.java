@@ -2,7 +2,11 @@ package com.studyhub.studyhub_api.repository;
 
 import com.studyhub.studyhub_api.dto.response.user_account.UserSimpleProjection;
 import com.studyhub.studyhub_api.model.UserAccount;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -11,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserAccountRepository extends JpaRepository<UserAccount, Integer> {
+public interface UserAccountRepository extends JpaRepository<UserAccount, Integer>, JpaSpecificationExecutor<UserAccount> {
     Optional<UserAccount> findByUsername(String username);
     List<UserAccount> findByRoleAndStatus(String role, String status);
 
@@ -28,4 +32,6 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Intege
         AND u.status = 'ACTIVE'
     """)
     Long countByRole(@Param("role") String role);
+
+    Page<UserAccount> findAll(Specification<UserAccount> spec, Pageable pageable);
 }

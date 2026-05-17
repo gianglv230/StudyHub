@@ -1,10 +1,10 @@
 package com.studyhub.studyhub_api.service.classes;
 
+import com.studyhub.studyhub_api.dto.request.classes.AddClassRequest;
+import com.studyhub.studyhub_api.dto.request.classes.ClassFilterRequest;
+import com.studyhub.studyhub_api.dto.request.classes.UpdateClassRequest;
 import com.studyhub.studyhub_api.dto.response.PageResponse;
-import com.studyhub.studyhub_api.dto.response.classes.ClassDetailLiteResponse;
-import com.studyhub.studyhub_api.dto.response.classes.ClassLessonResponse;
-import com.studyhub.studyhub_api.dto.response.classes.ClassLiteResponse;
-import com.studyhub.studyhub_api.dto.response.classes.ClassProgressResponse;
+import com.studyhub.studyhub_api.dto.response.classes.*;
 
 import java.util.List;
 
@@ -15,4 +15,11 @@ public interface ClassService {
     ClassDetailLiteResponse getClassDetailLite(String classSlug);
     List<ClassProgressResponse> getMyStudentClass();
     ClassLessonResponse getClassLesson(String slug);
+
+    PageResponse<ClassAdminResponse> filterClass(ClassFilterRequest classFilterRequest, Integer page);
+
+    AdminClassResponse getClass(String classSlug);
+    AdminClassResponse addClass(AddClassRequest request);
+    AdminClassResponse updateClass(UpdateClassRequest request);
+    Boolean deleteClass(Integer classId);
 }
