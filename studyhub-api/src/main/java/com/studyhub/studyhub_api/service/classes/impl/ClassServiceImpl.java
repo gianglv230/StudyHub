@@ -3,6 +3,7 @@ package com.studyhub.studyhub_api.service.classes.impl;
 import com.studyhub.studyhub_api.dto.request.classes.AddClassRequest;
 import com.studyhub.studyhub_api.dto.request.classes.ClassFilterRequest;
 import com.studyhub.studyhub_api.dto.request.classes.UpdateClassRequest;
+import com.studyhub.studyhub_api.dto.request.classes.UpdateClassStatusRequest;
 import com.studyhub.studyhub_api.dto.response.PageResponse;
 import com.studyhub.studyhub_api.dto.response.classes.*;
 import com.studyhub.studyhub_api.enums.Role;
@@ -242,6 +243,44 @@ public class ClassServiceImpl implements ClassService {
             throw new AppException(ErrorCode.CAN_NOT_DELETE);
         }
         classRepository.delete(clazz);
+        return true;
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public Boolean openClass(String classSlug) {
+        Class clazz = classRepository.findBySlug(classSlug)
+                .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
+        if(!clazz.getStatus().equalsIgnoreCase(StatusClass.UPCOMING.name())){
+            throw new AppException(ErrorCode.CAN_NOT_OPEN);
+        }
+        clazz.setStatus(StatusClass.from(clazz.getStatus()).next().name());
+        classRepository.save(clazz);
+        return true;
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public Boolean closeClass(String classSlug) {
+        Class clazz = classRepository.findBySlug(classSlug)
+                .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
+        if(!clazz.getStatus().equalsIgnoreCase(StatusClass.ONGOING.name())){
+            throw new AppException(ErrorCode.CAN_NOT_CLOSE);
+        }
+        clazz.setStatus(StatusClass.from(clazz.getStatus()).next().name());
+        classRepository.save(clazz);
+        return true;
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public Boolean updateStatusClass(UpdateClassStatusRequest request) {
+        Class clazz = classRepository.findBySlug(request.classSlug())
+                .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
+        //Check status
+        StatusClass.from(request.status());
+        clazz.setStatus(request.status());
+        classRepository.save(clazz);
         return true;
     }
 

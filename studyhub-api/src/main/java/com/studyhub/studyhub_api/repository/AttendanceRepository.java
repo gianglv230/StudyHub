@@ -1,5 +1,6 @@
 package com.studyhub.studyhub_api.repository;
 
+import com.studyhub.studyhub_api.dto.response.enrollment.CountAttendanceProjection;
 import com.studyhub.studyhub_api.dto.response.statistics.AttendanceStatisticsProject;
 import com.studyhub.studyhub_api.model.Attendance;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -34,4 +35,13 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
         GROUP BY a.status
     """)
     List<AttendanceStatisticsProject> getStatisticsAttendance(LocalDate fromDate, LocalDate toDate);
+
+    @Query("""
+        SELECT e.student.id as id, a.status as status, COUNT(1) as quantity
+        FROM Attendance a
+        JOIN a.enrollment e
+        WHERE e.classField.slug = :slug
+        GROUP BY id, status
+    """)
+    List<CountAttendanceProjection> countAttendanceByClassSlug(@Param("slug") String slug);
 }

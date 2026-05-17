@@ -24,6 +24,9 @@ public enum ErrorCode {
     INVOICE_NOT_EXISTED(1035, "Invoice not existed", HttpStatus.NOT_FOUND),
     CAN_NOT_DELETE(1036, "Can not delete", HttpStatus.BAD_REQUEST),
     MAX_STUDENTS_INVALID(1037, "Max students less than the current students", HttpStatus.BAD_REQUEST),
+    CAN_NOT_TRANSITION(1038, "Can not transition", HttpStatus.BAD_REQUEST),
+    CAN_NOT_OPEN(1039, "Can not open class", HttpStatus.BAD_REQUEST),
+    CAN_NOT_CLOSE(1040, "Can not close class", HttpStatus.BAD_REQUEST),
     ;
 
     private int code;

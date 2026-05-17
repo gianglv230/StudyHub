@@ -1,6 +1,7 @@
 package com.studyhub.studyhub_api.repository;
 
 import com.studyhub.studyhub_api.model.Enrollment;
+import com.studyhub.studyhub_api.model.UserAccount;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,4 +30,13 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
 
     Boolean existsByStudentId(Integer studentId);
     Boolean existsByClassFieldId(Integer classId);
+
+    @EntityGraph(attributePaths = {"student"})
+    @Query("""
+        SELECT s FROM Enrollment e
+        JOIN e.student s
+        JOIN e.classField c
+        WHERE c.slug = :slug
+    """)
+    List<UserAccount> findAllStudentByClassSlug(@Param("slug") String classSlug);
 }

@@ -3,6 +3,7 @@ package com.studyhub.studyhub_api.controller;
 import com.studyhub.studyhub_api.dto.request.classes.AddClassRequest;
 import com.studyhub.studyhub_api.dto.request.classes.ClassFilterRequest;
 import com.studyhub.studyhub_api.dto.request.classes.UpdateClassRequest;
+import com.studyhub.studyhub_api.dto.request.classes.UpdateClassStatusRequest;
 import com.studyhub.studyhub_api.dto.request.course.AddCourseRequest;
 import com.studyhub.studyhub_api.dto.request.course.UpdateCourseRequest;
 import com.studyhub.studyhub_api.dto.response.ApiResponse;
@@ -114,6 +115,26 @@ public class ClassController {
     ) {
         return ApiResponse.<Boolean>builder()
                 .data(classService.deleteClass(id))
+                .build();
+    }
+
+    @Operation(summary = "Open class", description = "API open class for Admin")
+    @PatchMapping("/admin/open/{classSlug}")
+    public ApiResponse<Boolean> openClass(
+            @PathVariable String classSlug
+    ) {
+        return ApiResponse.<Boolean>builder()
+                .data(classService.openClass(classSlug))
+                .build();
+    }
+
+    @Operation(summary = "Close class", description = "API close class for Admin")
+    @PatchMapping("/admin/status")
+    public ApiResponse<Boolean> updateStatusClass(
+            @RequestBody UpdateClassStatusRequest request
+    ) {
+        return ApiResponse.<Boolean>builder()
+                .data(classService.updateStatusClass(request))
                 .build();
     }
 }

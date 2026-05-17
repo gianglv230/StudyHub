@@ -3,6 +3,7 @@ package com.studyhub.studyhub_api.mapper;
 import com.studyhub.studyhub_api.dto.request.user_account.AddUserAccountRequest;
 import com.studyhub.studyhub_api.dto.request.user_account.UpdateMyUserAccountRequest;
 import com.studyhub.studyhub_api.dto.request.user_account.UpdateUserAccountRequest;
+import com.studyhub.studyhub_api.dto.response.enrollment.StudentInClassResponse;
 import com.studyhub.studyhub_api.dto.response.user_account.AdminUserAccountBasicResponse;
 import com.studyhub.studyhub_api.dto.response.user_account.UserAccountBasicResponse;
 import com.studyhub.studyhub_api.model.UserAccount;
@@ -24,4 +25,11 @@ public interface UserAccountMapper {
     UserAccount toUserAccount(AddUserAccountRequest addUserAccountRequest);
     void updateUserAccount(UpdateUserAccountRequest request, @MappingTarget UserAccount userAccount);
     void updateMyUserAccount(UpdateMyUserAccountRequest request, @MappingTarget UserAccount userAccount);
+
+    @Mappings({
+            @Mapping(target = "status", source = "userAccount.enrollment.status"),
+            @Mapping(target = "numberOfPresents", source = "numberOfPresents"),
+            @Mapping(target = "numberOfAbsents", source = "numberOfAbsents")
+    })
+    StudentInClassResponse toStudentInClassResponse(UserAccount userAccount, Integer numberOfPresents, Integer numberOfAbsents);
 }

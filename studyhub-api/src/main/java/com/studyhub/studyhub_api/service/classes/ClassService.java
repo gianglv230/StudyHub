@@ -3,6 +3,7 @@ package com.studyhub.studyhub_api.service.classes;
 import com.studyhub.studyhub_api.dto.request.classes.AddClassRequest;
 import com.studyhub.studyhub_api.dto.request.classes.ClassFilterRequest;
 import com.studyhub.studyhub_api.dto.request.classes.UpdateClassRequest;
+import com.studyhub.studyhub_api.dto.request.classes.UpdateClassStatusRequest;
 import com.studyhub.studyhub_api.dto.response.PageResponse;
 import com.studyhub.studyhub_api.dto.response.classes.*;
 
@@ -22,4 +23,8 @@ public interface ClassService {
     AdminClassResponse addClass(AddClassRequest request);
     AdminClassResponse updateClass(UpdateClassRequest request);
     Boolean deleteClass(Integer classId);
+
+    Boolean openClass(String classSlug);
+    Boolean closeClass(String classSlug);
+    Boolean updateStatusClass(UpdateClassStatusRequest request);
 }
