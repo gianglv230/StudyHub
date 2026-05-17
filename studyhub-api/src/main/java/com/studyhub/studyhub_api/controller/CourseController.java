@@ -99,7 +99,7 @@ public class CourseController {
     }
 
     @Operation(summary = "Update course for Admin", description = "API update course for Admin")
-    @PostMapping("/admin")
+    @PutMapping("/admin")
     public ApiResponse<AdminCourseResponse> updateCourse(
             @RequestBody UpdateCourseRequest request
     ) {

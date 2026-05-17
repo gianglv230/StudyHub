@@ -98,7 +98,7 @@ public class ClassController {
     }
 
     @Operation(summary = "Update class for Admin", description = "API update class for Admin")
-    @PostMapping("/admin")
+    @PutMapping("/admin")
     public ApiResponse<AdminClassResponse> updateClass(
             @RequestBody UpdateClassRequest request
     ) {
