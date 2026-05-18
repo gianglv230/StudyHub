@@ -33,10 +33,12 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer>
 
     @EntityGraph(attributePaths = {"student"})
     @Query("""
-        SELECT s FROM Enrollment e
+        SELECT e FROM Enrollment e
         JOIN e.student s
         JOIN e.classField c
         WHERE c.slug = :slug
     """)
-    List<UserAccount> findAllStudentByClassSlug(@Param("slug") String classSlug);
+    List<Enrollment> findAllStudentByClassSlug(@Param("slug") String classSlug);
+
+    Boolean existsByClassFieldIdAndStudentIdAndStatusEqualsIgnoreCase(Integer classId, Integer studentId, String status);
 }

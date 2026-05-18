@@ -27,9 +27,10 @@ public interface UserAccountMapper {
     void updateMyUserAccount(UpdateMyUserAccountRequest request, @MappingTarget UserAccount userAccount);
 
     @Mappings({
+            @Mapping(target = "enrollmentId", source = "enrollmentId"),
             @Mapping(target = "status", source = "userAccount.enrollment.status"),
             @Mapping(target = "numberOfPresents", source = "numberOfPresents"),
             @Mapping(target = "numberOfAbsents", source = "numberOfAbsents")
     })
-    StudentInClassResponse toStudentInClassResponse(UserAccount userAccount, Integer numberOfPresents, Integer numberOfAbsents);
+    StudentInClassResponse toStudentInClassResponse(UserAccount userAccount, Integer numberOfPresents, Integer numberOfAbsents, Integer enrollmentId);
 }

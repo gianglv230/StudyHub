@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public record StudentInClassResponse(
         Integer id,
+        Integer enrollmentId,
         String firstname,
         String lastname,
         Boolean gender,

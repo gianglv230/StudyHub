@@ -1,6 +1,7 @@
 package com.studyhub.studyhub_api.repository;
 
 import com.studyhub.studyhub_api.dto.response.statistics.RevenueStatisticsProjection;
+import com.studyhub.studyhub_api.model.Enrollment;
 import com.studyhub.studyhub_api.model.Invoice;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,4 +36,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer>, JpaS
         GROUP BY revenueMonth, status
     """)
     List<RevenueStatisticsProjection> getRevenueMonth(int year);
+
+    Boolean existsByEnrollmentIdAndStatusIn(int enrollmentId, List<String> statuses);
+    List<Invoice> findByEnrollmentIdAndStatusIn(int enrollmentId, List<String> statuses);
 }

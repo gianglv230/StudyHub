@@ -27,7 +27,8 @@ public enum ErrorCode {
     CAN_NOT_TRANSITION(1038, "Can not transition", HttpStatus.BAD_REQUEST),
     CAN_NOT_OPEN(1039, "Can not open class", HttpStatus.BAD_REQUEST),
     CAN_NOT_CLOSE(1040, "Can not close class", HttpStatus.BAD_REQUEST),
-    ;
+    ENROLLMENT_EXISTED(1041, "Enrollment already existed", HttpStatus.CONFLICT),
+    ENROLLMENT_NOT_EXISTED(1042, "Enrollment not existed", HttpStatus.CONFLICT),;
 
     private int code;
     private String message;

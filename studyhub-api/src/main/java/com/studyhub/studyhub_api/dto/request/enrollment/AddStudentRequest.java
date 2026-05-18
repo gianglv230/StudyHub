@@ -1,7 +1,8 @@
-package com.studyhub.studyhub_api.dto.request.classes;
+package com.studyhub.studyhub_api.dto.request.enrollment;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,13 +11,14 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AddStudentRequest {
+public class AddStudentRequest extends BaseEnrollmentRequest {
     Integer studentId;
-    BigDecimal amount;
-    BigDecimal adjustments;
-    BigDecimal finalAmount;
+    String classSlug;
+//    BigDecimal amount;
+//    BigDecimal adjustments;
     String status;
     LocalDate dueDate;
+//    String method;
 }
