@@ -1,6 +1,7 @@
 package com.studyhub.studyhub_api.dto.response.classes;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 
 public record ClassAdminResponse(
@@ -26,9 +27,9 @@ public record ClassAdminResponse(
         BigDecimal price,
         String status,
 
-        LocalDate createdAt,
+        Instant createdAt,
         String createdBy,
-        LocalDate updatedAt,
+        Instant updatedAt,
         String updatedBy
 ) {
 }

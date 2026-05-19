@@ -7,6 +7,7 @@ import com.studyhub.studyhub_api.dto.response.auth.AuthenticationResponse;
 import com.studyhub.studyhub_api.dto.response.auth.IntrospectResponse;
 import com.studyhub.studyhub_api.dto.response.auth.RefreshAccessTokenResponse;
 import com.studyhub.studyhub_api.model.Class;
+import com.studyhub.studyhub_api.model.Resource;
 import com.studyhub.studyhub_api.model.UserAccount;
 
 import java.text.ParseException;
@@ -23,4 +24,6 @@ public interface AuthenticationService {
     Class checkViewClassPermissions(String classSlug, String classLessonSlug);
 //    Class checkViewClassPermissions(String classSlug, String classLessonSlug, Integer contentId);
     void checkAttendanceManagementPermissions(Class clazz, List<Integer> enrollmentIds);
+
+    Resource checkOwnerResource(Integer resourceId);
 }

@@ -3,6 +3,7 @@ package com.studyhub.studyhub_api.dto.response.classes;
 import com.studyhub.studyhub_api.dto.response.content.ResourceResponse;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 
 public record AdminClassResponse(
@@ -26,9 +27,9 @@ public record AdminClassResponse(
         BigDecimal price,
         Integer maxStudents,
 
-        LocalDate createdAt,
+        Instant createdAt,
         String createdBy,
-        LocalDate updatedAt,
+        Instant updatedAt,
         String updatedBy
 ) {
 }

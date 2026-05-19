@@ -1,5 +1,6 @@
 package com.studyhub.studyhub_api.dto.response.course;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 // Filter
@@ -15,8 +16,8 @@ public record CourseAdminResponse(
 
         String status,
 
-        LocalDate createdAt,
+        Instant createdAt,
         String createdBy,
-        LocalDate updatedAt,
+        Instant updatedAt,
         String updatedBy
 ) {}

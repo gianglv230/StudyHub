@@ -1,5 +1,6 @@
 package com.studyhub.studyhub_api.dto.response.user_account;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 public record AdminUserAccountBasicResponse(
@@ -13,6 +14,8 @@ public record AdminUserAccountBasicResponse(
         String hometown,
         String address,
         String avatar,
-        String role
+        String role,
+        Instant createdBy,
+        Instant updatedBy
 ) {
 }

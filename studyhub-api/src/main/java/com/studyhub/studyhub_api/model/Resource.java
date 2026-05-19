@@ -33,7 +33,7 @@ public class Resource extends OwnerAudit {
 
     @Size(max = 255)
     @NotNull
-    @Column(name = "url", nullable = false)
+    @Column(name = "url", nullable = true)
     String url;
 
     @Size(max = 255)
@@ -49,6 +49,18 @@ public class Resource extends OwnerAudit {
     @NotNull
     @Column(name = "is_public", nullable = false)
     Boolean isPublic = false;
+
+    @Column(name = "public_id")
+    Integer publicId;
+
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name = "resource_parent")
+    Resource resourceParent;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "resourceParent")
+    Set<Resource> children = new LinkedHashSet<>();
 
 //    @NotNull
 //    @Column(name = "created_at", nullable = false)

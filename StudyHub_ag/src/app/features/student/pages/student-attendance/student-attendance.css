@@ -13,3 +13,17 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+/* .attendance-responsive {
+    overflow-x: scroll;
+  } */
+
+.min-w-700{
+  min-width: 700px;
+}
+
+@media (max-width: 991.98px) {
+  .attendance-responsive {
+    overflow-x: scroll;
+  }
+}

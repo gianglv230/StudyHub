@@ -11,9 +11,11 @@ import com.studyhub.studyhub_api.enums.StatusEnrollment;
 import com.studyhub.studyhub_api.exception.AppException;
 import com.studyhub.studyhub_api.exception.ErrorCode;
 import com.studyhub.studyhub_api.model.Class;
+import com.studyhub.studyhub_api.model.Resource;
 import com.studyhub.studyhub_api.model.UserAccount;
 import com.studyhub.studyhub_api.repository.ClassRepository;
 import com.studyhub.studyhub_api.repository.EnrollmentRepository;
+import com.studyhub.studyhub_api.repository.ResourceRepository;
 import com.studyhub.studyhub_api.repository.UserAccountRepository;
 import com.studyhub.studyhub_api.service.auth.AuthenticationService;
 import com.studyhub.studyhub_api.service.auth.JwtService;
@@ -38,6 +40,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     UserAccountRepository userAccountRepository;
     EnrollmentRepository enrollmentRepository;
     ClassRepository classRepository;
+    ResourceRepository resourceRepository;
 
     JwtService jwtService;
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -190,5 +193,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if(clazz.getId() != classId){
             throw new AppException(ErrorCode.UNAUTHENTICATED);
         }
+    }
+
+    @Override
+    public Resource checkOwnerResource(Integer resourceId) {
+        UserAccount account = getUserAccountByJwtToken();
+        Resource resource = resourceRepository.findByIdAAndCreatedBy(resourceId, account.getId())
+                .orElseThrow(() -> new AppException(ErrorCode.UNAUTHORIZED));
+        return resource;
     }
 }

@@ -28,7 +28,12 @@ public enum ErrorCode {
     CAN_NOT_OPEN(1039, "Can not open class", HttpStatus.BAD_REQUEST),
     CAN_NOT_CLOSE(1040, "Can not close class", HttpStatus.BAD_REQUEST),
     ENROLLMENT_EXISTED(1041, "Enrollment already existed", HttpStatus.CONFLICT),
-    ENROLLMENT_NOT_EXISTED(1042, "Enrollment not existed", HttpStatus.CONFLICT),;
+    ENROLLMENT_NOT_EXISTED(1042, "Enrollment not existed", HttpStatus.CONFLICT),
+    FOLDER_HAS_CHILD(1043, "Folder has child", HttpStatus.CONFLICT),
+    FILE_REQUIRED(1044, "File required", HttpStatus.BAD_REQUEST),
+    FILE_TOO_MAXSIZE(1045, "Max file size is 20MB", HttpStatus.BAD_REQUEST),
+    VIDEO_TOO_MAXSIZE(1046, "Max video file size is 2GB", HttpStatus.BAD_REQUEST),
+    UPLOAD_CLOUDINARY_FAIL(1047, "Upload cloudinary failed", HttpStatus.BAD_REQUEST),;
 
     private int code;
     private String message;

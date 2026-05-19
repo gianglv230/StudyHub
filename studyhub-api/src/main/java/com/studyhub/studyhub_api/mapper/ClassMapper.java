@@ -61,13 +61,13 @@ public interface ClassMapper {
     ClassLessonResponse toClassLessonResponse(Class clazz, Integer progressOfClass);
 
     @Mappings({
-            @Mapping(target = "classId", source = "id"),
-            @Mapping(target = "teacherId", source = "teacher.id"),
-            @Mapping(target = "teacherName", source = "teacher.fullname"),
-            @Mapping(target = "subject", source = "course.subject"),
-            @Mapping(target = "targetGrade", source = "course.targetGrade"),
-            @Mapping(target = "categoryName", source = "course.categoryName"),
-            @Mapping(target = "thumbnail", source = "course.thumbnail.url"),
+            @Mapping(target = "classId", source = "clazz.id"),
+            @Mapping(target = "teacherId", source = "clazz.teacher.id"),
+            @Mapping(target = "teacherName", source = "clazz.teacher.fullname"),
+            @Mapping(target = "subject", source = "clazz.course.subject"),
+            @Mapping(target = "targetGrade", source = "clazz.course.targetGrade"),
+            @Mapping(target = "categoryName", source = "clazz.course.categoryName"),
+            @Mapping(target = "thumbnail", source = "clazz.course.thumbnail.url"),
             @Mapping(target = "createdBy", source = "createdBy"),
             @Mapping(target = "updatedBy", source = "updatedBy")
     })

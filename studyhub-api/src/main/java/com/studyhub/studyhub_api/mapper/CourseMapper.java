@@ -28,8 +28,8 @@ public interface CourseMapper {
     CourseDetailLiteResponse toCourseLiteDetailResponse(Course course);
 
     @Mappings({
-            @Mapping(target = "courseId", source = "id"),
-            @Mapping(target = "thumbnail", source = "thumbnail.url"),
+            @Mapping(target = "courseId", source = "course.id"),
+            @Mapping(target = "thumbnail", source = "course.thumbnail.url"),
             @Mapping(target = "createdBy", source = "createdBy"),
             @Mapping(target = "updatedBy", source = "updatedBy")
     })

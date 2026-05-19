@@ -9,6 +9,8 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.Formula;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -110,7 +112,7 @@ public class UserAccount extends FullAudit {
 //    @JoinColumn(name = "updated_by")
 //    UserAccount updatedBy;
 
-//    @ToString.Exclude
+    //    @ToString.Exclude
 //    @OneToMany(mappedBy = "createdBy")
 //    Set<Attendance> createdAttendances = new LinkedHashSet<>();
 //
@@ -149,7 +151,7 @@ public class UserAccount extends FullAudit {
 //    @ToString.Exclude
 //    @OneToMany(mappedBy = "student")
 //    Set<Enrollment> enrollments = new LinkedHashSet<>();
-//
+
 //    @ToString.Exclude
 //    @OneToMany(mappedBy = "createdBy")
 //    Set<Enrollment> createdEnrollments = new LinkedHashSet<>();

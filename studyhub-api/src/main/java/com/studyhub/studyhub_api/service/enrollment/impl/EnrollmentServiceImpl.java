@@ -89,7 +89,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                     Integer numberOfAbsent = absentMap.getOrDefault(studentId, 0);
 
                     return userAccountMapper
-                            .toStudentInClassResponse(student, numberOfPresent, numberOfAbsent, enrollment.getId());
+                            .toStudentInClassResponse(student, numberOfPresent, numberOfAbsent, enrollment.getId(), enrollment.getStatus());
                 })
                 .toList();
     }

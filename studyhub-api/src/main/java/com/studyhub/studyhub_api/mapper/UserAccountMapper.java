@@ -28,9 +28,9 @@ public interface UserAccountMapper {
 
     @Mappings({
             @Mapping(target = "enrollmentId", source = "enrollmentId"),
-            @Mapping(target = "status", source = "userAccount.enrollment.status"),
+            @Mapping(target = "status", source = "status"),
             @Mapping(target = "numberOfPresents", source = "numberOfPresents"),
             @Mapping(target = "numberOfAbsents", source = "numberOfAbsents")
     })
-    StudentInClassResponse toStudentInClassResponse(UserAccount userAccount, Integer numberOfPresents, Integer numberOfAbsents, Integer enrollmentId);
+    StudentInClassResponse toStudentInClassResponse(UserAccount userAccount, Integer numberOfPresents, Integer numberOfAbsents, Integer enrollmentId, String status);
 }

@@ -12,6 +12,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = {ResourceMapper.class, MaterialMapper.class})
 public interface ContentMapper {
@@ -51,9 +53,9 @@ public interface ContentMapper {
         return resource;
     }
 
-    default List<Material> map(List<Integer> ids) {
+    default Set<Material> map(List<Integer> ids) {
         if (ids == null) {
-            return List.of();
+            return Set.of();
         }
 
         return ids.stream()
@@ -62,6 +64,6 @@ public interface ContentMapper {
                     material.setId(id);
                     return material;
                 })
-                .toList();
+                .collect(Collectors.toSet());
     }
 }

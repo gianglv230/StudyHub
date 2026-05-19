@@ -1,44 +1,81 @@
 <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
-      <div class="container max-w-container">
-        <a class="navbar-brand navbar-brand-custom" href="#"
-          ><img src="assets/images/logo-Photoroom.png" alt="Logo StudyHub" class="me-1" width="50" height="50" />
-          <span>StudyHub</span></a
-        >
-        <button
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          class="navbar-toggler border-0"
-          data-bs-target="#navbarNav"
-          data-bs-toggle="collapse"
-          type="button"
-        >
-          <span class="material-symbols-outlined text-primary fs-1">menu</span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto mb-3 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link nav-link-custom active" href="#">Trang chủ</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-custom" href="#">Khóa học</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-custom" href="#"
-                >Các lớp khai giảng sắp tới</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-custom" href="#"
-                >Giới thiệu trung tâm</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-custom" href="#">Liên hệ</a>
-            </li>
-          </ul>
-          <button class="btn btn-primary-custom px-4">Đăng nhập</button>
-        </div>
-      </div>
-    </nav>
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+  <div class="container max-w-container">
+    <a class="navbar-brand navbar-brand-custom" href="#"
+      ><img
+        src="assets/images/logo-Photoroom.png"
+        alt="Logo StudyHub"
+        class="me-1"
+        width="50"
+        height="50"
+      />
+      <span>StudyHub</span></a
+    >
+    <button
+      aria-controls="navbarNav"
+      [attr.aria-expanded]="!isMenuCollapsed"
+      aria-label="Toggle navigation"
+      class="navbar-toggler border-0"
+      (click)="isMenuCollapsed = !isMenuCollapsed"
+      type="button"
+    >
+      <span class="material-symbols-outlined text-primary-container fs-1"
+        >menu</span
+      >
+    </button>
+    <div
+      class="collapse navbar-collapse"
+      id="navbarNav"
+      [ngbCollapse]="isMenuCollapsed"
+    >
+      <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link nav-link-custom active"
+            routerLink="/trang-chu"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+            >Trang chủ</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link nav-link-custom"
+            routerLink="/khoa-hoc"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+            >Khóa học</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link nav-link-custom"
+            routerLink="/lop-hoc"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+            >Các lớp khai giảng sắp tới</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link nav-link-custom"
+            routerLink="/gioi-thieu-trung-tam"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+            >Giới thiệu trung tâm</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link nav-link-custom"
+            routerLink="/lien-he"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+            >Liên hệ</a
+          >
+        </li>
+      </ul>
+      <button class="btn btn-primary-custom px-4">Đăng nhập</button>
+    </div>
+  </div>
+</nav>

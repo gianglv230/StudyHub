@@ -30,6 +30,11 @@ jwt:
   valid-duration: 7200 #in seconds
   refreshable-duration: 72000 #in seconds
 
+cloudinary:
+  cloud_name: ${CLOUD_NAME}
+  api_key: ${API_KEY}
+  api_secret: ${API_SECRET}
+
 open:
   api:
     title: studyhub-api document
