@@ -36,21 +36,22 @@
         class="navbar-toggler border-0 p-1 ms-2"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
+        (click)="isMenuCollapsed = !isMenuCollapsed"
       >
         <span class="material-symbols-outlined fs-2">menu</span>
       </button>
     </div>
 
     <!-- MENU -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="ms-0 ms-lg-3 navbar-nav me-auto mb-3 mb-lg-0">
+    <div class="collapse navbar-collapse" id="navbarNav" [ngbCollapse]="isMenuCollapsed">
+      <ul class="ms-0 ms-lg-3 navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link nav-link-custom active" href="#"
+          <a class="nav-link nav-link-custom my-1" routerLink="/" routerLinkActive="active"
             >Danh sách lớp học</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link nav-link-custom" href="#">Quản lý tài nguyên</a>
+          <a class="nav-link nav-link-custom my-1"  routerLink="/" routerLinkActive="active">Quản lý tài nguyên</a>
         </li>
       </ul>
     </div>

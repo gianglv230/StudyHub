@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Navbar } from '../../../../_shared/navbar/navbar';
 
 @Component({
   selector: 'app-navbar-student',
@@ -8,10 +9,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './navbar-student.html',
   styleUrl: './navbar-student.css',
 })
-export class NavbarStudent {
-isMenuCollapsed = true;
+export class NavbarStudent extends Navbar {
+  // isMenuCollapsed = true;
 
-  closeMenu(){
-    this.isMenuCollapsed = true;
-  }
+  // closeMenu(){
+  //   this.isMenuCollapsed = true;
+  // }
 }

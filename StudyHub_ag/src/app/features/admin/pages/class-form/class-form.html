@@ -1,212 +1,190 @@
 <section class="mt-0">
-          <div
-            class="main-content-header d-flex justify-content-between align-items-center"
-          >
-            <a href="#" class="text-decoration-none back-btn">
-              <div class="d-flex align-items-center text-primary-container">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="23"
-                  height="23"
-                  fill="currentColor"
-                  class="bi bi-arrow-left-short me-2 back-arrow"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"
-                  ></path>
-                </svg>
-                <span>Trở lại danh sách lớp học</span>
-              </div>
-            </a>
-          </div>
-          <div class="row mt-3 mb-3">
-            <div class="col-9">
-              <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
-                <p
-                  class="fw-normal text-uppercase ls-1 text-primary-container mb-2"
-                >
-                  Tên lớp học
-                </p>
-                <input
-                  type="text"
-                  class="form-control form-input py-2"
-                  placeholder="Tên lớp học - Bắt buộc nhập"
-                />
-                <p class="small fst-italic mt-2 mb-0 text-end">slug</p>
-              </div>
+  <div
+    class="main-content-header d-flex justify-content-between align-items-center"
+  >
+    <a href="#" class="text-decoration-none back-btn">
+      <div class="d-flex align-items-center text-primary-container">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="23"
+          height="23"
+          fill="currentColor"
+          class="bi bi-arrow-left-short me-2 back-arrow"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"
+          ></path>
+        </svg>
+        <span>Trở lại danh sách lớp học</span>
+      </div>
+    </a>
+  </div>
+  <div class="row mt-3 mb-3">
+    <div class="col-12 col-md-8 col-lg-9 order-1 order-md-0">
+      <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
+        <p class="fw-normal text-uppercase ls-1 text-primary-container mb-2">
+          Tên lớp học
+        </p>
+        <input
+          type="text"
+          class="form-control form-input py-2"
+          placeholder="Tên lớp học - Bắt buộc nhập"
+        />
+        <p class="small fst-italic mt-2 mb-0 text-end">slug</p>
+      </div>
+    </div>
+    <div class="col-12 col-md-4 col-lg-3 order-0 order-md-1 mb-3 mb-md-0">
+      <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
+        <h5 class="mb-2 fw-normal ls-1 text-center">Tạo lớp học mới</h5>
+        <p class="text-muted mb-0 small pt-1">Ngày tạo: 05/05/2026</p>
+        <p class="text-muted mb-0 small pt-1">Bởi: NVA</p>
+        <p class="text-muted mb-0 small">Ngày cập nhật: 05/05/2026</p>
+        <p class="text-muted mb-0 small pt-1">Bởi: NVA</p>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2 form-second">
+    <div class="col-12">
+      <div class="bg-white rounded-3 shadow-sm py-3 px-3">
+        <div class="row g-3">
+          <div class="col-12 col-md-4 col-lg-3">
+            <div class="mb-2">
+              <label class="mb-1 text-primary-container ls-1"
+                >Ngày khai giảng dự kiến</label
+              >
+              <input
+                type="date"
+                name="opening-date"
+                class="form-control py-2"
+              />
             </div>
-            <div class="col-3">
-              <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
-                <h5 class="mb-2 fw-normal ls-1 text-center">Tạo lớp học mới</h5>
-                <p class="text-muted mb-1 small mt-2 pt-1">
-                  Ngày tạo: 05/05/2026
-                </p>
-                <p class="text-muted mb-1 small mt-2 pt-1">
-                  Bởi: NVA
-                </p>
-                <p class="text-muted mb-0 small">Ngày cập nhật: 05/05/2026</p>
-                <p class="text-muted mb-1 small mt-2 pt-1">
-                  Bởi: NVA
-                </p>
-              </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-3">
+            <div class="mb-2">
+              <label class="mb-1 text-primary-container ls-1"
+                >Ngày bắt đầu</label
+              >
+              <input type="date" name="start-date" class="form-control py-2" />
             </div>
           </div>
-          <div class="row mt-2 form-second">
-            <div class="col-12">
-              <div class="bg-white rounded-3 shadow-sm py-3 px-3">
-                <div class="row g-3">
-                  <div class="col-3">
-                    <div class="mb-2">
-                      <label class="mb-1 text-primary-container ls-1"
-                        >Ngày khai giảng dự kiến</label
-                      >
-                      <input
-                        type="date"
-                        name="opening-date"
-                        class="form-control py-2"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="mb-2">
-                      <label class="mb-1 text-primary-container ls-1"
-                        >Ngày bắt đầu</label
-                      >
-                      <input
-                        type="date"
-                        name="start-date"
-                        class="form-control py-2"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="mb-2">
-                      <label class="mb-1 text-primary-container ls-1"
-                        >Ngày kết thúc</label
-                      >
-                      <input
-                        type="date"
-                        name="end-date"
-                        class="form-control py-2"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="mb-2">
-                      <label class="mb-1 text-primary-container ls-1"
-                        >Giáo viên dạy</label
-                      >
-                      <select name="subject" class="form-select py-2">
-                        <option value="all" selected>NVA</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="mb-2">
-                      <label class="mb-1 text-primary-container ls-1"
-                        >Số học viên tối thiểu mở lớp</label
-                      >
-                      <input
-                        type="number"
-                        name="keyword"
-                        class="form-control py-2"
-                        placeholder="20"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="mb-2">
-                      <label class="mb-1 text-primary-container ls-1"
-                        >Số học viên tối đa</label
-                      >
-                      <input
-                        type="number"
-                        name="keyword"
-                        class="form-control py-2"
-                        placeholder="50"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="mb-2">
-                      <label class="mb-1 text-primary-container ls-1"
-                        >Giá (VNĐ)</label
-                      >
-                      <input
-                        type="number"
-                        name="keyword"
-                        class="form-control py-2"
-                        placeholder="5000000"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="mb-2">
-                      <label class="mb-1 text-primary-container ls-1"
-                        >Trạng thái</label
-                      >
-                      <select name="subject" class="form-select py-2">
-                        <option value="all" selected>Hoạt động</option>
-                      </select>
-                    </div>
-                  </div>
+          <div class="col-12 col-md-4 col-lg-3">
+            <div class="mb-2">
+              <label class="mb-1 text-primary-container ls-1"
+                >Ngày kết thúc</label
+              >
+              <input type="date" name="end-date" class="form-control py-2" />
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-3">
+            <div class="mb-2">
+              <label class="mb-1 text-primary-container ls-1"
+                >Giáo viên dạy</label
+              >
+              <select name="subject" class="form-select py-2">
+                <option value="all" selected>NVA</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-3">
+            <div class="mb-2">
+              <label class="mb-1 text-primary-container ls-1"
+                >Số học viên tối thiểu mở lớp</label
+              >
+              <input
+                type="number"
+                name="keyword"
+                class="form-control py-2"
+                placeholder="20"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-3">
+            <div class="mb-2">
+              <label class="mb-1 text-primary-container ls-1"
+                >Số học viên tối đa</label
+              >
+              <input
+                type="number"
+                name="keyword"
+                class="form-control py-2"
+                placeholder="50"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-3">
+            <div class="mb-2">
+              <label class="mb-1 text-primary-container ls-1">Giá (VNĐ)</label>
+              <input
+                type="number"
+                name="keyword"
+                class="form-control py-2"
+                placeholder="5000000"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-md-4 col-lg-3">
+            <div class="mb-2">
+              <label class="mb-1 text-primary-container ls-1">Trạng thái</label>
+              <select name="subject" class="form-select py-2">
+                <option value="all" selected>Hoạt động</option>
+              </select>
+            </div>
+          </div>
 
-                  <div class="col-12 mb-2">
-                    <p class="mb-2 fw-medium text-primary-container">
-                      Ảnh đại diện lớp học
-                    </p>
-                    <div
-                      class="frame-upload-video rounded-3 text-center py-3 mt-2"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="28"
-                        height="28"
-                        fill="currentColor"
-                        class="bi bi-plus-lg me-1 mb-2"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-                        />
-                      </svg>
-                      <p class="fw-bold mb-0">Chọn/Upload ảnh</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="col-12 mb-2">
+            <p class="mb-2 fw-medium text-primary-container">
+              Ảnh đại diện lớp học
+            </p>
+            <div class="frame-upload-video rounded-3 text-center py-3 mt-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                fill="currentColor"
+                class="bi bi-plus-lg me-1 mb-2"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                />
+              </svg>
+              <p class="fw-bold mb-0">Chọn/Upload ảnh</p>
             </div>
           </div>
-        </section>
-        <div class="bg-white w-100 px-3 py-4 mb-3 mt-3">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="col-3">
-              <div class="row align-items-center g-1">
-                <div class="col-auto">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-cloud-check-fill text-secondary text-center"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m2.354 4.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"
-                    />
-                  </svg>
-                </div>
-                <div class="col">
-                  <span class="fs-12 text-muted"
-                    >Tất cả các thay đổi đã được lưu tự động tại máy</span
-                  >
-                </div>
-              </div>
-            </div>
-            <!-- <div class="col-4">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="bg-white w-100 px-3 py-4 mb-3 mt-3">
+  <div class="row d-flex justify-content-between align-items-center">
+    <div class="col">
+      <div class="row align-items-center g-1">
+        <div class="col-auto">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-cloud-check-fill text-secondary text-center"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m2.354 4.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"
+            />
+          </svg>
+        </div>
+        <div class="col">
+          <span class="fs-12 text-muted"
+            >Tất cả các thay đổi đã được lưu tự động tại máy</span
+          >
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-4">
               <div class="d-flex align-items-center">
                 <label
                   class="ls-1 small text-nowrap me-2 text-primary-container"
@@ -217,13 +195,13 @@
                 </select>
               </div>
             </div> -->
-            <div class="d-flex">
-              <button
-                class="btn btn-outline-secondary py-2 rounded-3 me-2 px-5 fw-bold"
-              >
-                Hủy bỏ
-              </button>
-              <button class="btn btn-primary-custom py-2">Lưu</button>
-            </div>
-          </div>
-        </div>
+    <div class="col-auto d-flex">
+      <button
+        class="btn btn-outline-secondary py-2 rounded-3 me-2 px-3 fw-bold"
+      >
+        Hủy bỏ
+      </button>
+      <button class="btn btn-primary-custom py-2">Lưu</button>
+    </div>
+  </div>
+</div>

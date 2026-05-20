@@ -18,3 +18,14 @@
   background-color: var(--primary-color) !important;
   color: white;
 }
+
+@media (max-width: 1023px) {
+  .attendance-scroll{
+    height: fit-content;
+  }
+
+  .attendance-card{
+    white-space: nowrap;
+    width: fit-content;
+  }
+}

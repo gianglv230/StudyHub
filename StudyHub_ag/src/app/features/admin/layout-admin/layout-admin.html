@@ -1,4 +1,4 @@
-<app-admin-sidebar />
+<app-admin-sidebar #sidebarComponent />
 <!-- Main Content -->
 <div id="main-content">
   <header
@@ -6,7 +6,7 @@
   >
     <button
       class="btn btn-link text-dark d-lg-none p-0 me-2"
-      onclick="toggleSidebar()"
+      (click)="sidebarComponent.toggleMenu()"
     >
       <span class="material-symbols-outlined">menu</span>
     </button>
