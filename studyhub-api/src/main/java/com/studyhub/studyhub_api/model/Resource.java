@@ -42,6 +42,10 @@ public class Resource extends OwnerAudit {
     String path;
 
     @Size(max = 255)
+    @Column(name = "extension")
+    String extension;
+
+    @Size(max = 255)
     @NotNull
     @Column(name = "resource_type", nullable = false)
     String resourceType;
@@ -51,7 +55,7 @@ public class Resource extends OwnerAudit {
     Boolean isPublic = false;
 
     @Column(name = "public_id")
-    Integer publicId;
+    String publicId;
 
     @ToString.Exclude
     @ManyToOne

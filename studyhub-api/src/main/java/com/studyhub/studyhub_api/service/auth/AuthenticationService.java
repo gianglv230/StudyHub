@@ -26,4 +26,5 @@ public interface AuthenticationService {
     void checkAttendanceManagementPermissions(Class clazz, List<Integer> enrollmentIds);
 
     Resource checkOwnerResource(Integer resourceId);
+    Resource checkOwnerParentResource(Integer resourceId);
 }

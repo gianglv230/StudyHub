@@ -33,7 +33,11 @@ public enum ErrorCode {
     FILE_REQUIRED(1044, "File required", HttpStatus.BAD_REQUEST),
     FILE_TOO_MAXSIZE(1045, "Max file size is 20MB", HttpStatus.BAD_REQUEST),
     VIDEO_TOO_MAXSIZE(1046, "Max video file size is 2GB", HttpStatus.BAD_REQUEST),
-    UPLOAD_CLOUDINARY_FAIL(1047, "Upload cloudinary failed", HttpStatus.BAD_REQUEST),;
+    UPLOAD_CLOUDINARY_FAIL(1047, "Upload cloudinary failed", HttpStatus.BAD_REQUEST),
+    DELETE_FILE_FAIL(1048, "Failed to delete file", HttpStatus.BAD_REQUEST),
+    FILE_NOT_ALLOWED(1049, "Only jpg, jpeg, png, mp4, mov, mp3, wav, pdf, doc, docx files are allowed", HttpStatus.BAD_REQUEST),
+    RESOURCE_TYPE_INVALID(1050, "Resource type is invalid", HttpStatus.BAD_REQUEST),
+    RESOURCE_NOT_FOUND(1051, "Resource not found", HttpStatus.NOT_FOUND),;
 
     private int code;
     private String message;

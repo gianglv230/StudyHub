@@ -198,8 +198,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Resource checkOwnerResource(Integer resourceId) {
         UserAccount account = getUserAccountByJwtToken();
-        Resource resource = resourceRepository.findByIdAAndCreatedBy(resourceId, account.getId())
+        Resource resource = resourceRepository.findByIdAndCreatedBy(resourceId, account.getId())
                 .orElseThrow(() -> new AppException(ErrorCode.UNAUTHORIZED));
+        return resource;
+    }
+
+    @Override
+    public Resource checkOwnerParentResource(Integer resourceId) {
+        UserAccount account = getUserAccountByJwtToken();
+        Resource resource = resourceRepository.findByIdAndCreatedBy(resourceId, account.getId())
+                .orElse(null);
         return resource;
     }
 }

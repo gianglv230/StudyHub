@@ -3,6 +3,7 @@ package com.studyhub.studyhub_api.mapper;
 import com.studyhub.studyhub_api.dto.response.class_lesson.ResourceTeacherResponse;
 import com.studyhub.studyhub_api.dto.response.content.ResourceResponse;
 import com.studyhub.studyhub_api.dto.response.resource.ChildrenResourceResponse;
+import com.studyhub.studyhub_api.dto.response.resource.FileInfoResponse;
 import com.studyhub.studyhub_api.dto.response.resource.FolderResourceResponse;
 import com.studyhub.studyhub_api.dto.response.resource.ParentResourceResponse;
 import com.studyhub.studyhub_api.model.Material;
@@ -26,4 +27,6 @@ public interface ResourceMapper {
     FolderResourceResponse toFolderResourceResponse(Resource resource);
     ParentResourceResponse toParentResourceResponse(Resource resource);
     ChildrenResourceResponse toChildrenResourceResponse(Resource resource);
+
+    FileInfoResponse toFileInfoResponse(Resource resource);
 }

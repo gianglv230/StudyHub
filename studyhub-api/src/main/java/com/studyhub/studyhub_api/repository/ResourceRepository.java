@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface ResourceRepository extends JpaRepository<Resource, Integer> {
-    Optional<Resource> findByIdAAndCreatedBy(int id, int createdBy);
+    Optional<Resource> findByIdAndCreatedBy(int id, int createdBy);
     Boolean existsByResourceParentId(int resourceParentId);
 }
