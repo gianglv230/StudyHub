@@ -1,0 +1,87 @@
+<nav>
+  <ul class="pagination gap-1 mt-5 justify-content-center">
+    <li class="page-item">
+      <a
+        class="page-link"
+        [routerLink]="[]"
+        routerLinkActive="active"
+        [queryParams]="{ page: nextPage }"
+        [queryParamsHandling]="'merge'"
+        [class.disabled]="!hasNextPage()"
+      >
+        <app-dynamic-icon
+          width="16"
+          height="16"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+          fill_rule="evenodd"
+          iconClass=""
+          [icon]="'next'"
+          [iconStyle]="{
+            'margin-left': '-4px',
+            'margin-right': '-4px',
+          }"
+        />
+      </a>
+    </li>
+
+    @for (page of visiblePages; track page) {
+      <li class="page-item">
+        @if (!isString(page)) {
+          <a
+            class="page-link"
+            [class.active]="isActive(page)"
+            [routerLink]="[]"
+            routerLinkActive="active"
+            [queryParams]="{ page: page }"
+            [queryParamsHandling]="'merge'"
+            >{{ page }}</a
+          >
+        } @else {
+          <span>...</span>
+        }
+      </li>
+    }
+
+    <!-- <li class="page-item">
+      <a class="page-link" [class.active]="isActive(1)" href="#">1</a>
+    </li>
+    <li class="page-item">
+      <span>...</span>
+    </li>
+    <li class="page-item" [class.active]="isActive(2)">
+      <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item">
+      <span>...</span>
+    </li>
+    <li class="page-item" [class.active]="isActive(3)">
+      <a class="page-link" href="#">3</a>
+    </li> -->
+
+    <li class="page-item">
+      <a
+        class="page-link"
+        [routerLink]="[]"
+        routerLinkActive="active"
+        [queryParams]="{ page: prevPage }"
+        [queryParamsHandling]="'merge'"
+        [class.disabled]="!hasPrevPage()"
+      >
+        <app-dynamic-icon
+          width="16"
+          height="16"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+          fill_rule="evenodd"
+          iconClass=""
+          [icon]="'prev'"
+          [iconStyle]="{
+            'margin-left': '-4px',
+            'margin-right': '-4px',
+          }"
+        />
+      </a>
+    </li>
+  </ul>
+</nav>

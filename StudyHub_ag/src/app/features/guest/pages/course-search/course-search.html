@@ -2,4 +2,18 @@
 <app-search-section />
 
 <div class="mt-4 pt-2"></div>
-<app-search-result />
+
+<section class="my-4 container courses-sections">
+  @if (pageData) {
+    <h3 class="h4 text-primary-container">
+      Tìm thấy {{ totalElements }} kết quả cho: {{ searchTitle }}
+    </h3>
+    <hr />
+    <app-search-result [pageData]="pageData" />
+    @if (pageData.totalPages != 0) {
+      <app-pagination [paginationModel]="paginationModel" />
+    }
+  } @else {
+    <app-spinner />
+  }
+</section>

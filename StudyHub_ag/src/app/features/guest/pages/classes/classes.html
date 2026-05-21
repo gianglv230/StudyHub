@@ -1,14 +1,35 @@
 <section class="my-5 container courses-sections">
-  <div class="row">
-    <div class="col-12 col-lg-3">
-      <h1 class="text-uppercase h3 fw-bold mb-3 d-lg-none d-block">Lớp học khai giảng sắp tới</h1>
-    
-      <app-category-list />
+  @if (filterOptions && pageData) {
+  <!-- @if (filterOptions) { -->
+    <div class="row">
+      <div class="col-12 col-lg-3">
+        <h1 class="text-uppercase h3 fw-bold mb-3 d-lg-none d-block">
+          Lớp học khai giảng sắp tới
+        </h1>
+
+        <app-category-list [categories]="filterOptions.categories" />
+      </div>
+      <div class="col-12 col-lg-9">
+        <app-course-filter
+          title="Lớp học khai giảng sắp tới"
+          [target]="target"
+          [targets]="filterOptions.targetGrades"
+        />
+        <app-subject-filter
+          [subject]="subject"
+          [subjects]="filterOptions.subjects"
+        />
+
+        <app-classes-list [pageData]="pageData" />
+
+        @if (pageData.totalPages != 0) {
+          <app-pagination [paginationModel]="paginationModel" />
+        } @else {
+          <app-empty />
+        }
+      </div>
     </div>
-    <div class="col-12 col-lg-9">
-      <app-course-filter title="Lớp học khai giảng sắp tới" />
-      <app-subject-filter />
-      <app-classes-list />
-    </div>
-  </div>
+  } @else {
+    <app-spinner />
+  }
 </section>

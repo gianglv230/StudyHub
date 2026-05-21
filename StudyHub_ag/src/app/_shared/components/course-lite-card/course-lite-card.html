@@ -1,0 +1,31 @@
+<a href="#" class="text-decoration-none">
+  <app-card-container [cardContainer]="cardContainer">
+    <!-- <div class="d-flex align-items-center mb-2">
+      <app-dynamic-icon
+        width="16"
+        height="16"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+        [icon]="'flag_fill'"
+        iconClass="me-2 text-primary-container d-block"
+      />
+      <p class="text-dark mb-0 lh-sm">
+        <span>Số buổi học: </span>
+        <span class="fw-bold text-primary-container">{{
+          card.numberOfLessons
+        }}</span>
+      </p>
+    </div> -->
+
+    <app-info-field label="Số buổi học" [value]="card.numberOfLessons">
+      <app-dynamic-icon
+        width="16"
+        height="16"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+        [icon]="'schedule_tick'"
+        iconClass="me-2 text-primary-container d-block"
+      />
+    </app-info-field>
+  </app-card-container>
+</a>

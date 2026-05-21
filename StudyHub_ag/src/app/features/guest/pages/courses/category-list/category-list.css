@@ -16,14 +16,22 @@
         white-space: nowrap;
         text-overflow: ellipsis; */
 }
+
+a.selected .category-card,
 .category-card:hover {
   background-color: var(--primary-container);
+  color: white !important;
+  display: block;
+}
+
+a.selected .category-card,
+.category-card:hover a {
   color: white !important;
 }
 
 .category-list {
   position: sticky;
-  top: 20px;
+  top: 115px;
 }
 
 .category-list .scroll-box {
@@ -35,4 +43,10 @@
 .icon-rocket {
   width: 25px;
   height: 25px;
+}
+
+@media (max-width: 768px) {
+  .text-nowrap-custom {
+    white-space: nowrap;
+  }
 }

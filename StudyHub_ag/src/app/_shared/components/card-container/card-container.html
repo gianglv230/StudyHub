@@ -1,0 +1,24 @@
+<div class="course-card">
+  <div class="course-img-wrapper">
+    <img
+      alt="{{ cardContainer.title }}"
+      class="course-img"
+      src="{{ cardContainer.thumbnail }}"
+    />
+    <span
+      class="fs-14 position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill px-3"
+    >
+      {{ cardContainer.subject }}</span
+    >
+  </div>
+  <div class="course-card-body px-3 mx-0 mx-xl-1 py-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <span class="badge-category text-danger ls-1 lh-lg"
+        >{{ cardContainer.targetGrade }} -
+        {{ cardContainer.categoryName }}</span
+      >
+    </div>
+    <h5 class="mb-2 pb-1">{{ cardContainer.title }}</h5>
+    <ng-content></ng-content>
+  </div>
+</div>

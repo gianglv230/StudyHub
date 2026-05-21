@@ -1,5 +1,5 @@
 <div class="overflow-x-auto d-flex gap-0 pb-1 my-4">
-  <div class="subject-tab">
+  <!-- <div class="subject-tab">
     <p class="text-center selected">Tất cả</p>
   </div>
   <div class="subject-tab">
@@ -10,5 +10,32 @@
   </div>
   <div class="subject-tab">
     <p class="text-center">Hóa</p>
+  </div> -->
+
+  <div class="subject-tab">
+    <a
+      class="text-decoration-none"
+      [routerLink]="[]"
+      [class.selected]="!subject"
+      routerLinkActive="selected"
+      [queryParams]="{ subject: '', page: 1 }"
+      [queryParamsHandling]="'merge'"
+    >
+      <p class="text-center">Tất cả</p>
+    </a>
   </div>
+  @for (item of subjects; track $index) {
+    <div class="subject-tab">
+      <a
+        class="text-decoration-none"
+        [routerLink]="[]"
+        [class.selected]="isActive(item)"
+        routerLinkActive="selected"
+        [queryParams]="{ subject: item, page: 1 }"
+        [queryParamsHandling]="'merge'"
+      >
+        <p class="text-center">{{ item }}</p>
+      </a>
+    </div>
+  }
 </div>

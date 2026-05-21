@@ -7,7 +7,27 @@
     style="scroll-behavior: smooth"
   >
     <div class="d-flex gap-3">
-      <div
+      @for (item of teachers; track item.teacherId) {
+        <div
+          style="height: 200px; width: 150px"
+          class="bg-white overflow-hidden rounded-2 position-relative flex-shrink-0"
+        >
+          <img
+            src="{{ item.avatar || 'assets/images/magic-book_12844284.png' }}"
+            alt="{{ item.fullname }}"
+            class="h-100 w-100 object-fit-cover"
+            style="object-position: center"
+          />
+
+          <span
+            class="position-absolute bottom-0 start-50 translate-middle-x text-white w-100 text-center bg-dark bg-opacity-50 px-1 py-2 fw-bold"
+            style="font-size: 14px"
+          >
+            {{ item.fullname }}
+          </span>
+        </div>
+      }
+      <!-- <div
         style="height: 200px; width: 150px"
         class="bg-danger overflow-hidden rounded-2 position-relative flex-shrink-0"
       >
@@ -132,25 +152,7 @@
         >
           Thầy Vũ Ngọc Anh
         </span>
-      </div>
-      <div
-        style="height: 200px; width: 150px"
-        class="bg-danger overflow-hidden rounded-2 position-relative flex-shrink-0"
-      >
-        <img
-          src="https://mapstudy.sgp1.digitaloceanspaces.com/teacher/64b229b5d0a652b97e5ab22d/thay-vu-ngoc-anh-1756368275424.jpg"
-          alt="Thay Vu Ngoc Anh"
-          class="h-100 w-100 object-fit-cover"
-          style="object-position: center"
-        />
-
-        <span
-          class="position-absolute bottom-0 start-50 translate-middle-x text-white w-100 text-center bg-dark bg-opacity-50 px-2 py-2 fw-bold"
-          style="font-size: 14px"
-        >
-          Thầy Vũ Ngọc Anh
-        </span>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>

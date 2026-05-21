@@ -1,0 +1,62 @@
+/* 
+        ========================================
+        COURSE CARDS 
+        ========================================
+        */
+:host {
+  display: block;
+  height: 100%;
+}
+
+.course-card {
+  background: white;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.course-card-body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.course-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
+}
+
+.course-img-wrapper {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .course-img-wrapper {
+    height: 260px;
+  }
+}
+
+.course-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.course-card:hover .course-img {
+  transform: scale(1.1);
+}
+
+.badge-category {
+  background-color: var(--tertiary-fixed);
+  color: var(--on-tertiary-container);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+}

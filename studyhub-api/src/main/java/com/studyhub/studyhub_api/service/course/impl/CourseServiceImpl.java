@@ -85,7 +85,7 @@ public class CourseServiceImpl implements CourseService {
         List<String> categoryNames = courseRepository.getDistinctCategoryName();
         List<String> targetGrades = courseRepository.getDistinctTargetGrade();
 
-        return new CourseFilterOptionsResponse(subjects, categoryNames, targetGrades);
+        return new CourseFilterOptionsResponse(subjects, targetGrades, categoryNames);
     }
 
     // Get course by filter options

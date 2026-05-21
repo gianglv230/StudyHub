@@ -1,0 +1,20 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  [attr.width]="width"
+  [attr.height]="height"
+  [attr.fill]="fill"
+  [attr.viewBox]="viewBox"
+  [attr.stroke-width]="stroke_width"
+  [attr.stroke]="stroke"
+  [ngStyle]="iconStyle"
+  [ngClass]="iconClass"
+>
+  @for (path of iconPaths; track $index) {
+    <path
+      [attr.fill-rule]="fill_rule"
+      [attr.stroke-linecap]="stroke_linecap"
+      [attr.stroke-linejoin]="stroke_linejoin"
+      [attr.d]="path"
+    />
+  }
+</svg>

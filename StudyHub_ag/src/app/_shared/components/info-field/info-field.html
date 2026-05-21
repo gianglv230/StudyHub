@@ -1,0 +1,7 @@
+<div class="d-flex align-items-center mb-2">
+  <ng-content></ng-content>
+  <p class="text-dark mb-0 lh-sm">
+    <span>{{ label && `${label}: ` }}</span>
+    <span [class]="classInfo" >{{ value }}</span>
+  </p>
+</div>

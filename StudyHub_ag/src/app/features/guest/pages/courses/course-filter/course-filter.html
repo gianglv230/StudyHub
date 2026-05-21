@@ -1,7 +1,9 @@
-<h1 class="text-uppercase h3 fw-bold mb-3 d-none d-lg-block">{{title || "Khóa học"}}</h1>
+<h1 class="text-uppercase h3 fw-bold mb-3 d-none d-lg-block">
+  {{ title || "Khóa học" }}
+</h1>
 <h5 class="fw-medium fs-18 mt-4 mb-3 d-lg-none d-block">Đối tượng</h5>
 <div class="overflow-x-auto d-flex gap-3 pb-1">
-  <div class="target-grade-card selected">
+  <!-- <div class="target-grade-card selected">
     <span>ĐGNL & ĐGTD</span>
   </div>
   <div class="target-grade-card">
@@ -15,6 +17,19 @@
   </div>
   <div class="target-grade-card">
     <span>2k10</span>
-  </div>
+  </div> -->
+  @for (item of targets; track $index) {
+    <div>
+      <a
+        class="text-decoration-none target-grade-card d-block"
+        [routerLink]="[]"
+        [class.selected]="isActive(item)"
+        routerLinkActive="selected"
+        [queryParams]="{ target: item, page: 1 }"
+        [queryParamsHandling]="'merge'"
+      >
+        <span class="text-nowrap">{{ item }}</span>
+      </a>
+    </div>
+  }
 </div>
-

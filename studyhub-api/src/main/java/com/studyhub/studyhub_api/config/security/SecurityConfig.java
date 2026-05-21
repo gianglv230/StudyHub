@@ -113,7 +113,7 @@ public class SecurityConfig {
         config.addAllowedHeader("*");
 
         // Cho phép gửi credentials như cookies, Authorization header
-//        config.setAllowCredentials(true);
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

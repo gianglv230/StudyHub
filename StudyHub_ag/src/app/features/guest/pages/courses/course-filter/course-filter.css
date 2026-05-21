@@ -3,6 +3,7 @@
   width: fit-content;
   background-color: var(--surface-color);
   border: 1px solid var(--primary-container);
+  color: var(--primary-container);
   border-radius: 8px;
   font-weight: 500;
   flex-shrink: 0;

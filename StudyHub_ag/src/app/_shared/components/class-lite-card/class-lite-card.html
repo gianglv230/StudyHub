@@ -1,0 +1,55 @@
+<a href="#" class="text-decoration-none">
+  <app-card-container [cardContainer]="cardContainer">
+    <app-info-field [value]="card.teacherName">
+      <app-dynamic-icon icon="person" />
+    </app-info-field>
+
+    <app-info-field
+      label="Ngày khai giảng dự kiến"
+      [value]="card.openingDate | date: 'dd/MM/yyyy'"
+    >
+      <app-dynamic-icon icon="flag_fill" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-success"
+      label="Ngày bắt đầu"
+      [value]="card.startDate | date: 'dd/MM/yyyy'"
+    >
+      <app-dynamic-icon icon="schedule" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-danger"
+      label="Ngày kết thúc"
+      [value]="card.endDate | date: 'dd/MM/yyyy'"
+    >
+      <app-dynamic-icon icon="schedule_tick_2" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-primary-container"
+      label="Lịch học"
+      [value]="card.classSchedule"
+    >
+      <app-dynamic-icon icon="clock" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-primary-container"
+      label="Chỗ trống"
+      [value]="`Còn ${card.availableSlots} chỗ`"
+    >
+      <app-dynamic-icon icon="bag_1" />
+    </app-info-field>
+
+    <div class="d-flex align-items-center mb-2 justify-content-end">
+      <p class="text-danger fw-bold">
+        <span class="h4 fw-bold">{{
+          card.price | number: "1.0-2" : "vi"
+        }}</span>
+        <u>đ</u>
+      </p>
+    </div>
+  </app-card-container>
+</a>

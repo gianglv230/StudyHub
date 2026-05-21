@@ -3,12 +3,9 @@
   <div class="search-bar d-flex flex-column flex-md-row gap-3">
     <div class="search-input-group">
       <span class="material-symbols-outlined search-icon">search</span>
-      <input
-        class="search-input"
-        placeholder="Bạn muốn tìm kiếm khóa học nào?"
-        type="text"
-      />
+      <input #searchTitle class="search-input" placeholder="Bạn muốn tìm kiếm khóa học nào?" type="text"
+        (keyup.enter)="onSearch(searchTitle.value)" />
     </div>
-    <button class="btn btn-primary-custom px-5">Tìm kiếm</button>
+    <button class="btn btn-primary-custom px-5" (click)="onSearch(searchTitle.value)">Tìm kiếm</button>
   </div>
 </section>

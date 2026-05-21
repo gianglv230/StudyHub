@@ -1,170 +1,20 @@
 <!-- Featured Courses -->
 <section class="container py-4 mt-4">
   <div
-    class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-end mb-4 mb-lg-5 gap-3"
+    class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-end mb-3 mb-lg-4 gap-3"
   >
     <div>
-      <h2 class="mb-1">Khóa học hot</h2>
+      <h2 class="mb-1">{{ title }}</h2>
       <p class="text-muted mb-0">
-        Các khóa học đang được nhiều học viên đăng ký nhất
+        {{ description }}
       </p>
     </div>
   </div>
   <div class="row g-4">
-    <!-- Course Card 1 -->
-    <div class="col-md-6 col-lg-4">
-      <a href="#" class="text-decoration-none">
-        <div class="course-card">
-          <div class="course-img-wrapper">
-            <img
-              alt="Dev course"
-              class="course-img"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuArRKLG1Zzhy-riM7DorHcWREOWzcGyPt_PmyntlZGCUtHzGHcuYFDhqz7AS5UMyHUOAXDI-D3-FIVfKJUDVlmKMO3E0xeP9jKzbZrIjXnIxItnGnNnuSehA7_hQ0KsTRCAAcvTzpZ96S4vwzx_K6SQHe589Imp5nal8ncJYN1E6PMPkpGxx5Qs-D8jecIAj_JSDum89kylfejaSs3dIg8G0y6Q93OcPF9so7ctDdF7IRO_QfbHlqSEZodiAuMOXqL8PfzsItlTkVC6"
-            />
-            <span
-              class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill"
-              >Vật lý</span
-            >
-          </div>
-          <div class="p-4">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <span class="badge-category text-danger"
-                >2K9 - XUẤT PHÁT SỚM LỚP 12</span
-              >
-            </div>
-            <h5 class="mb-3">KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026</h5>
-            <div class="d-flex align-items-center mb-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-flag-fill me-2 text-primary-container"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5m9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5m-2.6 5.854a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"
-                />
-              </svg>
-              <p class="text-dark mb-0">
-                <span>Số buổi học:</span>
-                <span class="fw-bold text-primary-container">25</span>
-              </p>
-            </div>
-            <!-- <div class="d-flex align-items-center gap-2 mb-4">
-                <img
-                  alt="Instructor"
-                  class="rounded-circle"
-                  height="32"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7j3WsrGkM_MwVJfqDVcwOaHjVVx5l1bPGF1B-Vb6X9jho5ecSh88kTuCRCpmyosZTSnzHCj7wX43tTDRFfvvDpLh8pOzZYf8v2mn_DW5WSGZ0r6oWnLhT1rnA_0q4zXhqhrrPcT2t4Zi37_Ky6kxhUX8G9izFkDJnrefSi73nJ6Gf8XuChku2DRQRojpKx-CngCX31vxC68I-dsbTssd76iuFKKOYUcOrhj3e_L0j05NmAM7i6sHjofwkDhb4pzQ8ETDhXOpGD0jk"
-                  width="32"
-                />
-                <span class="small text-muted">David Henderson</span>
-              </div>
-              <div
-                class="pt-3 border-top d-flex justify-content-between align-items-center"
-              >
-                <div class="fw-bold fs-5 text-primary">$89.99</div>
-                <button
-                  class="btn btn-link text-decoration-none p-0 fw-bold d-flex align-items-center gap-1"
-                >
-                  Enroll Now
-                  <span class="material-symbols-outlined fs-6"
-                    >arrow_forward</span
-                  >
-                </button>
-              </div> -->
-          </div>
-        </div>
-      </a>
-    </div>
-    <!-- Course Card 2 -->
-    <div class="col-md-6 col-lg-4">
-      <a href="#" class="text-decoration-none">
-        <div class="course-card">
-          <div class="course-img-wrapper">
-            <img
-              alt="Dev course"
-              class="course-img"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeNckOMU5Qrrs7NxKN6OOk8nhtYr8GiTYl-6XGP-J6Y4lt4zdwO_s8keWDn06MuZRWJ2U5sQd7hwukwaWQsI3Pe2bm7sRMvX2BYaCJQNrYmcDa_hrO1S36_kkc1QNIZpgHWaNfy4y4NXMZIgVOstRcfthKb8HKROSHbxYqu4nI7Y9UGDT9oLaPTdLn5cASU77bumQpo5QBmlVR_yYAF2EFCDHtPBsihcYYUO_P_BMuZ6annXRJo9Nl7BTiOeFCXjO6qzoYL9t_qyIN"
-            />
-            <span
-              class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill"
-              >Vật lý</span
-            >
-          </div>
-          <div class="p-4">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <span class="badge-category text-danger"
-                >2K9 - XUẤT PHÁT SỚM LỚP 12</span
-              >
-            </div>
-            <h5 class="mb-3">KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026</h5>
-            <div class="d-flex align-items-center mb-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-flag-fill me-2 text-primary-container"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5m9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5m-2.6 5.854a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"
-                />
-              </svg>
-              <p class="text-dark mb-0">
-                <span>Số buổi học:</span>
-                <span class="fw-bold text-primary-container">25</span>
-              </p>
-            </div>
-          </div>
-        </div></a
-      >
-    </div>
-    <!-- Course Card 3 -->
-    <div class="col-md-6 col-lg-4">
-      <a href="#" class="text-decoration-none">
-        <div class="course-card">
-          <div class="course-img-wrapper">
-            <img
-              alt="Dev course"
-              class="course-img"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIJeuolVztn-g8dvzhBo8yL_pIkoZpcRJ9wpxTvxurfeWFHFUTzamROSu8twR_H1NBioVbJRQftGaWBCVRYpDaPa3MM0XH6wip3MC_LDZ2kMlEeCgg_jfQOXu6TnxZAJ43QcvwxB4qXSPvqBxTFs--N9RRv5f7a4wxxhQdiri-e1htssGoZQpd-vGsWPrypf6AB1n8TVRshzWFWitgb7BiPpCuSPy1jesHIkpI7oVqMHlhKI_nVKbex3dopHaoS6g117n3ODrRvaxa"
-            />
-            <span
-              class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill"
-              >Vật lý</span
-            >
-          </div>
-          <div class="p-4">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <span class="badge-category text-danger"
-                >2K9 - XUẤT PHÁT SỚM LỚP 12</span
-              >
-            </div>
-            <h5 class="mb-3">KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026</h5>
-            <div class="d-flex align-items-center mb-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-flag-fill me-2 text-primary-container"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5m9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5m-2.6 5.854a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"
-                />
-              </svg>
-              <p class="text-dark mb-0">
-                <span>Số buổi học:</span>
-                <span class="fw-bold text-primary-container">25</span>
-              </p>
-            </div>
-          </div>
-        </div></a
-      >
-    </div>
+    @for (item of courseLiteProjections; track item.courseId) {
+      <div class="col-6 col-md-6 col-lg-3">
+        <app-course-lite-card [card]="item" />
+      </div>
+    }
   </div>
 </section>
