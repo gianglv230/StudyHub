@@ -1,44 +1,38 @@
-<div class="ratio ratio-16x9">
-  <video controls poster="image/about-us.jpg">
-    <source
-      src="https://res.cloudinary.com/demo/video/upload/q_auto,vc_av1/rafting.webm"
-      type="video/mp4"
-    />
-  </video>
-</div>
-<div class="shadow px-4 py-4 rounded-4 mt-4">
-  <h3 style="font-size: 32px">Mô tả</h3>
-  <hr />
-  <div class="description lh-lg text-justify">
-    <p>
-      Đây là khoá học nền móng giúp làm chủ mọi dạng bài trong đề thi và là kiến
-      thức căn bản làm tiền đề cho các kiến thức Vận dụng và Vận dụng cao. Đây
-      là khoá học nền móng giúp làm chủ mọi dạng bài trong đề thi và là kiến
-      thức căn bản làm tiền đề cho các kiến thức Vận dụng và Vận dụng cao. Đây
-      là khoá học nền móng giúp làm chủ mọi dạng bài trong đề thi và là kiến
-      thức căn bản làm tiền đề cho các kiến thức Vận dụng và Vận dụng cao. Đây
-      là khoá học nền móng giúp làm chủ mọi dạng bài trong đề thi và là kiến
-      thức căn bản làm tiền đề cho các kiến thức Vận dụng và Vận dụng cao. Đây
-      là khoá học nền móng giúp làm chủ mọi dạng bài trong đề thi và là kiến
-      thức căn bản làm tiền đề cho các kiến thức Vận dụng và Vận dụng cao.
-    </p>
+@if (course) {
+  @if (course.video) {
+    <div class="ratio ratio-16x9 mb-4">
+      <video controls poster="assets/images/about-us.jpg">
+        <source
+          src="https://res.cloudinary.com/demo/video/upload/q_auto,vc_av1/rafting.webm"
+          type="video/mp4"
+        />
+      </video>
+    </div>
+  }
+  <div class="shadow px-4 py-4 rounded-4">
+    <h3 style="font-size: 32px">Mô tả</h3>
+    <hr />
+
+    <div
+      class="description lh-lg text-justify"
+      [innerHTML]="course.description || 'Không có mô tả'"
+    ></div>
+
+    <table class="table table-bordered table-hover table-custom mt-3">
+      <thead>
+        <tr>
+          <th scope="col" class="col-stt">STT</th>
+          <th scope="col">Buổi học</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of lessons; track $index) {
+          <tr>
+            <td scope="row" class="text-center">{{ $index + 1 }}</td>
+            <td>{{ item.title }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
   </div>
-  <table class="table table-bordered table-hover table-custom">
-    <thead>
-      <tr>
-        <th scope="col" class="col-stt">STT</th>
-        <th scope="col">Buổi học</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td scope="row" class="text-center">1</td>
-        <td>Buổi học 1</td>
-      </tr>
-      <tr>
-        <td scope="row" class="text-center">2</td>
-        <td>Buổi học 2</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+}

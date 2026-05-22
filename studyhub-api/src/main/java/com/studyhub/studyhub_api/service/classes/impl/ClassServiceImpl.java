@@ -77,20 +77,29 @@ public class ClassServiceImpl implements ClassService {
     }
 
     // Get class of teacher
+//    @Override
+//    public PageResponse<ClassLiteResponse> getAllClassesOfTeacher(int page, int teacherId) {
+//        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+//        Pageable pageable = PageRequest.of(page - 1, MAX_ITEM, sort);
+//
+//        var pageData = classRepository.getAllClassesOfTeacher(teacherId, pageable);
+//
+//        return PageResponse.<ClassLiteResponse>builder()
+//                .currentPage(page)
+//                .pageSize(pageData.getSize())
+//                .totalPages(pageData.getTotalPages())
+//                .totalElements(pageData.getTotalElements())
+//                .data(pageData.getContent().stream().map(classMapper::toClassLiteResponse).toList())
+//                .build();
+//    }
+
     @Override
-    public PageResponse<ClassLiteResponse> getAllClassesOfTeacher(int page, int teacherId) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
-        Pageable pageable = PageRequest.of(page - 1, MAX_ITEM, sort);
+    public List<ClassLiteResponse> getAllClassesOfTeacher(int teacherId) {
+        var classesOfTeacher = classRepository.getAllClassesOfTeacher(teacherId);
 
-        var pageData = classRepository.getAllClassesOfTeacher(teacherId, pageable);
-
-        return PageResponse.<ClassLiteResponse>builder()
-                .currentPage(page)
-                .pageSize(pageData.getSize())
-                .totalPages(pageData.getTotalPages())
-                .totalElements(pageData.getTotalElements())
-                .data(pageData.getContent().stream().map(classMapper::toClassLiteResponse).toList())
-                .build();
+        return classesOfTeacher.stream()
+                .map(classMapper::toClassLiteResponse)
+                .toList();
     }
 
     // Get class detail

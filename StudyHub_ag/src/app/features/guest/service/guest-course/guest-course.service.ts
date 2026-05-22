@@ -79,4 +79,11 @@ export class GuestCourseService extends BaseService<CourseLiteProjection> {
       params,
     );
   }
+
+  getDetail(slug: string): Observable<ApiResponse<CourseDetailLiteResponse>>{
+    return this.customRequest(
+      'GET',
+      `${API_ENDPOINTS.COURSE_ENPOINTS.DETAIL}/${slug}`
+    )
+  }
 }

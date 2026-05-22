@@ -15,4 +15,7 @@ export class InfoField {
 
   @Input()
   classInfo: any = "fw-bold text-primary-container";
+
+  @Input()
+  class?: any;
 }

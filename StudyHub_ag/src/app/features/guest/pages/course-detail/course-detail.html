@@ -1,12 +1,18 @@
 <section class="container contact bg-light py-5">
-  <h2>KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026</h2>
-  <div class="row mt-3">
-    <div class="col-12 col-lg-8 order-lg-0 order-1">
-      <app-course-detail-info />
-      <app-classes-of-course />
+  @if (course) {
+    <h2>{{ course.title }}</h2>
+    <div class="row mt-3">
+      <div class="col-12 col-lg-8 order-lg-0 order-1">
+        <app-course-detail-info [course]="course" />
+        @if (classes) {
+          <app-classes-of-course [classes]="classes" />
+        }
+      </div>
+      <div class="col-12 col-lg-4 order-lg-1 order-0">
+        <app-course-overview-info [course]="course" [availableClass]="availableClass" />
+      </div>
     </div>
-    <div class="col-12 col-lg-4 order-lg-1 order-0">
-      <app-course-overview-info />
-    </div>
-  </div>
+  } @else {
+    <app-spinner />
+  }
 </section>

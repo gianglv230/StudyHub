@@ -6,7 +6,8 @@ export const API_ENDPOINTS = {
     COURSE_NEW: "/type/new",
     FIND: "/find",
     FILTER: "/filter",
-    FILTER_OPTION: "/filter-option"
+    FILTER_OPTION: "/filter-option",
+    DETAIL: "/detail"
   },
   TEACHER: "/teacher",
   TEACHER_ENDPOINTS: {
@@ -14,6 +15,7 @@ export const API_ENDPOINTS = {
   },
   CLASS: "/class",
   CLASS_ENDPOINTS: {
-    FILTER: "/filter"
+    FILTER: "/filter",
+    CLASS_OF_COURSE: '/class-of-course'
   }
 };

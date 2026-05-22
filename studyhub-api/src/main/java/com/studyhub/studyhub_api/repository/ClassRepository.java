@@ -59,6 +59,18 @@ public interface ClassRepository extends JpaRepository<Class, Integer>, JpaSpeci
             """)
     Page<Class> getAllClassesOfTeacher(@Param("teacherId") int teacherId, Pageable pageable);
 
+    @EntityGraph(attributePaths = {"teacher", "course"})
+    @Query("""
+                SELECT class FROM Class class
+                JOIN class.course course
+                JOIN class.teacher teacher
+                WHERE teacher.id = :teacherId
+                AND course.status = "ACTIVE"
+                AND (class.status = "UPCOMING" OR class.status = "ONGOING")
+                AND class.availableSlots > 0
+            """)
+    List<Class> getAllClassesOfTeacher(@Param("teacherId") int teacherId);
+
     // JOIN class.teacher teacher
     // LEFT JOIN c.videoDemo videoDemo
     @EntityGraph(attributePaths = {"course.videoDemo", "teacher"})
