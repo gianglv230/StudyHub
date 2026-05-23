@@ -3,10 +3,12 @@ import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ScrollService } from './_service/utils/scroll.service';
+import { GlobalModal } from "./_shared/global-modal/global-modal";
+import { ToastGlobalComponent } from "./_shared/components/toast-global/toast-global.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, GlobalModal, ToastGlobalComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

@@ -1,0 +1,41 @@
+<!-- <div class="modal-header">
+  <h5 class="modal-title">Xóa người dùng</h5>
+  <button type="button" class="btn-close" (click)="activeModal.dismiss()"></button>
+</div> -->
+
+<div class="modal-body">
+  <div class="px-3 pt-2">
+    <div class="d-flex justify-content-between mb-2">
+      <div class="h4 text-center text-primary-container text-uppercase fw-bold">
+        Đăng nhập
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="activeModal.dismiss()"
+        ></button>
+      </div>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <app-form-input
+        [control]="loginForm.controls.username"
+        label="Tên đăng nhập"
+        placeholder="Tên đăng nhập"
+      />
+      <app-form-input
+        [control]="loginForm.controls.password"
+        label="Mật khẩu"
+        type="password"
+      />
+      <div class="text-center">
+        <button class="btn-primary-custom" type="submit">Đăng nhập</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- <div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Hủy</button>
+  <button type="button" class="btn btn-danger" (click)="deleteUser()">Xóa</button>
+</div> -->

@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
@@ -61,6 +62,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, PermissionLoaderFilter jwtFilter) throws Exception {
 
+        httpSecurity.cors(cors -> cors.configurationSource(corsConfigurationSource()));
+
         // Configure endpoint access rules
         httpSecurity.authorizeHttpRequests(request ->
                 request
@@ -98,27 +101,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsFilter corsFilter() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-
-        // Chỉ định nguồn gốc (Frontend)
-        config.setAllowedOrigins(Arrays.asList(
-                "http://localhost:4200"
-        ));
-
-        // Cho phép tất cả các method (GET, POST, PUT, DELETE, ...)
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
         config.addAllowedMethod("*");
-
-        // Cho phép tất cả các header
         config.addAllowedHeader("*");
-
-        // Cho phép gửi credentials như cookies, Authorization header
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
-
-        return new CorsFilter(source);
+        return source;
     }
 
 //    @Bean

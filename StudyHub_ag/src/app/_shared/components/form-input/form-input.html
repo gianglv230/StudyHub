@@ -1,0 +1,17 @@
+<div class="form-floating mb-3 has-validation">
+  <input
+    [formControl]="control"
+    [type]="type"
+    class="form-control"
+    [class.is-invalid]="isInvalid"
+    [placeholder]="placeholder"
+    [id]="id"
+  />
+  <label [for]="id">{{ label }}</label>
+
+  @if (control.dirty || control.touched) {
+    @if (isInvalid && errorMessage) {
+      <div class="invalid-feedback">{{ errorMessage }}</div>
+    }
+  }
+</div>

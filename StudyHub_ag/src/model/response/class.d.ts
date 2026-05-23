@@ -50,7 +50,32 @@ interface ClassDetailLiteResponse {
   price: number;
 }
 
-interface ClassOfTeacherResponse{
+interface ClassOfTeacherResponse {
   teacherName: string;
-  classes: ClassLiteResponse[]
+  classes: ClassLiteResponse[];
+}
+
+interface ClassProgressResponse {
+  classId: number;
+  slug: string;
+
+  teacherId: string;
+  teacherName: string;
+
+  subject: string;
+  targetGrade: string;
+  categoryName: string;
+  numberOfLessons: number;
+
+  className: string;
+
+  thumbnail: string;
+
+  openingDate: Date;
+  startDate: Date;
+  endDate: Date;
+
+  status: string;
+  numberOfStudent: number;
+  progressOfClass: number;
 }

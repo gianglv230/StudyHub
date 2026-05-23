@@ -9,6 +9,7 @@ import {
 import { Observable, throwError, switchMap } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { CacheService, KEY_CACHE } from '../utils/cache.service';
 // import { AuthService } from './api/auth/auth.service';
 // import { AuthService } from './auth.service';
 
@@ -19,24 +20,34 @@ export class AuthInterceptor implements HttpInterceptor {
   //   constructor(private authService: AuthService) {}
   constructor(
     private readonly router: Router,
+    private readonly cacheService: CacheService,
     // private readonly authService: AuthService
-  ) { }
-
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     console.log('Interceptor triggered');
 
-    const isPublicApi =
-      req.url.includes('/recommend');
+    const isPublicApi = req.url.includes('/recommend');
 
-    const authReq = req.clone({
+    let authReq = req.clone({
       withCredentials: !isPublicApi, // ❌ false nếu là API public
     });
 
     // const authReq = req.clone({ withCredentials: true });
+
+    const accessToken = this.cacheService.getItem(KEY_CACHE.ACCESS_TOKEN);
+
+    // Nếu có token thì gắn Authorization
+    if (accessToken) {
+      authReq = authReq.clone({
+        setHeaders: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    }
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -62,11 +73,10 @@ export class AuthInterceptor implements HttpInterceptor {
           //     return throwError(() => refreshError);
           //   })
           // );
-
         }
 
         return throwError(() => error);
-      })
+      }),
     );
   }
 
@@ -86,7 +96,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const currentUrl = this.router.url;
     const isGuarded = guardedRoutes.some((route) =>
-      currentUrl.startsWith(route)
+      currentUrl.startsWith(route),
     );
 
     if (isGuarded) {
