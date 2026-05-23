@@ -1,4 +1,4 @@
-<a href="#" class="text-decoration-none">
+<a [routerLink]="`/lop-hoc/${card.slug}`" class="text-decoration-none">
   <app-card-container [cardContainer]="cardContainer">
     <app-info-field [value]="card.teacherName">
       <app-dynamic-icon icon="person" />
@@ -43,8 +43,8 @@
       <app-dynamic-icon icon="bag_1" />
     </app-info-field>
 
-    <div class="d-flex align-items-center mb-2 justify-content-end">
-      <p class="text-danger fw-bold">
+    <div class="d-flex align-items-center mb-0 justify-content-end">
+      <p class="text-danger fw-bold mb-0">
         <span class="h4 fw-bold">{{
           card.price | number: "1.0-2" : "vi"
         }}</span>

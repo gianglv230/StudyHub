@@ -12,7 +12,7 @@ import java.util.List;
 public interface ClassService {
     PageResponse<ClassLiteResponse> getClassFilter(int page, String subject, String targetGrade, String categoryName);
     List<ClassLiteResponse> getAllClassesOfCourse(String courseSlug);
-    List<ClassLiteResponse> getAllClassesOfTeacher(int teacherId);
+    ClassOfTeacherResponse getAllClassesOfTeacher(int teacherId);
     ClassDetailLiteResponse getClassDetailLite(String classSlug);
     List<ClassProgressResponse> getMyStudentClass();
     ClassLessonResponse getClassLesson(String slug);

@@ -39,8 +39,8 @@ public class ClassController {
 
     @Operation(summary = "Get classes of teacher", description = "API get classes of teacher")
     @GetMapping("/class-of-teacher/{teacherId}")
-    public ApiResponse<List<ClassLiteResponse>> getClassOfTeacher(@PathVariable int teacherId) {
-        return ApiResponse.<List<ClassLiteResponse>>builder().data(classService.getAllClassesOfTeacher(teacherId)).build();
+    public ApiResponse<ClassOfTeacherResponse> getClassOfTeacher(@PathVariable int teacherId) {
+        return ApiResponse.<ClassOfTeacherResponse>builder().data(classService.getAllClassesOfTeacher(teacherId)).build();
     }
 
     @Operation(summary = "Get detail class for guest", description = "API get detail class for guest")

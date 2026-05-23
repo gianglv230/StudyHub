@@ -1,0 +1,24 @@
+.back-to-top {
+  background-color: var(--primary-container);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  display: flex;
+  width: 45px;
+  height: 45px;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  z-index: 99;
+}
+
+.back-to-top svg {
+  fill: currentColor;
+}
+
+.back-to-top.isVisible {
+  opacity: 1;
+}

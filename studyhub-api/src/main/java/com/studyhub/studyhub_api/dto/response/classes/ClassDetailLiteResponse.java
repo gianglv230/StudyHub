@@ -1,7 +1,10 @@
 package com.studyhub.studyhub_api.dto.response.classes;
 
+import com.studyhub.studyhub_api.dto.response.course.LessonLiteResponse;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public record ClassDetailLiteResponse(
         Integer classId,
@@ -27,6 +30,7 @@ public record ClassDetailLiteResponse(
         String classSchedule,
         Integer maxStudents,
         Integer availableSlots,
-        BigDecimal price
+        BigDecimal price,
+        List<LessonLiteResponse> lessons
 ) {
 }

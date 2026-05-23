@@ -13,9 +13,9 @@ export abstract class BaseFilterable<T> implements OnInit, OnDestroy {
   protected queryParamsSubscription!: Subscription;
   protected pageData!: PageResponse<T>;
   protected filterOptions!: CourseFilterOptionsResponse;
-  protected target?: string;
-  protected subject?: string;
-  protected category?: string;
+  protected targetSelected?: string;
+  protected subjectSelected?: string;
+  protected categorySelected?: string;
 
   constructor(
     protected readonly route: ActivatedRoute,
@@ -30,6 +30,10 @@ export abstract class BaseFilterable<T> implements OnInit, OnDestroy {
         const target = params['target'] || '';
         const category = params['category'] || '';
 
+        this.subjectSelected = subject;
+        this.targetSelected = target;
+        this.categorySelected = category;
+
         // this.target = target;
         // console.log(target);
         this.initMainData(page, subject, target, category);
@@ -40,18 +44,19 @@ export abstract class BaseFilterable<T> implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.queryParamsSubscription = this.route.queryParams.subscribe(
-      (params) => {
-        const page = params['page'] || '1';
-        const subject = params['subject'] || '';
-        const target = params['target'] || '';
-        const category = params['category'] || '';
+    this.queryParamsSubscription.unsubscribe();
+  }
 
-        // this.target = target;
-        // console.log(target);
-        this.initMainData(page, subject, target, category);
-      },
-    );
+  get target(): string {
+    return this.targetSelected || '';
+  }
+
+  get subject(): string {
+    return this.subjectSelected || '';
+  }
+
+  get category(): string {
+    return this.categorySelected || '';
   }
 
   abstract initMainData(

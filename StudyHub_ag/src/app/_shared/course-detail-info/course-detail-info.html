@@ -18,21 +18,23 @@
       [innerHTML]="course.description || 'Không có mô tả'"
     ></div>
 
-    <table class="table table-bordered table-hover table-custom mt-3">
-      <thead>
-        <tr>
-          <th scope="col" class="col-stt">STT</th>
-          <th scope="col">Buổi học</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of lessons; track $index) {
+    @if (lessons && lessons.length > 0) {
+      <table class="table table-bordered table-hover table-custom mt-3">
+        <thead>
           <tr>
-            <td scope="row" class="text-center">{{ $index + 1 }}</td>
-            <td>{{ item.title }}</td>
+            <th scope="col" class="col-stt">STT</th>
+            <th scope="col">Buổi học</th>
           </tr>
-        }
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @for (item of lessons; track $index) {
+            <tr>
+              <td scope="row" class="text-center">{{ $index + 1 }}</td>
+              <td>{{ item.title }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
   </div>
 }

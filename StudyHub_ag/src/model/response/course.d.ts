@@ -34,7 +34,7 @@ interface CourseDetailLiteResponse {
   subject: string;
   targetGrade: string;
   categoryName: string;
-  video?: string | null | undefined;
+  video?: string;
   description?: string;
   lessons?: LessonLiteResponse[];
 }

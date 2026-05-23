@@ -1,24 +1,29 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { ScrollService } from './_service/utils/scroll.service';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App implements OnInit, OnDestroy {
   private routerSubscription!: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(
+    private readonly router: Router,
+    private scrollService: ScrollService,
+  ) {}
 
   ngOnInit(): void {
     this.routerSubscription = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        // window.scrollTo({ top: 0, behavior: 'instant' });
+        this.scrollToTop();
       });
   }
 
@@ -26,5 +31,21 @@ export class App implements OnInit, OnDestroy {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
+  }
+
+  isVisible = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    const scrollPosition =
+      window.scrollY ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    this.isVisible = scrollPosition > 300;
+  }
+
+  scrollToTop() {
+    this.scrollService.scrollToTop();
   }
 }

@@ -16,6 +16,8 @@ export const API_ENDPOINTS = {
   CLASS: "/class",
   CLASS_ENDPOINTS: {
     FILTER: "/filter",
-    CLASS_OF_COURSE: '/class-of-course'
+    CLASS_OF_COURSE: '/class-of-course',
+    CLASS_OF_TEACHER: '/class-of-teacher',
+    DETAIL: "/detail"
   }
 };

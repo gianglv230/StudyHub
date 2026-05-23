@@ -17,7 +17,6 @@
       class="text-decoration-none"
       [routerLink]="[]"
       [class.selected]="!subject"
-      routerLinkActive="selected"
       [queryParams]="{ subject: '', page: 1 }"
       [queryParamsHandling]="'merge'"
     >
@@ -30,7 +29,6 @@
         class="text-decoration-none"
         [routerLink]="[]"
         [class.selected]="isActive(item)"
-        routerLinkActive="selected"
         [queryParams]="{ subject: item, page: 1 }"
         [queryParamsHandling]="'merge'"
       >

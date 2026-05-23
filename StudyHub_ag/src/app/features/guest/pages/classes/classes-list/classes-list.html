@@ -1,7 +1,11 @@
-<div class="row g-3">
-  @for (item of classes; track item.classId) {
-    <div class="col-md-6 col-lg-4">
-      <app-class-lite-card [card]="item" />
-    </div>
-  }
-</div>
+@if (classes) {
+  <div class="row g-3">
+    @for (item of classes; track item.classId) {
+      <div class="col-md-6 col-lg-4">
+        <app-class-lite-card [card]="item" />
+      </div>
+    }
+  </div>
+} @else {
+  <app-empty />
+}

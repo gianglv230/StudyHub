@@ -65,20 +65,22 @@
       />
     </app-info-field>
 
-    <app-info-field
-      class="pb-1"
-      classInfo="fs-17 fw-bold text-primary-container h5"
-      label="Số lớp học có thể đăng ký"
-      [value]="availableClass"
-    >
-      <app-dynamic-icon
-        width="16"
-        height="16"
-        fill="currentColor"
-        iconClass="me-2 text-primary-container"
-        viewBox="0 0 16 16"
-        icon="avai"
-      />
-    </app-info-field>
+    @if (availableClass) {
+      <app-info-field
+        class="pb-1"
+        classInfo="fs-17 fw-bold text-primary-container h5"
+        label="Số lớp học có thể đăng ký"
+        [value]="availableClass"
+      >
+        <app-dynamic-icon
+          width="16"
+          height="16"
+          fill="currentColor"
+          iconClass="me-2 text-primary-container"
+          viewBox="0 0 16 16"
+          icon="avai"
+        />
+      </app-info-field>
+    }
   </div>
 }

@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 })
 export class CourseDetailInfo {
   @Input()
-  course?: CourseDetailLiteResponse;
+  course?: CourseDetailInfoModel;
   
   get lessons(): LessonLiteResponse[] {
     return [...(this?.course?.lessons || [])].sort(

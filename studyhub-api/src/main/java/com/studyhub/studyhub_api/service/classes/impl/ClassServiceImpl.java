@@ -15,10 +15,7 @@ import com.studyhub.studyhub_api.model.Class;
 import com.studyhub.studyhub_api.mapper.ClassMapper;
 import com.studyhub.studyhub_api.model.Invoice;
 import com.studyhub.studyhub_api.model.UserAccount;
-import com.studyhub.studyhub_api.repository.ClassRepository;
-import com.studyhub.studyhub_api.repository.ContentRepository;
-import com.studyhub.studyhub_api.repository.EnrollmentRepository;
-import com.studyhub.studyhub_api.repository.SectionRepository;
+import com.studyhub.studyhub_api.repository.*;
 import com.studyhub.studyhub_api.repository.specification.ClassSpecification;
 import com.studyhub.studyhub_api.service.auth.AuthenticationService;
 import com.studyhub.studyhub_api.service.classes.ClassService;
@@ -49,6 +46,7 @@ public class ClassServiceImpl implements ClassService {
     EnrollmentRepository enrollmentRepository;
     ContentRepository contentRepository;
     SectionRepository sectionRepository;
+    UserAccountRepository userAccountRepository;
     ClassMapper classMapper;
     private static final int MAX_ITEM = 20;
 
@@ -94,12 +92,18 @@ public class ClassServiceImpl implements ClassService {
 //    }
 
     @Override
-    public List<ClassLiteResponse> getAllClassesOfTeacher(int teacherId) {
+    public ClassOfTeacherResponse getAllClassesOfTeacher(int teacherId) {
+        UserAccount account = userAccountRepository.findById(teacherId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
         var classesOfTeacher = classRepository.getAllClassesOfTeacher(teacherId);
-
-        return classesOfTeacher.stream()
+        var classes = classesOfTeacher.stream()
                 .map(classMapper::toClassLiteResponse)
                 .toList();
+
+        return new ClassOfTeacherResponse(
+                account.getFullname(),
+                classes
+        );
     }
 
     // Get class detail
@@ -229,11 +233,11 @@ public class ClassServiceImpl implements ClassService {
         int reducedSlots = clazz.getMaxStudents() - request.getMaxStudents();
         int availableSlots = clazz.getAvailableSlots();
 
-        if(reducedSlots > 0 && reducedSlots > availableSlots){
+        if (reducedSlots > 0 && reducedSlots > availableSlots) {
             throw new AppException(ErrorCode.MAX_STUDENTS_INVALID);
         }
 
-        if (reducedSlots != 0){
+        if (reducedSlots != 0) {
             clazz.setAvailableSlots(reducedSlots - availableSlots);
         }
 
@@ -248,7 +252,7 @@ public class ClassServiceImpl implements ClassService {
     public Boolean deleteClass(Integer classId) {
         Class clazz = classRepository.findById(classId)
                 .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
-        if(enrollmentRepository.existsByClassFieldId(classId)){
+        if (enrollmentRepository.existsByClassFieldId(classId)) {
             throw new AppException(ErrorCode.CAN_NOT_DELETE);
         }
         classRepository.delete(clazz);
@@ -260,7 +264,7 @@ public class ClassServiceImpl implements ClassService {
     public Boolean openClass(String classSlug) {
         Class clazz = classRepository.findBySlug(classSlug)
                 .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
-        if(!clazz.getStatus().equalsIgnoreCase(StatusClass.UPCOMING.name())){
+        if (!clazz.getStatus().equalsIgnoreCase(StatusClass.UPCOMING.name())) {
             throw new AppException(ErrorCode.CAN_NOT_OPEN);
         }
         clazz.setStatus(StatusClass.from(clazz.getStatus()).next().name());
@@ -273,7 +277,7 @@ public class ClassServiceImpl implements ClassService {
     public Boolean closeClass(String classSlug) {
         Class clazz = classRepository.findBySlug(classSlug)
                 .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
-        if(!clazz.getStatus().equalsIgnoreCase(StatusClass.ONGOING.name())){
+        if (!clazz.getStatus().equalsIgnoreCase(StatusClass.ONGOING.name())) {
             throw new AppException(ErrorCode.CAN_NOT_CLOSE);
         }
         clazz.setStatus(StatusClass.from(clazz.getStatus()).next().name());

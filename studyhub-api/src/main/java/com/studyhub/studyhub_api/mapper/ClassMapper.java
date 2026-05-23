@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "spring", uses = {ClassLessonMapper.class, ResourceMapper.class})
+@Mapper(componentModel = "spring", uses = {ClassLessonMapper.class, ResourceMapper.class, LessonMapper.class})
 public interface ClassMapper {
 
     @Mappings({
@@ -26,13 +26,15 @@ public interface ClassMapper {
     @Mappings({
             @Mapping(target = "classId", source = "id"),
             @Mapping(target = "courseId", source = "course.id"),
+            @Mapping(target = "numberOfLessons", source = "course.numberOfLessons"),
             @Mapping(target = "teacherId", source = "teacher.id"),
             @Mapping(target = "teacherName", source = "teacher.fullname"),
             @Mapping(target = "subject", source = "course.subject"),
             @Mapping(target = "targetGrade", source = "course.targetGrade"),
             @Mapping(target = "categoryName", source = "course.categoryName"),
             @Mapping(target = "video", source = "course.videoDemo.url"),
-            @Mapping(target = "description", source = "course.description")
+            @Mapping(target = "description", source = "course.description"),
+            @Mapping(target = "lessons", source = "course.lessons")
     })
     ClassDetailLiteResponse toClassDetailLiteResponse(Class clazz);
 

@@ -10,7 +10,7 @@ import { InfoField } from '../components/info-field/info-field';
 })
 export class CourseOverviewInfo {
   @Input()
-  course?: CourseDetailLiteResponse;
+  course?: CourseOverviewInfoModel;
 
   @Input()
   availableClass?: number;

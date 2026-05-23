@@ -1,10 +1,24 @@
-<section class="my-4 container courses-sections">
-      <div class="row">
-        <div class="col-12">
-          <h1 class="text-uppercase h3 fw-bold mb-3 d-lg-none d-block">Các lớp học của cô Nguyễn Thị A</h1>
-          <app-course-filter title="Các lớp học của cô Nguyễn Thị A" />
+@if (classOfTeacher) {
+  <section class="my-4 container courses-sections">
+    <div class="row">
+      <div class="col-12">
+        @if (classOfTeacher.teacherName) {
+          <app-course-filter
+            [title]="`Các lớp học của giáo viên ${classOfTeacher.teacherName}`"
+            [targets]="targets"
+            [target]="target"
+          />
           <hr />
-          <app-classes-list />
-        </div>
+          <app-classes-list [classesData]="classes" />
+          @if(pagination){
+            <app-pagination [paginationModel]="pagination" />
+          }
+        } @else {
+          <app-empty />
+        }
       </div>
-    </section>
+    </div>
+  </section>
+} @else {
+  <app-spinner />
+}

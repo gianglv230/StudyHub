@@ -53,7 +53,7 @@ export const GUEST_ROUTES: Routes = [
         title: getTitle(GUEST_PAGE.CLASSES),
       },
       {
-        path: 'danh-sach-lop-hoc-cua-giao-vien',
+        path: 'danh-sach-lop-hoc-cua-giao-vien/:id',
         component: ClassesOfTeacher,
         title: getTitle(GUEST_PAGE.CLASSES_OF_TEACHER),
       },

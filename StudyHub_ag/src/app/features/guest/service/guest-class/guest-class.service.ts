@@ -50,4 +50,18 @@ export class GuestClassService extends BaseService<ClassLiteResponse> {
       `${API_ENDPOINTS.CLASS_ENDPOINTS.CLASS_OF_COURSE}/${slug}`,
     );
   }
+
+  getClassOfTeacher(id: string): Observable<ApiResponse<ClassOfTeacherResponse>> {
+    return this.customRequest(
+      'GET',
+      `${API_ENDPOINTS.CLASS_ENDPOINTS.CLASS_OF_TEACHER}/${id}`,
+    );
+  }
+
+  getDetail(slug: string): Observable<ApiResponse<ClassDetailLiteResponse>> {
+    return this.customRequest(
+      'GET',
+      `${API_ENDPOINTS.CLASS_ENDPOINTS.DETAIL}/${slug}`,
+    );
+  }
 }

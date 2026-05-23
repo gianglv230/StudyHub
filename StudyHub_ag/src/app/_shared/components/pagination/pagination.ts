@@ -34,7 +34,7 @@ export class Pagination {
 
   // Kiểm tra là string
   isString(page: number | string) {
-    return page === 'string';
+    return typeof page === 'string';
   }
 
   // Kiểm tra có page trước không
