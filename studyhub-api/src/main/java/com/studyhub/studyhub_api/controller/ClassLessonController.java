@@ -3,6 +3,7 @@ package com.studyhub.studyhub_api.controller;
 import com.studyhub.studyhub_api.dto.request.class_lesson.ClassLessonTeacherRequest;
 import com.studyhub.studyhub_api.dto.response.ApiResponse;
 import com.studyhub.studyhub_api.dto.response.class_lesson.ClassLessonTeacherResponse;
+import com.studyhub.studyhub_api.dto.response.section.LessonSectionResponse;
 import com.studyhub.studyhub_api.dto.response.section.SectionResponse;
 import com.studyhub.studyhub_api.service.class_lesson.ClassLessonService;
 import com.studyhub.studyhub_api.service.section.SectionService;
@@ -23,8 +24,8 @@ public class ClassLessonController {
 
     @Operation(summary = "Get contents of class lesson by slug", description = "API get contents of class lesson by slug")
     @GetMapping("/{classSlug}/{classLessonSlug}/sections")
-    public ApiResponse<List<SectionResponse>> getContents(@PathVariable String classSlug, @PathVariable String classLessonSlug) {
-        return ApiResponse.<List<SectionResponse>>builder()
+    public ApiResponse<LessonSectionResponse> getContents(@PathVariable String classSlug, @PathVariable String classLessonSlug) {
+        return ApiResponse.<LessonSectionResponse>builder()
                 .data(sectionService.getSectionByClassLessonSlug(classSlug, classLessonSlug))
                 .build();
     }

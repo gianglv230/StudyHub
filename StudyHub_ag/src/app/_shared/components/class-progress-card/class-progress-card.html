@@ -1,4 +1,4 @@
-<a href="#" class="text-decoration-none">
+<a [routerLink]="routerLink(card.slug)" class="text-decoration-none">
   <app-card-container [cardContainer]="cardContainer">
     <app-info-field [value]="card.teacherName">
       <app-dynamic-icon icon="person" />

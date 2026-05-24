@@ -1,14 +1,23 @@
 <div class="bg-white rounded-4 shadow-sm ps-3 pe-2 py-3 lesson-menu">
-  <div class="accordion" id="accordionPanelsStayOpenExample">
-    <div class="accordion-item">
-      <h2 class="accordion-header">
+  <div ngbAccordion #accordion="ngbAccordion" class="accordion" id="accordionPanelsStayOpenExample">
+    <div ngbAccordionItem="" class="accordion-item">
+      <h2 ngbAccordionHeader class="accordion-header">
         <button
+          ngbAccordionButton
           class="accordion-button"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#panelsStayOpen-collapseOne"
         >
-          <svg
+          <app-dynamic-icon
+            width="16"
+            height="16"
+            fill="currentColor"
+            iconClass="me-2"
+            viewBox="0 0 16 16"
+            icon="activity"
+          />
+          <!-- <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
@@ -20,17 +29,27 @@
               fill-rule="evenodd"
               d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2"
             />
-          </svg>
+          </svg> -->
           Phần 1: Ứng dụng giao thoa
         </button>
       </h2>
       <div
+        ngbAccordionCollapse
         id="panelsStayOpen-collapseOne"
         class="accordion-collapse collapse show"
       >
-        <div class="accordion-body p-0">
-          <div class="content-item">
-            <svg
+        <div ngbAccordionBody class="accordion-body p-0">
+          <ng-template>
+            <div class="content-item">
+              <app-dynamic-icon
+                width="16"
+                height="16"
+                fill="currentColor"
+                iconClass="me-2"
+                viewBox="0 0 16 16"
+                icon="bullseye"
+              />
+              <!-- <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
@@ -48,53 +67,54 @@
                 d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8"
               />
               <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-            </svg>
-            <p class="mb-0">Nội dung 1: Giao thoa ánh sáng</p>
-          </div>
-          <div class="content-item">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-bullseye me-2"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
-              />
-              <path
-                d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10m0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12"
-              />
-              <path
-                d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8"
-              />
-              <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-            </svg>
-            <p class="mb-0">Nội dung 1: Giao thoa ánh sáng</p>
-          </div>
-          <div class="content-item">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-bullseye me-2"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
-              />
-              <path
-                d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10m0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12"
-              />
-              <path
-                d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8"
-              />
-              <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-            </svg>
-            <p class="mb-0">Nội dung 1: Giao thoa ánh sáng</p>
-          </div>
+            </svg> -->
+              <p class="mb-0">Nội dung 1: Giao thoa ánh sáng</p>
+            </div>
+            <div class="content-item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-bullseye me-2"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+                />
+                <path
+                  d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10m0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12"
+                />
+                <path
+                  d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8"
+                />
+                <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+              </svg>
+              <p class="mb-0">Nội dung 1: Giao thoa ánh sáng</p>
+            </div>
+            <div class="content-item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-bullseye me-2"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+                />
+                <path
+                  d="M8 13A5 5 0 1 1 8 3a5 5 0 0 1 0 10m0 1A6 6 0 1 0 8 2a6 6 0 0 0 0 12"
+                />
+                <path
+                  d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8"
+                />
+                <path d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+              </svg>
+              <p class="mb-0">Nội dung 1: Giao thoa ánh sáng</p>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>

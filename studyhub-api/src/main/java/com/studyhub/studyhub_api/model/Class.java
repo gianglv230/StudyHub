@@ -10,7 +10,9 @@ import lombok.experimental.FieldDefaults;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -107,7 +109,7 @@ public class Class extends FullAudit {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "classField")
-    Set<ClassLessonConfig> classLessonConfigs = new LinkedHashSet<>();
+    List<ClassLessonConfig> classLessonConfigs = new ArrayList<>();
 
     @ToString.Exclude
     @OneToMany(mappedBy = "classField")

@@ -11,6 +11,7 @@ public interface ClassLessonRepository extends JpaRepository<ClassLesson, Intege
 //    @EntityGraph(attributePaths = {"classLessonConfigs"})
 //    List<ClassLesson> findByClassLessonConfigsClassFieldId(Integer classId);
 
+    Optional<ClassLesson> findBySlug(String slug);
     Optional<ClassLesson> findById(Integer id);
     Optional<ClassLesson> findBySlugAndCreatedBy(String slug, Integer createdBy);
 }

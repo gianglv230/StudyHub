@@ -103,7 +103,7 @@ public interface ClassRepository extends JpaRepository<Class, Integer>, JpaSpeci
     """)
     List<ClassLessonCountProjection> countLessonByClasses(@Param("classIds") List<Integer> classIds);
 
-    @EntityGraph(attributePaths = {"teacher", "thumbnailOverride", "classLessonConfigs", "classLessonConfigs.classLesson"})
+    @EntityGraph(attributePaths = {"teacher", "thumbnailOverride", "classLessonConfigs"})
     Optional<Class> findClassBySlug(String slug);
 
     @Query("""

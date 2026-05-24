@@ -20,7 +20,7 @@ export const API_ENDPOINTS = {
     CLASS_OF_TEACHER: '/class-of-teacher',
     DETAIL: '/detail',
     STUDENT_LIST: '/student/list',
-    CLASS_LESSON: '/class-lesson'
+    CLASS_LESSON: '/class-lesson',
   },
   AUTH: '/auth',
   AUTH_ENDPOINTS: {
@@ -34,6 +34,14 @@ export const API_ENDPOINTS = {
   USER_ACCOUNT_ENPOINT: {
     MY_INFO: '/my-info',
     CHANGE_PWD: '/change-pwd',
-    UPDATE_MY_ACCOUNT: '/auth/my-account'
+    UPDATE_MY_ACCOUNT: '/auth/my-account',
+  },
+  ATTENDANCE: '/attendance',
+  ATTENDANCE_ENDPOINTS: {
+    STUDENT: '/student',
+  },
+  CLASS_LESSON: '/class-lesson',
+  CLASS_LESSON_ENDPOINTS: {
+    SECTIONS: '/sections',
   },
 };
