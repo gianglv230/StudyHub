@@ -1,6 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { ToastService } from '../../../_service/utils/toast.service';
 import { ERROR_CODE_RESPONSE } from '../../../../utils/validator/error-code.validator';
+import { CacheService, KEY_CACHE } from '../../../_service/utils/cache.service';
+import { ROLE, ROLE_TEXT } from '../../../../utils/const/role.const';
 
 // @Component({
 //   selector: 'app-base',
@@ -12,7 +14,7 @@ import { ERROR_CODE_RESPONSE } from '../../../../utils/validator/error-code.vali
 export abstract class BaseComponent {
   toastService = inject(ToastService);
 
-  constructor() {}
+  constructor(private readonly cacheService: CacheService) {}
 
   showSuccess(message?: string, delay = 1000) {
     this.toastService.show({
@@ -33,5 +35,25 @@ export abstract class BaseComponent {
   handleError(err: any) {
     console.log('Error: ', err);
     this.showDanger(ERROR_CODE_RESPONSE[err.error.code]);
+  }
+
+  isStudent(): boolean {
+    return this.cacheService.getItem(KEY_CACHE.ROLE) == 'STUDENT';
+  }
+
+  isTeacher(): boolean {
+    return this.cacheService.getItem(KEY_CACHE.ROLE) == 'TEACHER';
+  }
+
+  isAdmin(): boolean {
+    return this.cacheService.getItem(KEY_CACHE.ROLE) == 'ADMIN';
+  }
+
+  get fullname(): string {
+    return this.cacheService.getItem(KEY_CACHE.FULLNAME) || '';
+  }
+
+  get role(): string {
+    return ROLE_TEXT[this.cacheService.getItem(KEY_CACHE.ROLE) || ''] || '';
   }
 }

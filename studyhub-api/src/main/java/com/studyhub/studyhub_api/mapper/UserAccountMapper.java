@@ -7,10 +7,7 @@ import com.studyhub.studyhub_api.dto.response.enrollment.StudentInClassResponse;
 import com.studyhub.studyhub_api.dto.response.user_account.AdminUserAccountBasicResponse;
 import com.studyhub.studyhub_api.dto.response.user_account.UserAccountBasicResponse;
 import com.studyhub.studyhub_api.model.UserAccount;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface UserAccountMapper {
@@ -23,7 +20,11 @@ public interface UserAccountMapper {
     AdminUserAccountBasicResponse toAdminUserAccountBasicResponse(UserAccount account, String createdBy, String updatedBy);
 
     UserAccount toUserAccount(AddUserAccountRequest addUserAccountRequest);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateUserAccount(UpdateUserAccountRequest request, @MappingTarget UserAccount userAccount);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateMyUserAccount(UpdateMyUserAccountRequest request, @MappingTarget UserAccount userAccount);
 
     @Mappings({

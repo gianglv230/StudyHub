@@ -5,4 +5,5 @@ export const ERROR_CODE = {
 
 export const ERROR_CODE_RESPONSE: Record<number, string> = {
   1005: 'Sai username hoặc mật khẩu',
+  1052: 'Sai mật khẩu'
 };

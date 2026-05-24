@@ -4,6 +4,12 @@ export const ROLE = {
   ADMIN: 'Quản lý',
 };
 
+export const ROLE_TEXT: Record<string, string> = {
+  STUDENT: 'Học viên',
+  TEACHER: 'Giáo viên',
+  ADMIN: 'Quản lý',
+};
+
 function isRole(roleInput: string, role: string): boolean {
   return roleInput == role;
 }

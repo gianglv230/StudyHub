@@ -1,0 +1,47 @@
+<a href="#" class="text-decoration-none">
+  <app-card-container [cardContainer]="cardContainer">
+    <app-info-field [value]="card.teacherName">
+      <app-dynamic-icon icon="person" />
+    </app-info-field>
+
+    <app-info-field
+      label="Ngày khai giảng dự kiến"
+      [value]="card.openingDate | date: 'dd/MM/yyyy'"
+    >
+      <app-dynamic-icon icon="flag_fill" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-success"
+      label="Ngày bắt đầu"
+      [value]="card.startDate | date: 'dd/MM/yyyy'"
+    >
+      <app-dynamic-icon icon="schedule" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-danger"
+      label="Ngày kết thúc"
+      [value]="card.endDate | date: 'dd/MM/yyyy'"
+    >
+      <app-dynamic-icon icon="schedule_tick_2" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-primary-container"
+      label="Số học viên"
+      [value]="card.numberOfStudent"
+    >
+      <app-dynamic-icon icon="mortarboard" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-primary-container"
+      label="Tiến độ"
+      [value]="`${card.progressOfClass}/${card.numberOfLessons}`"
+    >
+      <app-dynamic-icon icon="bag_1" />
+    </app-info-field>
+  </app-card-container>
+  
+</a>

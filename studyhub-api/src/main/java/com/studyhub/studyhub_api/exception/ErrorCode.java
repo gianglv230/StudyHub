@@ -37,7 +37,9 @@ public enum ErrorCode {
     DELETE_FILE_FAIL(1048, "Failed to delete file", HttpStatus.BAD_REQUEST),
     FILE_NOT_ALLOWED(1049, "Only jpg, jpeg, png, mp4, mov, mp3, wav, pdf, doc, docx files are allowed", HttpStatus.BAD_REQUEST),
     RESOURCE_TYPE_INVALID(1050, "Resource type is invalid", HttpStatus.BAD_REQUEST),
-    RESOURCE_NOT_FOUND(1051, "Resource not found", HttpStatus.NOT_FOUND),;
+    RESOURCE_NOT_FOUND(1051, "Resource not found", HttpStatus.NOT_FOUND),
+
+    PASSWORD_INVALID(1052, "Password invlaid", HttpStatus.BAD_REQUEST),;
 
     private int code;
     private String message;

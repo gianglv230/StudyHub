@@ -1,0 +1,29 @@
+<div
+  ngbDropdown
+  class="dropdown d-flex align-items-center border-start ps-2 ps-sm-3 ms-1"
+>
+  <button
+    type="button"
+    class="btn dropdown-toggle d-flex align-items-center gap-2"
+    ngbDropdownToggle
+  >
+    <span class="fw-bold small">
+      {{ fullname }}
+    </span>
+  </button>
+
+  <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
+    <button ngbDropdownItem type="button" [routerLink]="accountManagementLink">
+      Thông tin cá nhân
+    </button>
+
+    <button
+      ngbDropdownItem
+      type="button"
+      routerLink="/trang-chu"
+      (click)="logout()"
+    >
+      Đăng xuất
+    </button>
+  </div>
+</div>

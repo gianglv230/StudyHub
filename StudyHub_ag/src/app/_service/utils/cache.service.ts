@@ -17,4 +17,8 @@ export class CacheService {
   getItem(key: string): string | null {
     return localStorage.getItem(key);
   }
+
+  removeItem(key: string){
+    localStorage.removeItem(key);
+  }
 }

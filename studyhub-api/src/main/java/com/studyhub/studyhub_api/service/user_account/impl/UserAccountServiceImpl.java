@@ -50,7 +50,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     private static final Integer MAX_ITEM = 100;
 
     @Override
-    public Map<Integer, String> getUserAccountMap(List<Integer> ids){
+    public Map<Integer, String> getUserAccountMap(List<Integer> ids) {
         List<UserSimpleProjection> userSimpleProjections = userAccountRepository.findAllSimpleProjectionsByIds(ids);
         return userSimpleProjections.stream()
                 .collect(Collectors.toMap(
@@ -152,18 +152,18 @@ public class UserAccountServiceImpl implements UserAccountService {
 
         Integer accountId = account.getId();
 
-        if(account.getRole().equals(Role.ADMIN.name())) {
+        if (account.getRole().equals(Role.ADMIN.name())) {
             throw new AppException(ErrorCode.CAN_NOT_DELETE);
         }
 
-        if(account.getRole().equalsIgnoreCase(Role.STUDENT.name())){
-            if(enrollmentRepository.existsByStudentId(accountId)){
+        if (account.getRole().equalsIgnoreCase(Role.STUDENT.name())) {
+            if (enrollmentRepository.existsByStudentId(accountId)) {
                 throw new AppException(ErrorCode.CAN_NOT_DELETE);
             }
         }
 
-        if(account.getRole().equalsIgnoreCase(Role.TEACHER.name())){
-            if(classRepository.existsByTeacherId(accountId)){
+        if (account.getRole().equalsIgnoreCase(Role.TEACHER.name())) {
+            if (classRepository.existsByTeacherId(accountId)) {
                 throw new AppException(ErrorCode.CAN_NOT_DELETE);
             }
         }
@@ -175,6 +175,9 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public Boolean changePassword(ChangePasswordRequest request) {
         UserAccount account = authService.getUserAccountByJwtToken();
+        if (!passwordEncoder.matches(request.oldPassword(), account.getPassword())) {
+            throw new AppException(ErrorCode.PASSWORD_INVALID);
+        }
         account.setPassword(passwordEncoder.encode(request.newPassword().trim()));
         userAccountRepository.save(account);
         return true;

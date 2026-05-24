@@ -1,9 +1,9 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ERROR_CODE } from './error-code.validator';
 
 //Kiểm tra tên đăng nhập
 export function validateUsername(
-  control: AbstractControl
+  control: AbstractControl,
 ): ValidationErrors | null {
   const username = control.value;
 
@@ -28,4 +28,32 @@ export function validatePwd(control: AbstractControl): ValidationErrors | null {
   return pwd.length >= 8 && pwd.length <= 20
     ? null
     : { invalidPwd: ERROR_CODE.INVALID_PWD };
+}
+
+export function matchPasswordValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const newPassword = control.get('newPassword');
+    const verifyPassword = control.get('verifyPassword');
+
+    if (!newPassword || !verifyPassword) {
+      return null;
+    }
+
+    if (newPassword.value !== verifyPassword.value) {
+      verifyPassword.setErrors({
+        ...verifyPassword.errors,
+        passwordNotMatch: 'Mật khẩu xác nhận không khớp',
+      });
+    } else {
+      if (verifyPassword.errors) {
+        const { passwordNotMatch, ...otherErrors } = verifyPassword.errors;
+
+        verifyPassword.setErrors(
+          Object.keys(otherErrors).length ? otherErrors : null,
+        );
+      }
+    }
+
+    return null;
+  };
 }

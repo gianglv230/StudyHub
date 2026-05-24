@@ -20,5 +20,8 @@ public record InvoiceCardResponse(
         Integer createdBy,
         String createdByUser,
         String className,
-        String studentName
+        String studentName,
+
+        String status,
+        String classSlug
 ) {}

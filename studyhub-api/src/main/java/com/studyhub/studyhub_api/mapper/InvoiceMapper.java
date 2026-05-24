@@ -14,7 +14,8 @@ public interface InvoiceMapper {
             @Mapping(target = "invoiceId", source = "invoice.id"),
             @Mapping(target = "createdByUser", source = "createdByUser"),
             @Mapping(target = "className", source = "invoice.enrollment.classField.className"),
-            @Mapping(target = "studentName", source = "invoice.enrollment.student.fullname")
+            @Mapping(target = "studentName", source = "invoice.enrollment.student.fullname"),
+            @Mapping(target = "classSlug", source = "invoice.enrollment.classField.slug")
     })
     InvoiceCardResponse toInvoiceCardResponse(Invoice invoice, String createdByUser);
 

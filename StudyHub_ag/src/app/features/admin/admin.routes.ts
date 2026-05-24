@@ -11,6 +11,7 @@ import { ClassManagement } from './pages/class-management/class-management';
 import { CourseForm } from './pages/course-form/course-form';
 import { ClassForm } from './pages/class-form/class-form';
 import { ClassDetailManagement } from './pages/class-detail-management/class-detail-management';
+import { AdminAccountManagement } from './pages/admin-account-management/admin-account-management';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -61,6 +62,11 @@ export const ADMIN_ROUTES: Routes = [
         path: 'quan-ly-lop-hoc/:lop-hoc/chi-tiet',
         component: ClassDetailManagement,
         title: getTitle(ADMIN_PAGE.CLASS_DETAIL_MANAGEMENT, ROLE.ADMIN),
+      },
+      {
+        path: 'thong-tin-ca-nhan',
+        component: AdminAccountManagement,
+        title: getTitle(ADMIN_PAGE.ADMIN_ACCOUNT_MANAGEMENT, ROLE.ADMIN),
       },
       // {
       //   path: 'lop-hoc/:class-slug/quan-ly-bai-hoc',

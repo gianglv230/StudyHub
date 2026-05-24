@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentClassService } from '../../service/student-class/student-class.service';
 import { initData } from '../../../../../utils/init-data';
+import { ClassList } from "../../../../_shared/class-list/class-list";
 
 @Component({
   selector: 'app-home-student',
-  imports: [],
+  imports: [ClassList],
   templateUrl: './home-student.html',
   styleUrl: './home-student.css',
 })
 export class HomeStudent implements OnInit {
-  classes?: ClassProgressResponse[];
+  upcomingClasses: ClassProgressResponse[] = [];
+  ongoingClasses: ClassProgressResponse[] = [];
+  finishedClasses: ClassProgressResponse[] = [];
 
   constructor(private readonly classService: StudentClassService) {}
 
@@ -18,8 +21,19 @@ export class HomeStudent implements OnInit {
       this.classService.getMyStudentClass(),
       (data) => {
         console.log(data);
-        this.classes = data;
-      },
+
+        this.upcomingClasses = data.filter(
+          (item) => item.status === 'UPCOMING'
+        );
+
+        this.ongoingClasses = data.filter(
+          (item) => item.status === 'ONGOING'
+        );
+
+        this.finishedClasses = data.filter(
+          (item) => item.status === 'FINISHED'
+        );
+      }
     );
   }
 }

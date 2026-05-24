@@ -32,5 +32,6 @@ export const ADMIN_PAGE = {
   COURSE_FORM: 'Biểu mẫu khóa học',
   CLASS_MANAGEMENT: 'Quản lý lớp học',
   CLASS_FORM: 'Biểu mẫu lớp học',
-  CLASS_DETAIL_MANAGEMENT: 'Quản lý học viên trong lớp'
+  CLASS_DETAIL_MANAGEMENT: 'Quản lý học viên trong lớp',
+  ADMIN_ACCOUNT_MANAGEMENT: 'Thông tin cá nhân',
 };

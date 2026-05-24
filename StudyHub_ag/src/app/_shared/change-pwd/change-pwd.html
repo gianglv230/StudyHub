@@ -1,0 +1,39 @@
+<div class="modal-body">
+  <div class="px-3 pt-2">
+    <div class="d-flex justify-content-between mb-2">
+      <div class="h4 text-center text-primary-container text-uppercase fw-bold">
+        Đăng nhập
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="activeModal.dismiss()"
+        ></button>
+      </div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <app-form-input
+        [control]="form.controls.oldPassword"
+        type="password"
+        label="Mật khẩu cũ"
+        placeholder=""
+      />
+      <app-form-input
+        [control]="form.controls.newPassword"
+        type="password"
+        label="Mật khẩu mới"
+        placeholder=""
+      />
+      <app-form-input
+        [control]="form.controls.verifyPassword"
+        type="password"
+        label="Xác nhận mật khẩu mới"
+        placeholder=""
+      />
+      <div class="text-center">
+        <button class="btn-primary-custom" type="submit">Đổi mật khẩu</button>
+      </div>
+    </form>
+  </div>
+</div>

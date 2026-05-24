@@ -1,19 +1,3 @@
-.invoice-name {
-  font-weight: 500;
-  color: var(--primary-container);
-}
-
-.invoice-head-label {
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  font-size: 12px;
-  margin-bottom: 0px;
-}
-
-.invoice-name a:hover {
-  color: red;
-}
-
 .btn-group {
   background-color: white;
 }
@@ -23,8 +7,4 @@
   border: none;
   color: var(--primary-container);
   font-weight: bold;
-}
-
-.invoice-separator {
-  border: 1px dashed red;
 }

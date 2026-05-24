@@ -1,169 +1,124 @@
 <section class="container mt-4">
   <a href="#" class="text-decoration-none back-btn">
     <div class="d-flex align-items-center text-primary-container">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
+      <app-dynamic-icon
         width="23"
         height="23"
         fill="currentColor"
-        class="bi bi-arrow-left-short me-2 back-arrow"
+        iconClass="bi bi-arrow-left-short me-2 back-arrow"
         viewBox="0 0 16 16"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"
-        />
-      </svg>
+        icon="arrow_left_short"
+      />
       <span>Trở lại danh sách lớp học</span>
     </div>
   </a>
-  <h1 class="mt-3 mb-2 px-1 px-md-0">Vật lý 1</h1>
-  <div class="row d-flex align-md-items-center justify-content-between mb-3 px-1 px-md-0">
-    <div class="col-12 col-md-auto d-flex align-items-center mb-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-person-fill me-2 text-primary-container"
-        viewBox="0 0 16 16"
-      >
-        <path
-          d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
-        />
-      </svg>
-      <span class="text-primary-container fw-bold">Cô Nguyễn Thị An</span>
-    </div>
-    <div class="col-12 col-md-auto">
-      <button class="btn btn-primary-custom d-flex align-items-center">
+  @if (data) {
+    <h1 class="mt-3 mb-2 px-1 px-md-0">{{ data.className }}</h1>
+    <div
+      class="row d-flex align-md-items-center justify-content-between mb-3 px-1 px-md-0"
+    >
+      <div class="col-12 col-md-auto d-flex align-items-center mb-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
+          width="16"
+          height="16"
           fill="currentColor"
-          class="bi bi-person-fill-check me-2"
+          class="bi bi-person-fill me-2 text-primary-container"
           viewBox="0 0 16 16"
         >
           <path
-            d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0"
-          />
-          <path
-            d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"
+            d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
           />
         </svg>
-        <span>Xem điểm danh của mình</span>
-      </button>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12 col-lg-3">
-      <div class="bg-white rounded-4 shadow-sm px-3 py-3 mb-3">
-        <div class="ratio ratio-16x9 overflow-hidden rounded-3">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEOBI2vy_5M6IUkNpV7nMpKoShhGSNBUNCDmgizXXHEy0kOYwboKGwnTO_MRyaZsZxE3m_OOyIENABdf5XJAZ-cnvUMjQLnz4rN3c8Qjt7McKBTRat2Fdgs2L0MDW5xWoysakYzOdW9On9C8ax-vy9p7J6InkkFjjVzmscjNwpZvQfZUJVvgNO8O4lOJEy2yN3uGCVYf1kTJMnKs8clgSdYe6rLOX0Zbig6D2YJfkxUaPSKt-7L3b6f5ASPPbd0ae4jPkZWNb_JJvL"
-            class="img-fluid w-100 object-fit-cover"
-            alt="AAA"
-          />
-        </div>
-        <h4 class="fs-16 fw-medium text-uppercase mt-3">Thông tin khóa học</h4>
-        <div class="d-flex justify-content-between mb-3">
-          <span class="fs-16 text-secondary">Tiến độ:</span>
-          <span class="text-primary-container fw-bold fs-17">45%</span>
-        </div>
-        <div class="progress mb-3" style="height: 12px">
-          <div
-            class="progress-bar bg-primary-container rounded-3"
-            style="width: 45%"
-          ></div>
-        </div>
-
-        <div class="d-flex justify-content-between mb-3">
-          <span class="fs-16 text-secondary">Số bài học:</span>
-          <span class="text-primary-container fw-bold fs-17">12</span>
-        </div>
-        <div class="d-flex align-items-center justify-content-center mb-2 mt-2">
+        <span class="text-primary-container fw-bold">{{
+          data.teacherName
+        }}</span>
+      </div>
+      <div class="col-12 col-md-auto">
+        <button class="btn btn-primary-custom d-flex align-items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="18"
+            height="18"
             fill="currentColor"
-            class="bi bi-clock-fill me-2 text-primary-container"
+            class="bi bi-person-fill-check me-2"
             viewBox="0 0 16 16"
           >
             <path
-              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"
+              d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0"
+            />
+            <path
+              d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"
             />
           </svg>
-          <p class="text-dark mb-0">
-            <span class="fw-medium text-primary-container"
-              >Thứ 2, 4, 6 - 18:00</span
-            >
-          </p>
-        </div>
+          <span>Xem điểm danh của mình</span>
+        </button>
       </div>
     </div>
-    <div class="col-12 col-lg-9">
-      <div class="lesson-list">
-        <div class="row g-0 bg-white rounded-4 shadow-sm lesson-card">
-          <div class="col">
-            <div class="py-4 px-3 ps-md-4">
-              <h5 class="fw-medium">
-                Bài 1: Introduction to Linear Algebra & Vector Spaces
-              </h5>
-              <div class="row mt-2 g-2 g-md-3">
-                <div class="col-6 col-md-3">
-                  <div class="bg-border-color-light ps-3 pe-2 py-2 rounded-3">
-                    <p class="text-primary-container text-uppercase fs-12 mb-0">
-                      Số mục học
-                    </p>
-                    <p class="mb-0 fs-17 fw-bold text-primary-container">18</p>
-                  </div>
-                </div>
-                <div class="col-6 col-md-3">
-                  <div class="bg-border-color-light ps-3 pe-2 py-2 rounded-3">
-                    <p class="text-primary-container text-uppercase fs-12 mb-0">
-                      Số nội dung
-                    </p>
-                    <p class="mb-0 fs-17 fw-bold text-primary-container">15</p>
-                  </div>
-                </div>
-                <div class="col-12 col-md">
-                  <div class="ps-3 pe-2 py-2 rounded-3">
-                    <p class="text-muted fs-12 mb-1">
-                      Được tạo lúc: <br class="d-block d-md-none" /><span>8:00 - 03/05/2026</span>
-                    </p>
-                    <p class="text-muted fs-12 mt-1 mb-0">
-                      Được cập nhật lúc: <br class="d-block d-md-none" /><span>8:00 - 03/05/2026</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div class="row">
+      <div class="col-12 col-lg-3">
+        <div class="bg-white rounded-4 shadow-sm px-3 py-3 mb-3">
+          <div class="ratio ratio-16x9 overflow-hidden rounded-3">
+            <img
+              [src]="data.thumbnail"
+              class="img-fluid w-100 object-fit-cover"
+              [alt]="data.className"
+            />
           </div>
-          <div class="col-auto">
+          <h4 class="fs-16 fw-medium text-uppercase mt-3">
+            Thông tin khóa học
+          </h4>
+          <div class="d-flex justify-content-between mb-3">
+            <span class="fs-16 text-secondary">Tiến độ:</span>
+            <span class="text-primary-container fw-bold fs-17"
+              >{{ progress }}%</span
+            >
+          </div>
+          <div class="progress mb-3" style="height: 12px">
             <div
-              class="h-100 bg-border-color-lite text-center rounded-end-4 pt-4 px-2 px-md-3 border-1 border-danger"
+              class="progress-bar bg-primary-container rounded-3"
+              [style.width.%]="progress"
+            ></div>
+          </div>
+
+          <div class="d-flex justify-content-between mb-3">
+            <span class="fs-16 text-secondary">Số bài học:</span>
+            <span class="text-primary-container fw-bold fs-17">{{
+              data.progressOfClass
+            }}</span>
+          </div>
+          <div
+            class="d-flex align-items-center justify-content-center mb-2 mt-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-clock-fill me-2 text-primary-container"
+              viewBox="0 0 16 16"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="28"
-                height="28"
-                fill="currentColor"
-                class="bi bi-play-circle mt-2"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
-                />
-                <path
-                  d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"
-                />
-              </svg>
-              <p class="mt-3 fs-17 mb-0">Vào bài học</p>
-            </div>
+              <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"
+              />
+            </svg>
+            <p class="text-dark mb-0">
+              <span class="fw-medium text-primary-container">{{
+                data.classSchedule
+              }}</span>
+            </p>
           </div>
         </div>
       </div>
+      <div class="col-12 col-lg-9">
+        <div class="lesson-list">
+          @if (classLessons && classLessons.length > 0) {
+            @for (item of classLessons; track $index) {
+              <app-class-lesson-card [index]="$index + 1" [classLesson]="item" />
+            }
+          }
+        </div>
+      </div>
     </div>
-  </div>
+  }
 </section>

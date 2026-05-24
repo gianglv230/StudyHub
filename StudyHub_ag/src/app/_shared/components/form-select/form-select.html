@@ -1,0 +1,29 @@
+<div class="has-validation">
+  <label class="form-label" [for]="id">{{ label }}</label>
+  <select
+    [formControl]="control"
+    class="form-select form-input"
+    [class.is-invalid]="isInvalid"
+    [id]="id"
+  >
+    @for (item of data; track $index) {
+      <option [value]="item.value">{{ item.label }}</option>
+    }
+    <!-- <option value="0" selected>Nam</option>
+    <option value="1">Nữ</option> -->
+  </select>
+
+  <!-- <label [for]="id" class="form-label">{{ label }}</label>
+  <input
+    [formControl]="control"
+    class="form-control form-input"
+    [class.is-invalid]="isInvalid"
+    [id]="id"
+  /> -->
+
+  @if (control.dirty || control.touched) {
+    @if (isInvalid && errorMessage) {
+      <div class="invalid-feedback">{{ errorMessage }}</div>
+    }
+  }
+</div>

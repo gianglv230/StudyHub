@@ -1,1 +1,15 @@
-<p>home-student works!</p>
+<app-class-list
+  label="Lớp học đang học"
+  classLabel="text-primary-container"
+  [classes]="ongoingClasses"
+/>
+<app-class-list
+  label="Lớp học sắp học"
+  classLabel="text-success"
+  [classes]="upcomingClasses"
+/>
+<app-class-list
+  label="Lớp học đã kết thúc"
+  classLabel="text-danger"
+  [classes]="finishedClasses"
+/>

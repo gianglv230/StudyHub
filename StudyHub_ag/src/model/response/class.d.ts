@@ -79,3 +79,25 @@ interface ClassProgressResponse {
   numberOfStudent: number;
   progressOfClass: number;
 }
+
+interface ClassLessonBasicResponse {
+  classLessonId: number;
+  slug: string;
+  lessonTitle: string;
+  orderIndex: number;
+  numberOfSection: number;
+  numberOfContent: number;
+  createdAt: Date; // Hoặc kiểu Date nếu bạn parse thủ công
+  updatedAt: Date; // Hoặc kiểu Date
+}
+
+interface ClassLessonResponse {
+  classId: number;
+  className: string;
+  numberOfLesson: number;
+  classSchedule: string;
+  teacherName: string;
+  thumbnail: string;
+  progressOfClass: number;
+  lessons: ClassLessonBasicResponse[];
+}
