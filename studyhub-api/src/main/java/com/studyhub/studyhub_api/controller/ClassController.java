@@ -59,6 +59,17 @@ public class ClassController {
                 .build();
     }
 
+    @Operation(summary = "Get classes of teacher", description = "API get classes of teacher")
+    @GetMapping("/teacher/list")
+    public ApiResponse<PageResponse<ClassProgressResponse>> getMyTeacherClass(
+            @RequestParam(defaultValue = "ongoing") String status,
+            @RequestParam(defaultValue = "1") Integer page
+    ) {
+        return ApiResponse.<PageResponse<ClassProgressResponse>>builder()
+                .data(classService.getMyTeacherClass(status, page))
+                .build();
+    }
+
     @Operation(summary = "Get class lesson", description = "API get class lesson")
     @GetMapping("/class-lesson/{classSlug}")
     public ApiResponse<ClassLessonResponse> getClassLessonOfClass(@PathVariable String classSlug) {

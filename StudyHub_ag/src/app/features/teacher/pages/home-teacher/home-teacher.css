@@ -1,0 +1,10 @@
+.btn-group {
+  background-color: white;
+}
+
+.deactive {
+  background-color: white !important;
+  border: none;
+  color: var(--primary-container);
+  font-weight: bold;
+}

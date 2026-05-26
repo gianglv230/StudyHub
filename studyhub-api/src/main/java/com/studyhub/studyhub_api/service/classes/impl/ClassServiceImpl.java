@@ -24,6 +24,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -49,6 +50,7 @@ public class ClassServiceImpl implements ClassService {
     UserAccountRepository userAccountRepository;
     ClassMapper classMapper;
     private static final int MAX_ITEM = 20;
+    private static final int MAX_ITEM_BENTO = 9;
 
     // Get class by filter
     @Override
@@ -295,6 +297,31 @@ public class ClassServiceImpl implements ClassService {
         clazz.setStatus(request.status());
         classRepository.save(clazz);
         return true;
+    }
+
+    // Get classes of teacher
+    @PreAuthorize("hasRole('TEACHER')")
+    @Override
+    public PageResponse<ClassProgressResponse> getMyTeacherClass(String status, Integer page) {
+        UserAccount userAccount = authService.getUserAccountByJwtToken();
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+        Pageable pageable = PageRequest.of(page - 1, MAX_ITEM_BENTO, sort);
+
+        Page<Class> pageData = classRepository.getMyTeacherClasses(userAccount.getId(), status, pageable);
+
+        List<Integer> classIds = pageData.stream().map(Class::getId).toList();
+        Map<Integer, Integer> progressMap = countLessonOfClass(classIds);
+
+        return PageResponse.<ClassProgressResponse>builder()
+                .currentPage(page)
+                .pageSize(pageData.getSize())
+                .totalPages(pageData.getTotalPages())
+                .totalElements(pageData.getTotalElements())
+                .data(pageData.stream()
+                        .map(clazz -> classMapper.toClassProgressResponse(clazz, progressMap.getOrDefault(clazz.getId(), 0)))
+                        .toList())
+                .build();
     }
 
     // -- COUNT --

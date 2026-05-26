@@ -25,7 +25,7 @@
       </a>
     </li>
 
-    @for (page of visiblePages; track page) {
+    @for (page of visiblePages; track $index) {
       <li class="page-item">
         @if (!isString(page)) {
           <a

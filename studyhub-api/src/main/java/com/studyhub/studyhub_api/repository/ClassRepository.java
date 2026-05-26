@@ -75,47 +75,48 @@ public interface ClassRepository extends JpaRepository<Class, Integer>, JpaSpeci
     // LEFT JOIN c.videoDemo videoDemo
     @EntityGraph(attributePaths = {"course.videoDemo", "teacher"})
     @Query("""
-        SELECT class FROM Class class
-        JOIN class.course c
-        WHERE c.status = 'ACTIVE'
-        AND class.slug = :slug
-    """)
+                SELECT class FROM Class class
+                JOIN class.course c
+                WHERE c.status = 'ACTIVE'
+                AND class.slug = :slug
+            """)
     Optional<Class> getClassDetailBySlug(@Param("slug") String slug);
 
     @EntityGraph(attributePaths = {"course", "teacher", "thumbnailOverride"})
     @Query("""
-        SELECT class FROM Class class
-        JOIN class.course course
-        JOIN class.enrollments enrollment
-        WHERE enrollment.status != 'CANCELED'
-        AND enrollment.student.id = :studentId
-        AND class.status != 'CANCELED'
-    """)
+                SELECT class FROM Class class
+                JOIN class.course course
+                JOIN class.enrollments enrollment
+                WHERE enrollment.status != 'CANCELED'
+                AND enrollment.student.id = :studentId
+                AND class.status != 'CANCELED'
+            """)
     List<Class> getMyStudentClasses(@Param("studentId") int studentId);
 
     @Query("""
-        SELECT class.id as classId, COUNT(1)as lessonCount 
-        FROM ClassLesson cl
-        JOIN cl.classLessonConfigs clf
-        JOIN clf.classField class
-        WHERE class.id IN :classIds
-        GROUP BY class.id
-    """)
+                SELECT class.id as classId, COUNT(1)as lessonCount 
+                FROM ClassLesson cl
+                JOIN cl.classLessonConfigs clf
+                JOIN clf.classField class
+                WHERE class.id IN :classIds
+                GROUP BY class.id
+            """)
     List<ClassLessonCountProjection> countLessonByClasses(@Param("classIds") List<Integer> classIds);
 
     @EntityGraph(attributePaths = {"teacher", "thumbnailOverride", "classLessonConfigs"})
     Optional<Class> findClassBySlug(String slug);
 
     @Query("""
-        SELECT COUNT(1) FROM Class c
-        WHERE c.status = 'ONGOING'
-    """)
+                SELECT COUNT(1) FROM Class c
+                WHERE c.status = 'ONGOING'
+            """)
     Long countOnGoingClass();
 
     @EntityGraph(attributePaths = {"teacher", "course", "thumbnailOverride"})
     Page<Class> findAll(Specification<Class> spec, Pageable pageable);
 
     Boolean existsByTeacherId(Integer teacherId);
+
     Boolean existsByCourseId(Integer courseId);
 
     @EntityGraph(attributePaths = {"teacher", "course"})
@@ -124,4 +125,13 @@ public interface ClassRepository extends JpaRepository<Class, Integer>, JpaSpeci
 
     @EntityGraph(attributePaths = {"teacher", "course"})
     Optional<Class> findById(Integer id);
+
+    @EntityGraph(attributePaths = {"course", "teacher", "thumbnailOverride"})
+    @Query("""
+                SELECT class FROM Class class
+                JOIN class.teacher t
+                WHERE LOWER(class.status) = LOWER(:status)
+                AND t.id = :teacherId
+            """)
+    Page<Class> getMyTeacherClasses(@Param("teacherId") int teacherId, @Param("status") String status, Pageable pageable);
 }

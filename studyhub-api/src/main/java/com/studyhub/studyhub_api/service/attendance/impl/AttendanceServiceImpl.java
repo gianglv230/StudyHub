@@ -83,8 +83,13 @@ public class AttendanceServiceImpl implements AttendanceService {
     @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     @Override
     public List<AttendanceRowResponse> getAttendanceRowBySessionDateAndClassSlug(LocalDate sessionDate, String classSlug) {
-        Class clazz = authService.checkViewClassPermissions(classSlug);
-        return getAttendanceRow(sessionDate, clazz);
+        try {
+            Class clazz = authService.checkViewClassPermissions(classSlug);
+            return getAttendanceRow(sessionDate, clazz);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     @PreAuthorize("hasRole('TEACHER')")

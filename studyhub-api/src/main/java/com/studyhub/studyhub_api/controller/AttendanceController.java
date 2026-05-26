@@ -70,7 +70,7 @@ public class AttendanceController {
 
     @Operation(summary = "Update attendances", description = "API update attendances")
     @PutMapping("/{classSlug}")
-    public ApiResponse<List<AttendanceRowResponse>> udpateAttendances(
+    public ApiResponse<List<AttendanceRowResponse>> updateAttendances(
             @PathVariable String classSlug,
             @RequestBody List<UpdateAttendanceRequest> updateAttendanceRequests
     ){

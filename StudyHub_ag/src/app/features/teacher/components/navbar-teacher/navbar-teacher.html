@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-custom sticky-top py-2">
   <div class="container max-w-container">
     <!-- LOGO -->
-    <a class="navbar-brand navbar-brand-custom m-0" href="#">
+    <a class="navbar-brand navbar-brand-custom m-0" routerLink="/giao-vien/trang-chu">
       <img src="assets/images/logo-Photoroom.png" width="40" height="40" />
       <span>StudyHub</span>
     </a>
@@ -9,7 +9,7 @@
     <!-- RIGHT GROUP (quan trọng) -->
     <div class="d-flex align-items-center gap-2 order-lg-last">
       <!-- USER DROPDOWN -->
-      <div
+      <!-- <div
         class="dropdown d-flex align-items-center border-start ps-2 ps-sm-3 ms-1"
       >
         <button
@@ -29,7 +29,8 @@
           <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
           <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
         </ul>
-      </div>
+      </div> -->
+      <app-user-dropdown />
 
       <!-- TOGGLE -->
       <button
@@ -46,12 +47,12 @@
     <div class="collapse navbar-collapse" id="navbarNav" [ngbCollapse]="isMenuCollapsed">
       <ul class="ms-0 ms-lg-3 navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link nav-link-custom my-1" routerLink="/" routerLinkActive="active"
+          <a class="nav-link nav-link-custom my-1" routerLink="/giao-vien/trang-chu" routerLinkActive="active"
             >Danh sách lớp học</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link nav-link-custom my-1"  routerLink="/" routerLinkActive="active">Quản lý tài nguyên</a>
+          <a class="nav-link nav-link-custom my-1"  routerLink="/giao-vien/quan-ly-tai-nguyen" routerLinkActive="active">Quản lý tài nguyên</a>
         </li>
       </ul>
     </div>

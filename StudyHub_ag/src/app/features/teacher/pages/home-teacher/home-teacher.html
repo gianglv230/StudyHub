@@ -1,1 +1,44 @@
-<p>home-teacher works!</p>
+<section class="container mt-4">
+  <div class="btn-group mb-4 p-2 rounded-3 shadow-sm">
+    <button
+      type="button"
+      class="btn btn-primary-custom rounded-3 px-2 py-1 fw-medium"
+      [routerLink]="[]"
+      [queryParams]="{ status: 'ongoing', page: '1' }"
+      [queryParamsHandling]="'merge'"
+      [class.deactive]="!(status == 'ongoing')"
+    >
+      Đang dạy
+    </button>
+    <button
+      type="button"
+      class="btn btn-success rounded-3 fw-medium"
+      [routerLink]="[]"
+      [queryParams]="{ status: 'upcoming', page: '1' }"
+      [queryParamsHandling]="'merge'"
+      [class.deactive]="!(status == 'upcoming')"
+    >
+      Sắp dạy
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger rounded-3 fw-medium"
+      [routerLink]="[]"
+      [queryParams]="{ status: 'finished', page: '1' }"
+      [queryParamsHandling]="'merge'"
+      [class.deactive]="!(status == 'finished')"
+    >
+      Đã kết thúc
+    </button>
+  </div>
+  @if (classes) {
+    @if (classes.length > 0) {
+      <app-class-list [classes]="classes" class="mt-0" />
+      <app-pagination [paginationModel]="paginationModel" />
+    } @else {
+      <app-empty />
+    }
+  } @else {
+    <app-spinner />
+  }
+</section>

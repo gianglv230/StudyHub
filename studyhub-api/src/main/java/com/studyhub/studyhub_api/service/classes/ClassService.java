@@ -27,4 +27,6 @@ public interface ClassService {
     Boolean openClass(String classSlug);
     Boolean closeClass(String classSlug);
     Boolean updateStatusClass(UpdateClassStatusRequest request);
+
+    PageResponse<ClassProgressResponse> getMyTeacherClass(String status, Integer page);
 }

@@ -22,6 +22,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
         FROM Attendance a
         JOIN a.enrollment e
         WHERE e.classField.id = :classId
+        ORDER BY a.sessionDate desc
     """)
     List<LocalDate> getDistinctSessionDateByClassId(@Param("classId") Integer classId);
 

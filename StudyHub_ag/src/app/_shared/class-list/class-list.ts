@@ -16,4 +16,7 @@ export class ClassList {
 
   @Input()
   classLabel?: string;
+
+  @Input()
+  class: string = "pt-4 pt-lg-5 mt-4"
 }
