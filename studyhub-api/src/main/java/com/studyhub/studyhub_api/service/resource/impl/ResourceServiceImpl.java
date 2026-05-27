@@ -49,7 +49,14 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public FolderResourceResponse getFolders(Integer parentFolderId) {
         Resource resource = authService.checkOwnerResource(parentFolderId);
-        return resourceMapper.toFolderResourceResponse(resource);
+        if (resource != null) {
+            return resourceMapper.toFolderResourceResponse(resource);
+        }
+
+        var account = authService.getUserAccountByJwtToken();
+        var resources = resourceRepository.findByResourceParentIsNullAndCreatedByAndResourceTypeEqualsIgnoreCase(account.getId(), TypeResource.FOLDER.getValue());
+        var childrens = resources.stream().map(resourceMapper::toChildrenResourceResponse).toList();
+        return new FolderResourceResponse(null, null, null, childrens);
     }
 
     @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
@@ -80,24 +87,24 @@ public class ResourceServiceImpl implements ResourceService {
     public Boolean deleteFolder(Integer folderId) {
         Resource resource = authService.checkOwnerResource(folderId);
         boolean hasChild = resourceRepository.existsByResourceParentId(folderId);
-        if(hasChild){
+        if (hasChild) {
             throw new AppException(ErrorCode.FOLDER_HAS_CHILD);
         }
         resourceRepository.delete(resource);
         return true;
     }
 
-    private String buildPublicId(UploadResourceRequest request, String fileName){
+    private String buildPublicId(UploadResourceRequest request, String fileName) {
         UserAccount account = authService.getUserAccountByJwtToken();
         StringBuilder path = new StringBuilder(account.getId().toString());
 
-        if(request.courseId() == null) return path.append("/").append(fileName).toString();
+        if (request.courseId() == null) return path.append("/").append(fileName).toString();
         path.append("/").append(request.courseId());
 
-        if(request.classId() == null) return path.append("/").append(fileName).toString();
+        if (request.classId() == null) return path.append("/").append(fileName).toString();
         path.append("/").append(request.classId());
 
-        if(request.classLessonId() == null) return path.append("/").append(fileName).toString();
+        if (request.classLessonId() == null) return path.append("/").append(fileName).toString();
         path.append("/").append(request.classLessonId());
 
         return path.append("/").append(fileName).toString();
@@ -115,17 +122,19 @@ public class ResourceServiceImpl implements ResourceService {
         String publicId = buildPublicId(request, FileUploadUtil.generateFileName(originalFilename));
 
         String resourceType = FileUploadUtil.detectType(file);
-        FileAccessType fileAccessType = request.isPublic() ? FileAccessType.PUBLIC : FileAccessType.AUTHENTICATED;
+//        FileAccessType fileAccessType = request.isPublic() ? FileAccessType.PUBLIC : FileAccessType.PRIVATE;
+        FileAccessType fileAccessType = FileAccessType.PUBLIC;
         // Upload cloudinary
         var response = cloudinaryService.uploadFile(file, publicId, resourceType, fileAccessType);
 
         Resource newResource = Resource.builder()
                 .resourceName(originalFilename)
-                .url(request.isPublic() ? response.getUrl() : null)
+//                .url(request.isPublic() ? response.getUrl() : null)
+                .url(response.getUrl())
                 .extension(FilenameUtils.getExtension(originalFilename))
                 .resourceType(resourceType)
                 .isPublic(request.isPublic())
-                .publicId(publicId)
+                .publicId(response.getPublicId()) // ✅ dùng publicId từ Cloudinary response (có folder prefix)
                 .resourceParent(resource)
                 .build();
 
@@ -140,18 +149,21 @@ public class ResourceServiceImpl implements ResourceService {
         Resource resource = authService.checkOwnerResource(resourceId);
 
         // Không được xóa folder
-        if(resource.getResourceType().equalsIgnoreCase(TypeResource.FOLDER.getValue())){
+        if (resource.getResourceType().equalsIgnoreCase(TypeResource.FOLDER.getValue())) {
             throw new AppException(ErrorCode.UNAUTHORIZED);
         }
 
         // Xóa file nếu có
         String publicId = resource.getPublicId();
-        if(publicId == null) {
+        if (publicId == null) {
             resourceRepository.delete(resource);
             return true;
-        };
+        }
+        ;
 
-        cloudinaryService.deleteFile(publicId, resource.getResourceType());
+        if(publicId != null){
+            cloudinaryService.deleteFile(publicId, resource.getResourceType());
+        }
         resourceRepository.delete(resource);
 
         return true;
@@ -174,7 +186,7 @@ public class ResourceServiceImpl implements ResourceService {
         String parentPath = lastSlash != -1
                 ? publicId.substring(0, lastSlash)
                 : publicId;
-        String newPublicId = parentPath + "/" + originalFilename;
+        String newPublicId = parentPath + "/" + FileUploadUtil.generateFileName(originalFilename);
 
         // Check new resource match old resource at resourceType
         String resourceType = FileUploadUtil.detectType(file);
@@ -182,31 +194,27 @@ public class ResourceServiceImpl implements ResourceService {
             throw new AppException(ErrorCode.RESOURCE_TYPE_INVALID);
         }
 
-        FileAccessType fileAccessType = resource.getIsPublic() ? FileAccessType.PUBLIC : FileAccessType.AUTHENTICATED;
+        FileAccessType fileAccessType = resource.getIsPublic() ? FileAccessType.PUBLIC : FileAccessType.PRIVATE;
+
+        // Lưu lại oldPublicId và resourceType trước khi thay đổi
+        String oldPublicId = resource.getPublicId();
+        String oldResourceType = resource.getResourceType();
 
         // Upload cloudinary
         var response = cloudinaryService.uploadFile(file, newPublicId, resourceType, fileAccessType);
 
-//        Resource newResource = Resource.builder()
-//                .resourceName(originalFilename)
-//                .url(resource.getIsPublic() ? response.getUrl() : null)
-//                .extension(FilenameUtils.getExtension(originalFilename))
-//                .resourceType(resourceType)
-//                .isPublic(resource.getIsPublic())
-//                .publicId(publicId)
-//                .resourceParent(resource)
-//                .build();
-
         resource.setResourceName(originalFilename);
         resource.setUrl(resource.getIsPublic() ? response.getUrl() : null);
         resource.setExtension(FilenameUtils.getExtension(originalFilename));
-        resource.setPublicId(newPublicId);
-
+        resource.setResourceType(resourceType);
+        resource.setPublicId(response.getPublicId()); // ✅ dùng publicId từ Cloudinary response
 
         resourceRepository.save(resource);
 
-        // Delete file at cloudinary
-        cloudinaryService.deleteFile(resource.getPublicId(), resource.getResourceType());
+        // ✅ Xóa file CŨ sau khi save thành công
+        if(publicId != null){
+            cloudinaryService.deleteFile(oldPublicId, oldResourceType);
+        }
 
         return true;
     }
@@ -225,7 +233,7 @@ public class ResourceServiceImpl implements ResourceService {
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
 
         // Can not generate signed url from folder
-        if(resource.getResourceType().equalsIgnoreCase(TypeResource.FOLDER.getValue())){
+        if (resource.getResourceType().equalsIgnoreCase(TypeResource.FOLDER.getValue())) {
             throw new AppException(ErrorCode.RESOURCE_TYPE_INVALID);
         }
 

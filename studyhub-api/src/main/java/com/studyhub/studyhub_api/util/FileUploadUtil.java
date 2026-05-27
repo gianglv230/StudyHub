@@ -199,6 +199,7 @@ public class FileUploadUtil {
         String extension = FilenameUtils.getExtension(originalFileName);
 
         // Final file name
-        return String.format("%s_%s_%s.%s", baseName, date, uuid, extension);
+//        return String.format("%s_%s_%s.%s", baseName, date, uuid, extension);
+        return String.format("%s_%s_%s", baseName, date, uuid);
     }
 }

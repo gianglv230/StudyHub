@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum FileAccessType {
-    PUBLIC("public"),
+    PUBLIC("upload"),
     PRIVATE("private"),
     AUTHENTICATED("authenticated")
     ;

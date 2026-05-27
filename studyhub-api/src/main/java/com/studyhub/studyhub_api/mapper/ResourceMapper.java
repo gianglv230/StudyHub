@@ -24,6 +24,7 @@ public interface ResourceMapper {
 
     ResourceTeacherResponse toResourceTeacherResponse(Resource resource);
 
+    @Mapping(target = "parent", source = "resourceParent")
     FolderResourceResponse toFolderResourceResponse(Resource resource);
     ParentResourceResponse toParentResourceResponse(Resource resource);
     ChildrenResourceResponse toChildrenResourceResponse(Resource resource);

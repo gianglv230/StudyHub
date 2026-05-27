@@ -32,13 +32,13 @@ public class Resource extends OwnerAudit {
     String resourceName;
 
     @Size(max = 255)
-    @NotNull
+//    @NotNull
     @Column(name = "url", nullable = true)
     String url;
 
     @Size(max = 255)
-    @NotNull
-    @Column(name = "path", nullable = false)
+//    @NotNull
+    @Column(name = "path", nullable = true)
     String path;
 
     @Size(max = 255)
@@ -58,7 +58,7 @@ public class Resource extends OwnerAudit {
     String publicId;
 
     @ToString.Exclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "resource_parent")
     Resource resourceParent;
 

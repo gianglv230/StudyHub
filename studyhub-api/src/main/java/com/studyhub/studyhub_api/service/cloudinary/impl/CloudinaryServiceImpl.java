@@ -1,5 +1,6 @@
 package com.studyhub.studyhub_api.service.cloudinary.impl;
 
+import com.cloudinary.AuthToken;
 import com.cloudinary.Cloudinary;
 import com.studyhub.studyhub_api.dto.response.CloudinaryResponse;
 import com.studyhub.studyhub_api.enums.FileAccessType;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class CloudinaryServiceImpl implements CloudinaryService {
     Cloudinary cloudinary;
 
+
     /**
      * Folder name on Cloudinary
      */
@@ -37,9 +39,10 @@ public class CloudinaryServiceImpl implements CloudinaryService {
         options.put("public_id", publicId);
         options.put("resource_type", resourceType);
         options.put("type", accessType.getType());
+        options.put("folder", "StudyHub");
 
         Map<String, Object> result = cloudinary.uploader()
-                .upload(file.getInputStream(), options
+                .upload(file.getBytes(), options
                 );
 
         String url = (String) result.get("secure_url");
@@ -54,9 +57,11 @@ public class CloudinaryServiceImpl implements CloudinaryService {
     public void deleteFile(String publicId, String resourceType) throws IOException {
         // Delete file
         Map<String, Object> result = cloudinary.uploader().destroy(
-                        publicId,
-                        Map.of("resource_type", resourceType)
-                );
+                publicId,
+                Map.of("resource_type", resourceType) // ✅ phải truyền resource_type, mặc định Cloudinary chỉ tìm "image"
+        );
+
+//        log.info("Del result: {}", result); // ✅ fix placeholder
 
         // Result
         String deleteResult = (String) result.get("result");
@@ -67,15 +72,15 @@ public class CloudinaryServiceImpl implements CloudinaryService {
         throw new AppException(ErrorCode.DELETE_FILE_FAIL);
     }
 
-    // Generate auth url file
+    // Generate signed url for private file
     public String generateUrl(String publicId, String resourceType) {
-
         return cloudinary.url()
                 .resourceType(resourceType)
-                .type("authenticated")
+                .type("private")
                 .signed(true)
                 .generate(publicId);
     }
+
 
     /**
      * Upload file to Cloudinary
@@ -97,11 +102,11 @@ public class CloudinaryServiceImpl implements CloudinaryService {
             // public_id example:
             // nhndev/product/avatar_20260519223010
             Map<String, Object> result = cloudinary.uploader()
-                    .upload(file.getInputStream(), Map.of(
-                            "public_id",
-                            PRODUCT_FOLDER + fileName
-                    )
-            );
+                    .upload(file.getBytes(), Map.of(
+                                    "public_id",
+                                    PRODUCT_FOLDER + fileName
+                            )
+                    );
 
             String url = (String) result.get("secure_url");
 

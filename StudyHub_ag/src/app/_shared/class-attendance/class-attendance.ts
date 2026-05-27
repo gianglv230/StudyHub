@@ -2,6 +2,7 @@ import {
   Component,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
@@ -23,7 +24,7 @@ import { sortLastName } from '../../../utils/sort-util';
   styleUrl: './class-attendance.css',
   providers: [DatePipe],
 })
-export class ClassAttendance implements OnInit, OnChanges {
+export class ClassAttendance implements OnInit, OnChanges, OnDestroy {
   @Input()
   sessionDateResponse?: SessionDateResponse;
 
@@ -44,7 +45,7 @@ export class ClassAttendance implements OnInit, OnChanges {
     private readonly attendanceService: AttendanceService,
     private readonly datePipe: DatePipe,
   ) { }
-
+  
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['sessionDateResponse']) {
       this.buildSessionDates();
@@ -150,6 +151,10 @@ export class ClassAttendance implements OnInit, OnChanges {
         this.handleAttendance();
       },
     );
+  }
+
+  ngOnDestroy(): void {
+    this.queryParamsSubscription.unsubscribe();
   }
 
   private buildSessionDates(): void {

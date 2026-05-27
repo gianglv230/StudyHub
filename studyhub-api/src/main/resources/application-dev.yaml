@@ -6,6 +6,11 @@ spring:
   application:
     name: studyhub-api
 
+  servlet:
+    multipart:
+      max-file-size: 500MB       # Giới hạn 1 file (default: 1MB)
+      max-request-size: 510MB    # Giới hạn toàn bộ request (default: 10MB)
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DBMS_CONNECTION:jdbc:mysql://localhost:3306/study_hub}

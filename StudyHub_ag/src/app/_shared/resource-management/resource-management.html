@@ -1,6 +1,6 @@
 <section class="container-fluid mt-4 px-4 resource-management">
-  <app-resource-section-header />
-  <app-resource-folder />
+  <app-resource-section-header [id]="id" [parentFolder]="foldersData" />
+  <app-resource-folder [folders]="foldersData" />
   <div class="resource-content mt-5 mb-5">
     <div class="d-flex align-items-center">
       <svg

@@ -1,5 +1,6 @@
 package com.studyhub.studyhub_api.config;
 
+
 import com.cloudinary.Cloudinary;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,4 +29,6 @@ public class CloudinaryConfig {
         config.put("api_secret", API_SECRET);
         return new Cloudinary(config);
     }
+
+
 }

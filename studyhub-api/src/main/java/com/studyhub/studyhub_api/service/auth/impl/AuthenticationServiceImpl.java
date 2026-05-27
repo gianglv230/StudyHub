@@ -8,6 +8,7 @@ import com.studyhub.studyhub_api.dto.response.auth.IntrospectResponse;
 import com.studyhub.studyhub_api.dto.response.auth.RefreshAccessTokenResponse;
 import com.studyhub.studyhub_api.enums.Role;
 import com.studyhub.studyhub_api.enums.StatusEnrollment;
+import com.studyhub.studyhub_api.enums.TypeResource;
 import com.studyhub.studyhub_api.exception.AppException;
 import com.studyhub.studyhub_api.exception.ErrorCode;
 import com.studyhub.studyhub_api.model.Class;
@@ -185,18 +186,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public void checkAttendanceManagementPermissions(Class clazz, List<Integer> enrollmentIds) {
         // Check teacher is owner class for enrollment
         List<Integer> classIds = enrollmentRepository.getClassIdsByEnrollmentIds(enrollmentIds);
-        if(classIds.size() > 1){
+        if (classIds.size() > 1) {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
         }
 
         int classId = classIds.getFirst();
-        if(clazz.getId() != classId){
+        if (clazz.getId() != classId) {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
         }
     }
 
     @Override
     public Resource checkOwnerResource(Integer resourceId) {
+        if (resourceId == null) {
+            return null;
+        }
+
         UserAccount account = getUserAccountByJwtToken();
         Resource resource = resourceRepository.findByIdAndCreatedBy(resourceId, account.getId())
                 .orElseThrow(() -> new AppException(ErrorCode.UNAUTHORIZED));
@@ -206,7 +211,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Resource checkOwnerParentResource(Integer resourceId) {
         UserAccount account = getUserAccountByJwtToken();
-        Resource resource = resourceRepository.findByIdAndCreatedBy(resourceId, account.getId())
+        if (resourceId == null) {
+            return null;
+        }
+        Resource resource = resourceRepository.findByIdAndCreatedByAndResourceTypeEqualsIgnoreCase(resourceId, account.getId(), TypeResource.FOLDER.getValue())
                 .orElse(null);
         return resource;
     }

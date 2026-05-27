@@ -13,3 +13,7 @@
   display: block;
   background: var(--border-color-light);
 }
+
+.option:hover {
+  background: var(--border-color-light);
+}

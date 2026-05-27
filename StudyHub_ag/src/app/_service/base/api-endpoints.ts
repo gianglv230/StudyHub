@@ -42,10 +42,15 @@ export const API_ENDPOINTS = {
     STUDENT: '/student',
     SESSION_DATE: '/session-date',
     ROWS: '/rows',
-    ENROLLMENT: '/enrollment'
+    ENROLLMENT: '/enrollment',
   },
   CLASS_LESSON: '/class-lesson',
   CLASS_LESSON_ENDPOINTS: {
     SECTIONS: '/sections',
+  },
+  RESOURCE: '/resource',
+  RESOURCE_ENDPOINTS: {
+    FOLDER: '/folder',
+    FILE: '/file'
   },
 };

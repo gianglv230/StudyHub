@@ -30,7 +30,7 @@ public class ResourceController {
     @GetMapping("/folder")
     public ApiResponse<FolderResourceResponse> getMyFolders(
             @RequestParam(value = "id", required = false) Integer id
-    ){
+    ) {
         return ApiResponse.<FolderResourceResponse>builder()
                 .data(resourceService.getFolders(id))
                 .build();
@@ -40,7 +40,7 @@ public class ResourceController {
     @PostMapping("/folder")
     public ApiResponse<Boolean> addFolder(
             @RequestBody AddFolderResourceRequest request
-            ){
+    ) {
         return ApiResponse.<Boolean>builder()
                 .data(resourceService.addFolder(request))
                 .build();
@@ -50,7 +50,7 @@ public class ResourceController {
     @PutMapping("/folder")
     public ApiResponse<Boolean> renameFolder(
             @RequestBody RenameFolderResourceRequest request
-    ){
+    ) {
         return ApiResponse.<Boolean>builder()
                 .data(resourceService.renameFolder(request))
                 .build();
@@ -60,7 +60,7 @@ public class ResourceController {
     @DeleteMapping("/folder/{id}")
     public ApiResponse<Boolean> deleteFolder(
             @PathVariable Integer id
-    ){
+    ) {
         return ApiResponse.<Boolean>builder()
                 .data(resourceService.deleteFolder(id))
                 .build();
@@ -78,7 +78,7 @@ public class ResourceController {
     @PostMapping(value = "/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ApiResponse<?> uploadFile(
             @Valid @ModelAttribute UploadResourceRequest request
-            ) throws IOException {
+    ) throws IOException {
         return ApiResponse.builder()
                 .data(resourceService.uploadResource(request))
                 .build();
