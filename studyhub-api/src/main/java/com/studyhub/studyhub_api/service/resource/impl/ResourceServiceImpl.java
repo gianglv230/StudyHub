@@ -55,8 +55,8 @@ public class ResourceServiceImpl implements ResourceService {
 
         var account = authService.getUserAccountByJwtToken();
         var resources = resourceRepository.findByResourceParentIsNullAndCreatedByAndResourceTypeEqualsIgnoreCase(account.getId(), TypeResource.FOLDER.getValue());
-        var childrens = resources.stream().map(resourceMapper::toChildrenResourceResponse).toList();
-        return new FolderResourceResponse(null, null, null, childrens);
+        var children = resources.stream().map(resourceMapper::toChildrenResourceResponse).toList();
+        return new FolderResourceResponse(null, null, null, children);
     }
 
     @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
@@ -190,11 +190,12 @@ public class ResourceServiceImpl implements ResourceService {
 
         // Check new resource match old resource at resourceType
         String resourceType = FileUploadUtil.detectType(file);
-        if (resourceType.equalsIgnoreCase(resource.getResourceType())) {
+        if (!resourceType.equalsIgnoreCase(resource.getResourceType())) {
             throw new AppException(ErrorCode.RESOURCE_TYPE_INVALID);
         }
 
-        FileAccessType fileAccessType = resource.getIsPublic() ? FileAccessType.PUBLIC : FileAccessType.PRIVATE;
+//        FileAccessType fileAccessType = resource.getIsPublic() ? FileAccessType.PUBLIC : FileAccessType.PRIVATE;
+        FileAccessType fileAccessType = FileAccessType.PUBLIC;
 
         // Lưu lại oldPublicId và resourceType trước khi thay đổi
         String oldPublicId = resource.getPublicId();
@@ -204,7 +205,7 @@ public class ResourceServiceImpl implements ResourceService {
         var response = cloudinaryService.uploadFile(file, newPublicId, resourceType, fileAccessType);
 
         resource.setResourceName(originalFilename);
-        resource.setUrl(resource.getIsPublic() ? response.getUrl() : null);
+        resource.setUrl(response.getUrl());
         resource.setExtension(FilenameUtils.getExtension(originalFilename));
         resource.setResourceType(resourceType);
         resource.setPublicId(response.getPublicId()); // ✅ dùng publicId từ Cloudinary response

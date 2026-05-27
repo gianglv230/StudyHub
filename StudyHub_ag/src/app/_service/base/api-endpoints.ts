@@ -51,6 +51,7 @@ export const API_ENDPOINTS = {
   RESOURCE: '/resource',
   RESOURCE_ENDPOINTS: {
     FOLDER: '/folder',
-    FILE: '/file'
+    FILE: '/file',
+    URL: '/url'
   },
 };

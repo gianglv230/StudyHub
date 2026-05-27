@@ -14,7 +14,7 @@ import { RenameFolder } from '../rename-folder/rename-folder';
   styleUrl: './resource-folder.css',
 })
 export class ResourceFolder {
-  @Input() folders?: FolderResourceResponse;
+  @Input() folders?: ChildrenResourceResponse[];
 
   selected: number = -1;
 

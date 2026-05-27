@@ -1,6 +1,6 @@
 <section class="container-fluid mt-4 px-4 resource-management">
   <app-resource-section-header [id]="id" [parentFolder]="foldersData" />
-  <app-resource-folder [folders]="foldersData" />
+  <app-resource-folder [folders]="groupedChildren.folder" />
   <div class="resource-content mt-5 mb-5">
     <div class="d-flex align-items-center">
       <svg
@@ -17,6 +17,20 @@
       </svg>
       <p class="fw-medium ls-1 text-primary-container h4 mb-0">Tài nguyên</p>
     </div>
-    <app-resource-files />
+    <app-resource-files
+      resourceType="image"
+      [children]="groupedChildren.image"
+    />
+    <app-resource-files
+      resourceType="video"
+      [children]="groupedChildren.video"
+    />
+    <app-resource-files resourceType="pdf" [children]="groupedChildren.pdf" />
+    <app-resource-files resourceType="doc" [children]="groupedChildren.doc" />
+    <app-resource-files
+      resourceType="audio"
+      [children]="groupedChildren.audio"
+    />
+    <app-resource-files resourceType="raw" [children]="groupedChildren.raw" />
   </div>
 </section>

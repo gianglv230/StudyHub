@@ -55,10 +55,15 @@ export class ResourceService extends BaseService<ClassLiteResponse> {
     );
   }
 
-  uploadResource(request: UploadResourceRequest): Observable<ApiResponse<Boolean>> {
+  uploadResource(
+    request: UploadResourceRequest,
+  ): Observable<ApiResponse<Boolean>> {
     const formData = new FormData();
     formData.append('file', request.file);
-    if (request.resourceParentId !== undefined && request.resourceParentId !== null) {
+    if (
+      request.resourceParentId !== undefined &&
+      request.resourceParentId !== null
+    ) {
       formData.append('resourceParentId', request.resourceParentId.toString());
     }
     if (request.courseId !== undefined && request.courseId !== null) {
@@ -79,8 +84,25 @@ export class ResourceService extends BaseService<ClassLiteResponse> {
     return this.customRequest(
       'POST',
       API_ENDPOINTS.RESOURCE_ENDPOINTS.FILE,
-      formData
+      formData,
     );
   }
 
+  updateFile(request: UpdateResourceRequest): Observable<ApiResponse<Boolean>> {
+    const formData = new FormData();
+    formData.append('id', request.id.toString());
+    formData.append('file', request.file);
+    return this.customRequest(
+      'PUT',
+      API_ENDPOINTS.RESOURCE_ENDPOINTS.FILE,
+      formData,
+    );
+  }
+
+  deleteFile(resourceId: number): Observable<ApiResponse<Boolean>> {
+    return this.customRequest(
+      'DELETE',
+      `${API_ENDPOINTS.RESOURCE_ENDPOINTS.FILE}/${resourceId}`,
+    );
+  }
 }

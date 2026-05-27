@@ -9,10 +9,15 @@ interface RenameFolderResourceRequest {
 }
 
 interface UploadResourceRequest {
-    file: File;
-    resourceParentId?: number; // Thêm '?' nếu các trường này có thể null/undefined
-    courseId?: number;
-    classId?: number;
-    classLessonId?: number;
-    isPublic?: boolean;
+  file: File;
+  resourceParentId?: number; // Thêm '?' nếu các trường này có thể null/undefined
+  courseId?: number;
+  classId?: number;
+  classLessonId?: number;
+  isPublic?: boolean;
+}
+
+interface UpdateResourceRequest {
+  id: number;
+  file: File;
 }

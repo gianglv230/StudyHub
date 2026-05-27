@@ -29,6 +29,11 @@ export const TEACHER_ROUTES: Routes = [
         title: getTitle(TEACHER_PAGE.LESSON_MANAGEMENT, ROLE.TEACHER),
       },
       {
+        path: 'lop-hoc/:class-slug/quan-ly-bai-hoc/:class-lesson-slug',
+        component: LessonManagement,
+        title: getTitle(TEACHER_PAGE.LESSON_MANAGEMENT, ROLE.TEACHER),
+      },
+      {
         path: 'lop-hoc/:class-slug/thong-tin-diem-danh',
         component: TeacherAttendance,
         title: getTitle(TEACHER_PAGE.ATTENDANCE, ROLE.TEACHER),

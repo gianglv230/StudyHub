@@ -1,0 +1,1 @@
+type RESOURCE_TYPE = 'image' | 'video' | 'pdf' | 'doc' | 'audio' | 'raw';
