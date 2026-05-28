@@ -31,7 +31,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
 
     @Query("""
         SELECT a.status AS status, COALESCE(COUNT(1), 0) as numberOfAttendance FROM Attendance a
-        WHERE a.sessionDate BETWEEN :startDate AND :endDate
+        WHERE a.sessionDate BETWEEN :fromDate AND :toDate
         AND (a.status = 'PRESENT' OR a.status = 'ABSENT')
         GROUP BY a.status
     """)

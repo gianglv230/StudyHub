@@ -56,6 +56,8 @@ public class ClassLessonServiceImpl implements ClassLessonService {
                 .orderIndex(maxOrderIndex.intValue() + 1)
                 .build();
 
+        classLessonConfigRepository.save(clc);
+
         return true;
     }
 

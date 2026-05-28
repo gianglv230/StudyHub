@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/statistics")
 @Tag(name = "Statistics Controller")
 public class StatisticsController {
-    StatisticsService service;
+    private final StatisticsService service;
 
     @Operation(summary = "Get basic statistics", description = "API get basic statistics")
     @GetMapping("/basic")

@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -32,6 +33,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     AttendanceRepository attendanceRepository;
     InvoiceRepository invoiceRepository;
 
+    //    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public StatisticsBasicResponse getBasicStatistics() {
         Long numberOfStudent = userAccountRepository.countByRole(Role.STUDENT.name());
@@ -45,20 +47,6 @@ public class StatisticsServiceImpl implements StatisticsService {
         LocalDate lastDay =
                 now.with(TemporalAdjusters.lastDayOfMonth());
         List<AttendanceStatisticsProject> attendanceStatistics = attendanceRepository.getStatisticsAttendance(firstDay, lastDay);
-
-//        AtomicReference<Long> numberOfPresent = new AtomicReference<>(0L);
-//        AtomicReference<Long> numberOfAbsent = new AtomicReference<>(0L);
-
-//        attendanceStatistics.forEach(
-//                attendance -> {
-//                    if(attendance.getStatus().equalsIgnoreCase("PRESENT")){
-//                        numberOfPresent.set(attendance.getNumberOfAttendance());
-//                    }
-//                    if(attendance.getStatus().equalsIgnoreCase("ABSENT")){
-//                        numberOfAbsent.set(attendance.getNumberOfAttendance());
-//                    }
-//                }
-//        );
 
         Long numberOfPresent = 0L;
         Long numberOfAbsent = 0L;
@@ -77,6 +65,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         return new StatisticsBasicResponse(numberOfStudent, numberOfTeacher, numberOfCourses, numberOfClasses, numberOfPresent, numberOfAbsent, revenueYears);
     }
 
+    //    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public List<RevenueStatisticsResponse> getRevenueStatistics(Integer year) {
         Map<Integer, BigDecimal> statisticsMap = new HashMap<>();

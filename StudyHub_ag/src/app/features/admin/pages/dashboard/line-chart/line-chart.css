@@ -1,0 +1,8 @@
+.chart-container {
+    width: 100%;
+    /* Điền kích thước bạn muốn giảm xuống ở đây */
+    height: 330px;
+    /* Thường biểu đồ tròn nên để width = height */
+    margin: 0 auto;
+    /* Căn giữa chart nếu cần */
+}

@@ -52,6 +52,11 @@ export const API_ENDPOINTS = {
   RESOURCE_ENDPOINTS: {
     FOLDER: '/folder',
     FILE: '/file',
-    URL: '/url'
+    URL: '/url',
+  },
+  STATISTICS: '/statistics',
+  STATISTICS_ENDPOINTS: {
+    BASIC: '/basic',
+    REVENUE_YEAR: '/revenue',
   },
 };

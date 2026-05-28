@@ -1,135 +1,114 @@
-<!-- Stats Grid -->
-<div class="row g-1 g-md-4 mb-4 mb-md-5">
-  <div class="col-6 col-lg-3">
-    <div class="stat-card bg-white rounded-3 px-4 py-3 h-100">
-      <div class="d-flex justify-content-between align-items-start mb-3">
-        <div class="stat-icon">
-          <span class="material-symbols-outlined">group</span>
-        </div>
-      </div>
-      <div class="text-secondary small mb-1">Số học viên</div>
-      <h2 class="h5 h4-md fw-bold m-0" style="color: var(--primary-color)">
-        2,842
-      </h2>
-    </div>
-  </div>
-  <div class="col-6 col-lg-3">
-    <div class="stat-card bg-white rounded-3 px-4 py-3 h-100">
-      <div class="d-flex justify-content-between align-items-start mb-3">
-        <div class="stat-icon">
-          <span class="material-symbols-outlined">badge</span>
-        </div>
-      </div>
-      <div class="text-secondary small mb-1">Số giáo viên</div>
-      <h2 class="h5 h4-md fw-bold m-0" style="color: var(--primary-color)">
-        156
-      </h2>
-    </div>
-  </div>
-  <div class="col-6 col-lg-3">
-    <div class="stat-card bg-white rounded-3 px-4 py-3 h-100">
-      <div class="d-flex justify-content-between align-items-start mb-3">
-        <div class="stat-icon">
-          <span class="material-symbols-outlined">menu_book</span>
-        </div>
-      </div>
-      <div class="text-secondary small mb-1">Số khóa học đang hoạt động</div>
-      <h2 class="h5 h4-md fw-bold m-0" style="color: var(--primary-color)">
-        42
-      </h2>
-    </div>
-  </div>
-  <div class="col-6 col-lg-3">
-    <div class="stat-card bg-white rounded-3 px-4 py-3 h-100">
-      <div class="d-flex justify-content-between align-items-start mb-3">
-        <div class="stat-icon">
-          <span class="material-symbols-outlined">calendar_month</span>
-        </div>
-      </div>
-      <div class="text-secondary small mb-1">Số lớp đang dạy</div>
-      <h2 class="h5 h4-md fw-bold m-0" style="color: var(--primary-color)">
-        84
-      </h2>
-    </div>
-  </div>
-</div>
-<!-- Charts Row -->
-<div class="row g-4 mb-4 mb-md-5">
-  <div class="col-lg-8">
-    <div class="chart-container h-100 bg-white rounded-3 px-4 py-3">
-      <div
-        class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-4"
-      >
-        <div>
-          <h3 class="h5 fw-bold m-0" style="color: var(--primary-color)">
-            Doanh thu theo tháng trong năm
-          </h3>
-          <!-- <p class="small text-secondary m-0">
-                    Performance overview for 2024
-                  </p> -->
-        </div>
-        <select class="form-select form-select-sm w-auto">
-          <option>2025</option>
-          <option>2026</option>
-        </select>
-      </div>
-      <div class="bar-chart"></div>
-    </div>
-  </div>
-  <div class="col-lg-4">
-    <div class="chart-container h-100 bg-white rounded-3 px-4 py-3">
-      <h3 class="h5 fw-bold mb-3" style="color: var(--primary-color)">
-        Tỷ lệ điểm danh tháng này
-      </h3>
-      <!-- <p class="small text-secondary mb-4 badge bg-success">Average participation</p> -->
-      <div class="circular-chart mb-4">
-        <svg class="w-100 h-100" viewBox="0 0 36 36">
-          <path
-            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-            fill="none"
-            stroke="#f1f5f9"
-            stroke-width="3"
-          ></path>
-          <path
-            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-            fill="none"
-            stroke="#05406E"
-            stroke-dasharray="92, 100"
-            stroke-width="3"
-          ></path>
-        </svg>
-        <div
-          class="position-absolute top-50 start-50 translate-middle text-center"
-        >
-          <div class="h4 fw-bold m-0" style="color: var(--primary-color)">
-            92%
+@if (statisticsBasic) {
+  <!-- Stats Grid -->
+  <div class="row g-1 g-md-4 mb-4 mb-md-5">
+    <div class="col-6 col-lg-3">
+      <div class="stat-card bg-white rounded-3 px-4 py-3 h-100">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div class="stat-icon">
+            <span class="material-symbols-outlined">group</span>
           </div>
+        </div>
+        <div class="text-secondary small mb-1">Số học viên</div>
+        <h2 class="h5 h4-md fw-bold m-0" style="color: var(--primary-color)">
+          {{ statisticsBasic.numberOfStudent | number: "1.0-0" }}
+        </h2>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card bg-white rounded-3 px-4 py-3 h-100">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div class="stat-icon">
+            <span class="material-symbols-outlined">badge</span>
+          </div>
+        </div>
+        <div class="text-secondary small mb-1">Số giáo viên</div>
+        <h2 class="h5 h4-md fw-bold m-0" style="color: var(--primary-color)">
+          {{ statisticsBasic.numberOfTeacher | number: "1.0-0" }}
+        </h2>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card bg-white rounded-3 px-4 py-3 h-100">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div class="stat-icon">
+            <span class="material-symbols-outlined">menu_book</span>
+          </div>
+        </div>
+        <div class="text-secondary small mb-1">Số khóa học đang hoạt động</div>
+        <h2 class="h5 h4-md fw-bold m-0" style="color: var(--primary-color)">
+          {{ statisticsBasic.numberOfCourses | number: "1.0-0" }}
+        </h2>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card bg-white rounded-3 px-4 py-3 h-100">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div class="stat-icon">
+            <span class="material-symbols-outlined">calendar_month</span>
+          </div>
+        </div>
+        <div class="text-secondary small mb-1">Số lớp đang dạy</div>
+        <h2 class="h5 h4-md fw-bold m-0" style="color: var(--primary-color)">
+          {{ statisticsBasic.numberOfClasses | number: "1.0-0" }}
+        </h2>
+      </div>
+    </div>
+  </div>
+  <!-- Charts Row -->
+  <div class="row g-4 mb-4 mb-md-5">
+    <div class="col-lg-8">
+      <div class="chart-container h-100 bg-white rounded-3 px-4 py-3">
+        <div
+          class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-4"
+        >
+          <div>
+            <h3 class="h5 fw-bold m-0" style="color: var(--primary-color)">
+              Doanh thu theo tháng trong năm
+            </h3>
+          </div>
+          <select
+            class="form-select form-select-sm w-auto"
+            #yearSelect
+            (change)="initRevenues(+yearSelect.value)"
+          >
+            @for (item of statisticsBasic.revenueYears; track $index) {
+              <option [value]="item">{{ item }}</option>
+            }
+          </select>
+        </div>
+        <div class="bar-chart">
+          <app-line-chart [revenues]="revenues" />
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="chart-container h-100 bg-white rounded-3 px-4 py-3">
+        <h3 class="h5 fw-bold mb-3" style="color: var(--primary-color)">
+          Tỷ lệ điểm danh tháng này
+        </h3>
+        <!-- <p class="small text-secondary mb-4 badge bg-success">Average participation</p> -->
+        <div class="circular-chart mb-4 pt-2">
+          <app-doughnut-chart [data]="doughnutData" />
+        </div>
+        <div class="mt-3">
           <div
-            class="text-uppercase text-secondary fw-bold"
-            style="font-size: 9px; letter-spacing: 0.1em"
+            class="d-flex justify-content-between align-items-center mb-2 small"
           >
-            Excellent
+            <span
+              ><span class="badge rounded-circle p-1 bg-primary me-2"></span> Có
+              mặt</span
+            >
+            <span class="fw-bold">{{ presentRatio }}%</span>
           </div>
-        </div>
-      </div>
-      <div class="mt-3">
-        <div
-          class="d-flex justify-content-between align-items-center mb-2 small"
-        >
-          <span
-            ><span class="badge rounded-circle p-1 bg-primary me-2"></span> Có
-            mặt</span
-          >
-          <span class="fw-bold">92%</span>
-        </div>
-        <div class="d-flex justify-content-between align-items-center small">
-          <span class="text-secondary"
-            ><span class="badge rounded-circle p-1 bg-light me-2"></span> Vắng
-            mặt</span
-          >
-          <span class="text-secondary">8%</span>
+          <div class="d-flex justify-content-between align-items-center small">
+            <span class="text-secondary"
+              ><span class="badge rounded-circle p-1 bg-light me-2"></span> Vắng
+              mặt</span
+            >
+            <span class="text-secondary">{{ absentRatio }}%</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+}

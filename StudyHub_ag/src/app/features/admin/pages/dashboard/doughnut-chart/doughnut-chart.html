@@ -1,0 +1,11 @@
+@if (doughnutChartData) {
+  <div class="chart-container">
+    <canvas
+      baseChart
+      [data]="doughnutChartData"
+      [options]="doughnutChartOptions"
+      [type]="doughnutChartType"
+    >
+    </canvas>
+  </div>
+}
