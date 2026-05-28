@@ -27,6 +27,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ckeditor5/dist/ckeditor5.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/styles/global.css"
             ]

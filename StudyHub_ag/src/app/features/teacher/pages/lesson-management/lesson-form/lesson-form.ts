@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ModalService } from '../../../../../_service/utils/modal.service';
 import { ResourceModal } from '../../../../../_shared/resource-modal/resource-modal';
+import { Editor } from "../../../../../_shared/components/editor/editor";
 
 @Component({
   selector: 'app-lesson-form',
-  imports: [],
+  imports: [Editor],
   templateUrl: './lesson-form.html',
   styleUrl: './lesson-form.css',
 })
