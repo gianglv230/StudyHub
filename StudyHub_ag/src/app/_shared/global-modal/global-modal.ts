@@ -46,9 +46,18 @@ export class GlobalModal implements OnInit {
       injector: customInjector,
     });
 
-    // Reset ref khi modal bị đóng (bởi user click backdrop, ESC, hoặc NgbActiveModal)
-    this.currentModalRef.hidden.subscribe(() => {
-      this.currentModalRef = null;
-    });
+    // Đẩy kết quả từ NgbActiveModal.close() vào closeSubject để caller nhận được
+    this.currentModalRef.result.then(
+      (result) => {
+        options.onClose?.next(result);
+        options.onClose?.complete();
+        this.currentModalRef = null;
+      },
+      () => {
+        // Modal bị dismiss (ESC, backdrop) — complete mà không emit
+        options.onClose?.complete();
+        this.currentModalRef = null;
+      }
+    );
   }
 }

@@ -9,12 +9,15 @@ import { ResourceModal } from '../../../../../_shared/resource-modal/resource-mo
   styleUrl: './lesson-form.css',
 })
 export class LessonForm {
-  constructor(private readonly modalService: ModalService) {}
+  constructor(private readonly modalService: ModalService) { }
 
   openResourceModal() {
     this.modalService.open({
       component: ResourceModal,
-      size: 'xl'
+      size: 'xl',
+      data: { selectionMode: 'single' }, // 'single' | 'multiple'
+    }).subscribe((resources) => {
+      console.log(resources);
     });
   }
 }

@@ -1,5 +1,5 @@
 @if (child) {
-  <div class="bg-white rounded-3">
+  <div class="bg-white rounded-3 resource-card-wrapper" [class.card-selected]="isSelected" (click)="toggleSelect()">
     @switch (resourceType) {
       @case ("image") {
         <div class="resource-image">

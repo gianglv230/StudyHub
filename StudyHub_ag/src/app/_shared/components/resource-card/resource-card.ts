@@ -1,26 +1,58 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ResourceService } from '../../../_service/resource/resource.service';
 import { BaseComponent } from '../base/base-component';
-import { finalize } from 'rxjs';
+import { finalize, map, Subscription } from 'rxjs';
+import { ResourcePickerService } from '../../../_service/utils/resource-picker.service';
+import { Router } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-resource-card',
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './resource-card.html',
   styleUrl: './resource-card.css',
 })
-export class ResourceCard {
+export class ResourceCard implements OnInit, OnDestroy {
   @Input() resourceType: RESOURCE_TYPE = 'image';
   @Input() child?: ChildrenResourceResponse;
 
+  isSelected = false;
   private isSubmitting = false;
   private MAX_VIDEO_SIZE = 100 * 1024 * 1024; // 100MB
   private MAX_OTHER_SIZE = 10 * 1024 * 1024; // 10MB
+  private classSlug?: string | null;
+  private sub?: Subscription;
 
   constructor(
     private readonly resourceService: ResourceService,
     private readonly base: BaseComponent,
+    private readonly resourcePickerService: ResourcePickerService,
+    private readonly router: Router,
   ) {}
+
+  ngOnInit(): void {
+    let route = this.router.routerState.root;
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+    this.classSlug = route.snapshot.paramMap.get('class-slug');
+
+    // Subscribe để cập nhật trạng thái active khi selectedResources$ thay đổi
+    this.sub = this.resourcePickerService.selectedResources$.subscribe(
+      (selected) => {
+        this.isSelected = selected.some((r) => r.id === this.child?.id);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
 
   get videoThumbnail(): string | undefined {
     if (this.child?.resourceType === 'video') {
@@ -118,5 +150,11 @@ export class ResourceCard {
         error: (err) => this.base.handleError(err),
         complete: () => (this.isSubmitting = false),
       });
+  }
+
+  toggleSelect() {
+    if (this.classSlug) {
+      this.resourcePickerService.toggle(this.child!);
+    }
   }
 }

@@ -3,9 +3,9 @@ import {
   Type,
 } from '@angular/core';
 
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
-export interface ModalOptions {
+export interface ModalOptions<T = any> {
   title?: string;
   component: Type<any>;
   data?: any;
@@ -14,6 +14,8 @@ export interface ModalOptions {
   backdrop?: boolean | 'static';
   /** false: không đóng khi nhấn ESC */
   keyboard?: boolean;
+
+  onClose?: Subject<T>;
 }
 
 @Injectable({
@@ -24,11 +26,18 @@ export class ModalService {
 
   modalState$ = this.modalSubject.asObservable();
 
-  open(options: ModalOptions) {
-    this.modalSubject.next(options);
+  open<T = any>(options: ModalOptions): Observable<T> {
+    const closeSubject = new Subject<T>();
+
+    this.modalSubject.next({
+      ...options,
+      onClose: closeSubject,
+    });
+
+    return closeSubject.asObservable();
   }
 
-  close() {
+  close(result?: any) {
     this.modalSubject.next(null);
   }
 }
