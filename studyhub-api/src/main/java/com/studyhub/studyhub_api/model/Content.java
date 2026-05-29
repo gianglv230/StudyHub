@@ -5,8 +5,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -59,8 +63,12 @@ public class Content {
     @Column(name = "type", nullable = false, length = 30)
     String type;
 
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "materials")
+    List<Integer> materials = new ArrayList<>();
+
     @ToString.Exclude
     @OneToMany(mappedBy = "content")
-    Set<Material> materials = new LinkedHashSet<>();
+    Set<Material> materialSet = new LinkedHashSet<>();
 
 }

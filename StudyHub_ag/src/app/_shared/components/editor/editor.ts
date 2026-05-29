@@ -40,10 +40,16 @@ export class Editor implements OnInit, OnDestroy {
   public editor = ClassicEditor;
   public config!: EditorConfig;
 
+  // Chỉ lưu giá trị ban đầu một lần, không cập nhật theo content Input
+  // để tránh CKEditor reinitialize và reset vị trí con trỏ
+  public initialContent = '';
+
   private changeSubject = new Subject<string>();
   private changeSub?: Subscription;
 
   ngOnInit(): void {
+    // Chốt giá trị ban đầu ngay khi init — bỏ qua mọi thay đổi sau đó
+    this.initialContent = this.content;
     // Khởi tạo config trong ngOnInit để @Input() placeholder đã được Angular set
     this.config = {
       licenseKey: 'GPL',

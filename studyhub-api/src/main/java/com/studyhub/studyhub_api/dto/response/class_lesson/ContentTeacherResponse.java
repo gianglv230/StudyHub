@@ -9,7 +9,7 @@ public record ContentTeacherResponse(
         ResourceTeacherResponse videoContent,
         String textContent,
         Integer orderIndex,
-        String type,
-        List<MaterialResponse> materials
+        String type
+//        List<MaterialResponse> materials
 ) {
 }

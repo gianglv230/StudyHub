@@ -47,6 +47,7 @@ export const API_ENDPOINTS = {
   CLASS_LESSON: '/class-lesson',
   CLASS_LESSON_ENDPOINTS: {
     SECTIONS: '/sections',
+    TEACHER: '/teacher'
   },
   RESOURCE: '/resource',
   RESOURCE_ENDPOINTS: {

@@ -53,17 +53,19 @@ public interface ContentMapper {
         return resource;
     }
 
-    default Set<Material> map(List<Integer> ids) {
-        if (ids == null) {
-            return Set.of();
-        }
-
-        return ids.stream()
-                .map(id -> {
-                    Material material = new Material();
-                    material.setId(id);
-                    return material;
-                })
-                .collect(Collectors.toSet());
-    }
+//    default Set<Material> map(List<Integer> ids) {
+//        if (ids == null) {
+//            return Set.of();
+//        }
+//
+//        return ids.stream()
+//                .map(id -> {
+//                    Material material = new Material();
+//                    material.setResource(Resource.builder()
+//                                    .id(id)
+//                            .build());
+//                    return material;
+//                })
+//                .collect(Collectors.toSet());
+//    }
 }

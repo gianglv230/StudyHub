@@ -5,6 +5,6 @@ import com.studyhub.studyhub_api.dto.response.class_lesson.ClassLessonTeacherRes
 
 public interface ClassLessonService {
     ClassLessonTeacherResponse getClassLessonTeacher(String classLessonSlug);
-    Boolean addClassLesson(ClassLessonTeacherRequest classLessonTeacherRequest, String classSlug);
+    String addClassLesson(ClassLessonTeacherRequest classLessonTeacherRequest, String classSlug);
     Boolean updateClassLesson(ClassLessonTeacherRequest classLessonTeacherRequest, String classSlug);
 }

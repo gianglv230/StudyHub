@@ -42,16 +42,21 @@ public class ClassLessonController {
     // Untest
     @Operation(summary = "Add class lesson", description = "API add class lesson")
     @PostMapping("/{classSlug}")
-    public ApiResponse<Boolean> addClassLesson(@PathVariable String classSlug, @RequestBody ClassLessonTeacherRequest classLessonTeacherRequest){
-        return ApiResponse.<Boolean>builder()
-                .data(classLessonService.addClassLesson(classLessonTeacherRequest, classSlug))
-                .build();
+    public ApiResponse<String> addClassLesson(@PathVariable String classSlug, @RequestBody ClassLessonTeacherRequest classLessonTeacherRequest) {
+        try {
+            return ApiResponse.<String>builder()
+                    .data(classLessonService.addClassLesson(classLessonTeacherRequest, classSlug))
+                    .build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // Untest
     @Operation(summary = "Add class lesson", description = "API add class lesson")
     @PutMapping("/{classSlug}")
-    public ApiResponse<Boolean> updateClassLesson(@PathVariable String classSlug, @RequestBody ClassLessonTeacherRequest classLessonTeacherRequest){
+    public ApiResponse<Boolean> updateClassLesson(@PathVariable String classSlug, @RequestBody ClassLessonTeacherRequest classLessonTeacherRequest) {
         return ApiResponse.<Boolean>builder()
                 .data(classLessonService.updateClassLesson(classLessonTeacherRequest, classSlug))
                 .build();

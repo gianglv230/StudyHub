@@ -5,12 +5,12 @@ import com.studyhub.studyhub_api.dto.response.class_lesson.ClassLessonTeacherRes
 import com.studyhub.studyhub_api.exception.AppException;
 import com.studyhub.studyhub_api.exception.ErrorCode;
 import com.studyhub.studyhub_api.mapper.ClassLessonMapper;
+import com.studyhub.studyhub_api.model.*;
 import com.studyhub.studyhub_api.model.Class;
-import com.studyhub.studyhub_api.model.ClassLesson;
-import com.studyhub.studyhub_api.model.ClassLessonConfig;
-import com.studyhub.studyhub_api.model.UserAccount;
 import com.studyhub.studyhub_api.repository.ClassLessonConfigRepository;
 import com.studyhub.studyhub_api.repository.ClassLessonRepository;
+import com.studyhub.studyhub_api.repository.ContentRepository;
+import com.studyhub.studyhub_api.repository.SectionRepository;
 import com.studyhub.studyhub_api.service.auth.AuthenticationService;
 import com.studyhub.studyhub_api.service.class_lesson.ClassLessonService;
 import lombok.AccessLevel;
@@ -19,6 +19,12 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -29,6 +35,8 @@ public class ClassLessonServiceImpl implements ClassLessonService {
     ClassLessonRepository classLessonRepository;
     ClassLessonConfigRepository classLessonConfigRepository;
     ClassLessonMapper classLessonMapper;
+    SectionRepository sectionRepository;
+    ContentRepository contentRepository;
 
     // Untest
     @PreAuthorize("hasRole('TEACHER')")
@@ -41,13 +49,39 @@ public class ClassLessonServiceImpl implements ClassLessonService {
     }
 
     @Override
-    public Boolean addClassLesson(ClassLessonTeacherRequest classLessonTeacherRequest, String classSlug) {
+    public String addClassLesson(ClassLessonTeacherRequest classLessonTeacherRequest, String classSlug) {
         Class clazz = authService.checkViewClassPermissions(classSlug);
         Long maxOrderIndex = classLessonConfigRepository.getMaxOrderIndexByClassId(clazz.getId());
 
+        ClassLesson classLessonRaw = classLessonMapper.toClassLesson(classLessonTeacherRequest);
+
         // Save class lesson
-        ClassLesson classLesson = classLessonMapper.toClassLesson(classLessonTeacherRequest);
-        classLessonRepository.save(classLesson);
+        ClassLesson classLesson = ClassLesson.builder()
+                .slug(classLessonRaw.getSlug())
+                .titleOverride(classLessonRaw.getTitleOverride())
+                .isDeleted(false)
+                .build();
+        classLesson = classLessonRepository.save(classLesson);
+
+        // Save sections
+//        List<Section> sections = new ArrayList<>();
+        for (Section section : classLessonRaw.getSections()) {
+            Section sectionClone = Section.builder()
+                    .classLesson(classLesson)
+                    .sectionName(section.getSectionName())
+                    .orderIndex(section.getOrderIndex())
+                    .build();
+            sectionClone = sectionRepository.save(sectionClone);
+
+            List<Content> contents = new ArrayList<>();
+            for (Content content : section.getContents()) {
+                content.setSection(sectionClone);
+                content.setClassLessonId(classLesson.getId());
+                contentRepository.save(content);
+            }
+
+            contentRepository.saveAll(contents);
+        }
 
         // Save clc
         ClassLessonConfig clc = ClassLessonConfig.builder()
@@ -58,7 +92,7 @@ public class ClassLessonServiceImpl implements ClassLessonService {
 
         classLessonConfigRepository.save(clc);
 
-        return true;
+        return classLesson.getSlug();
     }
 
     @Override

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-lesson-form-action',
@@ -7,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrl: './lesson-form-action.css',
 })
 export class LessonFormAction {
+  @Output() submit = new EventEmitter<void>();
+  @Output() cancel = new EventEmitter<void>();
 
+  save(){
+    this.submit?.emit();
+  }
+
+  restore(){
+    this.cancel?.emit();
+  }
 }

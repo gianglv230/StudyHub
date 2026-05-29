@@ -9,4 +9,10 @@ public record ClassLessonTeacherRequest(
         Boolean isDeleted,
         List<SectionTeacherRequest> sections
 ) {
+    // Constructor này giúp gán giá trị mặc định cho isDeleted nếu nó bị null
+    public ClassLessonTeacherRequest {
+        if (isDeleted == null) {
+            isDeleted = false;
+        }
+    }
 }
