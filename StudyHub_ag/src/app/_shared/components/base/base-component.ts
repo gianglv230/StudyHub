@@ -34,7 +34,7 @@ export abstract class BaseComponent {
 
   handleError(err: any) {
     console.log('Error: ', err);
-    this.showDanger(ERROR_CODE_RESPONSE[err.error.code]);
+    this.showDanger(ERROR_CODE_RESPONSE[err.error.code] || err.error.message);
   }
 
   isStudent(): boolean {

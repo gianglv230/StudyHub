@@ -21,203 +21,313 @@
       </div>
     </a>
   </div>
-  <div class="row g-2 mt-3 mb-3">
-    <div class="col-12 col-md-8 col-lg-9 order-1 order-md-0">
-      <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
-        <p class="fw-normal text-uppercase ls-1 text-primary-container mb-2">
-          Tên khóa học
-        </p>
-        <input
-          type="text"
-          class="form-control form-input py-2"
-          placeholder="Tên khóa - Bắt buộc nhập"
-        />
-        <p class="small fst-italic mt-2 mb-0 text-end">slug</p>
-      </div>
-    </div>
-    <div class="col-12 col-md-4 col-lg-3 order-0 order-md-1">
-      <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
-        <h5 class="mb-2 fw-normal ls-1 text-center">Tạo khóa học mới</h5>
-        <p class="text-muted mb-0 small">Ngày tạo: 05/05/2026</p>
-        <p class="text-muted mb-0 small">Bởi: NVA</p>
-        <p class="text-muted mb-0 small">Ngày cập nhật: 05/05/2026</p>
-        <p class="text-muted mb-0 small">Bởi: NVA</p>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-2 form-second">
-    <div class="col-12">
-      <div class="bg-white rounded-3 shadow-sm py-3 px-3">
-        <div class="row">
-          <div class="col-12 col-md-9 mb-2">
-            <p class="fw-normal ls-1 text-primary-container mb-2">Danh mục</p>
-            <input
-              type="text"
-              class="form-control form-input py-2"
-              placeholder="Tên danh mục"
-            />
-          </div>
-          <div class="col-12 col-md-3">
-            <div class="mb-2">
-              <label class="mb-1 text-primary-container ls-1">Trạng thái</label>
-              <select name="subject" class="form-select py-2">
-                <option value="all" selected>Hoạt động</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-6 mb-2">
-            <p class="fw-normal ls-1 text-primary-container mb-2">
-              Đối tượng học
+  @if (form) {
+    <div [formGroup]="form">
+      <div class="row g-2 mt-3 mb-3">
+        <div class="col-12 col-md-8 col-lg-9 order-1 order-md-0">
+          <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
+            <!-- <p
+              class="fw-normal text-uppercase ls-1 text-primary-container mb-2"
+            >
+              Tên khóa học
             </p>
             <input
               type="text"
               class="form-control form-input py-2"
-              placeholder="Đối tượng học"
+              placeholder="Tên khóa - Bắt buộc nhập"
+            /> -->
+            <app-form-input
+              [control]="getControl(form, 'title')"
+              label="Tên khóa học"
+              [isFloating]="false"
+              placeholder="Tên khóa - Bắt buộc nhập"
             />
-          </div>
-          <div class="col-6 mb-2">
-            <p class="fw-normal ls-1 text-primary-container mb-2">Môn học</p>
-            <input
-              type="text"
-              class="form-control form-input py-2"
-              placeholder="Môn học"
-            />
-          </div>
-          <div class="col-12 mb-2">
-            <p class="mb-2 fw-medium text-primary-container">Mô tả chi tiết</p>
-            <textarea rows="3" class="rounded-3 w-100"></textarea>
-          </div>
-          <div class="col-12 mb-2">
-            <p class="mb-2 fw-medium text-primary-container">
-              Ảnh đại diện khóa học
+            <p class="fst-italic small text-end mb-0 text-muted">
+              <span class="me-1">Slug:</span
+              ><span class="fw-medium text-primary-container">{{
+                slugPreview || "---"
+              }}</span>
             </p>
-            <div class="frame-upload-video rounded-3 text-center py-3 mt-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="28"
-                height="28"
-                fill="currentColor"
-                class="bi bi-plus-lg me-1 mb-2"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-                />
-              </svg>
-              <p class="fw-bold mb-0">Chọn/Upload ảnh</p>
-            </div>
+            <!-- <p class="small fst-italic mt-2 mb-0 text-end">slug</p> -->
           </div>
-          <div class="col-12">
-            <p class="mb-2 fw-medium text-primary-container">Video demo</p>
-            <div class="frame-upload-video rounded-3 text-center py-3 mt-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="28"
-                height="28"
-                fill="currentColor"
-                class="bi bi-plus-lg me-1 mb-2"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-                />
-              </svg>
-              <p class="fw-bold mb-0">Chọn/Upload video demo</p>
-            </div>
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 order-0 order-md-1">
+          <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
+            <h5 class="mb-2 fw-normal ls-1 text-center">Tạo khóa học mới</h5>
+            @if (courseResponse) {
+              <p class="text-muted mb-0 small">
+                Ngày tạo: {{ courseResponse.createdAt | date: "dd/MM/yyyy" }}
+              </p>
+              <p class="text-muted mb-0 small">
+                Bởi: {{ courseResponse.createdBy }}
+              </p>
+              <p class="text-muted mb-0 small">
+                Ngày cập nhật:
+                {{ courseResponse.updatedAt | date: "dd/MM/yyyy" }}
+              </p>
+              <p class="text-muted mb-0 small">
+                Bởi: {{ courseResponse.updatedBy }}
+              </p>
+            } @else {
+              <p class="text-muted mb-1 small mt-2 pt-1">
+                Ngày tạo: --/--/----
+              </p>
+              <p class="text-muted mb-0 small">Ngày cập nhật: --/--/----</p>
+            }
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="section-list mt-4 mb-2">
-    <div class="section mb-4 bg-white rounded-3 shadow-sm">
-      <div
-        class="section-header bg-border-color-lite rounded-top px-3 py-3 h5 fw-medium"
-      >
-        Danh sách các bài học dự kiến của khóa học
-      </div>
-      <div class="section-body p-3">
-        <div class="content-list">
-          <div class="content border-1 border rounded-3">
-            <div
-              class="section-header bg-border-color-lite rounded-top px-3 py-2"
-            >
-              <div class="d-flex align-items-center">
-                <div class="d-flex flex-column me-2 gap-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                    class="bi bi-caret-up-fill cursor-pointer opacity-75"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
-                    />
-                  </svg>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                    class="bi bi-caret-down-fill cursor-pointer opacity-75"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
-                    />
-                  </svg>
-                </div>
-                <p
-                  class="ms-2 me-2 mb-0 fw-bold bg-white rounded-3 shadow-sm order-index text-center"
-                >
-                  1
+      <div class="row mt-2 form-second">
+        <div class="col-12">
+          <div class="bg-white rounded-3 shadow-sm py-3 px-3">
+            <div class="row">
+              <div class="col-12 col-md-9 mb-2">
+                <!-- <p class="fw-normal ls-1 text-primary-container mb-2">
+                  Danh mục
                 </p>
                 <input
                   type="text"
-                  class="form-input form-control py-2 mb-0 me-3"
-                  placeholder="Tiêu đề bài học - Bắt buộc nhập"
+                  class="form-control form-input py-2"
+                  placeholder="Tên danh mục"
+                /> -->
+                <app-form-input
+                  [control]="getControl(form, 'categoryName')"
+                  label="Danh mục"
+                  [isFloating]="false"
+                  placeholder="Tên danh mục"
                 />
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  class="bi bi-trash-fill text-danger cursor-pointer"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="mb-2">
+                  <!-- <label class="mb-1 text-primary-container ls-1"
+                    >Trạng thái</label
+                  >
+                  <select name="subject" class="form-select py-2">
+                    <option value="all" selected>Hoạt động</option>
+                  </select> -->
+                  <app-form-select
+                    [control]="getControl(form, 'status')"
+                    label="Trạng thái"
+                    [data]="statusData"
                   />
-                </svg>
+                </div>
+              </div>
+              <div class="col-6 mb-2">
+                <app-form-input
+                  [control]="getControl(form, 'targetGrade')"
+                  label="Đối tượng học"
+                  [isFloating]="false"
+                  placeholder="Đối tượng học"
+                />
+                <!-- <p class="fw-normal ls-1 text-primary-container mb-2">
+                  Đối tượng học
+                </p>
+                <input
+                  type="text"
+                  class="form-control form-input py-2"
+                  placeholder="Đối tượng học"
+                /> -->
+              </div>
+              <div class="col-6 mb-2">
+                <app-form-input
+                  [control]="getControl(form, 'subject')"
+                  label="Môn học"
+                  [isFloating]="false"
+                  placeholder="Môn học"
+                />
+                <!-- <p class="fw-normal ls-1 text-primary-container mb-2">
+                  Môn học
+                </p>
+                <input
+                  type="text"
+                  class="form-control form-input py-2"
+                  placeholder="Môn học"
+                /> -->
+              </div>
+              <div class="col-12 mb-2">
+                <p class="mb-2 fw-medium text-primary-container">
+                  Mô tả chi tiết
+                </p>
+                <textarea
+                  rows="3"
+                  class="rounded-3 w-100"
+                  [formControl]="getControl(form, 'description')"
+                ></textarea>
+              </div>
+              <div class="col-12 mb-2">
+                <p class="mb-2 fw-medium text-primary-container">
+                  Ảnh đại diện khóa học
+                </p>
+                <!--UNIMPL-->
+                @if (getControl(form, "thumbnail").value) {
+                  <div style="max-width: 320px">
+                    <app-resource-lite-card
+                      [child]="getControl(form, 'thumbnail').value"
+                      (onUpdate)="
+                        openResourceModal(form, 'single', 'thumbnail')
+                      "
+                      (onDelete)="removeThumbnailResource(form)"
+                    />
+                  </div>
+                } @else {
+                  <div
+                    class="frame-upload-video rounded-3 text-center py-3 mt-2 cursor-pointer"
+                    (click)="openResourceModal(form, 'single', 'thumbnail')"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="28"
+                      height="28"
+                      fill="currentColor"
+                      class="bi bi-plus-lg me-1 mb-2"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                      />
+                    </svg>
+                    <p class="fw-bold mb-0">Chọn/Upload ảnh</p>
+                  </div>
+                }
+              </div>
+              <div class="col-12">
+                <p class="mb-2 fw-medium text-primary-container">Video demo</p>
+                <!--UNIMPL-->
+                @if (getControl(form, "video").value) {
+                  <div style="max-width: 320px">
+                    <app-resource-lite-card
+                      [child]="getControl(form, 'video').value"
+                      (onUpdate)="openResourceModal(form, 'single', 'video')"
+                      (onDelete)="removeVideoResource(form)"
+                    />
+                  </div>
+                } @else {
+                  <div
+                    class="frame-upload-video rounded-3 text-center py-3 mt-2 cursor-pointer"
+                    (click)="openResourceModal(form, 'single', 'video')"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="28"
+                      height="28"
+                      fill="currentColor"
+                      class="bi bi-plus-lg me-1 mb-2"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                      />
+                    </svg>
+                    <p class="fw-bold mb-0">Chọn/Upload video demo</p>
+                  </div>
+                }
               </div>
             </div>
           </div>
         </div>
-        <button
-          class="btn btn-dashed-muted w-100 text-muted d-flex align-items-center justify-content-center mt-2"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            fill="currentColor"
-            class="bi bi-plus-lg me-1"
-            viewBox="0 0 16 16"
+      </div>
+      <div class="section-list mt-4 mb-2">
+        <div class="section mb-4 bg-white rounded-3 shadow-sm">
+          <div
+            class="section-header bg-border-color-lite rounded-top px-3 py-3 h5 fw-medium"
           >
-            <path
-              fill-rule="evenodd"
-              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-            />
-          </svg>
-          <span>Thêm bài học dự kiến mới cho khóa học này</span>
-        </button>
+            Danh sách các bài học dự kiến của khóa học
+          </div>
+          <div class="section-body p-3">
+            <div class="content-list">
+              @for (les of getLessons(); track les; let lesIdx = $index) {
+                <div class="content border-1 border rounded-3">
+                  <div
+                    class="section-header bg-border-color-lite rounded-top px-3 py-2"
+                  >
+                    <div class="d-flex align-items-center">
+                      <div class="d-flex flex-column me-2 gap-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-caret-up-fill cursor-pointer opacity-75"
+                          viewBox="0 0 16 16"
+                          [class.text-muted]="lesIdx === 0"
+                          (click)="moveUp(lesIdx)"
+                        >
+                          <path
+                            d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+                          />
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          class="bi bi-caret-down-fill cursor-pointer opacity-75"
+                          [class.text-muted]="
+                            lesIdx === getLessons().length - 1
+                          "
+                          (click)="moveDown(lesIdx)"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+                          />
+                        </svg>
+                      </div>
+                      <p
+                        class="ms-2 me-2 mb-0 fw-bold bg-white rounded-3 shadow-sm order-index text-center"
+                      >
+                        {{ les.get("orderIndex")?.value || lesIdx + 1 }}
+                      </p>
+                      <input
+                        type="text"
+                        class="form-input form-control py-2 mb-0 me-3"
+                        placeholder="Tiêu đề bài học - Bắt buộc nhập"
+                        [formControl]="getControl(les, 'title')"
+                      />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        fill="currentColor"
+                        class="bi bi-trash-fill text-danger cursor-pointer"
+                        viewBox="0 0 16 16"
+                        (click)="removeLesson(lesIdx)"
+                      >
+                        <path
+                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+            <button
+              class="btn btn-dashed-muted w-100 text-muted d-flex align-items-center justify-content-center mt-2"
+              (click)="addLesson()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                class="bi bi-plus-lg me-1"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                />
+              </svg>
+              <span>Thêm bài học dự kiến mới cho khóa học này</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  }
 </section>
 <div class="bg-white w-100 px-3 py-4 mb-3">
   <div class="row gap-1 d-flex justify-content-between align-items-center">
@@ -229,7 +339,7 @@
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-cloud-check-fill text-secondary text-center"
+            class="bi bi-cloud-check-fill text-secondary text-white"
             viewBox="0 0 16 16"
           >
             <path
@@ -238,30 +348,22 @@
           </svg>
         </div>
         <div class="col">
-          <span class="fs-12 text-muted"
+          <span class="fs-12 text-white"
             >Tất cả các thay đổi đã được lưu tự động tại máy</span
           >
         </div>
       </div>
     </div>
-    <!-- <div class="col-4">
-              <div class="d-flex align-items-center">
-                <label
-                  class="ls-1 small text-nowrap me-2 text-primary-container"
-                  >Trạng thái</label
-                >
-                <select name="subject" class="form-select py-2">
-                  <option value="all" selected>Hoạt động</option>
-                </select>
-              </div>
-            </div> -->
     <div class="col-auto d-flex">
       <button
         class="btn btn-outline-secondary py-2 rounded-3 me-2 px-2 fw-bold"
+        (click)="onCancel()"
       >
         Hủy bỏ
       </button>
-      <button class="btn btn-primary-custom py-2">Lưu</button>
+      <button class="btn btn-primary-custom py-2" (click)="onSubmit()">
+        Lưu
+      </button>
     </div>
   </div>
 </div>

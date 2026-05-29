@@ -10,6 +10,7 @@ export class ResourcePickerService {
 
   selectedResources$ = new BehaviorSubject<ChildrenResourceResponse[]>([]);
   selectionMode$ = new BehaviorSubject<SelectionMode>('multiple');
+  isPicking = false;
 
   setMode(mode: SelectionMode) {
     this.selectionMode$.next(mode);

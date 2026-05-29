@@ -153,7 +153,7 @@ export class ResourceCard implements OnInit, OnDestroy {
   }
 
   toggleSelect() {
-    if (this.classSlug) {
+    if (this.resourcePickerService.isPicking) {
       this.resourcePickerService.toggle(this.child!);
     }
   }

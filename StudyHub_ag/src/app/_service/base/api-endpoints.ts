@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
     FILTER: '/filter',
     FILTER_OPTION: '/filter-option',
     DETAIL: '/detail',
+    ADMIN: '/admin'
   },
   TEACHER: '/teacher',
   TEACHER_ENDPOINTS: {

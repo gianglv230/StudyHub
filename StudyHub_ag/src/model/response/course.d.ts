@@ -38,3 +38,28 @@ interface CourseDetailLiteResponse {
   description?: string;
   lessons?: LessonLiteResponse[];
 }
+
+interface AdminLessonResponse {
+  id: number;
+  title: string;
+  orderIndex: number;
+}
+
+interface AdminCourseResponse {
+  id: number;
+  slug: string;
+  title: string;
+  descripton: string;
+  subject: string;
+  targetGrade: string;
+  categoryName: string;
+  thumbnail?: ChildrenResourceResponse;
+  videoDemo?: ChildrenResourceResponse;
+  numberOfLessons: number;
+  status: CourseStatus;
+  lessons: AdminLessonResponse[];
+  createdAt: Date;
+  createdBy: string;
+  updatedAt?: Date;
+  updatedBy?: string;
+}

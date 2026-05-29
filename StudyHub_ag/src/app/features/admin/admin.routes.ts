@@ -49,12 +49,22 @@ export const ADMIN_ROUTES: Routes = [
         title: getTitle(ADMIN_PAGE.COURSE_FORM, ROLE.ADMIN),
       },
       {
+        path: 'quan-ly-khoa-hoc/bieu-mau/:course-slug',
+        component: CourseForm,
+        title: getTitle(ADMIN_PAGE.COURSE_FORM, ROLE.ADMIN),
+      },
+      {
         path: 'quan-ly-lop-hoc',
         component: ClassManagement,
         title: getTitle(ADMIN_PAGE.CLASS_MANAGEMENT, ROLE.ADMIN),
       },
       {
-        path: 'quan-ly-lop-hoc/bieu-mau',
+        path: 'quan-ly-lop-hoc/bieu-mau/:course-slug',
+        component: ClassForm,
+        title: getTitle(ADMIN_PAGE.CLASS_FORM, ROLE.ADMIN),
+      },
+      {
+        path: 'quan-ly-lop-hoc/bieu-mau/:course-slug/:class-slug',
         component: ClassForm,
         title: getTitle(ADMIN_PAGE.CLASS_FORM, ROLE.ADMIN),
       },
@@ -68,46 +78,6 @@ export const ADMIN_ROUTES: Routes = [
         component: AdminAccountManagement,
         title: getTitle(ADMIN_PAGE.ADMIN_ACCOUNT_MANAGEMENT, ROLE.ADMIN),
       },
-      // {
-      //   path: 'lop-hoc/:class-slug/quan-ly-bai-hoc',
-      //   component: LessonManagement,
-      //   title: getTitle(TEACHER_PAGE.LESSON_MANAGEMENT, ROLE.TEACHER),
-      // },
-      // {
-      //   path: 'lop-hoc/:class-slug/thong-tin-diem-danh',
-      //   component: TeacherAttendance,
-      //   title: getTitle(TEACHER_PAGE.ATTENDANCE, ROLE.TEACHER),
-      // },
-      // {
-      //   path: 'quan-ly-tai-nguyen',
-      //   component: TeacherResourceManagement,
-      //   title: getTitle(TEACHER_PAGE.RESOURCE_MANAGEMENT, ROLE.TEACHER),
-      // },
-      //   {
-      //     path: 'thong-tin-ca-nhan',
-      //     component: StudentAccountManagement,
-      //     title: getTitle(STUDENT_PAGE.STUDENT_ACCOUNT_MANAGEMENT, ROLE.STUDENT),
-      //   },
-      //   {
-      //     path: 'thanh-toan-hoc-phi',
-      //     component: StudentInvoice,
-      //     title: getTitle(STUDENT_PAGE.STUDENT_INVOICE, ROLE.STUDENT)
-      //   },
-      //   {
-      //     path: 'lop-hoc/:class-slug',
-      //     component: StudentClassDetail,
-      //     title: getTitle(STUDENT_PAGE.STUDENT_CLASS_DETAIL, ROLE.STUDENT)
-      //   },
-      //   {
-      //     path: 'lop-hoc/:class-slug/thong-tin-diem-danh',
-      //     component: StudentAttendance,
-      //     title: getTitle(STUDENT_PAGE.ATTENDANCE, ROLE.STUDENT)
-      //   },
-      //   {
-      //     path: 'lop-hoc/:class-slug/:lesson-slug',
-      //     component: StudentLessonDetail,
-      //     title: getTitle(STUDENT_PAGE.LESSON, ROLE.STUDENT)
-      //   }
     ],
   },
 ];

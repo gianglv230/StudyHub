@@ -271,12 +271,12 @@ footer {
     background-color 0.2s;
 }
 
-.btn-dashed-muted{
+.btn-dashed-muted {
   background-color: var(--border-color-light);
   border: 1px dashed var(--primary-color);
 }
 
-.btn-dashed-muted:hover{
+.btn-dashed-muted:hover {
   background-color: var(--primary-container);
   color: white !important;
   border: 1px solid var(--primary-color);
@@ -309,4 +309,24 @@ footer {
   transform: scale(0.98);
 }
 
+a {
+  text-decoration: none;
+}
 
+.btn-tertiary {
+  background-color: var(--on-tertiary-container);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+}
+
+.btn-tertiary:hover {
+  background-color: var(--on-tertiary-container);
+  color: white;
+  transform: scale(0.98);
+}
