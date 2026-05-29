@@ -115,14 +115,39 @@ public class ClassLessonServiceImpl implements ClassLessonService {
         return classLesson.getSlug();
     }
 
+    @Transactional
     @Override
-    public Boolean updateClassLesson(ClassLessonTeacherRequest classLessonTeacherRequest, String classSlug) {
+    public String updateClassLesson(ClassLessonTeacherRequest classLessonTeacherRequest, String classSlug) {
         Class clazz = authService.checkViewClassPermissions(classSlug);
 
         // Save class lesson
-        ClassLesson classLesson = classLessonMapper.toClassLesson(classLessonTeacherRequest);
+        ClassLesson classLessonRaw = classLessonMapper.toClassLesson(classLessonTeacherRequest);
+
+        ClassLesson classLesson = classLessonRepository.findById(classLessonRaw.getId())
+                .orElseThrow(() -> new AppException(ErrorCode.CLASS_LESSON_NOT_EXISTED));
+
+        if (!classLesson.getSlug().equals(classLessonRaw.getSlug())) {
+            // Trước khi save class lesson, hãy check xem slug đã tồn tại chưa
+            boolean isSlugExist = classLessonRepository.existsBySlug(classLessonRaw.getSlug());
+            if (isSlugExist) {
+                throw new AppException(ErrorCode.SLUG_EXISTED);
+            }
+        }
+
+        // Save class lesson
+        classLesson.setSlug(classLessonRaw.getSlug());
+        classLesson.setTitleOverride(classLessonRaw.getTitleOverride());
+        classLesson.setIsDeleted(false);
         classLessonRepository.save(classLesson);
 
-        return true;
+        // Save sections
+        List<Section> sections = new ArrayList<>();
+        for (Section section : classLessonRaw.getSections()) {
+            section.setClassLesson(classLesson);
+            sections.add(section);
+        }
+        sectionRepository.saveAll(sections);
+
+        return classLessonRaw.getSlug();
     }
 }

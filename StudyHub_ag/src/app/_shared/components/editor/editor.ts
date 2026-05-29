@@ -119,7 +119,7 @@ export class Editor implements OnInit, OnDestroy {
     this.changeSub = this.changeSubject
       .pipe(debounceTime(400))
       .subscribe((html) => {
-        console.log(html);
+        // console.log(html);
         this.contentChange.emit(html);
       });
   }

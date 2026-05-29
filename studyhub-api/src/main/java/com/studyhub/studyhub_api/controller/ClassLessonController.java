@@ -50,10 +50,10 @@ public class ClassLessonController {
     }
 
     // Untest
-    @Operation(summary = "Add class lesson", description = "API add class lesson")
+    @Operation(summary = "Update class lesson", description = "API add class lesson")
     @PutMapping("/{classSlug}")
-    public ApiResponse<Boolean> updateClassLesson(@PathVariable String classSlug, @RequestBody ClassLessonTeacherRequest classLessonTeacherRequest) {
-        return ApiResponse.<Boolean>builder()
+    public ApiResponse<String> updateClassLesson(@PathVariable String classSlug, @RequestBody ClassLessonTeacherRequest classLessonTeacherRequest) {
+        return ApiResponse.<String>builder()
                 .data(classLessonService.updateClassLesson(classLessonTeacherRequest, classSlug))
                 .build();
     }

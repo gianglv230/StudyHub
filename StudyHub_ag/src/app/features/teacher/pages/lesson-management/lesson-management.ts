@@ -114,7 +114,12 @@ export class LessonManagement implements OnInit {
     const sectionsArray = this.form.get('sections') as FormArray<any>;
     sectionsArray.clear();
 
-    data.sections.forEach((sec: any) => {
+    // Sắp xếp sections theo orderIndex trước khi đẩy vào form
+    const sortedSections = [...(data.sections || [])].sort(
+      (a, b) => (a.orderIndex || 0) - (b.orderIndex || 0)
+    );
+
+    sortedSections.forEach((sec: any) => {
       sectionsArray.push(
         this.fb.group({
           id: [sec.id],
@@ -160,9 +165,9 @@ export class LessonManagement implements OnInit {
           }
           if (res.data) {
             this.base.showSuccess('Thêm bài học thành công');
-            // this.router.navigate([
-            //   `/giao-vien/lop-hoc/${this.classSlug}/quan-ly-bai-hoc`,
-            // ]);
+            this.router.navigate([
+              `/giao-vien/lop-hoc/${this.classSlug}/quan-ly-bai-hoc/${res.data}`,
+            ]);
           }
         },
         error: (err) => this.base.handleError(err),
@@ -170,6 +175,8 @@ export class LessonManagement implements OnInit {
   }
 
   updateClassLesson() {
+    console.log(this.buildAddRequest());
+    
     if (!this.buildAddRequest()) return;
 
     this.classLessonService
@@ -183,7 +190,7 @@ export class LessonManagement implements OnInit {
           if (res.data) {
             this.base.showSuccess('Cập nhật bài học thành công');
             this.router.navigate([
-              `/giao-vien/lop-hoc/${this.classSlug}/quan-ly-bai-hoc`,
+              `/giao-vien/lop-hoc/${this.classSlug}/quan-ly-bai-hoc/${res.data}`,
             ]);
           }
         },
