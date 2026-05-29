@@ -38,7 +38,7 @@ export class LessonManagement implements OnInit {
     private readonly fb: FormBuilder,
     private readonly base: BaseComponent,
     private readonly router: Router,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.classSlug = this.route.snapshot.paramMap.get('class-slug');
@@ -84,21 +84,12 @@ export class LessonManagement implements OnInit {
             id: [null],
             sectionName: ['', [Validators.required, validateRange(8, 255)]],
             orderIndex: [1, [Validators.required]],
-            contents: this.fb.array([
-              this.fb.group({
-                id: [null],
-                contentName: ['', [Validators.required, validateRange(8, 255)]],
-                description: [''],
-                videoContentId: [null],
-                videoResource: this.fb.control<ChildrenResourceResponse | null>(
-                  null,
-                ),
-                textContent: [null],
-                orderIndex: [1, [Validators.required]],
-                type: ['VIDEO_MAIN', [Validators.required]],
-                materials: this.fb.control<ChildrenResourceResponse[]>([]),
-              }),
-            ]),
+            description: [''],
+            videoContentId: [null],
+            videoResource: this.fb.control<ChildrenResourceResponse | null>(null),
+            textContent: [null],
+            type: ['VIDEO_MAIN', [Validators.required]],
+            materials: this.fb.control<ChildrenResourceResponse[]>([]),
           }),
         ]),
       });
@@ -123,54 +114,7 @@ export class LessonManagement implements OnInit {
     const sectionsArray = this.form.get('sections') as FormArray<any>;
     sectionsArray.clear();
 
-    data.sections.forEach((sec) => {
-      const contentsArray = this.fb.array<any>([]);
-
-      sec.contents.forEach((cont) => {
-        // Map MaterialResponse[] to ChildrenResourceResponse[]
-        const mappedMaterials = (cont.materials || []).map((mat) => {
-          return {
-            id: mat.resource.id,
-            resourceName: mat.resource.resourceName,
-            url: mat.resource.url,
-            extension: null,
-            resourceType: mat.resource.resourceType,
-          } as ChildrenResourceResponse;
-        });
-
-        // Map videoContent to ChildrenResourceResponse
-        let mappedVideoResource: ChildrenResourceResponse | null = null;
-        if (cont.videoContent) {
-          mappedVideoResource = {
-            id: cont.videoContent.id,
-            resourceName: cont.videoContent.resourceName,
-            url: cont.videoContent.url,
-            extension: null,
-            resourceType: cont.videoContent.resourceType,
-          };
-        }
-
-        contentsArray.push(
-          this.fb.group({
-            id: [cont.id],
-            contentName: [
-              cont.contentName,
-              [Validators.required, validateRange(8, 255)],
-            ],
-            description: [cont.description || ''],
-            videoContentId: [cont.videoContent ? cont.videoContent.id : null],
-            videoResource: this.fb.control<ChildrenResourceResponse | null>(
-              mappedVideoResource,
-            ),
-            textContent: [cont.textContent || null],
-            orderIndex: [cont.orderIndex, [Validators.required]],
-            type: [cont.type || 'VIDEO_MAIN', [Validators.required]],
-            materials:
-              this.fb.control<ChildrenResourceResponse[]>(mappedMaterials),
-          }) as any,
-        );
-      });
-
+    data.sections.forEach((sec: any) => {
       sectionsArray.push(
         this.fb.group({
           id: [sec.id],
@@ -179,7 +123,15 @@ export class LessonManagement implements OnInit {
             [Validators.required, validateRange(8, 255)],
           ],
           orderIndex: [sec.orderIndex, [Validators.required]],
-          contents: contentsArray,
+          description: [sec.description || ''],
+          videoContentId: [sec.videoContent ? sec.videoContent.id : null],
+          videoResource: this.fb.control<ChildrenResourceResponse | null>(
+            sec.videoContent || null,
+          ),
+          textContent: [sec.textContent || null],
+          type: [sec.type || 'VIDEO_MAIN', [Validators.required]],
+          materials:
+            this.fb.control<ChildrenResourceResponse[]>(sec.materials || []),
         }) as any,
       );
     });
@@ -241,24 +193,21 @@ export class LessonManagement implements OnInit {
 
   buildAddRequest(): ClassLessonTeacherRequest | null {
     if (this.form?.invalid) {
-      this.form.touched && this.form.dirty;
+      this.form.markAllAsTouched();
       return null;
     }
 
     const raw = this.form!.getRawValue();
     raw.sections.forEach((sec: any, secIdx: number) => {
       sec.orderIndex = secIdx + 1;
-      sec.contents.forEach((cont: any, contIdx: number) => {
-        cont.orderIndex = contIdx + 1;
-        if (cont.materials) {
-          cont.materials = cont.materials.map((m: any) =>
-            typeof m === 'object' && m ? m.id : m,
-          );
-        } else {
-          cont.materials = [];
-        }
-        delete cont.videoResource;
-      });
+      if (sec.materials) {
+        sec.materials = sec.materials.map((m: any) =>
+          typeof m === 'object' && m ? m.id : m,
+        );
+      } else {
+        sec.materials = [];
+      }
+      delete sec.videoResource;
     });
     return raw;
   }

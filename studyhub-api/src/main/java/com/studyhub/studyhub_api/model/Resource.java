@@ -84,7 +84,7 @@ public class Resource extends OwnerAudit {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "videoContent")
-    Set<Content> contents = new LinkedHashSet<>();
+    Set<Section> sections = new LinkedHashSet<>();
 
     @ToString.Exclude
     @OneToMany(mappedBy = "thumbnail")
@@ -94,8 +94,8 @@ public class Resource extends OwnerAudit {
     @OneToMany(mappedBy = "videoDemo")
     Set<Course> videoCourses = new LinkedHashSet<>();
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "resource")
-    Set<Material> materials = new LinkedHashSet<>();
+//    @ToString.Exclude
+//    @OneToMany(mappedBy = "resource")
+//    Set<Material> materials = new LinkedHashSet<>();
 
 }

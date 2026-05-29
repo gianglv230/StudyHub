@@ -3,13 +3,16 @@ package com.studyhub.studyhub_api.mapper;
 import com.studyhub.studyhub_api.dto.request.class_lesson.ClassLessonTeacherRequest;
 import com.studyhub.studyhub_api.dto.response.class_lesson.ClassLessonTeacherResponse;
 import com.studyhub.studyhub_api.dto.response.classes.ClassLessonBasicResponse;
+import com.studyhub.studyhub_api.dto.response.content.ResourceResponse;
+import com.studyhub.studyhub_api.dto.response.resource.ChildrenResourceResponse;
+import com.studyhub.studyhub_api.dto.response.section.SectionResponse;
 import com.studyhub.studyhub_api.model.ClassLesson;
 import com.studyhub.studyhub_api.model.ClassLessonConfig;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-import org.mapstruct.Named;
+import com.studyhub.studyhub_api.model.Section;
+import org.mapstruct.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Mapper(componentModel = "spring", uses = SectionMapper.class)
@@ -41,7 +44,13 @@ public interface ClassLessonMapper {
         return classLessonConfigs.iterator().next().getOrderIndex();
     }
 
-    ClassLessonTeacherResponse toClassLessonTeacherResponse(ClassLesson classLesson);
+//    ClassLessonTeacherResponse toClassLessonTeacherResponse(ClassLesson classLesson);
 
     ClassLesson toClassLesson(ClassLessonTeacherRequest classLessonTeacherRequest);
+
+    // 1. Method cha: Nhận Map context và tự động chuyển tiếp xuống SectionMapper
+    ClassLessonTeacherResponse toClassLessonTeacherResponse(
+            ClassLesson classLesson,
+            @Context Map<Integer, ChildrenResourceResponse> resourceMap
+    );
 }

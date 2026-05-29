@@ -14,4 +14,5 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
     Boolean existsByResourceParentId(int resourceParentId);
 
     List<Resource> findByResourceParentIsNullAndCreatedByAndResourceTypeEqualsIgnoreCase(int ownerId, String type);
+    List<Resource> findByIdIn(List<Integer> ids);
 }

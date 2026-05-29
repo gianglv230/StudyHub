@@ -22,6 +22,7 @@ public class ClassLessonController {
     private final SectionService sectionService;
     private final ClassLessonService classLessonService;
 
+    // Link hỏng
     @Operation(summary = "Get contents of class lesson by slug", description = "API get contents of class lesson by slug")
     @GetMapping("/{classSlug}/{classLessonSlug}/sections")
     public ApiResponse<LessonSectionResponse> getContents(@PathVariable String classSlug, @PathVariable String classLessonSlug) {
@@ -39,18 +40,13 @@ public class ClassLessonController {
                 .build();
     }
 
-    // Untest
+    // Ok
     @Operation(summary = "Add class lesson", description = "API add class lesson")
     @PostMapping("/{classSlug}")
     public ApiResponse<String> addClassLesson(@PathVariable String classSlug, @RequestBody ClassLessonTeacherRequest classLessonTeacherRequest) {
-        try {
-            return ApiResponse.<String>builder()
-                    .data(classLessonService.addClassLesson(classLessonTeacherRequest, classSlug))
-                    .build();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return ApiResponse.<String>builder()
+                .data(classLessonService.addClassLesson(classLessonTeacherRequest, classSlug))
+                .build();
     }
 
     // Untest

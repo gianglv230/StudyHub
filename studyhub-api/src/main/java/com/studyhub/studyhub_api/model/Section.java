@@ -5,10 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.type.SqlTypes;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -36,12 +40,32 @@ public class Section {
     @Column(name = "section_name", nullable = false)
     String sectionName;
 
+    @Column(name = "description", columnDefinition = "MEDIUMTEXT")
+    String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "video_content")
+    Resource videoContent;
+
+    //    @Lob
+    @Column(name = "text_content", columnDefinition = "MEDIUMTEXT")
+    String textContent;
+
     @NotNull
     @Column(name = "order_index", nullable = false)
     Integer orderIndex;
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "section", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<Content> contents = new LinkedHashSet<>();
+    @Size(max = 30)
+    @NotNull
+    @Column(name = "type", nullable = false, length = 30)
+    String type;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "materials")
+    List<Integer> materials = new ArrayList<>();
+
+//    @ToString.Exclude
+//    @OneToMany(mappedBy = "section", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+//    Set<Content> contents = new LinkedHashSet<>();
 
 }

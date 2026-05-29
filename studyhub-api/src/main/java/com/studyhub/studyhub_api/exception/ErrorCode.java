@@ -39,7 +39,8 @@ public enum ErrorCode {
     RESOURCE_TYPE_INVALID(1050, "Resource type is invalid", HttpStatus.BAD_REQUEST),
     RESOURCE_NOT_FOUND(1051, "Resource not found", HttpStatus.NOT_FOUND),
 
-    PASSWORD_INVALID(1052, "Password invlaid", HttpStatus.BAD_REQUEST),;
+    PASSWORD_INVALID(1052, "Password invlaid", HttpStatus.BAD_REQUEST),
+    SLUG_EXISTED(1053, "Slug existed", HttpStatus.CONFLICT);
 
     private int code;
     private String message;

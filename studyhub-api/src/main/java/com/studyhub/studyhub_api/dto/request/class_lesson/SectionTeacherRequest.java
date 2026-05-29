@@ -5,7 +5,14 @@ import java.util.List;
 public record SectionTeacherRequest(
         Integer id,
         String sectionName,
+        String description,
+
+        Integer videoContentId,
+
+        String textContent,
         Integer orderIndex,
-        List<ContentTeacherRequest> contents
+        String type,
+
+        List<Integer> materials
 ) {
 }

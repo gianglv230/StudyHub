@@ -70,10 +70,6 @@ export class LessonForm implements OnChanges, OnDestroy {
     return (this.form?.get('sections') as FormArray)?.controls as FormGroup[] || [];
   }
 
-  getContents(section: FormGroup): FormGroup[] {
-    return (section.get('contents') as FormArray)?.controls as FormGroup[] || [];
-  }
-
   addSection() {
     if (!this.form) return;
     const sectionsArray = this.form.get('sections') as FormArray;
@@ -83,19 +79,12 @@ export class LessonForm implements OnChanges, OnDestroy {
       id: [null],
       sectionName: ['', [Validators.required, validateRange(8, 255)]],
       orderIndex: [orderIndex, [Validators.required]],
-      contents: this.fb.array([
-        this.fb.group({
-          id: [null],
-          contentName: ['', [Validators.required, validateRange(8, 255)]],
-          description: [''],
-          videoContentId: [null],
-          videoResource: this.fb.control<ChildrenResourceResponse | null>(null),
-          textContent: [null],
-          orderIndex: [1, [Validators.required]],
-          type: ['VIDEO_MAIN', [Validators.required]],
-          materials: this.fb.control<ChildrenResourceResponse[]>([]),
-        }),
-      ]),
+      description: [''],
+      videoContentId: [null],
+      videoResource: this.fb.control<ChildrenResourceResponse | null>(null),
+      textContent: [null],
+      type: ['VIDEO_MAIN', [Validators.required]],
+      materials: this.fb.control<ChildrenResourceResponse[]>([]),
     });
 
     sectionsArray.push(newSection);
@@ -106,32 +95,6 @@ export class LessonForm implements OnChanges, OnDestroy {
     if (!this.form) return;
     const sectionsArray = this.form.get('sections') as FormArray;
     sectionsArray.removeAt(secIndex);
-    this.recalculateOrderIndices();
-  }
-
-  addContent(section: FormGroup) {
-    const contentsArray = section.get('contents') as FormArray;
-    const orderIndex = contentsArray.length + 1;
-
-    const newContent = this.fb.group({
-      id: [null],
-      contentName: ['', [Validators.required, validateRange(8, 255)]],
-      description: [''],
-      videoContentId: [null],
-      videoResource: this.fb.control<ChildrenResourceResponse | null>(null),
-      textContent: [null],
-      orderIndex: [orderIndex, [Validators.required]],
-      type: ['VIDEO_MAIN', [Validators.required]],
-      materials: this.fb.control<ChildrenResourceResponse[]>([]),
-    });
-
-    contentsArray.push(newContent);
-    this.recalculateOrderIndices();
-  }
-
-  deleteContent(section: FormGroup, contIndex: number) {
-    const contentsArray = section.get('contents') as FormArray;
-    contentsArray.removeAt(contIndex);
     this.recalculateOrderIndices();
   }
 
@@ -153,39 +116,16 @@ export class LessonForm implements OnChanges, OnDestroy {
     this.recalculateOrderIndices();
   }
 
-  moveContentUp(section: FormGroup, contIndex: number) {
-    if (contIndex === 0) return;
-    const contentsArray = section.get('contents') as FormArray;
-    const current = contentsArray.at(contIndex);
-    contentsArray.removeAt(contIndex);
-    contentsArray.insert(contIndex - 1, current);
-    this.recalculateOrderIndices();
-  }
-
-  moveContentDown(section: FormGroup, contIndex: number) {
-    const contentsArray = section.get('contents') as FormArray;
-    if (contIndex === contentsArray.length - 1) return;
-    const current = contentsArray.at(contIndex);
-    contentsArray.removeAt(contIndex);
-    contentsArray.insert(contIndex + 1, current);
-    this.recalculateOrderIndices();
-  }
-
   recalculateOrderIndices() {
     if (!this.form) return;
     const sectionsArray = this.form.get('sections') as FormArray;
 
     sectionsArray.controls.forEach((secControl, secIdx) => {
       secControl.get('orderIndex')?.setValue(secIdx + 1);
-
-      const contentsArray = secControl.get('contents') as FormArray;
-      contentsArray.controls.forEach((contControl, contIdx) => {
-        contControl.get('orderIndex')?.setValue(contIdx + 1);
-      });
     });
   }
 
-  openResourceModal(content: FormGroup, mode: 'single' | 'multiple' = 'single') {
+  openResourceModal(section: FormGroup, mode: 'single' | 'multiple' = 'single') {
     this.modalService
       .open({
         component: ResourceModal,
@@ -196,11 +136,11 @@ export class LessonForm implements OnChanges, OnDestroy {
         if (resources) {
           if (mode === 'single') {
             const res = Array.isArray(resources) ? resources[0] : resources;
-            content.get('videoContentId')?.setValue(res.id);
-            content.get('videoResource')?.setValue(res);
+            section.get('videoContentId')?.setValue(res.id);
+            section.get('videoResource')?.setValue(res);
           } else {
             const selectedList = Array.isArray(resources) ? resources : [resources];
-            const currentMaterials = content.get('materials')?.value || [];
+            const currentMaterials = section.get('materials')?.value || [];
 
             const merged = [...currentMaterials];
             selectedList.forEach((item) => {
@@ -208,20 +148,20 @@ export class LessonForm implements OnChanges, OnDestroy {
                 merged.push(item);
               }
             });
-            content.get('materials')?.setValue(merged);
+            section.get('materials')?.setValue(merged);
           }
         }
       });
   }
 
-  removeVideoResource(content: FormGroup) {
-    content.get('videoContentId')?.setValue(null);
-    content.get('videoResource')?.setValue(null);
+  removeVideoResource(section: FormGroup) {
+    section.get('videoContentId')?.setValue(null);
+    section.get('videoResource')?.setValue(null);
   }
 
-  removeMaterial(content: FormGroup, materialId: number) {
-    const currentMaterials = content.get('materials')?.value || [];
+  removeMaterial(section: FormGroup, materialId: number) {
+    const currentMaterials = section.get('materials')?.value || [];
     const updated = currentMaterials.filter((m: any) => m.id !== materialId);
-    content.get('materials')?.setValue(updated);
+    section.get('materials')?.setValue(updated);
   }
 }

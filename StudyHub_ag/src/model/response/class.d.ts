@@ -86,7 +86,7 @@ interface ClassLessonBasicResponse {
   lessonTitle: string;
   orderIndex: number;
   numberOfSection: number;
-  numberOfContent: number;
+  // numberOfContent: number;
   createdAt: Date; // Hoặc kiểu Date nếu bạn parse thủ công
   updatedAt: Date; // Hoặc kiểu Date
 }

@@ -38,8 +38,8 @@ public class Lesson {
     @Column(name = "order_index", nullable = false)
     Integer orderIndex;
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "lesson")
-    Set<ClassLesson> classLessons = new LinkedHashSet<>();
+//    @ToString.Exclude
+//    @OneToMany(mappedBy = "lesson")
+//    Set<ClassLesson> classLessons = new LinkedHashSet<>();
 
 }

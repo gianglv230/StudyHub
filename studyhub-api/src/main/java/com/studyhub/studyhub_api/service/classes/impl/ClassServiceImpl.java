@@ -45,7 +45,7 @@ public class ClassServiceImpl implements ClassService {
     UserAccountService userAccountService;
     ClassRepository classRepository;
     EnrollmentRepository enrollmentRepository;
-    ContentRepository contentRepository;
+//    ContentRepository contentRepository;
     SectionRepository sectionRepository;
     UserAccountRepository userAccountRepository;
     ClassMapper classMapper;
@@ -159,14 +159,14 @@ public class ClassServiceImpl implements ClassService {
                 .toList();
 
         Map<Integer, Integer> countSectionMap = countSectionOfClassLesson(classLessonIds);
-        Map<Integer, Integer> countContentMap = countContentOfClassLesson(classLessonIds);
+//        Map<Integer, Integer> countContentMap = countContentOfClassLesson(classLessonIds);
 
         // Get lessons of class
         ClassLessonResponse classLessonResponse = classMapper.toClassLessonResponse(clazz, clazz.getClassLessonConfigs().size());
         List<ClassLessonBasicResponse> updatedLessons = classLessonResponse.getLessons().stream()
                 .peek(l -> {
                     l.setNumberOfSection(countSectionMap.getOrDefault(l.getClassLessonId(), 0));
-                    l.setNumberOfContent(countContentMap.getOrDefault(l.getClassLessonId(), 0));
+//                    l.setNumberOfContent(countContentMap.getOrDefault(l.getClassLessonId(), 0));
                 }).toList();
         classLessonResponse.setLessons(updatedLessons);
 
@@ -346,12 +346,12 @@ public class ClassServiceImpl implements ClassService {
     }
 
     // Count section of classLesson
-    private Map<Integer, Integer> countContentOfClassLesson(List<Integer> classIds) {
-        return contentRepository.countByClassLessonId(classIds)
-                .stream()
-                .collect(Collectors.toMap(
-                        ContentCountProjection::getClassLessonId,
-                        p -> p.getNumberOfContent().intValue()
-                ));
-    }
+//    private Map<Integer, Integer> countContentOfClassLesson(List<Integer> classIds) {
+//        return contentRepository.countByClassLessonId(classIds)
+//                .stream()
+//                .collect(Collectors.toMap(
+//                        ContentCountProjection::getClassLessonId,
+//                        p -> p.getNumberOfContent().intValue()
+//                ));
+//    }
 }

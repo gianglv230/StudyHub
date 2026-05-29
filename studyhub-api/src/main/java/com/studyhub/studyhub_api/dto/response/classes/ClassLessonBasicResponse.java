@@ -18,7 +18,7 @@ public class ClassLessonBasicResponse{
     Integer orderIndex;
 
     Integer numberOfSection;
-    Integer numberOfContent;
+//    Integer numberOfContent;
 
     Instant createdAt;
     Instant updatedAt;

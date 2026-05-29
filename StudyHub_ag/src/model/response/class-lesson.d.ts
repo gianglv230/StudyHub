@@ -28,32 +28,37 @@ interface ClassLessonTeacherResponse {
 interface SectionTeacherResponse {
     id: number;
     sectionName: string;
-    orderIndex: number;
-    contents: ContentTeacherResponse[];
-}
-
-interface ContentTeacherResponse {
-    id: number;
-    contentName: string;
     description: string | null;
-    videoContent: ResourceTeacherResponse | null; // Có thể null nếu type không phải là video
+
+    videoContent: ChildrenResourceResponse | null; // Có thể null nếu type không phải là video
     textContent: string | null;                  // Có thể null nếu type không phải là văn bản
     orderIndex: number;
-    type: string; // Bạn có thể đổi thành kiểu Union nếu có các loại cố định (e.g., 'VIDEO' | 'TEXT')
-    materials: MaterialResponse[];
+    type: ContentType; // Bạn có thể đổi thành kiểu Union nếu có các loại cố định (e.g., 'VIDEO' | 'TEXT')
+    materials: ChildrenResourceResponse[];
 }
 
-interface MaterialResponse {
-    id: number;
-    resource: ResourceTeacherResponse;
-}
+// interface ContentTeacherResponse {
+//     id: number;
+//     contentName: string;
+//     description: string | null;
+//     videoContent: ResourceTeacherResponse | null; // Có thể null nếu type không phải là video
+//     textContent: string | null;                  // Có thể null nếu type không phải là văn bản
+//     orderIndex: number;
+//     type: string; // Bạn có thể đổi thành kiểu Union nếu có các loại cố định (e.g., 'VIDEO' | 'TEXT')
+//     materials: MaterialResponse[];
+// }
 
-interface ResourceTeacherResponse {
-    id: number;
-    resourceName: string;
-    url: string;
-    path: string;
-    resourceType: string;
-    createdAt: string;
-    updatedAt: string;
-}
+// interface MaterialResponse {
+//     id: number;
+//     resource: ResourceTeacherResponse;
+// }
+
+// interface ResourceTeacherResponse {
+//     id: number;
+//     resourceName: string;
+//     url: string;
+//     path: string;
+//     resourceType: string;
+//     createdAt: string;
+//     updatedAt: string;
+// }

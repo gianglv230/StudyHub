@@ -31,9 +31,9 @@ public class ClassLesson extends OwnerAudit {
     @Column(name = "slug", nullable = false)
     String slug;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lesson_id")
-    Lesson lesson;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "lesson_id")
+//    Lesson lesson;s
 
     @Size(max = 255)
     @NotNull
