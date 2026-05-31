@@ -49,7 +49,7 @@ interface AdminCourseResponse {
   id: number;
   slug: string;
   title: string;
-  descripton: string;
+  description: string;
   subject: string;
   targetGrade: string;
   categoryName: string;

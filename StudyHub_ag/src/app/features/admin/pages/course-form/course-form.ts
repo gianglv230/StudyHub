@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AdminCourseService } from '../../service/admin-course-service/admin-course.service';
 import {
   FormArray,
@@ -24,6 +20,7 @@ import { CourseStatusMap } from '../../../../../utils/const/status.const';
 import { ResourceLiteCard } from '../../../../_shared/resource-lite-card/resource-lite-card';
 import { ModalService } from '../../../../_service/utils/modal.service';
 import { ResourceModal } from '../../../../_shared/resource-modal/resource-modal';
+import { initData } from '../../../../../utils/init-data';
 
 @Component({
   selector: 'app-course-form',
@@ -69,6 +66,37 @@ export class CourseForm implements OnInit, OnDestroy {
 
     if (this.courseSlug) {
       this.isAdd = false;
+      this.form = this.fb.group({
+        id: [null],
+        title: ['', [Validators.required, validateRange(8, 255)]],
+        slug: ['', Validators.required],
+        description: ['x'],
+        categoryName: ['', [Validators.required, validateRange(2, 255)]],
+        targetGrade: ['', [Validators.required, validateRange(3, 255)]],
+        subject: ['', [Validators.required, validateRange(2, 255)]],
+        thumbnailId: [null],
+        thumbnail: this.fb.control<ChildrenResourceResponse | null>(null),
+        videoId: [null],
+        video: this.fb.control<ChildrenResourceResponse | null>(null),
+        numberOfLessons: [0],
+        status: ['ACTIVE', [Validators.required]],
+        lessons: this.fb.array([]),
+      });
+
+      initData<AdminCourseResponse>(
+        this.courseSerivce.getAdminCourse(this.courseSlug),
+        (data) => {
+          console.log(data);
+          this.courseResponse = data;
+          this.populateForm(data);
+
+          // Deep clone lại FormGroup sau khi đã populate dữ liệu thành công
+          if (this.form) {
+            this.initialForm = this.cloneFormGroup(this.form);
+            this.subscribeToTitleChanges();
+          }
+        },
+      );
       return;
     }
 
@@ -148,8 +176,42 @@ export class CourseForm implements OnInit, OnDestroy {
     this.form.get('numberOfLessons')?.setValue(count, { emitEvent: false });
   }
 
-  //UNIMPL
-  populateForm(data: AdminCourseResponse) {}
+  populateForm(data: AdminCourseResponse) {
+    if (!this.form) return;
+
+    this.form.patchValue({
+      id: data.id,
+      title: data.title,
+      slug: data.slug,
+      description: data.description,
+      categoryName: data.categoryName,
+      targetGrade: data.targetGrade,
+      subject: data.subject,
+      thumbnailId: data.thumbnail?.id,
+      thumbnail: data.thumbnail,
+      videoId: data.videoDemo?.id,
+      video: data.videoDemo,
+      numberOfLessons: data.numberOfLessons,
+      status: data.status,
+    });
+
+    const lessonsArray = this.form.get('lessons') as FormArray<any>;
+    lessonsArray.clear();
+
+    const sortedLesson = [...(data.lessons || [])].sort(
+      (a, b) => (a.orderIndex || 0) - (b.orderIndex || 0),
+    );
+
+    sortedLesson.forEach((les: AdminLessonResponse) => {
+      lessonsArray.push(
+        this.fb.group({
+          id: [les.id],
+          title: [les.title],
+          orderIndex: [les.orderIndex],
+        }),
+      );
+    });
+  }
 
   getLessons(): FormGroup[] {
     return (
@@ -222,7 +284,10 @@ export class CourseForm implements OnInit, OnDestroy {
   addCourse() {
     const request = this.buildAddRequest();
     if (!request) {
-      const logInvalidControls = (group: FormGroup | FormArray, prefix = '') => {
+      const logInvalidControls = (
+        group: FormGroup | FormArray,
+        prefix = '',
+      ) => {
         const entries: Array<[string, any]> =
           group instanceof FormArray
             ? group.controls.map((ctrl, i) => [String(i), ctrl])
@@ -232,7 +297,12 @@ export class CourseForm implements OnInit, OnDestroy {
           if (ctrl instanceof FormGroup || ctrl instanceof FormArray) {
             logInvalidControls(ctrl, path);
           } else if (ctrl.invalid) {
-            console.log(`  [invalid] ${path}:`, ctrl.errors, '| value:', ctrl.value);
+            console.log(
+              `  [invalid] ${path}:`,
+              ctrl.errors,
+              '| value:',
+              ctrl.value,
+            );
           }
         });
       };
@@ -259,10 +329,28 @@ export class CourseForm implements OnInit, OnDestroy {
     });
   }
 
-  updateCourse() {}
+  updateCourse() {
+    const request = this.buildUpdateRequest();
+    if (!request) return;
+    this.courseSerivce.updateCourse(request).subscribe({
+      next: (res) => {
+        if (res.error) {
+          this.base.showDanger(res.message);
+          return;
+        }
+        if (res.data) {
+          this.base.showSuccess('Sửa khóa học thành công');
+          // this.router.navigate([
+          //   `/admin/quan-ly-khoa-hoc/bieu-mau/${res.data}`,
+          // ]);
+        }
+      },
+      error: (err) => this.base.handleError(err),
+    });
+  }
 
-  buildUpdateRequest(): AddCourseRequest | null {
-    return this.buildRequest<AddCourseRequest>();
+  buildUpdateRequest(): UpdateCourseRequest | null {
+    return this.buildRequest<UpdateCourseRequest>();
   }
 
   buildAddRequest(): AddCourseRequest | null {

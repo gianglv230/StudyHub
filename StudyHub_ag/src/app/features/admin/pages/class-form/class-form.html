@@ -21,143 +21,245 @@
       </div>
     </a>
   </div>
-  <div class="row mt-3 mb-3">
-    <div class="col-12 col-md-8 col-lg-9 order-1 order-md-0">
-      <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
-        <p class="fw-normal text-uppercase ls-1 text-primary-container mb-2">
-          Tên lớp học
-        </p>
-        <input
-          type="text"
-          class="form-control form-input py-2"
-          placeholder="Tên lớp học - Bắt buộc nhập"
-        />
-        <p class="small fst-italic mt-2 mb-0 text-end">slug</p>
+  @if (form) {
+    <div [formGroup]="form">
+      <div class="row mt-3 mb-3">
+        <div class="col-12 col-md-8 col-lg-9 order-1 order-md-0">
+          <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
+            <!-- <p
+              class="fw-normal text-uppercase ls-1 text-primary-container mb-2"
+            >
+              Tên lớp học
+            </p>
+            <input
+              type="text"
+              class="form-control form-input py-2"
+              placeholder="Tên lớp học - Bắt buộc nhập"
+            />
+            <p class="small fst-italic mt-2 mb-0 text-end">slug</p> -->
+
+            <app-form-input
+              [control]="getControl(form, 'className')"
+              label="Tên lớp học"
+              [isFloating]="false"
+              placeholder="Tên lớp - Bắt buộc nhập"
+            />
+            <p class="fst-italic small text-end mb-0 text-muted">
+              <span class="me-1">Slug:</span
+              ><span class="fw-medium text-primary-container">{{
+                slugPreview || "---"
+              }}</span>
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 order-0 order-md-1 mb-3 mb-md-0">
+          <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
+            <h5 class="mb-2 fw-normal ls-1 text-center">
+              {{ isAdd ? "Tạo lớp học mới" : "Cập nhật lớp học" }}
+            </h5>
+            @if (classResponse) {
+              <p class="text-muted mb-0 small pt-1">
+                Ngày tạo: Ngày tạo:
+                {{ classResponse.createdAt | date: "dd/MM/yyyy" }}
+              </p>
+              <p class="text-muted mb-0 small pt-1">
+                Bởi: {{ classResponse.createdBy }}
+              </p>
+              <p class="text-muted mb-0 small">
+                Ngày cập nhật:
+                {{ classResponse.updatedAt | date: "dd/MM/yyyy" }}
+              </p>
+              <p class="text-muted mb-0 small pt-1">
+                Bởi: {{ classResponse.updatedBy }}
+              </p>
+            } @else {
+              <p class="text-muted mb-0 small pt-1">Ngày tạo: --/--/----</p>
+              <p class="text-muted mb-0 small">Ngày cập nhật: --/--/----</p>
+            }
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-12 col-md-4 col-lg-3 order-0 order-md-1 mb-3 mb-md-0">
-      <div class="bg-white rounded-3 shadow-sm py-3 px-3 h-100">
-        <h5 class="mb-2 fw-normal ls-1 text-center">Tạo lớp học mới</h5>
-        <p class="text-muted mb-0 small pt-1">Ngày tạo: 05/05/2026</p>
-        <p class="text-muted mb-0 small pt-1">Bởi: NVA</p>
-        <p class="text-muted mb-0 small">Ngày cập nhật: 05/05/2026</p>
-        <p class="text-muted mb-0 small pt-1">Bởi: NVA</p>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-2 form-second">
-    <div class="col-12">
-      <div class="bg-white rounded-3 shadow-sm py-3 px-3">
-        <div class="row g-3">
-          <div class="col-12 col-md-4 col-lg-3">
-            <div class="mb-2">
-              <label class="mb-1 text-primary-container ls-1"
-                >Ngày khai giảng dự kiến</label
-              >
-              <input
-                type="date"
-                name="opening-date"
-                class="form-control py-2"
-              />
-            </div>
-          </div>
-          <div class="col-12 col-md-4 col-lg-3">
-            <div class="mb-2">
-              <label class="mb-1 text-primary-container ls-1"
-                >Ngày bắt đầu</label
-              >
-              <input type="date" name="start-date" class="form-control py-2" />
-            </div>
-          </div>
-          <div class="col-12 col-md-4 col-lg-3">
-            <div class="mb-2">
-              <label class="mb-1 text-primary-container ls-1"
-                >Ngày kết thúc</label
-              >
-              <input type="date" name="end-date" class="form-control py-2" />
-            </div>
-          </div>
-          <div class="col-12 col-md-4 col-lg-3">
-            <div class="mb-2">
-              <label class="mb-1 text-primary-container ls-1"
-                >Giáo viên dạy</label
-              >
-              <select name="subject" class="form-select py-2">
-                <option value="all" selected>NVA</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-12 col-md-4 col-lg-3">
-            <div class="mb-2">
-              <label class="mb-1 text-primary-container ls-1"
-                >Số học viên tối thiểu mở lớp</label
-              >
-              <input
-                type="number"
-                name="keyword"
-                class="form-control py-2"
-                placeholder="20"
-              />
-            </div>
-          </div>
-          <div class="col-12 col-md-4 col-lg-3">
-            <div class="mb-2">
-              <label class="mb-1 text-primary-container ls-1"
-                >Số học viên tối đa</label
-              >
-              <input
-                type="number"
-                name="keyword"
-                class="form-control py-2"
-                placeholder="50"
-              />
-            </div>
-          </div>
-          <div class="col-12 col-md-4 col-lg-3">
-            <div class="mb-2">
-              <label class="mb-1 text-primary-container ls-1">Giá (VNĐ)</label>
-              <input
-                type="number"
-                name="keyword"
-                class="form-control py-2"
-                placeholder="5000000"
-              />
-            </div>
-          </div>
-          <div class="col-12 col-md-4 col-lg-3">
+      <div class="row mt-2 form-second">
+        <div class="col-12">
+          <div class="bg-white rounded-3 shadow-sm py-3 px-3">
+            <div class="row g-3">
+              <div class="col-12 col-md-4 col-lg-3">
+                <div class="mb-2">
+                  <!-- <label class="mb-1 text-primary-container ls-1"
+                    >Ngày khai giảng dự kiến</label
+                  >
+                  <input
+                    type="date"
+                    name="opening-date"
+                    class="form-control py-2"
+                  /> -->
+                  <app-form-input
+                    [control]="getControl(form, 'openingDate')"
+                    label="Ngày khai giảng dự kiến"
+                    [isFloating]="false"
+                    type="date"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-4 col-lg-3">
+                <div class="mb-2">
+                  <!-- <label class="mb-1 text-primary-container ls-1"
+                    >Ngày bắt đầu</label
+                  >
+                  <input
+                    type="date"
+                    name="start-date"
+                    class="form-control py-2"
+                  /> -->
+                  <app-form-input
+                    [control]="getControl(form, 'startDate')"
+                    label="Ngày bắt đầu"
+                    [isFloating]="false"
+                    type="date"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-4 col-lg-3">
+                <div class="mb-2">
+                  <!-- <label class="mb-1 text-primary-container ls-1"
+                    >Ngày kết thúc</label
+                  >
+                  <input
+                    type="date"
+                    name="end-date"
+                    class="form-control py-2"
+                  /> -->
+                  <app-form-input
+                    [control]="getControl(form, 'endDate')"
+                    label="Ngày kết thúc"
+                    [isFloating]="false"
+                    type="date"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-4 col-lg-3">
+                <div class="mb-2">
+                  <!-- <label class="mb-1 text-primary-container ls-1"
+                    >Giáo viên dạy</label
+                  >
+                  <select name="subject" class="form-select py-2">
+                    <option value="all" selected>NVA</option>
+                  </select> -->
+                  <app-form-select
+                    label="Giáo viên dạy"
+                    [data]="teacherData"
+                    [control]="getControl(form, 'teacherId')"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="mb-2">
+                  <!-- <label class="mb-1 text-primary-container ls-1"
+                    >Lịch học</label
+                  >
+                  <input
+                    type="text"
+                    name="keyword"
+                    class="form-control py-2"
+                    placeholder="Thứ 3, 7 - 19:00"
+                  /> -->
+                  <app-form-input
+                    [control]="getControl(form, 'classSchedule')"
+                    label="Lịch học"
+                    placeholder="Thứ 3, 7 - 19:00"
+                    [isFloating]="false"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="mb-2">
+                  <!-- <label class="mb-1 text-primary-container ls-1"
+                    >Số học viên tối đa</label
+                  >
+                  <input
+                    type="number"
+                    name="keyword"
+                    class="form-control py-2"
+                    placeholder="50"
+                  /> -->
+                  <app-form-input
+                    [control]="getControl(form, 'maxStudents')"
+                    label="Số học viên tối đa"
+                    placeholder="50"
+                    [isFloating]="false"
+                    type="number"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="mb-2">
+                  <!-- <label class="mb-1 text-primary-container ls-1"
+                    >Giá (VNĐ)</label
+                  >
+                  <input
+                    type="number"
+                    name="keyword"
+                    class="form-control py-2"
+                    placeholder="5000000"
+                  /> -->
+                  <app-form-input
+                    [control]="getControl(form, 'price')"
+                    label="Giá (VNĐ)"
+                    placeholder="50000"
+                    [isFloating]="false"
+                    type="number"
+                  />
+                </div>
+              </div>
+              <!-- <div class="col-12 col-md-4 col-lg-3">
             <div class="mb-2">
               <label class="mb-1 text-primary-container ls-1">Trạng thái</label>
               <select name="subject" class="form-select py-2">
                 <option value="all" selected>Hoạt động</option>
               </select>
             </div>
-          </div>
+          </div> -->
 
-          <div class="col-12 mb-2">
-            <p class="mb-2 fw-medium text-primary-container">
-              Ảnh đại diện lớp học
-            </p>
-            <div class="frame-upload-video rounded-3 text-center py-3 mt-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="28"
-                height="28"
-                fill="currentColor"
-                class="bi bi-plus-lg me-1 mb-2"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-                />
-              </svg>
-              <p class="fw-bold mb-0">Chọn/Upload ảnh</p>
+              <div class="col-12 mb-2">
+                <p class="mb-2 fw-medium text-primary-container">
+                  Ảnh đại diện lớp học
+                </p>
+                @if (getControl(form, "thumbnail").value) {
+                  <div style="max-width: 320px">
+                    <app-resource-lite-card
+                      [child]="getControl(form, 'thumbnail').value"
+                      (onUpdate)="openResourceModal(form, 'single')"
+                      (onDelete)="removeThumbnailResource(form)"
+                    />
+                  </div>
+                } @else {
+                  <div
+                    class="frame-upload-video rounded-3 text-center py-3 mt-2 cursor-pointer"
+                    (click)="openResourceModal(form, 'single')"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="28"
+                      height="28"
+                      fill="currentColor"
+                      class="bi bi-plus-lg me-1 mb-2"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                      />
+                    </svg>
+                    <p class="fw-bold mb-0">Chọn/Upload ảnh</p>
+                  </div>
+                }
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  }
 </section>
 <div class="bg-white w-100 px-3 py-4 mb-3 mt-3">
   <div class="row d-flex justify-content-between align-items-center">
@@ -169,7 +271,7 @@
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-cloud-check-fill text-secondary text-center"
+            class="bi bi-cloud-check-fill text-white text-center"
             viewBox="0 0 16 16"
           >
             <path
@@ -178,7 +280,7 @@
           </svg>
         </div>
         <div class="col">
-          <span class="fs-12 text-muted"
+          <span class="fs-12 text-white"
             >Tất cả các thay đổi đã được lưu tự động tại máy</span
           >
         </div>
@@ -197,11 +299,14 @@
             </div> -->
     <div class="col-auto d-flex">
       <button
+        (click)="onCancel()"
         class="btn btn-outline-secondary py-2 rounded-3 me-2 px-3 fw-bold"
       >
         Hủy bỏ
       </button>
-      <button class="btn btn-primary-custom py-2">Lưu</button>
+      <button class="btn btn-primary-custom py-2" (click)="onSubmit()">
+        Lưu
+      </button>
     </div>
   </div>
 </div>

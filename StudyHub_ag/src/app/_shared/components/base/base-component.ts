@@ -3,6 +3,7 @@ import { ToastService } from '../../../_service/utils/toast.service';
 import { ERROR_CODE_RESPONSE } from '../../../../utils/validator/error-code.validator';
 import { CacheService, KEY_CACHE } from '../../../_service/utils/cache.service';
 import { ROLE, ROLE_TEXT } from '../../../../utils/const/role.const';
+import { ActivatedRoute } from '@angular/router';
 
 // @Component({
 //   selector: 'app-base',
@@ -14,7 +15,10 @@ import { ROLE, ROLE_TEXT } from '../../../../utils/const/role.const';
 export abstract class BaseComponent {
   toastService = inject(ToastService);
 
-  constructor(private readonly cacheService: CacheService) {}
+  constructor(
+    private readonly cacheService: CacheService,
+    private readonly route: ActivatedRoute,
+  ) {}
 
   showSuccess(message?: string, delay = 1000) {
     this.toastService.show({

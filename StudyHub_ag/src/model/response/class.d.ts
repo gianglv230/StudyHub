@@ -101,3 +101,58 @@ interface ClassLessonResponse {
   progressOfClass: number;
   lessons: ClassLessonBasicResponse[];
 }
+
+interface AdminClassResponse {
+  id: number;
+  slug: string;
+
+  courseId: number;
+  courseName: string;
+
+  teacherId: number;
+  teacherName: string;
+
+  className: string;
+
+  thumbnailOverride: ChildrenResourceResponse;
+
+  openingDate: Date;
+  startDate: Date;
+  endDate: Date;
+  classSchedule: string;
+  price: number;
+  maxStudents: number;
+
+  createdAt: Date;
+  createdBy: string;
+  updatedAt: Date;
+  updatedBy: string;
+}
+
+interface AddClassRequest {
+  slug: string;
+  teacherId: number; // Lưu ý ở Response trước teacherId là String, ở Request này là Integer -> number
+  className: string;
+  thumbnailId: number;
+  openingDate: Date;
+  startDate: Date;
+  endDate: Date;
+  classSchedule: string;
+  price: number;
+  maxStudents: number;
+  courseSlug: string;
+}
+
+interface UpdateClassRequest {
+  slug: string;
+  teacherId: number; // Lưu ý ở Response trước teacherId là String, ở Request này là Integer -> number
+  className: string;
+  thumbnailId: number;
+  openingDate: Date;
+  startDate: Date;
+  endDate: Date;
+  classSchedule: string;
+  price: number;
+  maxStudents: number;
+  id: number;
+}

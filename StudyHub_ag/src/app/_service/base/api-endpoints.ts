@@ -23,6 +23,7 @@ export const API_ENDPOINTS = {
     STUDENT_LIST: '/student/list',
     CLASS_LESSON: '/class-lesson',
     TEACHER_LIST: '/teacher/list',
+    ADMIN: '/admin'
   },
   AUTH: '/auth',
   AUTH_ENDPOINTS: {
