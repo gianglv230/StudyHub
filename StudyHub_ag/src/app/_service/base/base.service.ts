@@ -77,7 +77,7 @@ export abstract class BaseService<TList, TCreate = TList, TUpdate = TList> {
    * @returns Observable of the response with type R
    */
   customRequest<R>(
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
     path: string,
     body?: any,
     params?: any

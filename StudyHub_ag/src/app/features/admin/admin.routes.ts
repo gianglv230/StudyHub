@@ -69,7 +69,7 @@ export const ADMIN_ROUTES: Routes = [
         title: getTitle(ADMIN_PAGE.CLASS_FORM, ROLE.ADMIN),
       },
       {
-        path: 'quan-ly-lop-hoc/:lop-hoc/chi-tiet',
+        path: 'quan-ly-lop-hoc/:class-slug/chi-tiet',
         component: ClassDetailManagement,
         title: getTitle(ADMIN_PAGE.CLASS_DETAIL_MANAGEMENT, ROLE.ADMIN),
       },

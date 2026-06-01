@@ -1,13 +1,12 @@
 package com.studyhub.studyhub_api.dto.response.classes;
 
-import com.studyhub.studyhub_api.dto.response.content.ResourceResponse;
 import com.studyhub.studyhub_api.dto.response.resource.ChildrenResourceResponse;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 
-public record AdminClassResponse(
+public record AdminClassInfoResponse(
         Integer id,
         String slug,
 
@@ -18,19 +17,17 @@ public record AdminClassResponse(
         String teacherName,
 
         String className,
+        String status,
 
-        ChildrenResourceResponse thumbnailOverride,
+        String subject,
+        String targetGrade,
+        String categoryName,
 
         LocalDate openingDate,
         LocalDate startDate,
-        LocalDate endDate,
-        String classSchedule,
-        BigDecimal price,
-        Integer maxStudents,
-
-        Instant createdAt,
-        String createdBy,
-        Instant updatedAt,
-        String updatedBy
+        LocalDate endDate
+//        String classSchedule,
+//        BigDecimal price,
+//        Integer maxStudents
 ) {
 }

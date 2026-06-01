@@ -131,4 +131,5 @@ public interface CourseRepository extends JpaRepository<Course, Integer>, JpaSpe
     @EntityGraph(attributePaths = {"thumbnail", "videoDemo", "lessons"})
     Optional<Course> findById(Integer id);
 
+    Boolean existsBySlug(String slug);
 }

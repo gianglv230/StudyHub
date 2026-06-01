@@ -23,7 +23,11 @@ export const API_ENDPOINTS = {
     STUDENT_LIST: '/student/list',
     CLASS_LESSON: '/class-lesson',
     TEACHER_LIST: '/teacher/list',
-    ADMIN: '/admin'
+    ADMIN: '/admin',
+    ADMIN_CLASS_INFO: '/admin/class-info',
+    ADMIN_OPEN: '/admin/open',
+    ADMIN_CLOSE: '/admin/close',
+    ADMIN_STATUS: '/admin/status'
   },
   AUTH: '/auth',
   AUTH_ENDPOINTS: {
@@ -61,5 +65,9 @@ export const API_ENDPOINTS = {
   STATISTICS_ENDPOINTS: {
     BASIC: '/basic',
     REVENUE_YEAR: '/revenue',
+  },
+  ENROLLMENT: '/enrollment',
+  ENROLLMENT_ENDPOINTS: {
+    ADMIN: '/admin'
   },
 };

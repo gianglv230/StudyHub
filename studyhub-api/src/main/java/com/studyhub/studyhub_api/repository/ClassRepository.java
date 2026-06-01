@@ -134,4 +134,6 @@ public interface ClassRepository extends JpaRepository<Class, Integer>, JpaSpeci
                 AND t.id = :teacherId
             """)
     Page<Class> getMyTeacherClasses(@Param("teacherId") int teacherId, @Param("status") String status, Pageable pageable);
+
+    Boolean existsBySlug(String slug);
 }

@@ -1,6 +1,7 @@
 package com.studyhub.studyhub_api.dto.response.course;
 
 import com.studyhub.studyhub_api.dto.response.content.ResourceResponse;
+import com.studyhub.studyhub_api.dto.response.resource.ChildrenResourceResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -20,8 +21,8 @@ public class AdminCourseResponse {
     String subject;
     String targetGrade;
     String categoryName;
-    ResourceResponse thumbnail;
-    ResourceResponse videoDemo;
+    ChildrenResourceResponse thumbnail;
+    ChildrenResourceResponse videoDemo;
     Integer numberOfLessons;
     String status;
     List<AdminLessonResponse> lessons;

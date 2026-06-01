@@ -129,30 +129,27 @@ interface AdminClassResponse {
   updatedBy: string;
 }
 
-interface AddClassRequest {
-  slug: string;
-  teacherId: number; // Lưu ý ở Response trước teacherId là String, ở Request này là Integer -> number
-  className: string;
-  thumbnailId: number;
-  openingDate: Date;
-  startDate: Date;
-  endDate: Date;
-  classSchedule: string;
-  price: number;
-  maxStudents: number;
-  courseSlug: string;
-}
 
-interface UpdateClassRequest {
+type ClassStatus = 'UPCOMING' | 'ONGOING' | 'FINISHED' | 'CANCELED';
+
+interface AdminClassInfoResponse {
+  id: number;
   slug: string;
-  teacherId: number; // Lưu ý ở Response trước teacherId là String, ở Request này là Integer -> number
+
+  courseId: number;
+  courseName: string;
+
+  teacherId: number;
+  teacherName: string;
+
   className: string;
-  thumbnailId: number;
+  status: ClassStatus;
+
+  subject: string;
+  targetGrade: string;
+  categoryName: string;
+
   openingDate: Date;
   startDate: Date;
   endDate: Date;
-  classSchedule: string;
-  price: number;
-  maxStudents: number;
-  id: number;
 }

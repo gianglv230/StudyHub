@@ -22,11 +22,17 @@ import { ResourceModal } from '../../../../_shared/resource-modal/resource-modal
 import { DatePipe } from '@angular/common';
 import { FormInput } from '../../../../_shared/components/form-input/form-input';
 import { FormSelect } from '../../../../_shared/components/form-select/form-select';
-import { ResourceLiteCard } from "../../../../_shared/resource-lite-card/resource-lite-card";
+import { ResourceLiteCard } from '../../../../_shared/resource-lite-card/resource-lite-card';
 
 @Component({
   selector: 'app-class-form',
-  imports: [ReactiveFormsModule, DatePipe, FormInput, FormSelect, ResourceLiteCard],
+  imports: [
+    ReactiveFormsModule,
+    DatePipe,
+    FormInput,
+    FormSelect,
+    ResourceLiteCard,
+  ],
   templateUrl: './class-form.html',
   styleUrl: './class-form.css',
 })
@@ -63,7 +69,7 @@ export class ClassForm implements OnInit, OnDestroy {
         console.log(data);
         // Giả sử data có kiểu: TeacherLiteResponse[]
         this.teacherData = data.map((teacher: TeacherLiteResponse) => ({
-          label: teacher.teacherId + " - " + teacher.fullname,
+          label: teacher.teacherId + ' - ' + teacher.fullname,
           value: teacher.teacherId, // value giữ id để sau này gửi request lên backend
         }));
       },
@@ -71,6 +77,44 @@ export class ClassForm implements OnInit, OnDestroy {
 
     if (this.courseSlug && this.classSlug) {
       this.isAdd = false;
+      this.form = this.fb.group(
+        {
+          id: [null],
+          slug: [''],
+          teacherId: [, Validators.required],
+          className: ['', [Validators.required, validateRange(3, 255)]],
+          thumbnailId: [null],
+          thumbnail: this.fb.control<ChildrenResourceResponse | null>(null),
+          openingDate: [null, Validators.required],
+          startDate: [null, Validators.required],
+          endDate: [null, Validators.required],
+          classSchedule: ['', Validators.required],
+          price: [0, Validators.min(50000)],
+          maxStudents: [0, Validators.min(1)],
+        },
+        {
+          validators: [
+            dateLessThanValidator('openingDate', 'startDate'),
+            dateLessThanValidator('startDate', 'endDate'),
+          ],
+        },
+      );
+
+      initData<AdminClassResponse>(
+        this.classService.getAdminClass(this.classSlug),
+        (data) => {
+          console.log(data);
+          this.classResponse = data;
+          this.populateForm(data);
+
+          // Deep clone lại FormGroup sau khi đã populate dữ liệu thành công
+          if (this.form) {
+            this.initialForm = this.cloneFormGroup(this.form);
+            this.subscribeToTitleChanges();
+          }
+        },
+      );
+
       return;
     }
 
@@ -106,6 +150,25 @@ export class ClassForm implements OnInit, OnDestroy {
         this.subscribeToTitleChanges();
       }
     }
+  }
+
+  populateForm(data: AdminClassResponse) {
+    if (!this.form) return;
+
+    this.form.patchValue({
+      id: data.id,
+      slug: data.slug,
+      teacherId: data.teacherId,
+      className: data.className,
+      thumbnailId: data.thumbnailOverride.id,
+      thumbnail: data.thumbnailOverride,
+      openingDate: data.openingDate,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      classSchedule: data.classSchedule,
+      price: data.price,
+      maxStudents: data.maxStudents,
+    });
   }
 
   openResourceModal(
@@ -147,7 +210,7 @@ export class ClassForm implements OnInit, OnDestroy {
     const raw = this.form!.getRawValue();
 
     // Xóa các trường object chỉ dùng để hiển thị UI, không gửi lên API
-    delete raw.video;
+    delete raw.thumbnail;
 
     return raw;
   }
@@ -157,9 +220,9 @@ export class ClassForm implements OnInit, OnDestroy {
   }
 
   // UNIMPL
-  // buildUpdateRequest(): UpdateClassRequest{
-
-  // }
+  buildUpdateRequest(): UpdateClassRequest | null {
+    return this.buildRequest<UpdateClassRequest>();
+  }
 
   addClass() {
     const request = this.buildAddRequest();
@@ -182,7 +245,26 @@ export class ClassForm implements OnInit, OnDestroy {
     });
   }
 
-  updateClass() {}
+  updateClass() {
+    const request = this.buildUpdateRequest();
+    console.log(request);
+    if (!request) return;
+    this.classService.updateClass(request).subscribe({
+      next: (res) => {
+        if (res.error) {
+          this.base.showDanger(res.message);
+          return;
+        }
+        if (res.data) {
+          this.base.showSuccess('Sửa lớp học thành công');
+          // this.router.navigate([
+          //   `/admin/quan-ly-khoa-hoc/bieu-mau/${res.data}`,
+          // ]);
+        }
+      },
+      error: (err) => this.base.handleError(err),
+    });
+  }
 
   onSubmit() {
     if (this.isAdd) {

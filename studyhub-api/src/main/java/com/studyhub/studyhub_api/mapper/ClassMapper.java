@@ -104,4 +104,15 @@ public interface ClassMapper {
             @Mapping(target = "thumbnailOverride.id", source = "thumbnailId"),
     })
     void updateClass(UpdateClassRequest request, @MappingTarget Class clazz);
+
+    @Mappings({
+            @Mapping(target = "teacherId", source = "clazz.teacher.id"),
+            @Mapping(target = "teacherName", source = "clazz.teacher.fullname"),
+            @Mapping(target = "courseId", source = "clazz.course.id"),
+            @Mapping(target = "courseName", source = "clazz.course.title"),
+            @Mapping(target = "subject", source = "clazz.course.subject"),
+            @Mapping(target = "targetGrade", source = "clazz.course.targetGrade"),
+            @Mapping(target = "categoryName", source = "clazz.course.categoryName")
+    })
+    AdminClassInfoResponse toAdminClassInfoResponse(Class clazz);
 }

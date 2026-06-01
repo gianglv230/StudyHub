@@ -29,4 +29,6 @@ public interface ClassService {
     Boolean updateStatusClass(UpdateClassStatusRequest request);
 
     PageResponse<ClassProgressResponse> getMyTeacherClass(String status, Integer page);
+
+    AdminClassInfoResponse getAdminClassInfo(String classSlug);
 }

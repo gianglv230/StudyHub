@@ -140,12 +140,32 @@ public class ClassController {
     }
 
     @Operation(summary = "Close class", description = "API close class for Admin")
+    @PatchMapping("/admin/close/{classSlug}")
+    public ApiResponse<Boolean> closeClass(
+            @PathVariable String classSlug
+    ) {
+        return ApiResponse.<Boolean>builder()
+                .data(classService.closeClass(classSlug))
+                .build();
+    }
+
+    @Operation(summary = "Update status class", description = "API update status class for Admin")
     @PatchMapping("/admin/status")
     public ApiResponse<Boolean> updateStatusClass(
             @RequestBody UpdateClassStatusRequest request
     ) {
         return ApiResponse.<Boolean>builder()
                 .data(classService.updateStatusClass(request))
+                .build();
+    }
+
+    @Operation(summary = "Get class info", description = "API get class info for Admin")
+    @GetMapping("/admin/class-info/{classSlug}")
+    public ApiResponse<AdminClassInfoResponse> getClass(
+            @PathVariable String classSlug
+    ) {
+        return ApiResponse.<AdminClassInfoResponse>builder()
+                .data(classService.getAdminClassInfo(classSlug))
                 .build();
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Mapper(componentModel = "spring", uses = SectionMapper.class)
+@Mapper(componentModel = "spring", uses = {SectionMapper.class, ResourceMapper.class})
 public interface ClassLessonMapper {
     @Mappings({
             @Mapping(target = "classLessonId", source = "classLesson.id"),

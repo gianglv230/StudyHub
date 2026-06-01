@@ -12,6 +12,7 @@ import com.studyhub.studyhub_api.exception.ErrorCode;
 import com.studyhub.studyhub_api.mapper.CourseMapper;
 import com.studyhub.studyhub_api.model.Class;
 import com.studyhub.studyhub_api.model.Course;
+import com.studyhub.studyhub_api.model.Lesson;
 import com.studyhub.studyhub_api.repository.ClassRepository;
 import com.studyhub.studyhub_api.repository.CourseRepository;
 import com.studyhub.studyhub_api.repository.specification.ClassSpecification;
@@ -28,6 +29,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -142,7 +144,7 @@ public class CourseServiceImpl implements CourseService {
                 .build();
     }
 
-    private AdminCourseResponse toAdminCourseResponse(Course course){
+    private AdminCourseResponse toAdminCourseResponse(Course course) {
         var createdById = course.getCreatedBy();
         var updatedById = course.getUpdatedBy();
         var userMap = userAccountService.getUserAccountMap(List.of(createdById, updatedById));
@@ -158,10 +160,18 @@ public class CourseServiceImpl implements CourseService {
         return this.toAdminCourseResponse(course);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @Override
     public AdminCourseResponse addCourse(AddCourseRequest request) {
+        if (courseRepository.existsBySlug(request.getSlug())) {
+            throw new AppException(ErrorCode.SLUG_EXISTED);
+        }
+
         Course course = courseMapper.toCourse(request);
+        for (Lesson lesson : course.getLessons()) {
+            lesson.setCourse(course);
+        }
         courseRepository.save(course);
         return this.toAdminCourseResponse(course);
     }
@@ -169,12 +179,18 @@ public class CourseServiceImpl implements CourseService {
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public AdminCourseResponse updateCourse(UpdateCourseRequest request) {
-        Course course = courseRepository.findById(request.getId()).orElseThrow(
-                () -> new AppException(ErrorCode.COURSE_NOT_EXISTED)
-        );
-        courseMapper.updateCourse(request, course);
-        courseRepository.save(course);
-        return this.toAdminCourseResponse(course);
+        try {
+            Course course = courseRepository.findById(request.getId()).orElseThrow(
+                    () -> new AppException(ErrorCode.COURSE_NOT_EXISTED)
+            );
+            courseMapper.updateCourse(request, course);
+            course.getLessons().forEach(lesson -> lesson.setCourse(course));
+            courseRepository.save(course);
+            return this.toAdminCourseResponse(course);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -184,7 +200,7 @@ public class CourseServiceImpl implements CourseService {
                 () -> new AppException(ErrorCode.COURSE_NOT_EXISTED)
         );
 
-        if(classRepository.existsByCourseId(courseId)){
+        if (classRepository.existsByCourseId(courseId)) {
             throw new AppException(ErrorCode.CAN_NOT_DELETE);
         }
 

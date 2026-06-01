@@ -13,6 +13,7 @@ import com.studyhub.studyhub_api.exception.AppException;
 import com.studyhub.studyhub_api.exception.ErrorCode;
 import com.studyhub.studyhub_api.model.Class;
 import com.studyhub.studyhub_api.mapper.ClassMapper;
+import com.studyhub.studyhub_api.model.Course;
 import com.studyhub.studyhub_api.model.Invoice;
 import com.studyhub.studyhub_api.model.UserAccount;
 import com.studyhub.studyhub_api.repository.*;
@@ -45,9 +46,10 @@ public class ClassServiceImpl implements ClassService {
     UserAccountService userAccountService;
     ClassRepository classRepository;
     EnrollmentRepository enrollmentRepository;
-//    ContentRepository contentRepository;
+    //    ContentRepository contentRepository;
     SectionRepository sectionRepository;
     UserAccountRepository userAccountRepository;
+    CourseRepository courseRepository;
     ClassMapper classMapper;
     private static final int MAX_ITEM = 20;
     private static final int MAX_ITEM_BENTO = 9;
@@ -219,9 +221,18 @@ public class ClassServiceImpl implements ClassService {
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public AdminClassResponse addClass(AddClassRequest request) {
+        Course course = courseRepository.findBySlug(request.getCourseSlug()).orElseThrow(
+                () -> new AppException(ErrorCode.COURSE_NOT_EXISTED)
+        );
+
+        if (classRepository.existsBySlug(request.getSlug())) {
+            throw new AppException(ErrorCode.SLUG_EXISTED);
+        }
+
         Class clazz = classMapper.toClass(request);
         clazz.setAvailableSlots(0);
         clazz.setStatus(StatusClass.UPCOMING.name());
+        clazz.setCourse(course);
         classRepository.save(clazz);
         return this.toAdminClassResponse(clazz);
     }
@@ -231,6 +242,12 @@ public class ClassServiceImpl implements ClassService {
     public AdminClassResponse updateClass(UpdateClassRequest request) {
         Class clazz = classRepository.findById(request.getId())
                 .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
+
+        if (classRepository.existsBySlug(request.getSlug())) {
+            if (!request.getSlug().equalsIgnoreCase(clazz.getSlug())) {
+                throw new AppException(ErrorCode.SLUG_EXISTED);
+            }
+        }
 
         int reducedSlots = clazz.getMaxStudents() - request.getMaxStudents();
         int availableSlots = clazz.getAvailableSlots();
@@ -322,6 +339,14 @@ public class ClassServiceImpl implements ClassService {
                         .map(clazz -> classMapper.toClassProgressResponse(clazz, progressMap.getOrDefault(clazz.getId(), 0)))
                         .toList())
                 .build();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public AdminClassInfoResponse getAdminClassInfo(String classSlug) {
+        Class clazz = classRepository.findBySlug(classSlug)
+                .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
+        return classMapper.toAdminClassInfoResponse(clazz);
     }
 
     // -- COUNT --
