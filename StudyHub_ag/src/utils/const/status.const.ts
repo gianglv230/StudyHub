@@ -10,6 +10,13 @@ export const ClassStatusMap: Record<ClassStatus, string> = {
   CANCELED: 'Đã bị hủy',
 };
 
+export const ClassStatusOptions: ComboboxRow[] = Object.entries(
+  ClassStatusMap,
+).map(([key, value]) => ({
+  label: value,
+  value: key,
+}));
+
 export const ClassStatusColorMap: Record<ClassStatus, string> = {
   UPCOMING: 'text-primary-container',
   ONGOING: 'text-success',
@@ -19,12 +26,36 @@ export const ClassStatusColorMap: Record<ClassStatus, string> = {
 
 export const EnrollmentStatusMap: Record<EnrollmentStatus, string> = {
   ACTIVE: 'Đang học',
-  CANCELLED: 'Đã hủy',
-  SUSPENDED: 'Bị đình chỉ'
-}
+  CANCELED: 'Đã hủy',
+  SUSPENDED: 'Bị đình chỉ',
+};
 
 export const EnrollmentStatusColorMap: Record<EnrollmentStatus, string> = {
   ACTIVE: 'bg-success',
-  CANCELLED: 'bg-danger',
-  SUSPENDED: 'bg-warning'
-}
+  CANCELED: 'bg-danger',
+  SUSPENDED: 'bg-warning',
+};
+
+export const InvoiceStatusLiteMap: Record<InvoiceStatusLite, string> = {
+  PENDING: 'Chưa thanh toán',
+  PAID: 'Đã thanh toán',
+};
+
+export const InvoiceStatusLiteOptions: ComboboxRow[] = Object.entries(
+  InvoiceStatusLiteMap,
+).map(([key, value]) => ({
+  label: value,
+  value: key,
+}));
+
+export const InvoiceMethodMap: Record<InvoiceMethod, string> = {
+  CASH: 'Tiền mặt',
+  BANK: 'Chuyển khoản',
+};
+
+export const InvoiceMethodOptions: ComboboxRow[] = Object.entries(
+  InvoiceMethodMap,
+).map(([key, value]) => ({
+  label: value,
+  value: key,
+}));

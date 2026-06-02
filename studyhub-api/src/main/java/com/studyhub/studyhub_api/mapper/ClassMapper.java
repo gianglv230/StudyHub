@@ -112,7 +112,10 @@ public interface ClassMapper {
             @Mapping(target = "courseName", source = "clazz.course.title"),
             @Mapping(target = "subject", source = "clazz.course.subject"),
             @Mapping(target = "targetGrade", source = "clazz.course.targetGrade"),
-            @Mapping(target = "categoryName", source = "clazz.course.categoryName")
+            @Mapping(target = "categoryName", source = "clazz.course.categoryName"),
+            @Mapping(target = "price", source = "clazz.price"),
+            @Mapping(target = "numberOfLessons", source = "clazz.course.numberOfLessons"),
+            @Mapping(target = "progressOfClass", source = "progressOfClass"),
     })
-    AdminClassInfoResponse toAdminClassInfoResponse(Class clazz);
+    AdminClassInfoResponse toAdminClassInfoResponse(Class clazz, Integer progressOfClass);
 }

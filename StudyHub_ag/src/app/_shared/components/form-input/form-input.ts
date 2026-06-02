@@ -16,6 +16,7 @@ export class FormInput {
   @Input() placeholder: string = ' ';
   @Input() id?: string;
   @Input() isFloating: boolean = true;
+  @Input() readOnly = false;
 
   @Input() pattern?: string;
 

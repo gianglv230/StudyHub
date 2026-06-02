@@ -1,5 +1,5 @@
 package com.studyhub.studyhub_api.enums;
 
 public enum StatusEnrollment {
-    ACTIVE, SUSPENDED, CANCELLED
+    ACTIVE, SUSPENDED, CANCELED
 }

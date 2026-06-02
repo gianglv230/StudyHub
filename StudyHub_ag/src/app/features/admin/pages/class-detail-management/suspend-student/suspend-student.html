@@ -1,0 +1,38 @@
+<div class="modal-body">
+  <div class="px-3 pt-2">
+    <div class="d-flex justify-content-between mb-2">
+      <div class="h4 text-center text-primary-container text-uppercase fw-bold">
+        Đình chỉ học viên
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="activeModal.dismiss()"
+        ></button>
+      </div>
+    </div>
+    @if (form) {
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <app-form-input
+          [control]="getControl(form, 'amount')"
+          type="number"
+          label="Số tiền hoàn trả"
+          [readOnly]="true"
+        />
+
+        <app-form-input
+          [control]="getControl(form, 'adjustments')"
+          type="number"
+          label="Điều chỉnh"
+        />
+
+        <div class="text-center mt-3">
+          <button class="btn-primary-custom" type="submit">
+            Đình chỉ học viên
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+</div>

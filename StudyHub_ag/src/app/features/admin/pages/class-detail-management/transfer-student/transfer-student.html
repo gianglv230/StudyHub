@@ -1,0 +1,88 @@
+<div class="modal-body">
+  <div class="px-3 pt-2">
+    <div class="d-flex justify-content-between mb-2">
+      <div class="h4 text-center text-primary-container text-uppercase fw-bold">
+        Chuyển lớp cho học viên
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="activeModal.dismiss()"
+        ></button>
+      </div>
+    </div>
+    @if (form) {
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <app-form-input
+          [control]="getControl(form, 'newClassSlug')"
+          type="text"
+          label="Slug lớp mới"
+          placeholder=""
+        />
+        <button
+          class="btn btn-primary mb-3"
+          (click)="getClassInfo()"
+          type="button"
+        >
+          Lấy thông tin
+        </button>
+
+        @if (class) {
+          @if (class.courseId != this.data.class.courseId) {
+            <p class="text-danger">Lớp chuyển đến có khóa học khác</p>
+          } @else {
+            <div class="bg-background rounded-2 border p-2 mb-3">
+              <p class="text-primary">Khóa học: {{ class.courseName }}</p>
+              <p class="text-primary">Lớp học: {{ class.className }}</p>
+              <p class="text-primary">
+                Giá: {{ class.price | number: "1.0-2" }} VNĐ
+              </p>
+              <p class="text-primary">
+                Ngày khai giảng: {{ class.openingDate | date: "dd/MM/yyyy" }}
+              </p>
+              <p class="text-primary">
+                Ngày bắt đầu: {{ class.startDate | date: "dd/MM/yyyy" }}
+              </p>
+              <p class="mb-0 text-primary">
+                Ngày kết thúc: {{ class.endDate | date: "dd/MM/yyyy" }}
+              </p>
+            </div>
+
+            <app-form-input
+              [control]="getControl(form, 'amount')"
+              type="number"
+              label="Giá"
+              [readOnly]="true"
+            />
+
+            <app-form-input
+              [control]="getControl(form, 'adjustments')"
+              type="number"
+              label="Điều chỉnh"
+            />
+
+            <app-form-select
+              label="Trạng thái"
+              [data]="cboxInvoiceStatus"
+              [control]="getControl(form, 'status')"
+              class="mb-2"
+            />
+
+            @if (getControl(form, "status").value == "PAID") {
+              <app-form-select
+                label="Phương thức thanh toán"
+                [data]="cboxInvoiceMethod"
+                [control]="getControl(form, 'method')"
+              />
+            }
+          }
+        }
+
+        <div class="text-center mt-3">
+          <button class="btn-primary-custom" type="submit">Chuyển lớp</button>
+        </div>
+      </form>
+    }
+  </div>
+</div>

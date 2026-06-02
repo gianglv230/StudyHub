@@ -9,6 +9,7 @@
       [id]="id"
       (keydown)="onKeyDown($event)"
       (paste)="onPaste($event)"
+      [readOnly]="readOnly"
     />
     <label [for]="id">{{ label }}</label>
 

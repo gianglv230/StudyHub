@@ -1,4 +1,4 @@
-type EnrollmentStatus = 'ACTIVE' | 'SUSPENDED' | 'CANCELLED'
+type EnrollmentStatus = 'ACTIVE' | 'SUSPENDED' | 'CANCELED'
 
 interface StudentInClassResponse {
   id: number;

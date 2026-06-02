@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from '../../../../_service/base/base.service';
 import { HttpClient } from '@angular/common/http';
 import { API_ENDPOINTS } from '../../../../_service/base/api-endpoints';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { TeacherService } from '../../../guest/service/teacher/teacher.service';
 
 @Injectable({
@@ -85,4 +85,12 @@ export class AdminClassService extends BaseService<CourseLiteProjection> {
       request,
     );
   }
+
+  // Định nghĩa luồng sự kiện refresh
+  private classRefreshSubject = new Subject<void>();
+  classRefresh$ = this.classRefreshSubject.asObservable();
+  triggerRefreshClass() {
+    this.classRefreshSubject.next();
+  }
+
 }

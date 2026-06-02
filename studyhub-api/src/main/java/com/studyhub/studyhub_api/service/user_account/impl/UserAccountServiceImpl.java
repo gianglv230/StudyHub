@@ -87,17 +87,26 @@ public class UserAccountServiceImpl implements UserAccountService {
     private AdminUserAccountBasicResponse toAdminUserAccountBasicResponse(UserAccount account) {
         var createdById = account.getCreatedBy();
         var updatedById = account.getUpdatedBy();
-        Map<Integer, String> userMap = getUserAccountMap(List.of(createdById, updatedById));
 
-        return userAccountMapper.toAdminUserAccountBasicResponse(account, userMap.get(createdById), userMap.get(updatedById));
+        if (updatedById != null && createdById != null) {
+            Map<Integer, String> userMap = getUserAccountMap(List.of(createdById, updatedById));
+            return userAccountMapper.toAdminUserAccountBasicResponse(account, userMap.get(createdById), userMap.get(updatedById));
+        }
+
+        return userAccountMapper.toAdminUserAccountBasicResponse(account, null, null);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public AdminUserAccountBasicResponse getUserAccount(Integer id) {
-        UserAccount account = userAccountRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
-        return this.toAdminUserAccountBasicResponse(account);
+        try {
+            UserAccount account = userAccountRepository.findById(id)
+                    .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+            return this.toAdminUserAccountBasicResponse(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @PreAuthorize("hasRole('ADMIN')")

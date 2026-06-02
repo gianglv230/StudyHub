@@ -186,8 +186,24 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         Enrollment enrollment = enrollmentRepository.findById(request.getEnrollmentId())
                 .orElseThrow(() -> new AppException(ErrorCode.ENROLLMENT_NOT_EXISTED));
 
+        Class clazz = classRepository.findClassBySlug(request.getNewClassSlug())
+                .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
+
+        String classStatus = clazz.getStatus();
+        if(classStatus.equalsIgnoreCase(StatusClass.FINISHED.name()) || classStatus.equalsIgnoreCase(StatusClass.CANCELED.name())) {
+            throw new AppException(ErrorCode.TRANSFER_FAIL);
+        }
+
+        if(!clazz.getCourse().getId().equals(enrollment.getClassField().getId())){
+            throw new AppException(ErrorCode.DO_NOT_SAME_COURSE);
+        }
+
+        if(clazz.getAvailableSlots() == 0){
+            throw new AppException(ErrorCode.CLASS_FULL);
+        }
+
         // Cancel present enrollment
-        enrollment.setStatus(StatusEnrollment.CANCELLED.name());
+        enrollment.setStatus(StatusEnrollment.CANCELED.name());
         enrollment.setEndDate(LocalDate.now());
 
         enrollmentRepository.save(enrollment);
@@ -202,8 +218,6 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         }
 
         // Create new enrollment
-        Class clazz = classRepository.findBySlug(request.getNewClassSlug())
-                .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
         UserAccount student = userAccountRepository.findById(request.getStudentId())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 

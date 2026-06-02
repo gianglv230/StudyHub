@@ -42,6 +42,7 @@ export const API_ENDPOINTS = {
     MY_INFO: '/my-info',
     CHANGE_PWD: '/change-pwd',
     UPDATE_MY_ACCOUNT: '/auth/my-account',
+    ADMIN: '/admin'
   },
   ATTENDANCE: '/attendance',
   ATTENDANCE_ENDPOINTS: {
@@ -49,6 +50,9 @@ export const API_ENDPOINTS = {
     SESSION_DATE: '/session-date',
     ROWS: '/rows',
     ENROLLMENT: '/enrollment',
+    ADMIN_ADD: '/admin/add',
+    ADMIN_SUSPEND: '/admin/suspend',
+    ADMIN_TRANSFER: '/admin/transfer',
   },
   CLASS_LESSON: '/class-lesson',
   CLASS_LESSON_ENDPOINTS: {

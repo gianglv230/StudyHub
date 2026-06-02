@@ -152,4 +152,8 @@ interface AdminClassInfoResponse {
   openingDate: Date;
   startDate: Date;
   endDate: Date;
+
+  price: number;
+  numberOfLessons: number;
+  progressOfClass: number
 }

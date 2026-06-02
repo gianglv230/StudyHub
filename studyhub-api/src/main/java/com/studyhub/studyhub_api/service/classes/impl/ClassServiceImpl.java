@@ -25,6 +25,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -50,6 +52,8 @@ public class ClassServiceImpl implements ClassService {
     SectionRepository sectionRepository;
     UserAccountRepository userAccountRepository;
     CourseRepository courseRepository;
+    AttendanceRepository attendanceRepository;
+
     ClassMapper classMapper;
     private static final int MAX_ITEM = 20;
     private static final int MAX_ITEM_BENTO = 9;
@@ -344,9 +348,15 @@ public class ClassServiceImpl implements ClassService {
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public AdminClassInfoResponse getAdminClassInfo(String classSlug) {
-        Class clazz = classRepository.findBySlug(classSlug)
-                .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
-        return classMapper.toAdminClassInfoResponse(clazz);
+        try {
+            Class clazz = classRepository.findBySlug(classSlug)
+                    .orElseThrow(() -> new AppException(ErrorCode.CLASS_NOT_EXISTED));
+            List<LocalDate> sessionDates = attendanceRepository.getSessionDatesByClassId(clazz.getId());
+            return classMapper.toAdminClassInfoResponse(clazz, sessionDates.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // -- COUNT --

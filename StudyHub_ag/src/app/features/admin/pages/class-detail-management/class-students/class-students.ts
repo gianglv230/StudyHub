@@ -1,7 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { mapGender } from '../../../../../../utils/account-map';
 import { DatePipe } from '@angular/common';
-import { EnrollmentStatusColorMap, EnrollmentStatusMap } from '../../../../../../utils/const/status.const';
+import {
+  EnrollmentStatusColorMap,
+  EnrollmentStatusMap,
+} from '../../../../../../utils/const/status.const';
+import { SuspendStudent } from '../suspend-student/suspend-student';
 
 @Component({
   selector: 'app-class-students',
@@ -11,9 +15,12 @@ import { EnrollmentStatusColorMap, EnrollmentStatusMap } from '../../../../../..
 })
 export class ClassStudents {
   @Input() students?: StudentInClassResponse[];
+  // 1. Khai báo đúng kiểu dữ liệu trong dấu < > và phải có từ khóa 'new'
+  @Output() suspendStudent = new EventEmitter<StudentInClassResponse>();
+  @Output() transferStudent = new EventEmitter<StudentInClassResponse>();
 
   mapGender(gender: boolean) {
-    mapGender(gender);
+    return mapGender(gender);
   }
 
   mapEnrollmentStatus(student: StudentInClassResponse) {
@@ -22,5 +29,17 @@ export class ClassStudents {
 
   mapEnrollmentColorStatus(student: StudentInClassResponse) {
     return student.status ? EnrollmentStatusColorMap[student.status] : '';
+  }
+
+  // 2. Hàm xử lý khi click button
+  onSuspendStudent(student: StudentInClassResponse) {
+    // Sử dụng .emit() để bắn dữ liệu ra component cha
+    this.suspendStudent.emit(student);
+  }
+
+  // 2. Hàm xử lý khi click button
+  onTransferStudent(student: StudentInClassResponse) {
+    // Sử dụng .emit() để bắn dữ liệu ra component cha
+    this.transferStudent.emit(student);
   }
 }

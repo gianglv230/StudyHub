@@ -1,0 +1,72 @@
+<div class="modal-body">
+  <div class="px-3 pt-2">
+    <div class="d-flex justify-content-between mb-2">
+      <div class="h4 text-center text-primary-container text-uppercase fw-bold">
+        Thêm học viên
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="activeModal.dismiss()"
+        ></button>
+      </div>
+    </div>
+    @if (form) {
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <app-form-input
+          [control]="getControl(form, 'studentId')"
+          type="text"
+          label="Mã học viên"
+          placeholder=""
+        />
+        <button class="btn btn-primary mb-3" (click)="getStudentInfo()" type="button">
+          Lấy thông tin
+        </button>
+
+        @if (student) {
+          <div class="bg-background rounded-2 border p-2 mb-3">
+            <p class="text-primary">Họ và tên: {{ student.firstName + " " + student.lastName }}</p>
+            <p class="text-primary">
+              Ngày tháng năm sinh:
+              {{ student.dateOfBirth | date: "dd/MM/yyyy" }}
+            </p>
+            <p class="mb-0 text-primary">Số điện thoại: {{ student.phone }}</p>
+          </div>
+        }
+
+        <app-form-input
+          [control]="getControl(form, 'amount')"
+          type="number"
+          label="Giá"
+          [readOnly]="true"
+        />
+
+        <app-form-input
+          [control]="getControl(form, 'adjustments')"
+          type="number"
+          label="Điều chỉnh"
+        />
+
+        <app-form-select
+          label="Trạng thái"
+          [data]="cboxInvoiceStatus"
+          [control]="getControl(form, 'status')"
+          class="mb-2"
+        />
+
+        @if (getControl(form, "status").value == "PAID") {
+          <app-form-select
+            label="Phương thức thanh toán"
+            [data]="cboxInvoiceMethod"
+            [control]="getControl(form, 'method')"
+          />
+        }
+
+        <div class="text-center mt-3">
+          <button class="btn-primary-custom" type="submit">Thêm</button>
+        </div>
+      </form>
+    }
+  </div>
+</div>

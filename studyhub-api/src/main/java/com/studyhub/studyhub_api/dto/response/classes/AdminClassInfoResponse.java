@@ -25,9 +25,11 @@ public record AdminClassInfoResponse(
 
         LocalDate openingDate,
         LocalDate startDate,
-        LocalDate endDate
+        LocalDate endDate,
 //        String classSchedule,
-//        BigDecimal price,
+        BigDecimal price,
 //        Integer maxStudents
+        Integer numberOfLessons,
+        Integer progressOfClass
 ) {
 }

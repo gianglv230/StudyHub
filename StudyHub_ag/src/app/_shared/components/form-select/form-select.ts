@@ -14,6 +14,7 @@ export class FormSelect {
   @Input() id?: string;
   @Input() isFloating: boolean = true;
   @Input({ required: true }) data!: ComboboxRow[];
+  @Input() class?: string;
 
   get isInvalid(): boolean {
     return isInvalidComp(this.control);
