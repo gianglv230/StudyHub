@@ -37,7 +37,8 @@ body {
   left: 0;
   top: 0;
   background-color: var(--primary-container);
-  z-index: 1045; /* Above header but below offcanvas backdrop if needed */
+  z-index: 1045;
+  /* Above header but below offcanvas backdrop if needed */
   padding: 0.6rem;
   display: flex;
   flex-direction: column;
@@ -50,9 +51,11 @@ body {
   #sidebar {
     transform: translateX(-100%);
   }
+
   #sidebar.show {
     transform: translateX(0);
   }
+
   #main-content {
     margin-left: 0 !important;
   }
@@ -63,6 +66,7 @@ body {
   font-weight: 700;
   margin-bottom: 0;
 }
+
 .sidebar-brand p {
   font-size: 0.7rem;
   color: #cbd5e1;
@@ -80,6 +84,7 @@ body {
   margin-bottom: 1.5rem;
   transition: all 0.2s;
 }
+
 .btn-new-course:hover {
   opacity: 0.9;
   transform: scale(0.98);
@@ -95,6 +100,7 @@ body {
   font-size: 0.875rem;
   margin-bottom: 0.25rem;
 }
+
 .nav-link:hover,
 .nav-link.active {
   color: white;
@@ -134,10 +140,12 @@ header {
   font-size: 0.875rem;
   width: 100%;
 }
+
 .search-wrapper {
   position: relative;
   max-width: 500px;
 }
+
 .search-wrapper .material-symbols-outlined {
   position: absolute;
   left: 0.75rem;
@@ -154,6 +162,7 @@ footer {
   /* padding: 2rem 1.5rem; */
   background-color: rgba(248, 250, 252, 0.5);
 }
+
 @media (min-width: 992px) {
   footer {
     /* padding: 3rem 2rem; */
@@ -171,6 +180,7 @@ footer {
   background: rgba(0, 0, 0, 0.5);
   z-index: 1040;
 }
+
 .sidebar-backdrop.show {
   display: block;
 }
@@ -330,3 +340,9 @@ a {
   color: white;
   transform: scale(0.98);
 }
+
+/* Core Data Grid CSS */
+@import 'ag-grid-community/styles/ag-grid.css';
+
+/* Quartz Theme Specific CSS */
+@import 'ag-grid-community/styles/ag-theme-quartz.css';

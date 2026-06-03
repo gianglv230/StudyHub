@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 public record AdminUserAccountBasicResponse(
         Integer id,
+        String username,
         String firstName,
         String lastName,
         Boolean gender,
@@ -15,7 +16,10 @@ public record AdminUserAccountBasicResponse(
         String address,
         String avatar,
         String role,
-        Instant createdBy,
-        Instant updatedBy
+        String status,
+        Instant createdAt,
+        String createdBy,
+        Instant updatedAt,
+        String updatedBy
 ) {
 }

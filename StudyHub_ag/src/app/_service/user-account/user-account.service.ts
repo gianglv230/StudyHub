@@ -28,7 +28,7 @@ export class UserAccountService extends BaseService<CourseLiteProjection> {
   }
 
   updateMyUserAccount(
-    request: UpdateMyUserAccountRequest,
+    request: FormData,
   ): Observable<ApiResponse<UserAccountBasicResponse>> {
     return this.customRequest(
       'PUT',

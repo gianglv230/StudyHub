@@ -8,5 +8,5 @@ import { AccountManagement } from "../../../../_shared/account-management/accoun
   styleUrl: './admin-account-management.css',
 })
 export class AdminAccountManagement {
-
+  
 }

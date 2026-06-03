@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 public record UserAccountBasicResponse(
         Integer id,
+        String username,
         String firstName,
         String lastName,
         Boolean gender,

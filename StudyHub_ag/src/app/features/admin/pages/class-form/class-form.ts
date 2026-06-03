@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { toSlug } from '../../../../../utils/slug.util';
-import { AdminClassService } from '../../service/admin-class.service.ts/admin-class.service';
+import { AdminClassService } from '../../service/admin-class/admin-class.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '../../../../_shared/components/base/base-component';
 import { ModalService } from '../../../../_service/utils/modal.service';

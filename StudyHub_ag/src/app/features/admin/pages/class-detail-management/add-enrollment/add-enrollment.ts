@@ -16,7 +16,7 @@ import {
   InvoiceStatusLiteOptions,
 } from '../../../../../../utils/const/status.const';
 import { initData } from '../../../../../../utils/init-data';
-import { AdminUserAccountService } from '../../../service/admin-user-account/admin-enrollment.service';
+import { AdminUserAccountService } from '../../../service/admin-user-account/admin-user-account.service';
 import { DatePipe } from '@angular/common';
 import { FormSelect } from '../../../../../_shared/components/form-select/form-select';
 
@@ -67,7 +67,7 @@ export class AddEnrollment implements OnInit {
   getStudentInfo() {
     if (this.form) {
       const id = this.getControl(this.form, 'studentId').value;
-      initData<UserAccountBasicResponse>(
+      initData<AdminUserAccountBasicResponse>(
         this.userAccountService.getUserAccount(id),
         (data) => {
           console.log(data);

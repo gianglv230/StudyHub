@@ -9,7 +9,10 @@ import com.studyhub.studyhub_api.service.user_account.UserAccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,10 +50,10 @@ public class UserAccountController {
     }
 
     @Operation(summary = "Update user account for admin / teacher", description = "API update user account for admin / teacher")
-    @PutMapping("/auth/my-account")
+    @PutMapping(value = "/auth/my-account", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ApiResponse<UserAccountBasicResponse> updateMyUserAccount(
-            @RequestBody UpdateMyUserAccountRequest request
-    ){
+            @ModelAttribute UpdateMyUserAccountRequest request
+    ) throws IOException {
         return ApiResponse.<UserAccountBasicResponse>builder()
                 .data(userAccountService.updateMyUserAccount(request))
                 .build();
@@ -80,20 +83,20 @@ public class UserAccountController {
     }
 
     @Operation(summary = "Add user account", description = "API add user account")
-    @PostMapping("/admin")
+    @PostMapping(value = "/admin", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ApiResponse<AdminUserAccountBasicResponse> addUserAccount(
-            @RequestBody AddUserAccountRequest request
-    ) {
+            @ModelAttribute AddUserAccountRequest request
+    ) throws IOException {
         return ApiResponse.<AdminUserAccountBasicResponse>builder()
                 .data(userAccountService.addUserAccount(request))
                 .build();
     }
 
     @Operation(summary = "Update user account", description = "API update user account")
-    @PutMapping("/admin")
+    @PutMapping(value = "/admin", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ApiResponse<AdminUserAccountBasicResponse> updateUserAccount(
-            @RequestBody UpdateUserAccountRequest request
-            ) {
+            @ModelAttribute UpdateUserAccountRequest request
+            ) throws IOException {
         return ApiResponse.<AdminUserAccountBasicResponse>builder()
                 .data(userAccountService.updateUserAccount(request))
                 .build();
@@ -103,7 +106,7 @@ public class UserAccountController {
     @DeleteMapping("/admin/{id}")
     public ApiResponse<Boolean> delUserAccount(
             @PathVariable Integer id
-    ) {
+    ) throws IOException {
         return ApiResponse.<Boolean>builder()
                 .data(userAccountService.deleteUserAccount(id))
                 .build();

@@ -79,6 +79,10 @@ public class UserAccount extends FullAudit {
     @Column(name = "avatar")
     String avatar;
 
+    @Size(max = 255)
+    @Column(name = "public_id")
+    String publicId;
+
     @Size(max = 30)
     @NotNull
     @Column(name = "role", nullable = false, length = 30)

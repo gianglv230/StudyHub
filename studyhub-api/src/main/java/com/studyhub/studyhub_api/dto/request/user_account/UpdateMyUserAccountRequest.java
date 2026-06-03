@@ -2,6 +2,7 @@ package com.studyhub.studyhub_api.dto.request.user_account;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -20,6 +21,6 @@ public class UpdateMyUserAccountRequest {
     String hometown;
     String address;
     String phone;
-    String avatar;
+    MultipartFile avatar;
 
 }

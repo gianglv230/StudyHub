@@ -34,4 +34,6 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Intege
     Long countByRole(@Param("role") String role);
 
     Page<UserAccount> findAll(Specification<UserAccount> spec, Pageable pageable);
+
+    Boolean existsByUsernameEqualsIgnoreCase(String username);
 }

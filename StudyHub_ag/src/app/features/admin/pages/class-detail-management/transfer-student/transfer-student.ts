@@ -16,7 +16,7 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MODAL_DATA } from '../../../../../_service/utils/token';
 import { AdminEnrollmentService } from '../../../service/admin-enrollment/admin-enrollment.service';
-import { AdminClassService } from '../../../service/admin-class.service.ts/admin-class.service';
+import { AdminClassService } from '../../../service/admin-class/admin-class.service';
 import { BaseComponent } from '../../../../../_shared/components/base/base-component';
 import { initData } from '../../../../../../utils/init-data';
 

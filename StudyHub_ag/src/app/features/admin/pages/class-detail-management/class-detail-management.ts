@@ -3,7 +3,7 @@ import { ClassHeader } from '../class-management/class-header/class-header';
 import { ClassDetailInfo } from './class-detail-info/class-detail-info';
 import { ClassStudents } from './class-students/class-students';
 import { initData } from '../../../../../utils/init-data';
-import { AdminClassService } from '../../service/admin-class.service.ts/admin-class.service';
+import { AdminClassService } from '../../service/admin-class/admin-class.service';
 import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../../../../_shared/components/base/base-component';
 import { AdminEnrollmentService } from '../../service/admin-enrollment/admin-enrollment.service';

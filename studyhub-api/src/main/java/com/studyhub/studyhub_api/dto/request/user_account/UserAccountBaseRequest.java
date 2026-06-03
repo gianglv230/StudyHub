@@ -3,6 +3,7 @@ package com.studyhub.studyhub_api.dto.request.user_account;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -19,5 +20,7 @@ public class UserAccountBaseRequest {
     LocalDate dateOfBirth;
     String email;
     String phone;
-    String avatar;
+    String hometown;
+    String address;
+    MultipartFile avatar;
 }

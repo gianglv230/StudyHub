@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @FieldNameConstants(level = AccessLevel.PRIVATE)
 public class AddUserAccountRequest extends UserAccountBaseRequest {
-    String userName;
+    String username;
     String password;
     String role;
 }

@@ -19,11 +19,14 @@ public interface UserAccountMapper {
     })
     AdminUserAccountBasicResponse toAdminUserAccountBasicResponse(UserAccount account, String createdBy, String updatedBy);
 
+    @Mapping(target = "avatar", ignore = true)
     UserAccount toUserAccount(AddUserAccountRequest addUserAccountRequest);
 
+    @Mapping(target = "avatar", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateUserAccount(UpdateUserAccountRequest request, @MappingTarget UserAccount userAccount);
 
+    @Mapping(target = "avatar", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateMyUserAccount(UpdateMyUserAccountRequest request, @MappingTarget UserAccount userAccount);
 

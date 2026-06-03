@@ -10,7 +10,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/app/features/admin/service/admin-class"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

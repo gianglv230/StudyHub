@@ -42,7 +42,10 @@ export const API_ENDPOINTS = {
     MY_INFO: '/my-info',
     CHANGE_PWD: '/change-pwd',
     UPDATE_MY_ACCOUNT: '/auth/my-account',
-    ADMIN: '/admin'
+    ADMIN: '/admin',
+    ADMIN_LOCK: '/admin/lock',
+    ADMIN_UNLOCK: '/admin/unlock',
+    ADMIN_RESET_PWD: '/admin/reset-pwd',
   },
   ATTENDANCE: '/attendance',
   ATTENDANCE_ENDPOINTS: {

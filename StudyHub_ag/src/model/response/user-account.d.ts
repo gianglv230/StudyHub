@@ -1,5 +1,6 @@
 interface UserAccountBasicResponse {
   id: number;
+  username: string;
   firstName: string;
   lastName: string;
   gender: boolean;
@@ -20,6 +21,7 @@ interface UserAccountBasicResponse {
 
 interface AdminUserAccountBasicResponse {
   id: number;
+  username: string;
   firstName: string;
   lastName: string;
   gender: boolean;
@@ -30,6 +32,7 @@ interface AdminUserAccountBasicResponse {
   address: string;
   avatar: string;
   role: string;
+  status: string;
   createdBy: string;
   updatedBy: string;
 }

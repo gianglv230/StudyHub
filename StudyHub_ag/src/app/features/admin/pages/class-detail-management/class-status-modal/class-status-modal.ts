@@ -6,7 +6,7 @@ import { FormInput } from '../../../../../_shared/components/form-input/form-inp
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormSelect } from "../../../../../_shared/components/form-select/form-select";
 import { ClassStatusOptions } from '../../../../../../utils/const/status.const';
-import { AdminClassService } from '../../../service/admin-class.service.ts/admin-class.service';
+import { AdminClassService } from '../../../service/admin-class/admin-class.service';
 import { BaseComponent } from '../../../../../_shared/components/base/base-component';
 
 @Component({

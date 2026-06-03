@@ -1,4 +1,11 @@
-<div class="bg-white rounded-4 px-3 pt-4 pb-4 mt-4 border border-1">
+<div class="bg-white rounded-4 px-3 pt-4 pb-4 mt-4 border">
+  <!-- The AG Grid component -->
+  <ag-grid-angular
+    [rowData]="rowData"
+    [columnDefs]="colDefs"
+    style="height: 1000px"
+  />
+
   <div class="table-responsive">
     <table class="table">
       <thead>

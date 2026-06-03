@@ -5,6 +5,7 @@ import com.studyhub.studyhub_api.dto.response.PageResponse;
 import com.studyhub.studyhub_api.dto.response.user_account.AdminUserAccountBasicResponse;
 import com.studyhub.studyhub_api.dto.response.user_account.UserAccountBasicResponse;
 import com.studyhub.studyhub_api.dto.response.user_account.UserSimpleProjection;
+import com.studyhub.studyhub_api.enums.FileAccessType;
 import com.studyhub.studyhub_api.enums.Role;
 import com.studyhub.studyhub_api.enums.UserAccountStatus;
 import com.studyhub.studyhub_api.exception.AppException;
@@ -16,6 +17,7 @@ import com.studyhub.studyhub_api.repository.EnrollmentRepository;
 import com.studyhub.studyhub_api.repository.UserAccountRepository;
 import com.studyhub.studyhub_api.repository.specification.UserAccountSpecification;
 import com.studyhub.studyhub_api.service.auth.AuthenticationService;
+import com.studyhub.studyhub_api.service.cloudinary.CloudinaryService;
 import com.studyhub.studyhub_api.service.user_account.UserAccountService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -30,10 +32,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +50,9 @@ public class UserAccountServiceImpl implements UserAccountService {
     EnrollmentRepository enrollmentRepository;
     UserAccountMapper userAccountMapper;
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    CloudinaryService cloudinaryService;
+
     private static final Integer MAX_ITEM = 100;
 
     @Override
@@ -99,34 +105,50 @@ public class UserAccountServiceImpl implements UserAccountService {
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public AdminUserAccountBasicResponse getUserAccount(Integer id) {
-        try {
-            UserAccount account = userAccountRepository.findById(id)
-                    .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
-            return this.toAdminUserAccountBasicResponse(account);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        UserAccount account = userAccountRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        return this.toAdminUserAccountBasicResponse(account);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public AdminUserAccountBasicResponse addUserAccount(AddUserAccountRequest request) {
+    public AdminUserAccountBasicResponse addUserAccount(AddUserAccountRequest request) throws IOException {
+        if(userAccountRepository.existsByUsernameEqualsIgnoreCase(request.getUsername())){
+            throw new AppException(ErrorCode.USER_EXISTED);
+        }
+
         UserAccount account = userAccountMapper.toUserAccount(request);
         account.setStartDate(LocalDate.now());
         account.setStatus(UserAccountStatus.ACTIVE.name());
         account.setPassword(passwordEncoder.encode(request.getPassword().trim()));
+
+        if (request.getAvatar() != null) {
+            var response = cloudinaryService.uploadFile(request.getAvatar(), "avatar/" + UUID.randomUUID(), "image", FileAccessType.PUBLIC);
+            account.setAvatar(response.getUrl());
+            account.setPublicId(response.getPublicId());
+        }
+
         userAccountRepository.save(account);
         return this.toAdminUserAccountBasicResponse(account);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public AdminUserAccountBasicResponse updateUserAccount(UpdateUserAccountRequest request) {
+    public AdminUserAccountBasicResponse updateUserAccount(UpdateUserAccountRequest request) throws IOException {
         UserAccount account = userAccountRepository.findById(request.getId())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         userAccountMapper.updateUserAccount(request, account);
+
+        if (request.getAvatar() != null) {
+            if (account.getPublicId() != null) {
+                cloudinaryService.deleteFile(account.getPublicId(), "image");
+            }
+            var response = cloudinaryService.uploadFile(request.getAvatar(), "avatar/" + UUID.randomUUID(), "image", FileAccessType.PUBLIC);
+            account.setAvatar(response.getUrl());
+            account.setPublicId(response.getPublicId());
+        }
+
         userAccountRepository.save(account);
         return this.toAdminUserAccountBasicResponse(account);
     }
@@ -155,7 +177,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public Boolean deleteUserAccount(Integer id) {
+    public Boolean deleteUserAccount(Integer id) throws IOException {
         UserAccount account = userAccountRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
@@ -175,6 +197,10 @@ public class UserAccountServiceImpl implements UserAccountService {
             if (classRepository.existsByTeacherId(accountId)) {
                 throw new AppException(ErrorCode.CAN_NOT_DELETE);
             }
+        }
+
+        if (account.getPublicId() != null) {
+            cloudinaryService.deleteFile(account.getPublicId(), "image");
         }
 
         userAccountRepository.delete(account);
@@ -212,9 +238,19 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @PreAuthorize("hasAnyRole('TEACHER','ADMIN')")
     @Override
-    public UserAccountBasicResponse updateMyUserAccount(UpdateMyUserAccountRequest request) {
+    public UserAccountBasicResponse updateMyUserAccount(UpdateMyUserAccountRequest request) throws IOException {
         UserAccount account = authService.getUserAccountByJwtToken();
         userAccountMapper.updateMyUserAccount(request, account);
+
+        if (request.getAvatar() != null) {
+            if (account.getPublicId() != null) {
+                cloudinaryService.deleteFile(account.getPublicId(), "image");
+            }
+            var response = cloudinaryService.uploadFile(request.getAvatar(), "avatar/" + UUID.randomUUID(), "image", FileAccessType.PUBLIC);
+            account.setAvatar(response.getUrl());
+            account.setPublicId(response.getPublicId());
+        }
+
         userAccountRepository.save(account);
         return userAccountMapper.toUserAccountBasicResponse(account);
     }

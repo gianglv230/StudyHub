@@ -15,3 +15,33 @@ interface UpdateMyUserAccountRequest {
   address: string;
   avatar?: string;
 }
+
+type Role = 'ADMIN' | 'TEACHER' | 'STUDENT';
+
+interface AddUserAccountRequest {
+  firstName: string;
+  lastName: string;
+  gender: boolean;
+  dateOfBirth: Date;
+  email: string;
+  phone: string;
+  hometown: string;
+  address: string;
+  avatar?: File
+  username: string;
+  password: string;
+  role: Role;
+}
+
+interface UpdateUserAccountRequest {
+  firstName: string;
+  lastName: string;
+  gender: boolean;
+  dateOfBirth: Date;
+  email: string;
+  phone: string;
+  hometown: string;
+  address: string;
+  avatar?: File
+  id: number;
+}

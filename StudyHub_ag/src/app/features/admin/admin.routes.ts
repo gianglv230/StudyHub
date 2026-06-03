@@ -12,6 +12,7 @@ import { CourseForm } from './pages/course-form/course-form';
 import { ClassForm } from './pages/class-form/class-form';
 import { ClassDetailManagement } from './pages/class-detail-management/class-detail-management';
 import { AdminAccountManagement } from './pages/admin-account-management/admin-account-management';
+import { StudentAccountManagement } from './pages/student-account-management/student-account-management';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -36,6 +37,16 @@ export const ADMIN_ROUTES: Routes = [
       {
         path: 'quan-ly-hoc-vien',
         component: StudentManagement,
+        title: getTitle(ADMIN_PAGE.STUDENT_MANAGEMENT, ROLE.ADMIN),
+      },
+      {
+        path: 'quan-ly-hoc-vien/bieu-mau',
+        component: StudentAccountManagement,
+        title: getTitle(ADMIN_PAGE.STUDENT_MANAGEMENT, ROLE.ADMIN),
+      },
+      {
+        path: 'quan-ly-hoc-vien/bieu-mau/:id',
+        component: StudentAccountManagement,
         title: getTitle(ADMIN_PAGE.STUDENT_MANAGEMENT, ROLE.ADMIN),
       },
       {
