@@ -11,6 +11,7 @@ interface UserAccountBasicResponse {
   address: string;
   avatar: string;
   role: string;
+  status: string;
   startDate: string;
   endDate: string;
   createdAt: string;

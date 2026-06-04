@@ -1,10 +1,11 @@
 <div class="has-validation" [class]="class">
-  <label class="form-label" [for]="id">{{ label }}</label>
+  <label class="form-label" [for]="id" [class]="labelClass">{{ label }}</label>
   <select
     [formControl]="control"
     class="form-select form-input"
     [class.is-invalid]="isInvalid"
     [id]="id"
+    [class]="inputClass"
   >
     @for (item of data; track $index) {
       <option [value]="item.value">{{ item.label }}</option>

@@ -21,11 +21,12 @@
   </div>
 } @else {
   <div class="has-validation">
-    <label [for]="id" class="form-label">{{ label }}</label>
+    <label [for]="id" class="form-label" [class]="labelClass">{{ label }}</label>
     <input
       [formControl]="control"
       [type]="type"
       class="form-control form-input"
+      [class]="inputClass"
       [class.is-invalid]="isInvalid"
       [placeholder]="placeholder"
       [id]="id"

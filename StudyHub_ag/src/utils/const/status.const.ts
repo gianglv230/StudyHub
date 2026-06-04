@@ -59,3 +59,28 @@ export const InvoiceMethodOptions: ComboboxRow[] = Object.entries(
   label: value,
   value: key,
 }));
+
+type AccountStatus = 'ACTIVE' | 'INACTIVE';
+
+export const AccountStatusMap: Record<AccountStatus, string> = {
+  ACTIVE: 'Hoạt động',
+  INACTIVE: 'Bị khóa',
+};
+
+
+//Filter
+
+type AccountStatusFilter = 'ACTIVE' | 'INACTIVE' | '';
+
+export const AccountStatusFilterMap: Record<AccountStatusFilter, string> = {
+  ACTIVE: 'Hoạt động',
+  INACTIVE: 'Bị khóa',
+  '': 'Tất cả',
+};
+
+export const AccountStatusFilterOptions: ComboboxRow[] = Object.entries(
+  AccountStatusFilterMap,
+).map(([key, value]) => ({
+  label: value,
+  value: key,
+}));

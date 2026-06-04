@@ -3,10 +3,15 @@
   <ag-grid-angular
     [rowData]="rowData"
     [columnDefs]="colDefs"
-    style="height: 1000px"
+    [pagination]="true"
+    style="height: 600px"
   />
 
-  <div class="table-responsive">
+  @if (paginationModel) {
+    <app-pagination [paginationModel]="paginationModel" />
+  }
+
+  <!-- <div class="table-responsive">
     <table class="table">
       <thead>
         <tr>
@@ -113,5 +118,5 @@
         </a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
 </div>

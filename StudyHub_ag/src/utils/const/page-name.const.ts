@@ -28,6 +28,7 @@ export const ADMIN_PAGE = {
   DASHBOARD: 'Trang chủ',
   INVOICE: 'Quản lý hóa đơn',
   STUDENT_MANAGEMENT: 'Quản lý học viên',
+  TEACHER_MANAGEMENT: 'Quản lý học viên',
   COURSE_MANAGEMENT: 'Quản lý khóa học',
   COURSE_FORM: 'Biểu mẫu khóa học',
   CLASS_MANAGEMENT: 'Quản lý lớp học',

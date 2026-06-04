@@ -1,7 +1,7 @@
 interface ChangePasswordRequest {
-    id?: number;
-    oldPassword?: string;
-    newPassword: string;
+  id?: number;
+  oldPassword?: string;
+  newPassword: string;
 }
 
 interface UpdateMyUserAccountRequest {
@@ -27,7 +27,7 @@ interface AddUserAccountRequest {
   phone: string;
   hometown: string;
   address: string;
-  avatar?: File
+  avatar?: File;
   username: string;
   password: string;
   role: Role;
@@ -42,6 +42,16 @@ interface UpdateUserAccountRequest {
   phone: string;
   hometown: string;
   address: string;
-  avatar?: File
+  avatar?: File;
   id: number;
+}
+
+interface FilterAccountRequest {
+  id?: number | null;
+  fullname?: string | null;
+  username?: string | null;
+  status?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  role?: Role;
 }

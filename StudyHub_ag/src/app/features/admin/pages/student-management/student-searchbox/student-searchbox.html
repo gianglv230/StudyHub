@@ -1,93 +1,110 @@
-<div class="search-box bg-white rounded-3 px-3 pb-2 pt-3 mt-2">
-  <div class="row">
-    <div class="col-12 col-md-6">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Tên học viên</label>
-        <input
-          type="text"
-          name="keyword"
-          class="form-control py-2"
-          placeholder="Tên học viên"
-        />
+<form [formGroup]="form" (ngSubmit)="filterAccount()">
+  <div class="search-box bg-white rounded-3 px-3 pb-2 pt-3 mt-2">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="mb-2">
+          <app-form-input
+            [control]="getControl(form, 'fullname')"
+            label="Tên đầy đủ"
+            [isFloating]="false"
+            labelClass="mb-1 text-secondary ls-1 small"
+            inputClass="py-2"
+            placeholder="Tên đầy đủ"
+          />
+        </div>
       </div>
-    </div>
-    <div class="col-6 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">ID</label>
-        <input
-          type="text"
-          name="keyword"
-          class="form-control py-2"
-          placeholder="Nhập mã ID"
-        />
+      <div class="col-6 col-md-3">
+        <div class="mb-2">
+          <app-form-input
+            [control]="getControl(form, 'id')"
+            label="ID"
+            [isFloating]="false"
+            labelClass="mb-1 text-secondary ls-1 small"
+            inputClass="py-2"
+            placeholder="Nhập mã ID"
+          />
+        </div>
       </div>
-    </div>
-    <div class="col-6 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Username</label>
-        <input
-          type="text"
-          name="keyword"
-          class="form-control py-2"
-          placeholder="Tên đăng nhập"
-        />
+      <div class="col-6 col-md-3">
+        <div class="mb-2">
+          <app-form-input
+            [control]="getControl(form, 'username')"
+            label="Username"
+            [isFloating]="false"
+            labelClass="mb-1 text-secondary ls-1 small"
+            inputClass="py-2"
+            placeholder="Tên đăng nhập"
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="col-12 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Trạng thái</label>
-        <select name="subject" class="form-select py-2">
-          <option value="all" selected>Tất cả trạng thái</option>
-        </select>
+      <div class="col-12 col-md-3">
+        <div class="mb-2">
+          <app-form-select
+            [data]="cboxStatus"
+            [control]="getControl(form, 'status')"
+            label="Trạng thái"
+            labelClass="mb-1 text-secondary ls-1 small"
+            inputClass="py-2"
+          />
+          <!-- <label class="mb-1 text-secondary ls-1 small">Trạng thái</label>
+          <select name="subject" class="form-select py-2">
+            <option value="all" selected>Tất cả trạng thái</option>
+          </select> -->
+        </div>
       </div>
-    </div>
 
-    <div class="col-12 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Email</label>
-        <input
-          type="text"
-          name="keyword"
-          class="form-control py-2"
-          placeholder="email@gmail.com"
-        />
+      <div class="col-12 col-md-3">
+        <div class="mb-2">
+          <app-form-input
+            [control]="getControl(form, 'email')"
+            label="Email"
+            [isFloating]="false"
+            labelClass="mb-1 text-secondary ls-1 small"
+            inputClass="py-2"
+            placeholder="email@gmail.com"
+            type="email"
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="col-12 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Số điện thoại</label>
-        <input
-          type="number"
-          name="keyword"
-          class="form-control py-2"
-          placeholder="email@gmail.com"
-        />
+      <div class="col-12 col-md-3">
+        <div class="mb-2">
+          <app-form-input
+            [control]="getControl(form, 'phone')"
+            label="Số điện thoại"
+            [isFloating]="false"
+            labelClass="mb-1 text-secondary ls-1 small"
+            inputClass="py-2"
+            type="text"
+            pattern="^\d{0,10}$"
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="col-12 col-md-3 d-flex align-items-center">
-      <div class="w-100 mt-3">
-        <button
-          class="w-100 btn btn-primary-custom align-items-center py-2 px-3"
-          style="height: fit-content"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-search me-1"
-            viewBox="0 0 16 16"
+      <div class="col-12 col-md-3 d-flex align-items-center">
+        <div class="w-100 mt-3">
+          <button
+            class="w-100 btn btn-primary-custom align-items-center py-2 px-3"
+            style="height: fit-content"
+            type="submit"
           >
-            <path
-              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
-            />
-          </svg>
-          <span class="fs-14">Tìm kiếm</span>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-search me-1"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+              />
+            </svg>
+            <span class="fs-14">Tìm kiếm</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</form>

@@ -16,6 +16,9 @@ export class FormSelect {
   @Input({ required: true }) data!: ComboboxRow[];
   @Input() class?: string;
 
+  @Input() labelClass = '';
+  @Input() inputClass = '';
+
   get isInvalid(): boolean {
     return isInvalidComp(this.control);
   }

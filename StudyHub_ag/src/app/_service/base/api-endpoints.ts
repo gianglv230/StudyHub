@@ -46,6 +46,7 @@ export const API_ENDPOINTS = {
     ADMIN_LOCK: '/admin/lock',
     ADMIN_UNLOCK: '/admin/unlock',
     ADMIN_RESET_PWD: '/admin/reset-pwd',
+    ADMIN_FILTER: '/admin/filter'
   },
   ATTENDANCE: '/attendance',
   ATTENDANCE_ENDPOINTS: {

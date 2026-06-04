@@ -112,7 +112,7 @@ export class AccountManagement implements OnInit {
 
     this.form2 = this.fb.group({
       id: [null],
-      username: [null, [Validators.required, validateRange(10, 255)]],
+      username: [null, [Validators.required, validateRange(8, 255)]],
       password: [null],
       role: [this.addRole],
       avatar: [null], // Đưa vào file

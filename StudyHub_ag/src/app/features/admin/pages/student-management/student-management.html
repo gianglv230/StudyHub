@@ -1,3 +1,16 @@
-<app-student-header />
-<app-student-searchbox />
-<app-student-result />
+<app-student-header [isStudent]="isStudent" />
+<app-student-searchbox (filterEvent)="handleFilter($event)" />
+@if (pageData && pageData.data.length > 0) {
+  <app-student-result
+    [rowData]="pageData.data"
+    [currentPage]="currentPage!"
+    [pageSize]="pageSize!"
+    [totalPages]="totalPages!"
+    [paginationModel]="paginationModel"
+    [isStudent]="isStudent"
+  />
+} @else {
+  <div class="bg-white rounded-4 px-3 pt-4 pb-4 mt-4 border">
+    <app-empty />
+  </div>
+}

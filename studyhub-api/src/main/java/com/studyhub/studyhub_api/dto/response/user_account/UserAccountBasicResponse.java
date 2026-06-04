@@ -16,6 +16,7 @@ public record UserAccountBasicResponse(
         String address,
         String avatar,
         String role,
+        String status,
         LocalDate startDate,
         LocalDate endDate,
         Instant createdAt,

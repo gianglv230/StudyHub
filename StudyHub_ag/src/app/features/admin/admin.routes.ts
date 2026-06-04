@@ -50,6 +50,21 @@ export const ADMIN_ROUTES: Routes = [
         title: getTitle(ADMIN_PAGE.STUDENT_MANAGEMENT, ROLE.ADMIN),
       },
       {
+        path: 'quan-ly-giao-vien',
+        component: StudentManagement,
+        title: getTitle(ADMIN_PAGE.TEACHER_MANAGEMENT, ROLE.ADMIN),
+      },
+      {
+        path: 'quan-ly-giao-vien/bieu-mau',
+        component: StudentAccountManagement,
+        title: getTitle(ADMIN_PAGE.TEACHER_MANAGEMENT, ROLE.ADMIN),
+      },
+      {
+        path: 'quan-ly-giao-vien/bieu-mau/:id',
+        component: StudentAccountManagement,
+        title: getTitle(ADMIN_PAGE.TEACHER_MANAGEMENT, ROLE.ADMIN),
+      },
+      {
         path: 'quan-ly-khoa-hoc',
         component: CourseManagement,
         title: getTitle(ADMIN_PAGE.COURSE_MANAGEMENT, ROLE.ADMIN),
