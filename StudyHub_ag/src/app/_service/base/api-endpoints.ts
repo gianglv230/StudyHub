@@ -36,6 +36,7 @@ export const API_ENDPOINTS = {
   INVOICE: '/invoice',
   INVOICE_ENDPOINTS: {
     STUDENT_MY_INVOICE: '/student/my-invoice',
+    FILTER: '/filter'
   },
   USER_ACCOUNT: '/user-account',
   USER_ACCOUNT_ENPOINT: {

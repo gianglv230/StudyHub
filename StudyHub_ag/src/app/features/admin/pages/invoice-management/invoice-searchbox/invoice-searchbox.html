@@ -1,104 +1,180 @@
-<div class="search-box bg-white rounded-3 px-3 pb-2 pt-3 mt-2">
-  <div class="row">
-    <div class="col-6 col-lg-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Mã hóa đơn</label>
-        <input
-          type="text"
-          name="keyword"
-          class="form-control py-2"
-          placeholder="Mã hóa đơn"
-        />
-      </div>
-    </div>
-    <div class="col-6 col-lg-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Trạng thái</label>
-        <select name="subject" class="form-select py-2">
-          <option value="all" selected>Tất cả trạng thái</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="col-6 col-lg-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Ngày đến hạn</label>
-        <input type="date" name="due-date" class="form-control py-2" />
-      </div>
-    </div>
-
-    <div class="col-6 col-lg-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Mã thanh toán</label>
-        <input
-          type="text"
-          name="keyword"
-          class="form-control py-2"
-          placeholder="Mã thanh toán"
-        />
-      </div>
-    </div>
-
-    <div class="col-6 col-lg-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Mã học viên</label>
-        <input
-          type="text"
-          name="keyword"
-          class="form-control py-2"
-          placeholder="Mã học viên"
-        />
-      </div>
-    </div>
-
-    <div class="col-6 col-lg-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Mã lớp học</label>
-        <input
-          type="text"
-          name="keyword"
-          class="form-control py-2"
-          placeholder="Mã học viên"
-        />
-      </div>
-    </div>
-
-    <div class="col-6 col-lg-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Từ ngày</label>
-        <input type="date" name="start-date" class="form-control py-2" />
-      </div>
-    </div>
-    <div class="col-6 col-lg-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Đến ngày</label>
-        <input type="date" name="end-date" class="form-control py-2" />
-      </div>
-    </div>
-
-    <div class="col"></div>
-
-    <div class="col-6 col-md-4 col-lg-3 d-flex align-items-center">
-      <div class="w-100 mt-3">
-        <button
-          class="w-100 btn btn-primary-custom align-items-center py-2 px-3"
-          style="height: fit-content"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-search me-1"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+@if (form) {
+  <form [formGroup]="form" (ngSubmit)="filterAccount()">
+    <div class="search-box bg-white rounded-3 px-3 pb-2 pt-3 mt-2">
+      <div class="row">
+        <div class="col-6 col-lg-3">
+          <div class="mb-2">
+            <app-form-input
+              label="Mã hóa đơn"
+              labelClass="mb-1 text-secondary ls-1 small"
+              inputClass="py-2"
+              [control]="getControl(form, 'invoiceId')"
+              [isFloating]="false"
+              placeholder="Mã hóa đơn"
             />
-          </svg>
-          <span class="fs-14">Tìm kiếm</span>
-        </button>
+            <!-- <label class="mb-1 text-secondary ls-1 small">Mã hóa đơn</label>
+            <input
+              type="text"
+              name="keyword"
+              class="form-control py-2"
+              placeholder="Mã hóa đơn"
+            /> -->
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="mb-2">
+            <app-form-select
+              label="Trạng thái"
+              labelClass="mb-1 text-secondary ls-1 small"
+              inputClass="py-2"
+              [data]="cboxStatus"
+              [control]="getControl(form, 'status')"
+            />
+            <!-- <label class="mb-1 text-secondary ls-1 small">Trạng thái</label>
+            <select name="subject" class="form-select py-2">
+              <option value="all" selected>Tất cả trạng thái</option>
+            </select> -->
+          </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+          <div class="mb-2">
+            <app-form-input
+              label="Ngày đến hạn"
+              labelClass="mb-1 text-secondary ls-1 small"
+              inputClass="py-2"
+              [control]="getControl(form, 'dueDate')"
+              [isFloating]="false"
+              type="date"
+            />
+            <!-- <label class="mb-1 text-secondary ls-1 small">Ngày đến hạn</label>
+            <input type="date" name="due-date" class="form-control py-2" /> -->
+          </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+          <div class="mb-2">
+            <app-form-input
+              label="Mã thanh toán"
+              labelClass="mb-1 text-secondary ls-1 small"
+              inputClass="py-2"
+              [control]="getControl(form, 'orderCode')"
+              pattern="^\d{0,10}$"
+              [isFloating]="false"
+              placeholder="Mã thanh toán"
+            />
+
+            <!-- <label class="mb-1 text-secondary ls-1 small">Mã thanh toán</label>
+            <input
+              type="text"
+              name="keyword"
+              class="form-control py-2"
+              placeholder="Mã thanh toán"
+            /> -->
+          </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+          <div class="mb-2">
+            <app-form-input
+              label="Mã học viên"
+              labelClass="mb-1 text-secondary ls-1 small"
+              inputClass="py-2"
+              [control]="getControl(form, 'studentId')"
+              pattern="^\d{0,10}$"
+              [isFloating]="false"
+              placeholder="Mã học viên"
+            />
+
+            <!-- <label class="mb-1 text-secondary ls-1 small">Mã học viên</label>
+            <input
+              type="text"
+              name="keyword"
+              class="form-control py-2"
+              placeholder="Mã học viên"
+            /> -->
+          </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+          <div class="mb-2">
+            <app-form-input
+              label="Mã lớp học"
+              labelClass="mb-1 text-secondary ls-1 small"
+              inputClass="py-2"
+              [control]="getControl(form, 'classId')"
+              pattern="^\d{0,10}$"
+              [isFloating]="false"
+              placeholder="Mã lớp học"
+            />
+
+            <!-- <label class="mb-1 text-secondary ls-1 small">Mã lớp học</label>
+            <input
+              type="text"
+              name="keyword"
+              class="form-control py-2"
+              placeholder="Mã học viên"
+            /> -->
+          </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+          <div class="mb-2">
+            <app-form-input
+              label="Từ ngày"
+              labelClass="mb-1 text-secondary ls-1 small"
+              inputClass="py-2"
+              [control]="getControl(form, 'fromDate')"
+              [isFloating]="false"
+              type="date"
+            />
+
+            <!-- <label class="mb-1 text-secondary ls-1 small">Từ ngày</label>
+            <input type="date" name="start-date" class="form-control py-2" /> -->
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="mb-2">
+            <app-form-input
+              label="Đến ngày"
+              labelClass="mb-1 text-secondary ls-1 small"
+              inputClass="py-2"
+              [control]="getControl(form, 'toDate')"
+              [isFloating]="false"
+              type="date"
+            />
+
+            <!-- <label class="mb-1 text-secondary ls-1 small">Đến ngày</label>
+            <input type="date" name="end-date" class="form-control py-2" /> -->
+          </div>
+        </div>
+
+        <div class="col"></div>
+
+        <div class="col-6 col-md-4 col-lg-3 d-flex align-items-center">
+          <div class="w-100 mt-3">
+            <button
+              class="w-100 btn btn-primary-custom align-items-center py-2 px-3"
+              style="height: fit-content"
+              type="submit"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-search me-1"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+                />
+              </svg>
+              <span class="fs-14">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </form>
+}

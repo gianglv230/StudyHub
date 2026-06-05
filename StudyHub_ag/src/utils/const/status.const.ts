@@ -84,3 +84,35 @@ export const AccountStatusFilterOptions: ComboboxRow[] = Object.entries(
   label: value,
   value: key,
 }));
+
+
+// Invoice filter
+
+
+export const InvoiceTypeMap: Record<InvoiceType, string> = {
+  PAYMENT: 'Đóng học',
+  REFUND: 'Hoàn tiền'
+};
+
+export const InvoiceStatusMap: Record<InvoiceStatus, string> = {
+  PENDING: 'Chưa thanh toán',
+  PAID: 'Đã thanh toán',
+  OVERDUE: 'Quá hạn',
+  REFUNDED: 'Hoàn tiền',
+  CANCELED: 'Hủy'
+};
+
+type InvoiceStatusFilter = ''| 'PENDING' | 'PAID';
+
+export const InvoiceStatusFilterMap: Record<InvoiceStatusFilter, string> = {
+  PENDING: 'Chưa thanh toán',
+  PAID: 'Đã thanh toán',
+  '': 'Tất cả',
+};
+
+export const InvoiceStatusFilterOptions: ComboboxRow[] = Object.entries(
+  InvoiceStatusFilterMap,
+).map(([key, value]) => ({
+  label: value,
+  value: key,
+}));

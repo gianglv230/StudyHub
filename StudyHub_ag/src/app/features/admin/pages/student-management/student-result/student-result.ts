@@ -128,8 +128,24 @@ export class StudentResult implements OnInit {
         headerName: 'STT',
         valueGetter: (params) => {
           // params.node.rowIndex là chỉ số dòng của AG-Grid (bắt đầu từ 0)
-          if (params.node && params.node.rowIndex !== null) {
-            return startNumber + params.node.rowIndex + 1;
+          // if (params.node && params.node.rowIndex !== null) {
+          //   return startNumber + params.node.rowIndex + 1;
+          // }
+          // return null;
+
+          // Kiểm tra chắc chắn node và rowIndex có tồn tại
+          if (
+            params.node &&
+            params.node.rowIndex !== null &&
+            params.node.rowIndex !== undefined
+          ) {
+            // Giả định: currentPage bắt đầu từ 0 (Trang 1 là 0, Trang 2 là 1,...)
+            const startIndex = this.currentPage * this.pageSize;
+
+            // Nếu currentPage của bạn bắt đầu từ 1, hãy dùng dòng dưới này:
+            // const startIndex = (this.currentPage - 1) * this.pageSize;
+
+            return startIndex + params.node.rowIndex + 1;
           }
           return null;
         },
@@ -154,7 +170,7 @@ export class StudentResult implements OnInit {
                   : '/admin/quan-ly-giao-vien/bieu-mau',
                 rowData.id,
               ]);
-              
+
               // 2. Chuyển đổi UrlTree đó thành một chuỗi URL thuần túy (VD: "/admin/quan-ly-hoc-vien/bieu-mau/123")
               const urlString = this.router.serializeUrl(urlTree);
 
