@@ -24,6 +24,7 @@ export const TEACHER_PAGE = {
   RESOURCE_MANAGEMENT: 'Quản lý tài nguyên',
   LESSON: 'Chi tiết bài học',
   TEACHER_CLASS_DETAIL: 'Chi tiết lớp học',
+  TEACHER_ACCOUNT_MANAGEMENT: 'Thông tin cá nhân',
 };
 
 export const ADMIN_PAGE = {
@@ -37,4 +38,6 @@ export const ADMIN_PAGE = {
   CLASS_FORM: 'Biểu mẫu lớp học',
   CLASS_DETAIL_MANAGEMENT: 'Quản lý học viên trong lớp',
   ADMIN_ACCOUNT_MANAGEMENT: 'Thông tin cá nhân',
+  RESOURCE_MANAGEMENT: 'Quản lý tài nguyên',
+  ATTENDANCE: 'Thông tin điểm danh',
 };

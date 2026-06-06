@@ -10,6 +10,7 @@ import { TeacherResourceManagement } from './pages/teacher-resource-management/t
 import { TeacherLessonDetail } from './pages/teacher-lesson-detail/teacher-lesson-detail';
 import { StudentLessonDetail } from '../student/pages/student-lesson-detail/student-lesson-detail';
 import { TeacherClassDetail } from './pages/teacher-class-detail/teacher-class-detail';
+import { TeacherAccountManagement } from './pages/teacher-account-management/teacher-account-management';
 
 export const TEACHER_ROUTES: Routes = [
   {
@@ -37,6 +38,11 @@ export const TEACHER_ROUTES: Routes = [
         title: getTitle(TEACHER_PAGE.LESSON_MANAGEMENT, ROLE.TEACHER),
       },
       {
+        path: 'lop-hoc/:class-slug/thong-tin-diem-danh',
+        component: TeacherAttendance,
+        title: getTitle(TEACHER_PAGE.ATTENDANCE, ROLE.TEACHER),
+      },
+      {
         path: 'lop-hoc/:class-slug',
         component: TeacherClassDetail,
         title: getTitle(TEACHER_PAGE.TEACHER_CLASS_DETAIL, ROLE.TEACHER),
@@ -47,14 +53,14 @@ export const TEACHER_ROUTES: Routes = [
         title: getTitle(TEACHER_PAGE.LESSON, ROLE.TEACHER),
       },
       {
-        path: 'lop-hoc/:class-slug/thong-tin-diem-danh',
-        component: TeacherAttendance,
-        title: getTitle(TEACHER_PAGE.ATTENDANCE, ROLE.TEACHER),
-      },
-      {
         path: 'quan-ly-tai-nguyen',
         component: TeacherResourceManagement,
         title: getTitle(TEACHER_PAGE.RESOURCE_MANAGEMENT, ROLE.TEACHER),
+      },
+      {
+        path: 'thong-tin-ca-nhan',
+        component: TeacherAccountManagement,
+        title: getTitle(TEACHER_PAGE.TEACHER_ACCOUNT_MANAGEMENT, ROLE.TEACHER),
       },
       //   {
       //     path: 'thong-tin-ca-nhan',

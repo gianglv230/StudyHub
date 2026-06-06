@@ -4,7 +4,7 @@ import { ClassDetailInfo } from './class-detail-info/class-detail-info';
 import { ClassStudents } from './class-students/class-students';
 import { initData } from '../../../../../utils/init-data';
 import { AdminClassService } from '../../service/admin-class/admin-class.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BaseComponent } from '../../../../_shared/components/base/base-component';
 import { AdminEnrollmentService } from '../../service/admin-enrollment/admin-enrollment.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -16,7 +16,7 @@ import { TransferStudent } from './transfer-student/transfer-student';
 
 @Component({
   selector: 'app-class-detail-management',
-  imports: [ClassHeader, ClassDetailInfo, ClassStudents],
+  imports: [ClassHeader, ClassDetailInfo, ClassStudents, RouterLink],
   templateUrl: './class-detail-management.html',
   styleUrl: './class-detail-management.css',
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LessonFormAction } from './lesson-form-action/lesson-form-action';
 import { LessonForm } from './lesson-form/lesson-form';
 import { ClassLessonService } from '../../../../_service/class-lesson/class-lesson.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { initData } from '../../../../../utils/init-data';
 import { TeacherClassLessonService } from '../../service/teacher-class-lesson/teacher-class-lesson.service';
 import {
@@ -17,7 +17,7 @@ import { BaseComponent } from '../../../../_shared/components/base/base-componen
 
 @Component({
   selector: 'app-lesson-management',
-  imports: [LessonFormAction, LessonForm],
+  imports: [LessonFormAction, LessonForm, RouterLink],
   templateUrl: './lesson-management.html',
   styleUrl: './lesson-management.css',
 })

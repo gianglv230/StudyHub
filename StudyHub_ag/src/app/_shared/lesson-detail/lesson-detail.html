@@ -1,6 +1,11 @@
 <section class="container-fluid px-4 mt-4">
   <div class="d-flex justify-content-between align-items-center">
-    <a href="#" class="text-decoration-none back-btn">
+    <a
+      [routerLink]="
+        `/${isStudent ? 'hoc-vien' : 'giao-vien'}/lop-hoc/${classSlug}`
+      "
+      class="text-decoration-none back-btn"
+    >
       <div class="d-flex align-items-center text-primary-container">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +23,14 @@
         <span>Trở lại danh sách bài học</span>
       </div>
     </a>
-    <button class="btn btn-primary-custom py-0 h-50 py-1">Sửa</button>
+    @if (!isStudent) {
+      <button
+        class="btn btn-primary-custom py-0 h-50 py-1"
+        [routerLink]="`/giao-vien/lop-hoc/${classSlug}/quan-ly-bai-hoc/${lessonSlug}`"
+      >
+        Sửa
+      </button>
+    }
   </div>
   @if (data) {
     <div class="row mb-2 mt-3">

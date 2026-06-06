@@ -31,7 +31,7 @@ export class UserDropdown {
       return '/hoc-vien/thong-tin-ca-nhan';
     }
     if (this.base.isTeacher()) {
-      return '/giao-vien-vien/thong-tin-ca-nhan';
+      return '/giao-vien/thong-tin-ca-nhan';
     }
     return '/admin/thong-tin-ca-nhan';
   }

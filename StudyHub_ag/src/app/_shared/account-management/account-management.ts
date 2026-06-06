@@ -468,7 +468,11 @@ export class AccountManagement implements OnInit {
           if (res.data) {
             this.base.showSuccess('Đã xóa tài khoản');
             // Đưa về trang danh sách - UNIMPL
-            this.router.navigate(['/admin/quan-ly-hoc-vien']);
+            if (this.addRole == 'STUDENT') {
+              this.router.navigate(['/admin/quan-ly-hoc-vien']);
+            } else {
+              this.router.navigate(['/admin/quan-ly-giao-vien']);
+            }
           }
         },
       });

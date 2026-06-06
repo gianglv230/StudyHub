@@ -49,7 +49,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     UserAccountMapper userAccountMapper;
 
     // Get enrollment active of class to make attendance
-    @PreAuthorize("hasRole('TEACHER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     @Override
     public List<AttendanceEnrollmentResponse> getAttendanceEnrollmentByClassSlug(String classSlug) {
         Class clazz = authService.checkViewClassPermissions(classSlug);

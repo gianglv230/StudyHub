@@ -1,5 +1,8 @@
 <section class="container mt-4">
-  <a href="#" class="text-decoration-none back-btn">
+  <a
+    [routerLink]="`/${isStudent ? 'hoc-vien' : 'giao-vien'}/trang-chu`"
+    class="text-decoration-none back-btn"
+  >
     <div class="d-flex align-items-center text-primary-container">
       <app-dynamic-icon
         width="23"

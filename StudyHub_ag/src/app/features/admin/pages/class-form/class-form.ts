@@ -33,8 +33,8 @@ import { Location } from '@angular/common';
     FormInput,
     FormSelect,
     ResourceLiteCard,
-    RouterLink
-],
+    RouterLink,
+  ],
   templateUrl: './class-form.html',
   styleUrl: './class-form.css',
 })
@@ -59,7 +59,7 @@ export class ClassForm implements OnInit, OnDestroy {
     private readonly base: BaseComponent,
     private readonly router: Router,
     private readonly modalService: ModalService,
-    private readonly location: Location
+    private readonly location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -377,7 +377,8 @@ export class ClassForm implements OnInit, OnDestroy {
         }
         if (res.data) {
           this.base.showSuccess('Xóa lớp học thành công');
-          this.router.navigate([`/admin/quan-ly-lop-hoc`]);
+          //Trang ds lớp của khóa học
+          this.router.navigate([`/admin/quan-ly-khoa-hoc/${this.courseSlug}`]);
         }
       },
       error: (err) => {

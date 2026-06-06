@@ -1,5 +1,10 @@
 <!-- Sidebar Backdrop (Mobile only) -->
-<div class="sidebar-backdrop" id="sidebarBackdrop" [class.show]="!isMenuCollapsed" (click)="isMenuCollapsed = true"></div>
+<div
+  class="sidebar-backdrop"
+  id="sidebarBackdrop"
+  [class.show]="!isMenuCollapsed"
+  (click)="isMenuCollapsed = true"
+></div>
 <!-- Sidebar -->
 <aside id="sidebar" [class.show]="!isMenuCollapsed">
   <div class="d-flex justify-content-between align-items-center mb-3">
@@ -15,27 +20,27 @@
     </button>
   </div>
   <nav class="nav flex-column flex-grow-1">
-    <a class="nav-link active" href="#"
+    <a class="nav-link" routerLinkActive="active" routerLink="/admin/trang-chu"
       ><span class="material-symbols-outlined">dashboard</span> Dashboard</a
     >
-    <a class="nav-link" href="#"
+    <a class="nav-link" routerLinkActive="active" routerLink="/admin/quan-ly-khoa-hoc"
       ><span class="material-symbols-outlined">menu_book</span> Quản lý khóa
       học</a
     >
-    <a class="nav-link" href="#"
+    <a class="nav-link" routerLinkActive="active" routerLink="/admin/quan-ly-lop-hoc"
       ><span class="material-symbols-outlined">class</span> Quản lý lớp học</a
     >
-    <a class="nav-link" href="#"
+    <a class="nav-link" routerLinkActive="active" routerLink="/admin/quan-ly-giao-vien"
       ><span class="material-symbols-outlined">badge</span> Quản lý giáo viên</a
     >
-    <a class="nav-link" href="#"
+    <a class="nav-link" routerLinkActive="active" routerLink="/admin/quan-ly-hoc-vien"
       ><span class="material-symbols-outlined">group</span> Quản lý học viên</a
     >
-    <a class="nav-link" href="#"
+    <a class="nav-link" routerLinkActive="active" routerLink="/admin/quan-ly-hoa-don"
       ><span class="material-symbols-outlined">payments</span> Quản lý hóa
       đơn</a
     >
-    <a class="nav-link" href="#"
+    <a class="nav-link" routerLinkActive="active" routerLink="/admin/quan-ly-tai-nguyen"
       ><span class="material-symbols-outlined">folder_open</span> Quản lý tài
       nguyên</a
     >

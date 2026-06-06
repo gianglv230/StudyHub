@@ -14,6 +14,8 @@ import { ClassDetailManagement } from './pages/class-detail-management/class-det
 import { AdminAccountManagement } from './pages/admin-account-management/admin-account-management';
 import { StudentAccountManagement } from './pages/student-account-management/student-account-management';
 import { AdminClassOfCourse } from './pages/admin-class-of-course/admin-class-of-course';
+import { TeacherResourceManagement } from '../teacher/pages/teacher-resource-management/teacher-resource-management';
+import { TeacherAttendance } from '../teacher/pages/teacher-attendance/teacher-attendance';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -106,9 +108,19 @@ export const ADMIN_ROUTES: Routes = [
         title: getTitle(ADMIN_PAGE.CLASS_DETAIL_MANAGEMENT, ROLE.ADMIN),
       },
       {
+        path: 'lop-hoc/:class-slug/thong-tin-diem-danh',
+        component: TeacherAttendance,
+        title: getTitle(ADMIN_PAGE.ATTENDANCE, ROLE.TEACHER),
+      },
+      {
         path: 'thong-tin-ca-nhan',
         component: AdminAccountManagement,
         title: getTitle(ADMIN_PAGE.ADMIN_ACCOUNT_MANAGEMENT, ROLE.ADMIN),
+      },
+      {
+        path: 'quan-ly-tai-nguyen',
+        component: TeacherResourceManagement,
+        title: getTitle(ADMIN_PAGE.RESOURCE_MANAGEMENT, ROLE.ADMIN),
       },
     ],
   },

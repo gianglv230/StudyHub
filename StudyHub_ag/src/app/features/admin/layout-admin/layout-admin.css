@@ -350,3 +350,7 @@ a {
 /* h5 {
   color: var(--primary-container);
 } */
+
+.bg-primary-container {
+  background-color: var(--primary-container);
+}

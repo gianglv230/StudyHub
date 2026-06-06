@@ -64,6 +64,49 @@ export class AttendanceMain implements OnChanges {
     }
   }
 
+  // Tách từ cuối để so sánh
+  private getLastWord(name: string): string {
+    if (!name) return '';
+    const trimmed = name.trim();
+    return trimmed.substring(trimmed.lastIndexOf(' ') + 1);
+  }
+
+  // *** SORT ***
+  // Hàm so sánh dùng chung cho cả 2 mảng
+  private compareStudentNames(fullNameA: string, fullNameB: string): number {
+    const nameA = this.getLastWord(fullNameA);
+    const nameB = this.getLastWord(fullNameB);
+
+    // 1. So sánh tên chính (từ cuối cùng)
+    const nameComparison = nameA.localeCompare(nameB, 'vi', {
+      sensitivity: 'base',
+    });
+
+    // 2. Nếu tên chính khác nhau, trả về kết quả luôn
+    if (nameComparison !== 0) {
+      return nameComparison;
+    }
+
+    // 3. Nếu trùng tên chính, tiến hành so sánh toàn bộ họ và tên
+    return fullNameA
+      .trim()
+      .localeCompare(fullNameB.trim(), 'vi', { sensitivity: 'base' });
+  }
+
+  // Sắp xếp mảng attendanceRows
+  private sortAttendanceRows(): void {
+    this.attendanceRows.sort((a, b) =>
+      this.compareStudentNames(a.studentName, b.studentName),
+    );
+  }
+
+  // Sắp xếp mảng enrollmentRows
+  private sortEnrollmentRows(): void {
+    this.enrollmentRows.sort((a, b) =>
+      this.compareStudentNames(a.studentName, b.studentName),
+    );
+  }
+  // *** END SORT ***
 
   // Add Attendance
   initForm() {
@@ -71,6 +114,7 @@ export class AttendanceMain implements OnChanges {
 
     formArray.clear();
 
+    this.sortEnrollmentRows();
     this.enrollmentsRowsData?.forEach((item) => {
       formArray.push(
         this.fb.group({
@@ -159,6 +203,7 @@ export class AttendanceMain implements OnChanges {
 
     formArray.clear();
 
+    this.sortAttendanceRows();
     this.attendanceRowsData?.forEach((item) => {
       formArray.push(
         this.fb.group({

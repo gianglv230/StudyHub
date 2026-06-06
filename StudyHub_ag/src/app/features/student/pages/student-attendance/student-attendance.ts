@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentAttendanceService } from '../../service/student-attendance/student-attendance.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { initData } from '../../../../../utils/init-data';
 import { DatePipe } from '@angular/common';
 import {
   CLASS_STATUS_ATTENDANCE,
   STATUS_ATTENDANCE,
 } from '../../../../../utils/const/attendance.const';
+import { BaseComponent } from '../../../../_shared/components/base/base-component';
 
 @Component({
   selector: 'app-student-attendance',
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './student-attendance.html',
   styleUrl: './student-attendance.css',
 })
@@ -19,17 +20,21 @@ export class StudentAttendance implements OnInit {
 
   totalAttendances?: number;
   totalAbsent?: number;
+  isStudent: boolean = true;
+  slug = '';
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly attendanceService: StudentAttendanceService,
+    private readonly base: BaseComponent
   ) {}
 
   ngOnInit(): void {
-    const slug = this.route.snapshot.paramMap.get('class-slug') || '';
-    if (slug) {
+    this.slug = this.route.snapshot.paramMap.get('class-slug') || '';
+    this.isStudent = this.base.isStudent();
+    if (this.slug) {
       initData<StudentAttendanceResponse>(
-        this.attendanceService.getMyStudentAttendanceClass(slug),
+        this.attendanceService.getMyStudentAttendanceClass(this.slug),
         (data) => {
           console.log(data);
           this.data = data;

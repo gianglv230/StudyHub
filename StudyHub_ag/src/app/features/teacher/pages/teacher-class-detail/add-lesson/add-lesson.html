@@ -32,7 +32,10 @@
           <button
             class="btn btn-primary w-100 fw-bold rounded-3 py-2"
             type="button"
-            [routerLink]="`/giao-vien/${data.classSlug}/quan-ly-bai-hoc`"
+            [routerLink]="
+              `/giao-vien/lop-hoc/${data.classSlug}/quan-ly-bai-hoc`
+            "
+            (click)="activeModal.close()"
           >
             Tạo mới
           </button>

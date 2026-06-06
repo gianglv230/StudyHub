@@ -11,15 +11,16 @@ import { AttendanceMain } from './attendance-main/attendance-main';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { isSameDay } from '../../../utils/date-util';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AttendanceService } from '../../_service/attendance/attendance.service';
 import { initData } from '../../../utils/init-data';
 import { DatePipe } from '@angular/common';
 import { sortLastName } from '../../../utils/sort-util';
+import { BaseComponent } from '../components/base/base-component';
 
 @Component({
   selector: 'app-class-attendance',
-  imports: [AttendanceSidebar, AttendanceMain, SpinnerComponent],
+  imports: [AttendanceSidebar, AttendanceMain, SpinnerComponent, RouterLink],
   templateUrl: './class-attendance.html',
   styleUrl: './class-attendance.css',
   providers: [DatePipe],
@@ -30,6 +31,8 @@ export class ClassAttendance implements OnInit, OnChanges, OnDestroy {
 
   sessionDates: Date[] = []; // để render sidebar
   today = new Date();
+
+  isTeacher: boolean = true;
 
   protected queryParamsSubscription!: Subscription;
   protected lesson?: string;
@@ -44,6 +47,7 @@ export class ClassAttendance implements OnInit, OnChanges, OnDestroy {
     private readonly route: ActivatedRoute,
     private readonly attendanceService: AttendanceService,
     private readonly datePipe: DatePipe,
+    private readonly base: BaseComponent
   ) { }
   
   ngOnChanges(changes: SimpleChanges): void {
@@ -54,7 +58,7 @@ export class ClassAttendance implements OnInit, OnChanges, OnDestroy {
   }
 
   private handleAttendance(): void {
-    debugger;
+    // debugger;
     if (!this.classSlug || !this.session) {
       return;
     }
@@ -83,6 +87,7 @@ export class ClassAttendance implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     // if (changes['sessionDateResponse']) {
+    this.isTeacher = this.base.isTeacher();
     const slug = this.route.snapshot.paramMap.get('class-slug');
     if (!slug) {
       return;
