@@ -129,7 +129,6 @@ interface AdminClassResponse {
   updatedBy: string;
 }
 
-
 type ClassStatus = 'UPCOMING' | 'ONGOING' | 'FINISHED' | 'CANCELED';
 
 interface AdminClassInfoResponse {
@@ -155,5 +154,34 @@ interface AdminClassInfoResponse {
 
   price: number;
   numberOfLessons: number;
-  progressOfClass: number
+  progressOfClass: number;
+}
+
+interface ClassAdminResponse {
+  classId: number;
+  slug: string;
+
+  teacherId: number;
+  teacherName: string;
+
+  subject: string;
+  targetGrade: string;
+  categoryName: string;
+
+  courseSlug: string;
+  className: string;
+  thumbnail: string;
+
+  openingDate: Date;
+  startDate: Date;
+  endDate: Date;
+  classSchedule: string;
+  availableSlots: number;
+  price: number;
+  status: ClassStatus;
+
+  createdAt: Date;
+  createdBy: string;
+  updatedAt: Date;
+  updatedBy: string;
 }

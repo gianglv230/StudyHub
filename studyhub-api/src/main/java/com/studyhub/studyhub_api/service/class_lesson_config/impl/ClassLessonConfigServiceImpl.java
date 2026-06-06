@@ -27,7 +27,7 @@ import java.util.List;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ClassLessonConfigServiceImpl implements ClassLessonConfigService {
     AuthenticationService authService;
-//    ClassRepository classRepository;
+    //    ClassRepository classRepository;
     ClassLessonRepository classLessonRepository;
     ClassLessonConfigRepository classLessonConfigRepository;
 
@@ -37,15 +37,19 @@ public class ClassLessonConfigServiceImpl implements ClassLessonConfigService {
     @Override
     public Boolean deleteClassLessonConfig(Integer classLessonConfigId) {
         UserAccount account = authService.getUserAccountByJwtToken();
-        ClassLessonConfig clc = classLessonConfigRepository.findByIdAndClassFieldCreatedBy(classLessonConfigId, account.getId())
-                .orElseThrow(() -> new AppException(ErrorCode.UNAUTHORIZED));
+        ClassLessonConfig clc = classLessonConfigRepository.findById(classLessonConfigId)
+                .orElseThrow(() -> new AppException(ErrorCode.CLASS_LESSON_NOT_EXISTED));
+
+        if(!clc.getClassField().getTeacher().getId().equals(account.getId())) {
+            throw new AppException(ErrorCode.UNAUTHORIZED);
+        }
 
         Integer classLessonId = clc.getClassLesson().getId();
         Long numberOfClassLesson = classLessonConfigRepository.countClassLessonInClassLessonConfig(classLessonId);
         classLessonConfigRepository.deleteById(classLessonConfigId);
 
         // If last item, mark class lesson is deleted
-        if(numberOfClassLesson.intValue() == 1){
+        if (numberOfClassLesson.intValue() == 1) {
             ClassLesson classLesson = classLessonRepository.findById(classLessonId)
                     .orElseThrow(() -> new AppException(ErrorCode.CLASS_LESSON_NOT_EXISTED));
             classLesson.setIsDeleted(true);
@@ -72,7 +76,7 @@ public class ClassLessonConfigServiceImpl implements ClassLessonConfigService {
 
         // If this classLesson is restored, class lesson remove deleted
         Long numberOfClass = classLessonConfigRepository.countClassLessonInClassLessonConfig(classLesson.getId());
-        if(numberOfClass == 0){
+        if (numberOfClass == 0) {
             classLesson.setIsDeleted(false);
             classLessonRepository.save(classLesson);
         }

@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ClassService } from '../../_service/class/class.service';
 import { DynamicIcon } from '../components/dynamic-icon/dynamic-icon';
 import { ClassLessonCard } from '../components/class-lesson-card/class-lesson-card';
+import { BaseComponent } from '../components/base/base-component';
 
 @Component({
   selector: 'app-class-lessons',
@@ -15,10 +16,12 @@ import { ClassLessonCard } from '../components/class-lesson-card/class-lesson-ca
 export class ClassLessons implements OnInit {
   data?: ClassLessonResponse;
   slug?: string;
+  isStudent: boolean = true;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly classService: ClassService,
+    private readonly base: BaseComponent
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +29,10 @@ export class ClassLessons implements OnInit {
     if (!slug) {
       return;
     }
+
+    this.isStudent = this.base.isStudent();
+    console.log(this.isStudent);
+    
     this.slug = slug;
     initData<ClassLessonResponse>(
       this.classService.getClassLessonOfClass(slug),
@@ -50,6 +57,6 @@ export class ClassLessons implements OnInit {
   }
 
   get attendanceLink(): string {
-    return `/hoc-vien/lop-hoc/${this.slug}/thong-tin-diem-danh`;
+    return this.isStudent ? `/hoc-vien/lop-hoc/${this.slug}/thong-tin-diem-danh` : `/giao-vien/lop-hoc/${this.slug}/thong-tin-diem-danh`;
   }
 }

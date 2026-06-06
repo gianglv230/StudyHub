@@ -17,6 +17,13 @@
       <span>Trở lại danh sách bài học</span>
     </div>
   </a>
-  <app-lesson-form [form]="form" [classLessonResponse]="classLesson" />
+  <app-lesson-form
+    [form]="form"
+    [classLessonResponse]="classLesson"
+    [classSlug]="classSlug"
+  />
 </section>
-<app-lesson-form-action (submit)="onSubmit($event)" (cancel)="onCancel($event)" />
+<app-lesson-form-action
+  (submit)="onSubmit($event)"
+  (cancel)="onCancel($event)"
+/>

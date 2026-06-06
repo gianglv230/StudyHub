@@ -5,6 +5,7 @@ export const ERROR_CODE = {
 
 export const ERROR_CODE_RESPONSE: Record<number, string> = {
   1005: 'Sai username hoặc mật khẩu',
+  1036: 'Không thể xóa do khóa học đã có lớp',
   1039: 'Không thể mở lớp',
   1040: 'Không thể đóng lớp',
   1052: 'Sai mật khẩu',

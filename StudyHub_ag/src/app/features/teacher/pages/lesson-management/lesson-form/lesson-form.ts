@@ -1,15 +1,31 @@
-import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+} from '@angular/core';
 import { ModalService } from '../../../../../_service/utils/modal.service';
 import { ResourceModal } from '../../../../../_shared/resource-modal/resource-modal';
 import { Editor } from '../../../../../_shared/components/editor/editor';
 import { TeacherClassLessonService } from '../../../service/teacher-class-lesson/teacher-class-lesson.service';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FormInput } from '../../../../../_shared/components/form-input/form-input';
 import { ResourceLiteCard } from '../../../../../_shared/resource-lite-card/resource-lite-card';
 import { CommonModule } from '@angular/common';
 import { validateRange } from '../../../../../../utils/validator/factory.validator';
 import { toSlug } from '../../../../../../utils/slug.util';
 import { Subscription } from 'rxjs';
+import { TeacherClcService } from '../../../service/teacher-clc/teacher-clc.service';
+import { BaseComponent } from '../../../../../_shared/components/base/base-component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lesson-form',
@@ -18,7 +34,7 @@ import { Subscription } from 'rxjs';
     FormInput,
     ResourceLiteCard,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './lesson-form.html',
   styleUrl: './lesson-form.css',
@@ -26,6 +42,7 @@ import { Subscription } from 'rxjs';
 export class LessonForm implements OnChanges, OnDestroy {
   @Input() form?: FormGroup;
   @Input() classLessonResponse?: ClassLessonTeacherResponse;
+  @Input() classSlug?: string | null;
 
   private titleSub?: Subscription;
 
@@ -33,7 +50,10 @@ export class LessonForm implements OnChanges, OnDestroy {
     private readonly modalService: ModalService,
     private readonly classLessonService: TeacherClassLessonService,
     private readonly fb: FormBuilder,
-  ) { }
+    private readonly clcService: TeacherClcService,
+    private readonly base: BaseComponent,
+    private readonly router: Router,
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['form'] && this.form) {
@@ -41,12 +61,14 @@ export class LessonForm implements OnChanges, OnDestroy {
       this.titleSub?.unsubscribe();
 
       // Lắng nghe khi titleOverride thay đổi -> cập nhật slug
-      this.titleSub = this.form.get('titleOverride')?.valueChanges.subscribe((value: string) => {
-        const slugControl = this.form?.get('slug');
-        if (slugControl) {
-          slugControl.setValue(toSlug(value || ''), { emitEvent: false });
-        }
-      });
+      this.titleSub = this.form
+        .get('titleOverride')
+        ?.valueChanges.subscribe((value: string) => {
+          const slugControl = this.form?.get('slug');
+          if (slugControl) {
+            slugControl.setValue(toSlug(value || ''), { emitEvent: false });
+          }
+        });
     }
   }
 
@@ -67,7 +89,9 @@ export class LessonForm implements OnChanges, OnDestroy {
   }
 
   getSections(): FormGroup[] {
-    return (this.form?.get('sections') as FormArray)?.controls as FormGroup[] || [];
+    return (
+      ((this.form?.get('sections') as FormArray)?.controls as FormGroup[]) || []
+    );
   }
 
   addSection() {
@@ -125,7 +149,10 @@ export class LessonForm implements OnChanges, OnDestroy {
     });
   }
 
-  openResourceModal(section: FormGroup, mode: 'single' | 'multiple' = 'single') {
+  openResourceModal(
+    section: FormGroup,
+    mode: 'single' | 'multiple' = 'single',
+  ) {
     this.modalService
       .open({
         component: ResourceModal,
@@ -139,7 +166,9 @@ export class LessonForm implements OnChanges, OnDestroy {
             section.get('videoContentId')?.setValue(res.id);
             section.get('videoResource')?.setValue(res);
           } else {
-            const selectedList = Array.isArray(resources) ? resources : [resources];
+            const selectedList = Array.isArray(resources)
+              ? resources
+              : [resources];
             const currentMaterials = section.get('materials')?.value || [];
 
             const merged = [...currentMaterials];
@@ -163,5 +192,22 @@ export class LessonForm implements OnChanges, OnDestroy {
     const currentMaterials = section.get('materials')?.value || [];
     const updated = currentMaterials.filter((m: any) => m.id !== materialId);
     section.get('materials')?.setValue(updated);
+  }
+
+  deleteClassLesson() {
+    if (!this.classLessonResponse?.clcId) return;
+    this.clcService.delete(this.classLessonResponse.clcId).subscribe({
+      next: (res) => {
+        if (res.error) {
+          this.base.showDanger(res.message);
+          return;
+        }
+        if (res.data) {
+          this.base.showSuccess('Xóa bài học thành công');
+          this.router.navigate([`/giao-vien/lop-hoc/${this.classSlug}`]);
+        }
+      },
+      error: (err) => this.base.handleError(err),
+    });
   }
 }

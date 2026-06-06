@@ -54,11 +54,12 @@ export class ClassAttendance implements OnInit, OnChanges, OnDestroy {
   }
 
   private handleAttendance(): void {
+    debugger;
     if (!this.classSlug || !this.session) {
       return;
     }
 
-    if (this.attendanceDates && this.attendanceDates.length > 0) {
+    if (this.sessionDates && this.sessionDates.length > 0) {
       const hasAttendanceToday = this.attendanceDates.some((date) =>
         isSameDay(date, this.today),
       );

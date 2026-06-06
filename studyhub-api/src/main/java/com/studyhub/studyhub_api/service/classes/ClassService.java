@@ -31,4 +31,6 @@ public interface ClassService {
     PageResponse<ClassProgressResponse> getMyTeacherClass(String status, Integer page);
 
     AdminClassInfoResponse getAdminClassInfo(String classSlug);
+
+    PageResponse<ClassAdminResponse> getAllAdminClassesOfCourse(String courseSlug, Integer page);
 }

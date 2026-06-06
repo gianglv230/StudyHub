@@ -8,7 +8,8 @@ export const API_ENDPOINTS = {
     FILTER: '/filter',
     FILTER_OPTION: '/filter-option',
     DETAIL: '/detail',
-    ADMIN: '/admin'
+    ADMIN: '/admin',
+    ADMIN_FILTER: '/admin/filter'
   },
   TEACHER: '/teacher',
   TEACHER_ENDPOINTS: {
@@ -27,7 +28,9 @@ export const API_ENDPOINTS = {
     ADMIN_CLASS_INFO: '/admin/class-info',
     ADMIN_OPEN: '/admin/open',
     ADMIN_CLOSE: '/admin/close',
-    ADMIN_STATUS: '/admin/status'
+    ADMIN_STATUS: '/admin/status',
+    ADMIN_FILTER: '/admin/filter',
+    ADMIN_CLASS_OF_COURSE: '/admin/class-of-course',
   },
   AUTH: '/auth',
   AUTH_ENDPOINTS: {
@@ -79,4 +82,5 @@ export const API_ENDPOINTS = {
   ENROLLMENT_ENDPOINTS: {
     ADMIN: '/admin'
   },
+  CLC: '/clc'
 };

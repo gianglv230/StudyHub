@@ -13,6 +13,7 @@ import { ClassForm } from './pages/class-form/class-form';
 import { ClassDetailManagement } from './pages/class-detail-management/class-detail-management';
 import { AdminAccountManagement } from './pages/admin-account-management/admin-account-management';
 import { StudentAccountManagement } from './pages/student-account-management/student-account-management';
+import { AdminClassOfCourse } from './pages/admin-class-of-course/admin-class-of-course';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -78,6 +79,11 @@ export const ADMIN_ROUTES: Routes = [
         path: 'quan-ly-khoa-hoc/bieu-mau/:course-slug',
         component: CourseForm,
         title: getTitle(ADMIN_PAGE.COURSE_FORM, ROLE.ADMIN),
+      },
+      {
+        path: 'quan-ly-khoa-hoc/:course-slug',
+        component: AdminClassOfCourse,
+        title: getTitle(ADMIN_PAGE.COURSE_MANAGEMENT, ROLE.ADMIN),
       },
       {
         path: 'quan-ly-lop-hoc',

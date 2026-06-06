@@ -1,0 +1,130 @@
+<a
+  [routerLink]="`/admin/quan-ly-khoa-hoc/bieu-mau/${card.slug}`"
+  class="text-decoration-none"
+>
+  <app-card-container [cardContainer]="card">
+    <app-info-field label="Số buổi học" [value]="card.numberOfLessons">
+      <app-dynamic-icon
+        width="16"
+        height="16"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+        [icon]="'schedule_tick'"
+        iconClass="me-2 text-primary-container d-block"
+      />
+    </app-info-field>
+
+    <app-info-field
+      label="Trạng thái"
+      [value]="card.status"
+      [classInfo]="
+        card.status == 'ACTIVE'
+          ? 'fw-bold text-success'
+          : 'fw-bold text-primary-container'
+      "
+    >
+      <app-dynamic-icon
+        width="16"
+        height="16"
+        fill="currentColor"
+        [icon]="'lightning_charge_fill'"
+        iconClass="me-2 text-primary-container"
+        viewBox="0 0 16 16"
+      />
+    </app-info-field>
+
+    <div class="bg-background px-3 opacity-75 py-2 rounded-2 mt-3">
+      <p class="small text-dark d-flex justify-content-between mb-1">
+        <span class="fw-bold">Tạo: </span>
+        <span
+          >{{ card.createdAt | date: "dd/MM/yyyy" }} -
+          {{ card.createdBy }}</span
+        >
+      </p>
+      <p class="small text-dark d-flex justify-content-between mb-0">
+        <span class="fw-bold">Sửa: </span>
+        <span
+          >{{ card.updatedAt | date: "dd/MM/yyyy" }} -
+          {{ card.updatedBy }}</span
+        >
+      </p>
+    </div>
+  </app-card-container>
+  <!-- <div class="course-card">
+    <div class="course-img-wrapper">
+      <img
+        alt="Dev course"
+        class="course-img"
+        [src]="
+          card.thumbnail ||
+          'https://lh3.googleusercontent.com/aida-public/AB6AXuCeNckOMU5Qrrs7NxKN6OOk8nhtYr8GiTYl-6XGP-J6Y4lt4zdwO_s8keWDn06MuZRWJ2U5sQd7hwukwaWQsI3Pe2bm7sRMvX2BYaCJQNrYmcDa_hrO1S36_kkc1QNIZpgHWaNfy4y4NXMZIgVOstRcfthKb8HKROSHbxYqu4nI7Y9UGDT9oLaPTdLn5cASU77bumQpo5QBmlVR_yYAF2EFCDHtPBsihcYYUO_P_BMuZ6annXRJo9Nl7BTiOeFCXjO6qzoYL9t_qyIN'
+        "
+      />
+      <span
+        class="position-absolute top-0 start-0 m-3 badge bg-primary rounded-pill"
+        >Vật lý</span
+      >
+    </div>
+    <div class="p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="badge-category text-danger"
+          >2K9 - XUẤT PHÁT SỚM LỚP 12</span
+        >
+      </div>
+      <h5 class="mb-3 text-primary-container fw-bold">
+        KHOÁ I - CHUYÊN ĐỀ CƠ BẢN MÔN VẬT LÝ NĂM 2026 - Cô Nguyễn Thị An
+      </h5>
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <div class="d-flex align-items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-flag-fill me-2 text-primary-container"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5m9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5m-2.6 5.854a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"
+            ></path>
+          </svg>
+          <p class="text-dark mb-0">
+            <span>Số buổi học:</span>
+          </p>
+        </div>
+        <span class="fw-bold text-primary-container">25</span>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <div class="d-flex align-items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-lightning-charge-fill me-2 text-primary-container"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"
+            />
+          </svg>
+          <p class="text-dark mb-0">
+            <span>Trạng thái:</span>
+          </p>
+        </div>
+        <span class="ms-2 badge bg-success fw-bold rounded-pill">ACTIVE</span>
+      </div>
+      <div class="bg-background px-3 opacity-75 py-2 rounded-2 mt-3">
+        <p class="small text-dark d-flex justify-content-between mb-1">
+          <span class="fw-bold">Tạo: </span>
+          <span>06/05/2026 - Lưu Văn Giang</span>
+        </p>
+        <p class="small text-dark d-flex justify-content-between mb-0">
+          <span class="fw-bold">Sửa: </span>
+          <span>06/05/2026 - Lưu Văn Giang</span>
+        </p>
+      </div>
+    </div>
+  </div> -->
+</a>

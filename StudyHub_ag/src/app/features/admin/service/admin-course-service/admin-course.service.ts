@@ -47,4 +47,34 @@ export class AdminCourseService extends BaseService<CourseLiteProjection> {
       API_ENDPOINTS.COURSE_ENPOINTS.ADMIN + '/' + id,
     );
   }
+
+  filter(
+    filterRequest: CourseFilterRequest,
+    page: string = '1',
+  ): Observable<ApiResponse<PageResponse<CourseAdminResponse>>> {
+    // 1. Tạo một object phẳng kết hợp filter và page, đồng thời loại bỏ trường 'page' cũ nếu có trong filterRequest
+    const combinedParams: any = { ...filterRequest, page };
+
+    // 2. Lọc bỏ tất cả các key có giá trị null, undefined hoặc chuỗi rỗng ""
+    const cleanQueryParams = Object.keys(combinedParams).reduce(
+      (acc: any, key: string) => {
+        const value = combinedParams[key];
+
+        // Điều kiện: Chỉ giữ lại các giá trị KHÔNG PHẢI null, undefined, và không phải chuỗi rỗng
+        if (value !== null && value !== undefined && value !== '') {
+          acc[key] = value;
+        }
+
+        return acc;
+      },
+      {},
+    );
+
+    return this.customRequest<PageResponse<CourseAdminResponse>>(
+      'GET',
+      API_ENDPOINTS.COURSE_ENPOINTS.ADMIN_FILTER,
+      null,
+      { ...cleanQueryParams, page },
+    );
+  }
 }

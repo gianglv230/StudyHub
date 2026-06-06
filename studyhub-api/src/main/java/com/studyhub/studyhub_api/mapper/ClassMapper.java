@@ -69,6 +69,7 @@ public interface ClassMapper {
             @Mapping(target = "subject", source = "clazz.course.subject"),
             @Mapping(target = "targetGrade", source = "clazz.course.targetGrade"),
             @Mapping(target = "categoryName", source = "clazz.course.categoryName"),
+            @Mapping(target = "courseSlug", source = "clazz.course.slug"),
             @Mapping(target = "thumbnail", source = "clazz.course.thumbnail.url"),
             @Mapping(target = "createdBy", source = "createdBy"),
             @Mapping(target = "updatedBy", source = "updatedBy")

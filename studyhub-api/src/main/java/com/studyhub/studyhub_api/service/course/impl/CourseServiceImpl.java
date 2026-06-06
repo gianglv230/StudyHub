@@ -31,6 +31,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -120,7 +121,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public PageResponse<CourseAdminResponse> filterCourse(CourseFilterRequest courseFilterRequest, Integer page) {
         Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
-        Pageable pageable = PageRequest.of(page - 1, MAX_ITEM);
+        Pageable pageable = PageRequest.of(page - 1, MAX_ITEM, sort);
 
         Specification<Course> spec = CourseSpecification.filter(courseFilterRequest);
         var pageData = courseRepository.findAll(spec, pageable);
@@ -147,8 +148,15 @@ public class CourseServiceImpl implements CourseService {
     private AdminCourseResponse toAdminCourseResponse(Course course) {
         var createdById = course.getCreatedBy();
         var updatedById = course.getUpdatedBy();
-        var userMap = userAccountService.getUserAccountMap(List.of(createdById, updatedById));
-        return courseMapper.toAdminCourseResponse(course, userMap.get(createdById), userMap.get(updatedById));
+        List<Integer> ids = new ArrayList<>();
+        if (createdById != null) {
+            ids.add(createdById);
+        }
+        if (updatedById != null) {
+            ids.add(updatedById);
+        }
+        var userMap = userAccountService.getUserAccountMap(ids);
+        return courseMapper.toAdminCourseResponse(course, userMap.getOrDefault(createdById, null), userMap.getOrDefault(updatedById, null));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -179,18 +187,13 @@ public class CourseServiceImpl implements CourseService {
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public AdminCourseResponse updateCourse(UpdateCourseRequest request) {
-        try {
-            Course course = courseRepository.findById(request.getId()).orElseThrow(
-                    () -> new AppException(ErrorCode.COURSE_NOT_EXISTED)
-            );
-            courseMapper.updateCourse(request, course);
-            course.getLessons().forEach(lesson -> lesson.setCourse(course));
-            courseRepository.save(course);
-            return this.toAdminCourseResponse(course);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        Course course = courseRepository.findById(request.getId()).orElseThrow(
+                () -> new AppException(ErrorCode.COURSE_NOT_EXISTED)
+        );
+        courseMapper.updateCourse(request, course);
+        course.getLessons().forEach(lesson -> lesson.setCourse(course));
+        courseRepository.save(course);
+        return this.toAdminCourseResponse(course);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

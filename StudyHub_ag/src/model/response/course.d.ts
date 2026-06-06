@@ -63,3 +63,19 @@ interface AdminCourseResponse {
   updatedAt?: Date;
   updatedBy?: string;
 }
+
+interface CourseAdminResponse {
+  courseId: number;
+  slug: string;
+  title: string;
+  numberOfLessons: number;
+  subject: string;
+  targetGrade: string;
+  categoryName: string;
+  thumbnail: string;
+  status: string;
+  createdAt: Date; // Kiểu đại diện cho Instant (ISO string hoặc Date object)
+  createdBy: string;
+  updatedAt: Date;
+  updatedBy: string;
+}

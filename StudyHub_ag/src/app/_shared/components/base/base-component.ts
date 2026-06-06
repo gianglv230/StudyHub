@@ -39,6 +39,13 @@ export abstract class BaseComponent {
   handleError(err: any) {
     console.log('Error: ', err);
     this.showDanger(ERROR_CODE_RESPONSE[err.error.code] || err.error.message);
+
+    // Dùng ?. để tránh crash nếu err.error không tồn tại
+    const isCode9999 = err?.error?.code == 9999;
+
+    if (isCode9999) {
+      this.showDanger('Phải chọn ảnh và video nếu có');
+    }
   }
 
   isStudent(): boolean {

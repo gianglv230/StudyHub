@@ -4,7 +4,7 @@ import com.studyhub.studyhub_api.dto.request.class_lesson.ClassLessonTeacherRequ
 import com.studyhub.studyhub_api.dto.response.class_lesson.ClassLessonTeacherResponse;
 
 public interface ClassLessonService {
-    ClassLessonTeacherResponse getClassLessonTeacher(String classLessonSlug);
+    ClassLessonTeacherResponse getClassLessonTeacher(String classSlug, String classLessonSlug);
     String addClassLesson(ClassLessonTeacherRequest classLessonTeacherRequest, String classSlug);
     String updateClassLesson(ClassLessonTeacherRequest classLessonTeacherRequest, String classSlug);
 }

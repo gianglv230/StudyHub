@@ -113,7 +113,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public AdminUserAccountBasicResponse addUserAccount(AddUserAccountRequest request) throws IOException {
-        if(userAccountRepository.existsByUsernameEqualsIgnoreCase(request.getUsername())){
+        if (userAccountRepository.existsByUsernameEqualsIgnoreCase(request.getUsername())) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
 

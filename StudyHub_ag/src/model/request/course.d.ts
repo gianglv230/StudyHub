@@ -1,4 +1,4 @@
-type CourseStatus = 'ACTIVE' | 'INACTIVE';
+type CourseStatus = 'ACTIVE' | 'DRAFT';
 
 interface LessonBaseRequest {
   title: string;
@@ -38,4 +38,14 @@ interface UpdateCourseRequest {
   numberOfLessons: number; // Thay '= 0' bằng '?' nếu nó không bắt buộc
   status: CourseStatus;
   lessons?: UpdateLessonRequest[]; // Thay '= []' bằng '?' nếu nó không bắt buộc
+}
+
+interface CourseFilterRequest {
+  subject?: string;
+  targetGrade?: string;
+  categoryName?: string;
+  status?: string;
+  fromDate?: string | Date; // LocalDate của Java thường map thành chuỗi 'YYYY-MM-DD' hoặc đối tượng Date
+  toDate?: string | Date;
+  courseName?: string;
 }

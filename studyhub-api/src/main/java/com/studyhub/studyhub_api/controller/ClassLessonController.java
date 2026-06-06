@@ -36,7 +36,7 @@ public class ClassLessonController {
     @GetMapping("/teacher/{classSlug}/{classLessonSlug}")
     public ApiResponse<ClassLessonTeacherResponse> getClassLesson(@PathVariable String classSlug, @PathVariable String classLessonSlug) {
         return ApiResponse.<ClassLessonTeacherResponse>builder()
-                .data(classLessonService.getClassLessonTeacher(classLessonSlug))
+                .data(classLessonService.getClassLessonTeacher(classSlug, classLessonSlug))
                 .build();
     }
 

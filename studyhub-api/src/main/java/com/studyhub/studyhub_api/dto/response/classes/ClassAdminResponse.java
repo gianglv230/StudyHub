@@ -15,6 +15,7 @@ public record ClassAdminResponse(
         String targetGrade,
         String categoryName,
 
+        String courseSlug,
         String className,
 
         String thumbnail,

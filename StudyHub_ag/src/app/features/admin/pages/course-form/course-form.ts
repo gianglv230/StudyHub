@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BaseComponent } from '../../../../_shared/components/base/base-component';
 import { validateRange } from '../../../../../utils/validator/factory.validator';
 import { FormInput } from '../../../../_shared/components/form-input/form-input';
@@ -30,6 +30,7 @@ import { initData } from '../../../../../utils/init-data';
     DatePipe,
     FormSelect,
     ResourceLiteCard,
+    RouterLink,
   ],
   templateUrl: './course-form.html',
   styleUrl: './course-form.css',
@@ -70,7 +71,7 @@ export class CourseForm implements OnInit, OnDestroy {
         id: [null],
         title: ['', [Validators.required, validateRange(8, 255)]],
         slug: ['', Validators.required],
-        description: ['x'],
+        description: [''],
         categoryName: ['', [Validators.required, validateRange(2, 255)]],
         targetGrade: ['', [Validators.required, validateRange(3, 255)]],
         subject: ['', [Validators.required, validateRange(2, 255)]],
@@ -320,9 +321,9 @@ export class CourseForm implements OnInit, OnDestroy {
         }
         if (res.data) {
           this.base.showSuccess('Thêm khóa học thành công');
-          // this.router.navigate([
-          //   `/admin/quan-ly-khoa-hoc/bieu-mau/${res.data}`,
-          // ]);
+          this.router.navigate([
+            `/admin/quan-ly-khoa-hoc/bieu-mau/${res.data.slug}`,
+          ]);
         }
       },
       error: (err) => this.base.handleError(err),
@@ -462,5 +463,23 @@ export class CourseForm implements OnInit, OnDestroy {
     });
 
     return clonedArray;
+  }
+
+  onDelete() {
+    this.courseSerivce.deleteCourse(this.courseResponse!.id).subscribe({
+      next: (res) => {
+        if (res.error) {
+          this.base.showDanger(res.message);
+          return;
+        }
+        if (res.data) {
+          this.base.showSuccess('Xóa khóa học thành công');
+          this.router.navigate([`/admin/quan-ly-khoa-hoc`]);
+        }
+      },
+      error: (err) => {
+        this.base.handleError(err);
+      },
+    });
   }
 }

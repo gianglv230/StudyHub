@@ -1,0 +1,60 @@
+<div
+  class="row main-content-header d-flex justify-content-between align-items-center mb-3 mb-md-0"
+>
+  <div class="col-12">
+    <a [routerLink]="`/admin/quan-ly-khoa-hoc/bieu-mau/${courseSlug}`" class="text-decoration-none back-btn cursor-pointer mb-3 d-block">
+      <div class="d-flex align-items-center text-primary-container">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="23"
+          height="23"
+          fill="currentColor"
+          class="bi bi-arrow-left-short me-2 back-arrow"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"
+          ></path>
+        </svg>
+        <span>Trở lại chi tiết khóa học</span>
+      </div>
+    </a>
+  </div>
+  <div class="col-12 col-md-auto">
+    <p class="text-primary-container ls-1 mb-0 fs-17">Quản lý lớp học</p>
+    <p class="text-secondary ls-1 small mb-2">
+      Danh sách các lớp học của khóa học
+    </p>
+  </div>
+  <div class="col-auto">
+    @if (courseSlug) {
+      <button
+        class="btn btn-primary-custom align-items-center py-2 px-3"
+        style="height: fit-content"
+        [routerLink]="`/admin/quan-ly-lop-hoc/bieu-mau/${courseSlug}`"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="currentColor"
+          class="bi bi-plus-lg me-1"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+          />
+        </svg>
+        <span class="fs-14">Thêm lớp học mới</span>
+      </button>
+    }
+  </div>
+</div>
+
+@if (pageData && pageData.data.length > 0) {
+  <app-class-result [pageData]="pageData" />
+} @else {
+  <app-empty />
+}

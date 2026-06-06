@@ -28,4 +28,6 @@ public interface ClassLessonConfigRepository extends JpaRepository<ClassLessonCo
         WHERE c.id = :classId
     """)
     Long getMaxOrderIndexByClassId(@Param("classId") Integer classId);
+
+    List<ClassLessonConfig> findByClassFieldIdAndClassLessonId(Integer classFieldId, Integer classLessonId);
 }

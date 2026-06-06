@@ -30,3 +30,16 @@ interface UpdateClassStatusRequest {
   classSlug: string;
   status: ClassStatus;
 }
+
+interface ClassFilterRequest {
+  subject?: string;
+  targetGrade?: string;
+  categoryName?: string;
+  status?: string;
+  fromDate?: string | Date; // LocalDate của Java thường map thành chuỗi 'YYYY-MM-DD' hoặc đối tượng Date
+  toDate?: string | Date;
+  courseName?: string;
+  emptyStatus?: string;
+  teacherId?: number;
+  className?: string;
+}

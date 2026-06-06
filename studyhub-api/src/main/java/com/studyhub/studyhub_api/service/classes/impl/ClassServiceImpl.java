@@ -44,6 +44,8 @@ import java.util.stream.Stream;
 @Slf4j
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ClassServiceImpl implements ClassService {
+    private static final int MAX_ITEM = 20;
+    private static final int MAX_ITEM_BENTO = 9;
     AuthenticationService authService;
     UserAccountService userAccountService;
     ClassRepository classRepository;
@@ -53,10 +55,7 @@ public class ClassServiceImpl implements ClassService {
     UserAccountRepository userAccountRepository;
     CourseRepository courseRepository;
     AttendanceRepository attendanceRepository;
-
     ClassMapper classMapper;
-    private static final int MAX_ITEM = 20;
-    private static final int MAX_ITEM_BENTO = 9;
 
     // Get class by filter
     @Override
@@ -131,7 +130,7 @@ public class ClassServiceImpl implements ClassService {
         List<Integer> classIds = classes.stream().map(Class::getId).toList();
         Map<Integer, Integer> progressMap = countLessonOfClass(classIds);
         return classes.stream()
-                .map(clazz -> classMapper.toClassProgressResponse(clazz, progressMap.get(clazz.getId())))
+                .map(clazz -> classMapper.toClassProgressResponse(clazz, progressMap.getOrDefault(clazz.getId(), 0)))
                 .toList();
     }
 
@@ -183,7 +182,7 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public PageResponse<ClassAdminResponse> filterClass(ClassFilterRequest classFilterRequest, Integer page) {
         Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
-        Pageable pageable = PageRequest.of(page - 1, MAX_ITEM);
+        Pageable pageable = PageRequest.of(page - 1, MAX_ITEM, sort);
 
         Specification<Class> spec = ClassSpecification.filter(classFilterRequest);
         var pageData = classRepository.findAll(spec, pageable);
@@ -202,7 +201,7 @@ public class ClassServiceImpl implements ClassService {
                 .totalElements(pageData.getTotalElements())
                 .data(pageData.stream()
                         .map(clazz -> classMapper
-                                .toClassAdminResponse(clazz, userMap.get(clazz.getCreatedBy()), userMap.get(clazz.getUpdatedBy())))
+                                .toClassAdminResponse(clazz, userMap.getOrDefault(clazz.getCreatedBy(), null), userMap.getOrDefault(clazz.getUpdatedBy(), null)))
                         .toList())
                 .build();
     }
@@ -210,8 +209,15 @@ public class ClassServiceImpl implements ClassService {
     private AdminClassResponse toAdminClassResponse(Class clazz) {
         var createdById = clazz.getCreatedBy();
         var updatedById = clazz.getUpdatedBy();
-        var userMap = userAccountService.getUserAccountMap(List.of(createdById, updatedById));
-        return classMapper.toAdminClassResponse(clazz, userMap.get(createdById), userMap.get(createdById));
+        List<Integer> ids = new ArrayList<>();
+        if (createdById != null) {
+            ids.add(createdById);
+        }
+        if (updatedById != null) {
+            ids.add(updatedById);
+        }
+        var userMap = userAccountService.getUserAccountMap(ids);
+        return classMapper.toAdminClassResponse(clazz, userMap.getOrDefault(createdById, null), userMap.getOrDefault(createdById, null));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -234,7 +240,7 @@ public class ClassServiceImpl implements ClassService {
         }
 
         Class clazz = classMapper.toClass(request);
-        clazz.setAvailableSlots(0);
+        clazz.setAvailableSlots(request.getMaxStudents());
         clazz.setStatus(StatusClass.UPCOMING.name());
         clazz.setCourse(course);
         classRepository.save(clazz);
@@ -358,6 +364,37 @@ public class ClassServiceImpl implements ClassService {
         }
         return null;
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public PageResponse<ClassAdminResponse> getAllAdminClassesOfCourse(String courseSlug, Integer page) {
+        Course course = courseRepository.findBySlug(courseSlug)
+                .orElseThrow(() -> new AppException(ErrorCode.COURSE_NOT_EXISTED));
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+        Pageable pageable = PageRequest.of(page - 1, MAX_ITEM_BENTO, sort);
+
+        Page<Class> pageData = classRepository.findAllByCourseId(course.getId(), pageable);
+
+        var userIds = Stream.concat(
+                pageData.stream().map(Class::getCreatedBy),
+                pageData.stream().map(Class::getUpdatedBy)
+        ).distinct().toList();
+
+        Map<Integer, String> userMap = userAccountService.getUserAccountMap(userIds);
+
+        return PageResponse.<ClassAdminResponse>builder()
+                .currentPage(page)
+                .pageSize(pageData.getSize())
+                .totalPages(pageData.getTotalPages())
+                .totalElements(pageData.getTotalElements())
+                .data(pageData.stream()
+                        .map(clazz -> classMapper
+                                .toClassAdminResponse(clazz, userMap.getOrDefault(clazz.getCreatedBy(), null), userMap.getOrDefault(clazz.getUpdatedBy(), null)))
+                        .toList())
+                .build();
+    }
+
 
     // -- COUNT --
     // Count lesson Of classes

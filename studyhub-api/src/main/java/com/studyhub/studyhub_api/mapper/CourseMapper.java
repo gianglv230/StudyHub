@@ -7,10 +7,7 @@ import com.studyhub.studyhub_api.dto.response.course.CourseAdminResponse;
 import com.studyhub.studyhub_api.dto.response.course.CourseDetailLiteResponse;
 import com.studyhub.studyhub_api.dto.response.course.CourseLiteResponse;
 import com.studyhub.studyhub_api.model.Course;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = {LessonMapper.class, ResourceMapper.class})
 public interface CourseMapper {
@@ -46,6 +43,18 @@ public interface CourseMapper {
             @Mapping(target = "videoDemo.id", source = "videoId")
     })
     Course toCourse(AddCourseRequest request);
+
+    // Hàm này sẽ tự động chạy sau khi hàm toCourse thực hiện xong
+//    @AfterMapping
+//    default void handleBlankResources(AddCourseRequest request, @MappingTarget Course course) {
+//        if (course.getThumbnail() != null && course.getThumbnail().getId() == null) {
+//            course.setThumbnail(null); // Trả về null xịn
+//        }
+//
+//        if (course.getVideoDemo() != null && course.getVideoDemo().getId() == null) {
+//            course.setVideoDemo(null); // Trả về null xịn
+//        }
+//    }
 
     @Mappings({
             @Mapping(target = "thumbnail.id", source = "thumbnailId"),

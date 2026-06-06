@@ -35,7 +35,8 @@ export class DynamicIcon {
     | 'bullseye'
     | 'lock'
     | 'unlock'
-    | 'trash';
+    | 'trash'
+    | 'lightning_charge_fill';
 
   @Input()
   width?: string = '16';
@@ -160,6 +161,9 @@ export class DynamicIcon {
     ],
     trash: [
       'M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0',
+    ],
+    lightning_charge_fill: [
+      'M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z',
     ],
   };
 

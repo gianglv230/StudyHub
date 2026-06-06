@@ -1,110 +1,186 @@
-<div class="search-box bg-white rounded-3 px-3 pb-2 pt-3 mt-2">
-  <div class="row">
-    <div class="col-6 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Môn học</label>
+<form [formGroup]="form" (ngSubmit)="filter()">
+  <div class="search-box bg-white rounded-3 px-3 pb-2 pt-3 mt-2">
+    <div class="row">
+      <div class="col-6 col-md-3">
+        <div class="mb-2">
+          <app-form-select
+            label="Môn học"
+            labelClass="mb-1 text-secondary ls-1 small"
+            [data]="cboxSubject"
+            [control]="getControl(form, 'subject')"
+          />
+          <!-- <label class="mb-1 text-secondary ls-1 small">Môn học</label>
         <select name="subject" class="form-select py-2">
           <option value="all" selected>Tất cả môn học</option>
-        </select>
+        </select> -->
+        </div>
       </div>
-    </div>
-    <div class="col-6 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Đối tượng học</label>
-        <select name="target-grade" class="form-select py-2">
-          <option value="all" selected>Tất cả đối tượng</option>
-        </select>
+      <div class="col-6 col-md-3">
+        <div class="mb-2">
+          <app-form-select
+            label="Đối tượng học"
+            labelClass="mb-1 text-secondary ls-1 small"
+            [data]="cboxTarget"
+            [control]="getControl(form, 'targetGrade')"
+          />
+          <!-- <label class="mb-1 text-secondary ls-1 small">Đối tượng học</label>
+          <select name="target-grade" class="form-select py-2">
+            <option value="all" selected>Tất cả đối tượng</option>
+          </select> -->
+        </div>
       </div>
-    </div>
-    <div class="col-6 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Danh mục</label>
-        <select name="category-name" class="form-select py-2">
-          <option value="all" selected>Tất cả danh mục</option>
-        </select>
+      <div class="col-6 col-md-3">
+        <div class="mb-2">
+          <app-form-select
+            label="Danh mục"
+            labelClass="mb-1 text-secondary ls-1 small"
+            [data]="cboxCategory"
+            [control]="getControl(form, 'categoryName')"
+          />
+
+          <!-- <label class="mb-1 text-secondary ls-1 small">Danh mục</label>
+          <select name="category-name" class="form-select py-2">
+            <option value="all" selected>Tất cả danh mục</option>
+          </select> -->
+        </div>
       </div>
-    </div>
-    <div class="col-6 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Trạng thái</label>
-        <select name="status" class="form-select py-2">
-          <option value="all" selected>Tất cả trạng thái</option>
-        </select>
+      <div class="col-6 col-md-3">
+        <div class="mb-2">
+          <app-form-select
+            label="Trạng thái"
+            labelClass="mb-1 text-secondary ls-1 small"
+            [data]="cboxStatus"
+            [control]="getControl(form, 'status')"
+          />
+
+          <!-- <label class="mb-1 text-secondary ls-1 small">Trạng thái</label>
+          <select name="status" class="form-select py-2">
+            <option value="all" selected>Tất cả trạng thái</option>
+          </select> -->
+        </div>
       </div>
-    </div>
-    <div class="col-6 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Từ ngày</label>
-        <input type="date" name="start-date" class="form-control py-2" />
+      <div class="col-6 col-md-3">
+        <div class="mb-2">
+          <app-form-input
+            label="Từ ngày"
+            labelClass="mb-1 text-secondary ls-1 small"
+            inputClass="py-2"
+            [isFloating]="false"
+            [control]="getControl(form, 'fromDate')"
+            type="date"
+          />
+          <!-- <label class="mb-1 text-secondary ls-1 small">Từ ngày</label>
+          <input type="date" name="start-date" class="form-control py-2" /> -->
+        </div>
       </div>
-    </div>
-    <div class="col-6 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Đến ngày</label>
-        <input type="date" name="end-date" class="form-control py-2" />
+      <div class="col-6 col-md-3">
+        <div class="mb-2">
+          <app-form-input
+            label="Đến ngày"
+            labelClass="mb-1 text-secondary ls-1 small"
+            inputClass="py-2"
+            [isFloating]="false"
+            [control]="getControl(form, 'toDate')"
+            type="date"
+          />
+
+          <!-- <label class="mb-1 text-secondary ls-1 small">Đến ngày</label>
+          <input type="date" name="end-date" class="form-control py-2" /> -->
+        </div>
       </div>
-    </div>
-    <div class="col-6">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Tên khóa học</label>
-        <input
-          type="text"
-          name="keyword"
-          class="form-control py-2"
-          placeholder="Tên khóa học"
-        />
+      <div class="col-6">
+        <div class="mb-2">
+          <app-form-input
+            label="Tên khóa học"
+            labelClass="mb-1 text-secondary ls-1 small"
+            inputClass="py-2"
+            [isFloating]="false"
+            [control]="getControl(form, 'courseName')"
+          />
+
+          <!-- <label class="mb-1 text-secondary ls-1 small">Tên khóa học</label>
+          <input
+            type="text"
+            name="keyword"
+            class="form-control py-2"
+            placeholder="Tên khóa học"
+          /> -->
+        </div>
       </div>
-    </div>
-    <div class="col-6 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Trạng thái trống</label>
-        <select name="available" class="form-select py-2">
-          <option value="all" selected>Tất cả</option>
-          <option value="available">Còn trống</option>
-          <option value="full">Hết chỗ</option>
-        </select>
+      <div class="col-6 col-md-3">
+        <div class="mb-2">
+          <app-form-select
+            label="Trạng thái trống"
+            labelClass="mb-1 text-secondary ls-1 small"
+            [data]="cboxAvailable"
+            [control]="getControl(form, 'emptyStatus')"
+          />
+
+          <!-- <label class="mb-1 text-secondary ls-1 small">Trạng thái trống</label>
+          <select name="available" class="form-select py-2">
+            <option value="all" selected>Tất cả</option>
+            <option value="available">Còn trống</option>
+            <option value="full">Hết chỗ</option>
+          </select> -->
+        </div>
       </div>
-    </div>
-    <div class="col-6 col-md-3">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Giáo viên</label>
-        <select name="teacher" class="form-select py-2">
-          <option value="all" selected>Tất cả giáo viên</option>
-        </select>
+      <div class="col-6 col-md-3">
+        <div class="mb-2">
+          <app-form-select
+            label="Giáo viên"
+            labelClass="mb-1 text-secondary ls-1 small"
+            [data]="teacherData"
+            [control]="getControl(form, 'teacherId')"
+          />
+
+          <!-- <label class="mb-1 text-secondary ls-1 small">Giáo viên</label>
+          <select name="teacher" class="form-select py-2">
+            <option value="all" selected>Tất cả giáo viên</option>
+          </select> -->
+        </div>
       </div>
-    </div>
-    <div class="col-6 col-md">
-      <div class="mb-2">
-        <label class="mb-1 text-secondary ls-1 small">Tên lớp học</label>
-        <input
-          type="text"
-          name="class-name"
-          class="form-control py-2"
-          placeholder="Tên lớp học"
-        />
+      <div class="col-6 col-md">
+        <div class="mb-2">
+          <app-form-input
+            label="Tên lớp học"
+            labelClass="mb-1 text-secondary ls-1 small"
+            inputClass="py-2"
+            [isFloating]="false"
+            [control]="getControl(form, 'courseName')"
+          />
+
+          <!-- <label class="mb-1 text-secondary ls-1 small">Tên lớp học</label>
+          <input
+            type="text"
+            name="class-name"
+            class="form-control py-2"
+            placeholder="Tên lớp học"
+          /> -->
+        </div>
       </div>
-    </div>
-    <div class="col-12 col-md-auto d-flex align-items-center">
-      <div class="mt-2 mt-md-3 w-100">
-        <button
-          class="btn btn-primary-custom align-items-center py-2 px-3 w-100"
-          style="height: fit-content"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-search me-1"
-            viewBox="0 0 16 16"
+      <div class="col-12 col-md-auto d-flex align-items-center">
+        <div class="mt-2 mt-md-3 w-100">
+          <button
+            class="btn btn-primary-custom align-items-center py-2 px-3 w-100"
+            style="height: fit-content"
+            type="submit"
           >
-            <path
-              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
-            />
-          </svg>
-          <span class="fs-14">Tìm kiếm</span>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-search me-1"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+              />
+            </svg>
+            <span class="fs-14">Tìm kiếm</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</form>

@@ -1,6 +1,6 @@
 export const CourseStatusMap: Record<CourseStatus, string> = {
   ACTIVE: 'Hoạt động',
-  INACTIVE: 'Không hoạt động',
+  DRAFT: 'Không hoạt động',
 };
 
 export const ClassStatusMap: Record<ClassStatus, string> = {
@@ -112,6 +112,21 @@ export const InvoiceStatusFilterMap: Record<InvoiceStatusFilter, string> = {
 
 export const InvoiceStatusFilterOptions: ComboboxRow[] = Object.entries(
   InvoiceStatusFilterMap,
+).map(([key, value]) => ({
+  label: value,
+  value: key,
+}));
+
+type AvailableFilter = ''| 'FULL' | 'AVAILABLE';
+
+export const AvailableStatusFilterMap: Record<AvailableFilter, string> = {
+  FULL: 'Đầy',
+  AVAILABLE: 'Trống',
+  '': 'Tất cả',
+};
+
+export const AvailableStatusFilterOptions: ComboboxRow[] = Object.entries(
+  AvailableStatusFilterMap,
 ).map(([key, value]) => ({
   label: value,
   value: key,

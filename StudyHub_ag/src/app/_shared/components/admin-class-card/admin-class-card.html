@@ -1,0 +1,100 @@
+<a
+  [routerLink]="
+    `/admin/quan-ly-lop-hoc/bieu-mau/${card.courseSlug}/${card.slug}`
+  "
+  class="text-decoration-none"
+>
+  <app-card-container [cardContainer]="cardContainer">
+    <app-info-field [value]="card.teacherName">
+      <app-dynamic-icon icon="person" />
+    </app-info-field>
+
+    <app-info-field
+      label="Ngày khai giảng dự kiến"
+      [value]="card.openingDate | date: 'dd/MM/yyyy'"
+    >
+      <app-dynamic-icon icon="flag_fill" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-success"
+      label="Ngày bắt đầu"
+      [value]="card.startDate | date: 'dd/MM/yyyy'"
+    >
+      <app-dynamic-icon icon="schedule" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-danger"
+      label="Ngày kết thúc"
+      [value]="card.endDate | date: 'dd/MM/yyyy'"
+    >
+      <app-dynamic-icon icon="schedule_tick_2" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-primary-container"
+      label="Lịch học"
+      [value]="card.classSchedule"
+    >
+      <app-dynamic-icon icon="clock" />
+    </app-info-field>
+
+    <app-info-field
+      classInfo="fw-bold text-primary-container"
+      label="Chỗ trống"
+      [value]="`Còn ${card.availableSlots} chỗ`"
+    >
+      <app-dynamic-icon icon="bag_1" />
+    </app-info-field>
+    <div class="d-flex align-items-center mb-0 justify-content-end">
+      <p class="text-danger fw-bold mb-0">
+        <span class="h4 fw-bold">{{
+          card.price | number: "1.0-2" : "vi"
+        }}</span>
+        <u>đ</u>
+      </p>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-between mb-0 mt-1">
+      <div class="d-flex align-items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-lightning-charge-fill me-2 text-primary-container"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"
+          />
+        </svg>
+        <p class="text-dark mb-0">
+          <span>Trạng thái:</span>
+        </p>
+      </div>
+      <span
+        class="ms-2 badge fw-bold rounded-pill"
+        [class]="getClassStatusColor(card.status)"
+        >{{ getClassStatus(card.status) }}</span
+      >
+    </div>
+    <div class="bg-background px-3 opacity-75 py-2 rounded-2 mt-3">
+      <p class="small text-dark d-flex justify-content-between mb-1">
+        <span class="fw-bold">Tạo: </span>
+        <span
+          >{{ card.createdAt | date: "dd/MM/yyyy" }} -
+          {{ card.createdBy }}</span
+        >
+      </p>
+      <p class="small text-dark d-flex justify-content-between mb-0">
+        <span class="fw-bold">Sửa: </span>
+        <span
+          >{{ card.updatedAt | date: "dd/MM/yyyy" }} -
+          {{ card.updatedBy }}</span
+        >
+      </p>
+    </div>
+  </app-card-container>
+</a>

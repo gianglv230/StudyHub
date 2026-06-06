@@ -18,6 +18,7 @@ interface LessonSectionResponse {
 
 interface ClassLessonTeacherResponse {
     id: number;
+    clcId: number;
     slug: string;
     titleOverride: string | null; // Cho phép null nếu trường này không bắt buộc
     createdAt: string; // ISO string (e.g., "2026-05-28T15:30:00Z")

@@ -168,4 +168,15 @@ public class ClassController {
                 .data(classService.getAdminClassInfo(classSlug))
                 .build();
     }
+
+    @Operation(summary = "Get classes of course", description = "API get classes of course")
+    @GetMapping("/admin/class-of-course/{courseSlug}")
+    public ApiResponse<PageResponse<ClassAdminResponse>> getAdminClassOfCourse(
+            @PathVariable String courseSlug,
+            @RequestParam(required = false, defaultValue = "1") Integer page
+    ) {
+        return ApiResponse.<PageResponse<ClassAdminResponse>>builder()
+                .data(classService.getAllAdminClassesOfCourse(courseSlug, page))
+                .build();
+    }
 }

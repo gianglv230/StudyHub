@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/clc")
 @Tag(name = "Class Lesson Config Controller")
 public class ClassLessonConfigController {
-    ClassLessonConfigService clcService;
+    private final ClassLessonConfigService clcService;
 
     @Operation(summary = "Delete class lesson config", description = "API delete class lesson config")
     @DeleteMapping("/{clcId}")

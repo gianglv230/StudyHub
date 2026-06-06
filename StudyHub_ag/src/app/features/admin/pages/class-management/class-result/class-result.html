@@ -1,12 +1,15 @@
-<div class="bg-border-color-light rounded-4 px-3 pt-2 pb-4 mt-4 border border-1">
-          <h4 class="text-primary-container fw-bold my-3">
-            Có 5 kết quả được tìm thấy
-          </h4>
-          <hr />
-          <div class="row g-4">
-            <!-- Course Card 2 -->
-            <div class="col-12 col-md-6 col-lg-4">
-              <a href="#" class="text-decoration-none">
+<div class="bg-border-color-light rounded-4 px-3 pt-2 pb-4 mt-4 border">
+  <h4 class="text-primary-container fw-bold my-3">
+    Có {{ pageData?.totalElements }} kết quả được tìm thấy
+  </h4>
+  <hr />
+  @if (pageData && pageData.data.length > 0) {
+    <div class="row g-4">
+      <!-- Course Card 2 -->
+      @for (item of pageData.data; track $index) {
+        <div class="col-12 col-md-6 col-lg-4">
+          <app-admin-class-card [card]="item" />
+          <!-- <a href="#" class="text-decoration-none">
                 <div class="course-card">
                   <div class="course-img-wrapper">
                     <img
@@ -119,53 +122,59 @@
                     </div>
                   </div>
                 </div></a
-              >
-            </div>
-            
-          </div>
-          <nav>
-            <ul class="pagination gap-1 mt-5 justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-chevron-left"
-                    viewBox="0 0 16 16"
-                    style="margin-left: -4px; margin-right: -4px"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
-                    />
-                  </svg>
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link active" href="#">1</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-chevron-right"
-                    viewBox="0 0 16 16"
-                    style="margin-left: -4px; margin-right: -4px"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
-                    />
-                  </svg>
-                </a>
-              </li>
-            </ul>
-          </nav>
+              > -->
         </div>
+      }
+    </div>
+
+    <app-pagination [paginationModel]="pagination!" />
+  } @else {
+    <app-empty />
+  }
+
+  <!-- <nav>
+    <ul class="pagination gap-1 mt-5 justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-chevron-left"
+            viewBox="0 0 16 16"
+            style="margin-left: -4px; margin-right: -4px"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+            />
+          </svg>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link active" href="#">1</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-chevron-right"
+            viewBox="0 0 16 16"
+            style="margin-left: -4px; margin-right: -4px"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+            />
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav> -->
+</div>

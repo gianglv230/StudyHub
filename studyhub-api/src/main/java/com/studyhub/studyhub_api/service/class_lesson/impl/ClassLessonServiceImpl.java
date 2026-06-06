@@ -9,10 +9,7 @@ import com.studyhub.studyhub_api.mapper.ClassLessonMapper;
 import com.studyhub.studyhub_api.mapper.ResourceMapper;
 import com.studyhub.studyhub_api.model.*;
 import com.studyhub.studyhub_api.model.Class;
-import com.studyhub.studyhub_api.repository.ClassLessonConfigRepository;
-import com.studyhub.studyhub_api.repository.ClassLessonRepository;
-import com.studyhub.studyhub_api.repository.ResourceRepository;
-import com.studyhub.studyhub_api.repository.SectionRepository;
+import com.studyhub.studyhub_api.repository.*;
 import com.studyhub.studyhub_api.service.auth.AuthenticationService;
 import com.studyhub.studyhub_api.service.class_lesson.ClassLessonService;
 import lombok.AccessLevel;
@@ -34,6 +31,7 @@ public class ClassLessonServiceImpl implements ClassLessonService {
     AuthenticationService authService;
     ClassLessonRepository classLessonRepository;
     ClassLessonConfigRepository classLessonConfigRepository;
+    ClassRepository classRepository;
 
     ClassLessonMapper classLessonMapper;
     ResourceMapper resourceMapper;
@@ -45,7 +43,7 @@ public class ClassLessonServiceImpl implements ClassLessonService {
     // Untest
     @PreAuthorize("hasRole('TEACHER')")
     @Override
-    public ClassLessonTeacherResponse getClassLessonTeacher(String classLessonSlug) {
+    public ClassLessonTeacherResponse getClassLessonTeacher(String classSlug, String classLessonSlug) {
         UserAccount account = authService.getUserAccountByJwtToken();
         ClassLesson classLesson = classLessonRepository.findBySlugAndCreatedBy(classLessonSlug, account.getId())
                 .orElseThrow(() -> new AppException(ErrorCode.CLASS_LESSON_NOT_EXISTED));
@@ -68,8 +66,14 @@ public class ClassLessonServiceImpl implements ClassLessonService {
                         resourceMapper::toChildrenResourceResponse // Hoặc tự tay map new ChildrenResourceResponse(...)
                 ));
 
+        Class clazz = classRepository.findBySlug(classSlug).orElseThrow(
+                () -> new AppException(ErrorCode.CLASS_NOT_EXISTED)
+        );
+        Integer clcId = classLessonConfigRepository.findByClassFieldIdAndClassLessonId(clazz.getId(), classLesson.getId()).getFirst().getId();
+
         // 4. Truyền classLesson kèm theo map tra cứu vào Mapper
-        return classLessonMapper.toClassLessonTeacherResponse(classLesson, resourceMap);
+
+        return classLessonMapper.toClassLessonTeacherResponse(classLesson, clcId, resourceMap);
     }
 
     @Transactional

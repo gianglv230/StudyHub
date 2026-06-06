@@ -41,7 +41,7 @@ public class ClassSpecification {
             }
 
             if (request.courseName() != null) {
-                predicates.add(cb.like(cb.lower(root.get("course").get("courseName")), "%" + request.courseName().trim().toLowerCase() + "%"));
+                predicates.add(cb.like(cb.lower(root.get("course").get("title")), "%" + request.courseName().trim().toLowerCase() + "%"));
             }
 
             if(request.teacherId() != null){

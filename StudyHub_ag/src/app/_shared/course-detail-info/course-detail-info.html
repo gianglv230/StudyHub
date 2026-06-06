@@ -1,9 +1,12 @@
 @if (course) {
   @if (course.video) {
     <div class="ratio ratio-16x9 mb-4">
-      <video controls poster="assets/images/about-us.jpg">
+      <video controls [poster]="videoThumbnail || 'assets/images/about-us.jpg'">
         <source
-          src="https://res.cloudinary.com/demo/video/upload/q_auto,vc_av1/rafting.webm"
+          [src]="
+            course.video ||
+            'https://res.cloudinary.com/demo/video/upload/q_auto,vc_av1/rafting.webm'
+          "
           type="video/mp4"
         />
       </video>

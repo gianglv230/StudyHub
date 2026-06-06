@@ -2,7 +2,10 @@
   <div
     class="main-content-header d-flex justify-content-between align-items-center"
   >
-    <a href="#" class="text-decoration-none back-btn">
+    <a
+      routerLink="/admin/quan-ly-khoa-hoc"
+      class="text-decoration-none back-btn"
+    >
       <div class="d-flex align-items-center text-primary-container">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -20,6 +23,29 @@
         <span>Trở lại danh sách khóa học</span>
       </div>
     </a>
+
+    @if (courseSlug) {
+      <button
+        class="btn btn-primary-custom align-items-center py-2 px-3"
+        style="height: fit-content"
+        [routerLink]="`/admin/quan-ly-khoa-hoc/${courseSlug}`"
+      >
+        <!-- <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="currentColor"
+          class="bi bi-plus-lg me-1"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+          />
+        </svg> -->
+        <span class="fs-14">Xem danh sách lớp học</span>
+      </button>
+    }
   </div>
   @if (form) {
     <div [formGroup]="form">
@@ -238,7 +264,7 @@
           <div class="section-body p-3">
             <div class="content-list">
               @for (les of getLessons(); track les; let lesIdx = $index) {
-                <div class="content border-1 border rounded-3">
+                <div class="content border rounded-3">
                   <div
                     class="section-header bg-border-color-lite rounded-top px-3 py-2"
                   >
@@ -367,3 +393,13 @@
     </div>
   </div>
 </div>
+
+@if (courseSlug) {
+  <hr />
+  <button
+    class="btn btn-danger py-2 rounded-3 me-2 px-2 fw-bold mt-5 w-100"
+    (click)="onDelete()"
+  >
+    Xóa khóa học
+  </button>
+}

@@ -5,6 +5,7 @@ import java.util.List;
 
 public record ClassLessonTeacherResponse(
         Integer id,
+        Integer clcId,
         String slug,
         String titleOverride,
         Instant createdAt,

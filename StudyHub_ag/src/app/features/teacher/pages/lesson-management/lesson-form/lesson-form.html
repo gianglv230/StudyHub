@@ -297,4 +297,9 @@
       </button>
     </div>
   </div>
+  @if (classLessonResponse) {
+    <hr />
+    <button class="btn btn-danger mb-5 w-100" type="button" (click)="deleteClassLesson()">Xóa bài học</button>
+    <div class="mb-5"></div>
+  }
 }

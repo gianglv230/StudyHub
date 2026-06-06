@@ -1,8 +1,14 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { InvoiceStatusFilterOptions } from '../../../../../../utils/const/status.const';
-import { FormInput } from "../../../../../_shared/components/form-input/form-input";
-import { FormSelect } from "../../../../../_shared/components/form-select/form-select";
+import { FormInput } from '../../../../../_shared/components/form-input/form-input';
+import { FormSelect } from '../../../../../_shared/components/form-select/form-select';
+import { dateLessThanValidator } from '../../../../../../utils/validator/factory.validator';
 
 @Component({
   selector: 'app-invoice-searchbox',
@@ -19,16 +25,21 @@ export class InvoiceSearchbox {
   cboxStatus: ComboboxRow[] = InvoiceStatusFilterOptions;
 
   constructor(private readonly fb: FormBuilder) {
-    this.form = this.fb.group({
-      invoiceId: [''],
-      status: [''],
-      dueDate: [''],
-      orderCode: [''],
-      studentId: [''],
-      classId: [''],
-      fromDate: [''],
-      toDate: ['']
-    });
+    this.form = this.fb.group(
+      {
+        invoiceId: [''],
+        status: [''],
+        dueDate: [''],
+        orderCode: [''],
+        studentId: [''],
+        classId: [''],
+        fromDate: [''],
+        toDate: [''],
+      },
+      {
+        validators: [dateLessThanValidator('fromDate', 'toDate')],
+      },
+    );
   }
 
   filterAccount() {

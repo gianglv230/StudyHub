@@ -62,7 +62,7 @@ export abstract class BaseService<TList, TCreate = TList, TUpdate = TList> {
    * @returns Observable of void.
    */
   delete(id: number | string) {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.http.delete<ApiResponse<Boolean>>(`${this.baseUrl}/${id}`);
   }
 
   /**

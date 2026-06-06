@@ -10,7 +10,7 @@ import {
 import { Subscription } from 'rxjs';
 import { toSlug } from '../../../../../utils/slug.util';
 import { AdminClassService } from '../../service/admin-class/admin-class.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BaseComponent } from '../../../../_shared/components/base/base-component';
 import { ModalService } from '../../../../_service/utils/modal.service';
 import { initData } from '../../../../../utils/init-data';
@@ -23,6 +23,7 @@ import { DatePipe } from '@angular/common';
 import { FormInput } from '../../../../_shared/components/form-input/form-input';
 import { FormSelect } from '../../../../_shared/components/form-select/form-select';
 import { ResourceLiteCard } from '../../../../_shared/resource-lite-card/resource-lite-card';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-class-form',
@@ -32,7 +33,8 @@ import { ResourceLiteCard } from '../../../../_shared/resource-lite-card/resourc
     FormInput,
     FormSelect,
     ResourceLiteCard,
-  ],
+    RouterLink
+],
   templateUrl: './class-form.html',
   styleUrl: './class-form.css',
 })
@@ -57,6 +59,7 @@ export class ClassForm implements OnInit, OnDestroy {
     private readonly base: BaseComponent,
     private readonly router: Router,
     private readonly modalService: ModalService,
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {
@@ -236,9 +239,9 @@ export class ClassForm implements OnInit, OnDestroy {
         }
         if (res.data) {
           this.base.showSuccess('Thêm lớp học thành công');
-          // this.router.navigate([
-          //   `/admin/quan-ly-khoa-hoc/bieu-mau/${res.data}`,
-          // ]);
+          this.router.navigate([
+            `/admin/quan-ly-lop-hoc/bieu-mau/${this.courseSlug}/${res.data.slug}`,
+          ]);
         }
       },
       error: (err) => this.base.handleError(err),
@@ -363,5 +366,33 @@ export class ClassForm implements OnInit, OnDestroy {
     });
 
     return clonedArray;
+  }
+
+  onDelete() {
+    this.classService.deleteClass(this.classResponse!.id).subscribe({
+      next: (res) => {
+        if (res.error) {
+          this.base.showDanger(res.message);
+          return;
+        }
+        if (res.data) {
+          this.base.showSuccess('Xóa lớp học thành công');
+          this.router.navigate([`/admin/quan-ly-lop-hoc`]);
+        }
+      },
+      error: (err) => {
+        this.base.handleError(err);
+      },
+    });
+  }
+
+  goBack(): void {
+    // window.history.length > 1 nghĩa là tab này đã có lịch sử di chuyển qua lại
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      // Nếu là tab mới hoàn toàn, điều hướng về trang danh sách lớp học
+      this.router.navigate([`'/admin/quan-ly-khoa-hoc/${this.courseSlug}'`]);
+    }
   }
 }

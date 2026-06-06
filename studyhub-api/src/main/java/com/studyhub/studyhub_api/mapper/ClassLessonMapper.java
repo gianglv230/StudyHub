@@ -51,6 +51,7 @@ public interface ClassLessonMapper {
     // 1. Method cha: Nhận Map context và tự động chuyển tiếp xuống SectionMapper
     ClassLessonTeacherResponse toClassLessonTeacherResponse(
             ClassLesson classLesson,
+            Integer clcId,
             @Context Map<Integer, ChildrenResourceResponse> resourceMap
     );
 }
