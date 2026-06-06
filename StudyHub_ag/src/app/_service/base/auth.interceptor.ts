@@ -55,6 +55,14 @@ export class AuthInterceptor implements HttpInterceptor {
           this.isHandling401 = true;
           console.warn('Access token expired or unauthorized.');
 
+          // 1. Xóa các key thông tin user trong Cache
+          this.cacheService.clearSession();
+
+          // 2. Điều hướng người dùng về trang chủ
+          this.router.navigate(['/trang-chu']).then(() => {
+            this.isHandling401 = false; // Reset lại flag sau khi chuyển trang thành công
+          });
+
           // return this.authService.refreshToken().pipe(
           //   switchMap(() => {
           //     this.isHandling401 = false;
@@ -81,36 +89,30 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   /** Xử lý khi refresh token thất bại */
-  private handleRefreshFail(): void {
-    console.log('Remove customer');
-    localStorage.removeItem('customer');
+  // private handleRefreshFail(): void {
+  //   console.log('Remove customer');
+  //   localStorage.removeItem('customer');
 
-    const guardedRoutes = [
-      '/thanh-toan-thanh-cong',
-      '/thanh-toan-that-bai',
-      '/thong-tin-ca-nhan',
-      '/cac-tour-cua-toi',
-      '/dat-tour',
-      '/cac-tour-cua-toi/tour-da-dat',
-    ];
+  //   const guardedRoutes = [
+  //   ];
 
-    const currentUrl = this.router.url;
-    const isGuarded = guardedRoutes.some((route) =>
-      currentUrl.startsWith(route),
-    );
+  //   const currentUrl = this.router.url;
+  //   const isGuarded = guardedRoutes.some((route) =>
+  //     currentUrl.startsWith(route),
+  //   );
 
-    if (isGuarded) {
-      // Nếu route cần login mà refresh fail -> về trang chủ
-      window.location.href = '/trang-chu';
-      // this.router.navigate(['trang-chu']);
-    } else {
-      // Nếu không cần login -> reload lại để reset state và cookie lỗi
-      // setTimeout(() => {
-      //   this.router
-      //     .navigateByUrl('/', { skipLocationChange: true })
-      //     .then(() => this.router.navigate([currentUrl]));
-      // }, 300);
-      setTimeout(() => (window.location.href = window.location.href), 300);
-    }
-  }
+  //   if (isGuarded) {
+  //     // Nếu route cần login mà refresh fail -> về trang chủ
+  //     window.location.href = '/trang-chu';
+  //     // this.router.navigate(['trang-chu']);
+  //   } else {
+  //     // Nếu không cần login -> reload lại để reset state và cookie lỗi
+  //     // setTimeout(() => {
+  //     //   this.router
+  //     //     .navigateByUrl('/', { skipLocationChange: true })
+  //     //     .then(() => this.router.navigate([currentUrl]));
+  //     // }, 300);
+  //     setTimeout(() => (window.location.href = window.location.href), 300);
+  //   }
+  // }
 }

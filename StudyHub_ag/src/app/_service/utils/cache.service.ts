@@ -18,7 +18,14 @@ export class CacheService {
     return localStorage.getItem(key);
   }
 
-  removeItem(key: string){
+  removeItem(key: string) {
     localStorage.removeItem(key);
+  }
+
+  // Trong cache.service.ts
+  clearSession(): void {
+    this.removeItem(KEY_CACHE.ACCESS_TOKEN);
+    this.removeItem(KEY_CACHE.FULLNAME);
+    this.removeItem(KEY_CACHE.ROLE);
   }
 }
