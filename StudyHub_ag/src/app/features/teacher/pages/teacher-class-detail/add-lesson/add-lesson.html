@@ -1,0 +1,43 @@
+<div class="modal-body">
+  <div class="px-3 pt-2">
+    <div class="d-flex justify-content-between mb-2">
+      <div class="h4 text-center text-primary-container text-uppercase fw-bold">
+        Thêm bài học
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="activeModal.dismiss()"
+        ></button>
+      </div>
+    </div>
+    @if (form) {
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <app-form-input
+          [control]="getControl(form, 'classLessonSlug')"
+          type="text"
+          label="Slug của bài học"
+          placeholder="Nếu như đã tạo bài học từ trước"
+        />
+
+        <div class="text-center mt-3">
+          <button class="btn-primary-custom w-100 py-2" type="submit">
+            Thêm từ slug
+          </button>
+        </div>
+
+        <hr class="my-3" />
+        <div class="text-center mt-3">
+          <button
+            class="btn btn-primary w-100 fw-bold rounded-3 py-2"
+            type="button"
+            [routerLink]="`/giao-vien/${data.classSlug}/quan-ly-bai-hoc`"
+          >
+            Tạo mới
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+</div>

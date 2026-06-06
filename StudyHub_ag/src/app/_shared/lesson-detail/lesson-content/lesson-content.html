@@ -1,10 +1,13 @@
-<div class="d-flex justify-content-between align-items-center">
-  <h5 class="mt-3 mb-3 small text-nowrap lesson-title">Bài 1: Nguyên lý</h5>
-  <button class="btn btn-primary-custom py-0 h-50 py-1">Sửa</button>
-</div>
-<div class="lesson-content mb-3">
-  <app-lesson-main />
-  <div class="mt-4">
-    <app-lesson-minor />
-  </div>
+<div class="lesson-content mb-3 pt-2">
+  @for (item of classLessonTeacher?.sections; track item.id) {
+    <div [class.d-none]="item.id !== currentSelectedSectionId">
+      <h5 class="mt-2 mb-3 small">
+        Phần {{ $index + 1 }}: {{ item.sectionName }}
+      </h5>
+      <app-lesson-main [section]="item" />
+      <div class="mt-4">
+        <app-lesson-minor [section]="item" />
+      </div>
+    </div>
+  }
 </div>

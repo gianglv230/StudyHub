@@ -22,7 +22,7 @@ public interface ClassLessonConfigRepository extends JpaRepository<ClassLessonCo
     Long countClassLessonInClassLessonConfig(@Param("classLessonId") Integer classLessonId);
 
     @Query("""
-        SELECT MAX(clc.orderIndex)
+        SELECT COALESCE(MAX(clc.orderIndex), 0)
         FROM ClassLessonConfig clc
         JOIN clc.classField c
         WHERE c.id = :classId

@@ -1,8 +1,20 @@
-<div class="ratio ratio-16x9 rounded-3 overflow-hidden">
-  <video controls poster="assets/images/about-us.jpg">
-    <source
-      src="https://res.cloudinary.com/demo/video/upload/q_auto,vc_av1/rafting.webm"
-      type="video/mp4"
-    />
-  </video>
-</div>
+@if (section) {
+  @if (section.type == "VIDEO_MAIN") {
+    <div class="ratio ratio-16x9 rounded-3 overflow-hidden">
+      <video controls [poster]="videoThumbnail || 'assets/images/about-us.jpg'">
+        <source
+          [src]="
+            section.videoContent?.url ||
+            'https://res.cloudinary.com/demo/video/upload/q_auto,vc_av1/rafting.webm'
+          "
+          type="video/mp4"
+        />
+      </video>
+    </div>
+  } @else {
+    <p class="mb-1 text-primary-container fw-bold">Nội dung</p>
+    <div class="border border-secondary rounded-3 px-1 py-2">
+      <div [innerHTML]="section.textContent"></div>
+    </div>
+  }
+}

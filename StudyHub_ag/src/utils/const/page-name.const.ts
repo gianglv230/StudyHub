@@ -22,6 +22,8 @@ export const TEACHER_PAGE = {
   LESSON_MANAGEMENT: 'Quản lý bài học',
   ATTENDANCE: 'Thông tin điểm danh',
   RESOURCE_MANAGEMENT: 'Quản lý tài nguyên',
+  LESSON: 'Chi tiết bài học',
+  TEACHER_CLASS_DETAIL: 'Chi tiết lớp học',
 };
 
 export const ADMIN_PAGE = {

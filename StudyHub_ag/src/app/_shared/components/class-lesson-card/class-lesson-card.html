@@ -1,5 +1,8 @@
 @if (classLesson) {
-  <div class="row g-0 bg-white rounded-4 shadow-sm lesson-card mb-3">
+  <div
+    class="row g-0 bg-white rounded-4 shadow-sm lesson-card mb-3 cursor-pointer"
+    [routerLink]="`/${isStudent ? 'hoc-vien' : 'giao-vien' }/lop-hoc/${classSlug}/${classLesson.slug}`"
+  >
     <div class="col">
       <div class="py-4 px-3 ps-md-4">
         <h5 class="fw-medium">

@@ -1,10 +1,20 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { initData } from '../../../utils/init-data';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ClassService } from '../../_service/class/class.service';
 import { DynamicIcon } from '../components/dynamic-icon/dynamic-icon';
 import { ClassLessonCard } from '../components/class-lesson-card/class-lesson-card';
 import { BaseComponent } from '../components/base/base-component';
+import { ModalService } from '../../_service/utils/modal.service';
+import { AddLesson } from '../../features/teacher/pages/teacher-class-detail/add-lesson/add-lesson';
+import { TeacherClcService } from '../../features/teacher/service/teacher-clc/teacher-clc.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-class-lessons',
@@ -18,10 +28,14 @@ export class ClassLessons implements OnInit {
   slug?: string;
   isStudent: boolean = true;
 
+  private readonly destroyRef = inject(DestroyRef); // Inject ở cấp class
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly classService: ClassService,
-    private readonly base: BaseComponent
+    private readonly base: BaseComponent,
+    private readonly modalService: ModalService,
+    private readonly clcService: TeacherClcService,
   ) {}
 
   ngOnInit(): void {
@@ -32,8 +46,21 @@ export class ClassLessons implements OnInit {
 
     this.isStudent = this.base.isStudent();
     console.log(this.isStudent);
-    
+
     this.slug = slug;
+    this.initLesson(slug);
+
+    if (!this.isStudent) {
+      // 2. Lắng nghe sự kiện refresh từ AdminClassService để reload lại class info
+      this.clcService.lessonRefresh$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          this.initLesson(this.slug!);
+        });
+    }
+  }
+
+  initLesson(slug: string) {
     initData<ClassLessonResponse>(
       this.classService.getClassLessonOfClass(slug),
       (data) => {
@@ -57,6 +84,18 @@ export class ClassLessons implements OnInit {
   }
 
   get attendanceLink(): string {
-    return this.isStudent ? `/hoc-vien/lop-hoc/${this.slug}/thong-tin-diem-danh` : `/giao-vien/lop-hoc/${this.slug}/thong-tin-diem-danh`;
+    return this.isStudent
+      ? `/hoc-vien/lop-hoc/${this.slug}/thong-tin-diem-danh`
+      : `/giao-vien/lop-hoc/${this.slug}/thong-tin-diem-danh`;
+  }
+
+  openClcModal() {
+    this.modalService.open({
+      component: AddLesson,
+      data: {
+        classSlug: this.slug,
+        orderIndex: this.classLessons.length,
+      },
+    });
   }
 }

@@ -41,11 +41,14 @@ public class ClassLessonServiceImpl implements ClassLessonService {
 //    ContentRepository contentRepository;
 
     // Untest
-    @PreAuthorize("hasRole('TEACHER')")
+    @PreAuthorize("hasAnyRole('STUDENT', 'TEACHER')")
     @Override
     public ClassLessonTeacherResponse getClassLessonTeacher(String classSlug, String classLessonSlug) {
         UserAccount account = authService.getUserAccountByJwtToken();
-        ClassLesson classLesson = classLessonRepository.findBySlugAndCreatedBy(classLessonSlug, account.getId())
+//        ClassLesson classLesson = classLessonRepository.findBySlugAndCreatedBy(classLessonSlug, account.getId())
+//                .orElseThrow(() -> new AppException(ErrorCode.CLASS_LESSON_NOT_EXISTED));
+
+        ClassLesson classLesson = classLessonRepository.findBySlug(classLessonSlug)
                 .orElseThrow(() -> new AppException(ErrorCode.CLASS_LESSON_NOT_EXISTED));
 
         // 1. Gom tất cả List<Integer> từ các section thành một List<Integer> phẳng duy nhất
