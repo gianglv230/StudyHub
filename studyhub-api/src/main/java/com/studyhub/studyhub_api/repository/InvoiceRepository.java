@@ -12,7 +12,9 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Integer>, JpaSpecificationExecutor<Invoice> {
@@ -39,4 +41,9 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer>, JpaS
 
     Boolean existsByEnrollmentIdAndStatusIn(int enrollmentId, List<String> statuses);
     List<Invoice> findByEnrollmentIdAndStatusIn(int enrollmentId, List<String> statuses);
+
+    List<Invoice> findByDueDateAndStatusEqualsIgnoreCase(LocalDate dueDate, String status);
+
+    Optional<Invoice> findByIdAndStatusIn(Integer invoiceId, List<String> statuses);
+//    Optional<Invoice> findByOrderCodeAndStatusIn(Integer orderCode, List<String> statuses);
 }

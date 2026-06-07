@@ -13,7 +13,7 @@
           invoice?.studentName
         }}</a>
       </h4>
-      <p class="badge px-3 rounded-pill h-100" [class]="statusStype">
+      <p class="badge px-3 rounded-pill h-100 py-1" [class]="statusStype">
         {{ status }}
       </p>
     </div>
@@ -31,7 +31,7 @@
           Ngày đến hạn
         </p>
         <p class="text-muted invoice-head-label fs-16">
-          {{ invoice?.dueDate| date: 'dd/MM/yyyy'}}
+          {{ invoice?.dueDate | date: "dd/MM/yyyy" }}
         </p>
       </div>
       <div class="col-6 col-md-4 col-lg-3">
@@ -39,7 +39,7 @@
           Ngày tạo
         </p>
         <p class="text-muted invoice-head-label fs-16">
-          {{invoice?.createdAt| date: 'dd/MM/yyyy'}}
+          {{ invoice?.createdAt | date: "dd/MM/yyyy" }}
         </p>
       </div>
       <div class="col-6 col-md-4 col-lg-3">
@@ -76,7 +76,9 @@
       </div>
       @if (unPaid) {
         <div class="col-6 col-md-4 col-lg-3">
-          <button class="btn btn-primary-custom w-100">Thanh toán</button>
+          <button class="btn btn-primary-custom w-100" (click)="goPaid()">
+            Thanh toán
+          </button>
         </div>
       }
     </div>

@@ -48,6 +48,8 @@ public class SecurityConfig {
             "/course/type/{type}", "/course/find", "/course/filter-option", "/course/filter", "/course/detail/**",
             "/class/filter", "/class/class-of-course/**", "/class/class-of-teacher/**", "/class/detail/**"};
 
+    private static final String[] POST_API_PUBLIC = {"/auth/**", "/payment/**",};
+
     // Custom JWT decoder used to parse and validate incoming JWT tokens
     private final CustomJwtDecoder jwtDecoder;
 
@@ -67,7 +69,7 @@ public class SecurityConfig {
         // Configure endpoint access rules
         httpSecurity.authorizeHttpRequests(request ->
                 request
-                        .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, POST_API_PUBLIC).permitAll()
                         .requestMatchers(HttpMethod.GET, GET_API_PUBLIC).permitAll()
                         .anyRequest().authenticated());
 //                        .anyRequest().permitAll());

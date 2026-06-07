@@ -30,6 +30,13 @@ spring:
     scheduling:
       enabled: true
 
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PWD:defaulupt}
+      database: 0
+
 jwt:
   signer-key: ${SIGNER_KEY:pPj043gpT9GBlty/YK2W/DsMS0yivBosos6VzXtelJUjkN97X0yQGZnF7sToVIlH}
   valid-duration: 7200 #in seconds
@@ -46,3 +53,11 @@ open:
     version: v0.0.1
     serverUrl: http://localhost:8080/api/v1
     serverName: Server Dev
+
+payos:
+  client-id: ${PAYOS_CLIENT_ID:StudyHub}
+  api-key: ${PAYOS_API_KEY:StudyHub}
+  checksum-key: ${PAYOS_CHECKSUM_KEY:StudyHub}
+  url-return: http://localhost:4200//hoc-vien/trang-chu
+
+mailtoken: ${MAIL_TOKEN}

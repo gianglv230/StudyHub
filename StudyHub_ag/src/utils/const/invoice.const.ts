@@ -7,7 +7,7 @@ export const STATUS_INVOICE: Record<string, string> = {
 };
 
 export const CLASS_STATUS_INVOICE: Record<string, string> = {
-  PENDING: 'bg-primary-custom',
+  PENDING: 'bg-info',
   PAID: 'bg-success',
   OVERDUE: 'bg-danger',
   REFUNDED: 'bg-primary',

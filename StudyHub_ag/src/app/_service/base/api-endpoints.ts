@@ -82,5 +82,9 @@ export const API_ENDPOINTS = {
   ENROLLMENT_ENDPOINTS: {
     ADMIN: '/admin'
   },
-  CLC: '/clc'
+  CLC: '/clc',
+  ORDER: '/order',
+  ORDER_ENDPOINTS: {
+    CREATE: '/create'
+  }
 };

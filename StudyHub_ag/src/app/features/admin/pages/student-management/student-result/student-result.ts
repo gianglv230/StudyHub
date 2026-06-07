@@ -50,6 +50,7 @@ export class StudentResult implements OnInit {
 
   // Ép kiểu này giúp bạn gõ sai chữ 'make' thành 'makeee' là IDE báo lỗi ngay
   fields: (keyof AdminUserAccountBasicResponse)[] = [
+    'id',
     'firstName',
     'lastName',
     'gender',
@@ -72,6 +73,8 @@ export class StudentResult implements OnInit {
     // 2. Generate động và chèn thêm cột STT vào đầu mảng
     const dynamicCols: ColDef[] = this.fields.map((fieldName) => {
       switch (fieldName) {
+        case 'id':
+          return { field: fieldName, headerName: 'ID' };
         case 'firstName':
           return { field: fieldName, headerName: 'Họ và họ đệm' };
         case 'lastName':

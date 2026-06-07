@@ -20,7 +20,7 @@
   <div class="invoice-list" [class.d-none]="!isPaidTab">
     @if (unpaidInvoices && unpaidInvoices.length > 0) {
       @for (item of unpaidInvoices; track $index) {
-        <app-invoice-card [invoice]="item" />
+        <app-invoice-card [invoice]="item" (paidEvent)="handlePaid($event)" />
       }
     } @else {
       <app-empty />

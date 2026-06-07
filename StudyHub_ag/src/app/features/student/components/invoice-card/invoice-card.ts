@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   CLASS_STATUS_INVOICE,
   METHOD_INVOICE,
@@ -15,8 +15,11 @@ import { DatePipe, DecimalPipe } from '@angular/common';
   styleUrl: './invoice-card.css',
 })
 export class InvoiceCard {
+  
   @Input()
   invoice?: InvoiceCardResponse;
+
+  @Output() paidEvent = new EventEmitter<number>();
 
   get unPaid(): boolean {
     const status = this.invoice?.status || '';
@@ -32,11 +35,15 @@ export class InvoiceCard {
     return STATUS_INVOICE[this.invoice?.status || ''] || '';
   }
 
-  get typeInvoice(): string{
+  get typeInvoice(): string {
     return TYPE_INVOICE[this.invoice?.type || ''] || '';
   }
 
   get methodPaid(): string {
     return METHOD_INVOICE[this.invoice?.method || ''] || '';
+  }
+
+  goPaid() {
+    this.paidEvent.emit(this.invoice?.invoiceId);
   }
 }

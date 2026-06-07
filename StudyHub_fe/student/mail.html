@@ -1,0 +1,179 @@
+<html>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    "
+  >
+    <table
+      align="center"
+      cellpadding="0"
+      cellspacing="0"
+      style="background: #ffffff; border-radius: 10px; width: min(100%, 600px)"
+    >
+      <tr>
+        <td style="text-align: left; padding-bottom: 20px">
+          <div style="background-color: #e8f2fc; padding: 30px 25px 5px 25px">
+            <img
+              src="https://raw.githubusercontent.com/gianglv230/StudyHub/refs/heads/main/StudyHub_ag/src/assets/images/logo-Photoroom.png"
+              alt="StudyHub Logo"
+              style="width: 100px"
+            />
+            <p
+              style="
+                font-weight: bold;
+                font-size: 32px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                color: black;
+              "
+            >
+              Bạn có học phí chưa thanh toán
+            </p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="
+            color: #333;
+            font-size: 16px;
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-bottom: 20px;
+          "
+        >
+          <p style="font-size: 14px; line-height: 20px">
+            <strong style="color: #007bff">Xin chào {{customerName}}</strong>,
+            bạn có học phí chưa thanh toán tại <strong>StudyHub!</strong>
+          </p>
+
+          <p style="font-size: 14px; line-height: 20px">
+            Trung tâm xác nhận rằng đơn thanh toán học phí
+            <strong>{{invoiceId}}</strong> của bạn chưa được thanh toán.
+          </p>
+
+          <table width="100%" style="margin-top: 20px; margin-bottom: 0px">
+            <colgroup>
+              <col style="width: 35%" />
+              <col style="width: 65%" />
+            </colgroup>
+            <tr style="text-align: left">
+              <th style="font-size: 24px">Tổng tiền</th>
+              <th style="color: #007bff; font-size: 24px">{{finalAmount}} đ</th>
+            </tr>
+          </table>
+
+          <div
+            style="
+              border-top: 1px solid rgba(194, 194, 194, 0.54);
+              margin-top: 20px;
+            "
+          ></div>
+
+          <table
+            width="100%"
+            style="margin-top: 20px; margin-bottom: 0px; font-size: 14px"
+          >
+            <colgroup>
+              <col style="width: 35%" />
+              <col style="width: 65%" />
+            </colgroup>
+            <tr style="text-align: left">
+              <td style="font-weight: bold; padding-bottom: 25px">
+                Tên lớp học
+              </td>
+              <td style="color: #007bff; padding-bottom: 25px">
+                {{className}}
+              </td>
+            </tr>
+            <tr style="text-align: left">
+              <td style="padding-bottom: 25px">Giá</td>
+              <td style="color: #007bff; padding-bottom: 25px">
+                {{amount}} đ
+              </td>
+            </tr>
+            <tr style="text-align: left">
+              <td style="padding-bottom: 25px">Điều chỉnh</td>
+              <td style="color: #007bff; padding-bottom: 25px">
+                {{adjustments}} đ
+              </td>
+            </tr>
+          </table>
+
+          <div
+            style="
+              border-top: 1px solid rgba(194, 194, 194, 0.54);
+              margin-top: 20px;
+            "
+          ></div>
+
+          <p
+            style="
+              font-weight: bold;
+              font-size: 18px;
+              margin-top: 30px;
+              margin-bottom: 25px;
+            "
+          >
+            Vui lòng thanh toán trước ngày {{dueDate}}.
+          </p>
+
+          <div
+            style="
+              border-top: 1px solid rgba(194, 194, 194, 0.54);
+              margin-top: 40px;
+            "
+          ></div>
+
+          <p
+            style="
+              font-size: 18px;
+              font-weight: bold;
+              margin-top: 30px;
+              line-height: 25px;
+              margin-bottom: 0px;
+              color: black;
+            "
+          >
+            Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua:
+          </p>
+          <p style="margin-top: 10px; font-size: 14px">
+            Email:
+            <a href="mailto:support@studyhub.vn">support@studyhub.vn</a>
+          </p>
+
+          <p
+            style="
+              margin-top: 35px;
+              font-size: 14px;
+              color: black;
+              margin-bottom: 15px;
+              padding-bottom: 10px;
+            "
+          >
+            <span style="padding-bottom: 8px; display: block">Trân trọng,</span>
+            <strong>Trung tâm StudyHub</strong>
+          </p>
+        </td>
+      </tr>
+    </table>
+
+    <p
+      style="
+        text-align: center;
+        font-size: 14px;
+        color: #777;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      "
+    >
+      <span style="display: block; padding-bottom: 5px"
+        >Đây là email tự động, vui lòng không trả lời trực tiếp.</span
+      >
+      © {{year}} StudyHub. All rights reserved.
+    </p>
+  </body>
+</html>

@@ -44,7 +44,11 @@ public enum ErrorCode {
     TRANSFER_FAIL(1054, "Transfer fail because of invalid class", HttpStatus.BAD_REQUEST),
     DO_NOT_SAME_COURSE(1055, "Don't same course", HttpStatus.BAD_REQUEST),
     CLASS_FULL(1056, "Class full", HttpStatus.BAD_REQUEST),
-    USER_EXISTED(1057, "Username existed", HttpStatus.BAD_REQUEST);
+    USER_EXISTED(1057, "Username existed", HttpStatus.BAD_REQUEST),
+    PAYOS_FAIL(1058, "Connect PayOS fail", HttpStatus.BAD_REQUEST),
+
+    PAYMENT_LINK_ALREADY_EXISTS(1059, "Hãy quay lại sau 10 phút nữa", HttpStatus.BAD_REQUEST),
+    ;
 
     private int code;
     private String message;
