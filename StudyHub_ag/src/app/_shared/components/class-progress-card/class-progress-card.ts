@@ -15,6 +15,8 @@ export class ClassProgressCard {
   @Input()
   card!: ClassProgressResponse;
 
+  @Input() isStudent: boolean = true;
+
   get cardContainer(): CardContainerModel {
     return {
       title: this.card.className,
@@ -26,6 +28,6 @@ export class ClassProgressCard {
   }
 
   routerLink(slug: string): string {
-    return "/hoc-vien/lop-hoc/" + slug;
+    return this.isStudent ? "/hoc-vien/lop-hoc/" + slug : "/giao-vien/lop-hoc/" + slug;
   }
 }
